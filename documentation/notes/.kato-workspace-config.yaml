@@ -1,6 +1,6 @@
 workspaceId: 9dd99c47-af3e-40aa-9d43-a1f10c510391
 defaultOutputDir: "."
-filenameTemplate: "{YYYY}.{timestampHumane}-{snippetSlug}-{provider}.md"
+filenameTemplate: "sf.conv.{YYYY}.{timestampHumane}-{snippetSlug}-{provider}.md"
 workspaceTimezone: "local"
 markdownFrontmatter:
   includeFrontmatterInMarkdownRecordings: true
