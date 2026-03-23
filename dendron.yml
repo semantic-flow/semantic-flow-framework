@@ -5,7 +5,7 @@ dev:
 commands:
     lookup:
         note:
-            selectionMode: extract
+            selectionMode: none
             confirmVaultOnCreate: true
             vaultSelectionModeOnCreate: smart
             leaveTrace: false
@@ -22,10 +22,9 @@ commands:
     templateHierarchy: template
 workspace:
     vaults:
-        -
-            fsPath: .
-            selfContained: true
-            name: documentation
+        - fsPath: notes
+          selfContained: true
+          name: sf-framework
     journal:
         dailyDomain: daily
         name: journal
@@ -40,7 +39,7 @@ workspace:
         dateFormat: y.MM.dd
         addBehavior: asOwnDomain
         statusSymbols:
-            '': ' '
+            "": " "
             wip: w
             done: x
             assigned: a
@@ -48,7 +47,7 @@ workspace:
             blocked: b
             delegated: l
             dropped: d
-            pending: 'y'
+            pending: "y"
         taskCompleteStatus:
             - done
             - x
@@ -72,7 +71,6 @@ workspace:
     maxPreviewsCached: 10
     maxNoteLength: 204800
     enableFullHierarchyNoteTitle: false
-    enablePersistentHistory: false
 preview:
     enableFMTitle: true
     enableNoteTitleForLink: true
