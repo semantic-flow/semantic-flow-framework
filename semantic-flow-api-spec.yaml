@@ -1,0 +1,756 @@
+openapi: 3.1.0
+info:
+  title: Semantic Flow API
+  version: 0.1.0-draft
+  summary: Thin normative skeleton for the public Semantic Flow API.
+  description: |
+    This draft defines a small, implementation-neutral HTTP contract for the
+    Semantic Flow API.
+
+    The canonical execution resource is a Job. All submitted Semantic Flow
+    work is modeled as a Job, even when an implementation may execute some
+    jobs quickly enough to feel synchronous to a client.
+
+    Jobs represent work such as mesh creation, knop creation, reference-link
+    addition, integration, versioning, validation, generation, and high-level
+    weave orchestration.
+
+    Targeting is expressed in Semantic Flow terms such as `meshBase`,
+    `meshIri`, and `designatorPath`. Host filesystem paths are intentionally
+    out of scope for the normative API, even when a filesystem-backed
+    implementation mirrors designatorPath locally.
+
+    Filesystem-backed implementations may expose additional implementation-
+    specific inputs, such as local filesystem paths for mesh creation or local
+    targeting, but those are outside this thin normative core.
+
+    Canonical Job representations may be conveyed as JSON-LD
+    (application/ld+json) using draft Semantic Flow job and provenance
+    vocabularies. A JSON-LD context for those draft vocabularies is still
+    expected, but is not yet defined by this draft.
+
+    JSON-LD representations may also expose a Hydra-based hypermedia layer so
+    clients can discover collections, searches, and follow-up operations from
+    returned resources at runtime.
+servers:
+  - url: https://api.example.org
+    description: Illustrative server URL
+tags:
+  - name: Jobs
+    description: Long-running Semantic Flow work
+paths:
+  /jobs:
+    post:
+      tags:
+        - Jobs
+      operationId: submitJob
+      summary: Submit a Semantic Flow job
+      description: |
+        Submits a Semantic Flow job for execution. The request body declares the
+        job kind and its Semantic Flow-scoped target.
+      requestBody:
+        required: true
+        content:
+          application/ld+json:
+            schema:
+              $ref: "#/components/schemas/SubmitJobRequest"
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitJobRequest"
+      responses:
+        "202":
+          description: Job accepted
+          headers:
+            Location:
+              description: Canonical URL of the created Job resource
+              schema:
+                type: string
+                format: uri-reference
+          content:
+            application/ld+json:
+              schema:
+                $ref: "#/components/schemas/Job"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        default:
+          description: Problem response
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    get:
+      tags:
+        - Jobs
+      operationId: listJobs
+      summary: List jobs
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/JobStatus"
+        - name: kind
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/JobKind"
+      responses:
+        "200":
+          description: Job list
+          content:
+            application/ld+json:
+              schema:
+                $ref: "#/components/schemas/JobCollection"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JobCollection"
+        default:
+          description: Problem response
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /jobs/{jobId}:
+    get:
+      tags:
+        - Jobs
+      operationId: getJob
+      summary: Get a job
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200":
+          description: Job resource
+          content:
+            application/ld+json:
+              schema:
+                $ref: "#/components/schemas/Job"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "404":
+          description: Job not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: Problem response
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /jobs/{jobId}/cancel:
+    post:
+      tags:
+        - Jobs
+      operationId: cancelJob
+      summary: Request job cancellation
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "202":
+          description: Cancellation requested
+          content:
+            application/ld+json:
+              schema:
+                $ref: "#/components/schemas/Job"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        default:
+          description: Problem response
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /jobs/{jobId}/events:
+    get:
+      tags:
+        - Jobs
+      operationId: streamJobEvents
+      summary: Stream job events
+      description: |
+        Streams job lifecycle and progress events using Server-Sent Events.
+        Event payloads should conform to the JobEvent schema.
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200":
+          description: Server-Sent Event stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+              examples:
+                progress:
+                  value: |
+                    event: job.progress
+                    data: {"@context":"https://example.org/contexts/sf-job-v1.jsonld","@type":"https://example.org/ontology/sf-job#JobEvent","jobId":"job_123","kind":"integrate","status":"running","progress":{"phase":"scan","message":"Scanning target","percent":25}}
+
+        default:
+          description: Problem response
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+components:
+  parameters:
+    JobId:
+      name: jobId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Semantic Flow job identifier
+  schemas:
+    JsonLdKeywords:
+      type: object
+      description: |
+        Common JSON-LD keywords used by canonical Semantic Flow resource
+        representations.
+      properties:
+        "@context":
+          description: |
+            JSON-LD context. A draft Semantic Flow job, provenance, or Hydra
+            context is expected, but a final composed context is not yet
+            defined by this draft.
+          oneOf:
+            - type: string
+              format: uri-reference
+            - type: array
+              items:
+                oneOf:
+                  - type: string
+                    format: uri-reference
+                  - type: object
+                    additionalProperties: true
+            - type: object
+              additionalProperties: true
+        "@id":
+          type: string
+          format: uri-reference
+        "@type":
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+    JobKind:
+      type: string
+      enum:
+        - mesh.create
+        - knop.create
+        - knop.addReference
+        - integrate
+        - version
+        - validate
+        - generate
+        - weave
+      description: |
+        Semantic Flow job kind. Names are still draft and may change as the
+        public contract is refined.
+    JobStatus:
+      type: string
+      enum:
+        - accepted
+        - running
+        - succeeded
+        - failed
+        - cancelled
+    MeshBase:
+      type: string
+      format: uri
+      description: |
+        Canonical base IRI used to form Semantic Flow identifiers within a
+        mesh. This is naming context, not necessarily the canonical identifier
+        of the SemanticMesh resource itself.
+      examples:
+        - https://example.org/
+        - https://example.org/alice/
+    MeshIri:
+      type: string
+      format: uri-reference
+      description: |
+        Canonical identifier of the SemanticMesh resource itself,
+        conventionally obtained by resolving `_mesh` against `meshBase`.
+      examples:
+        - https://example.org/_mesh
+        - https://example.org/alice/_mesh
+    DesignatorPath:
+      type: string
+      description: |
+        Mesh-relative designatorPath used to identify a Knop in Semantic Flow
+        terms. This is the normative path-like identifier input in the public
+        API, regardless of how an implementation maps it onto local storage.
+      examples:
+        - alice/bio
+        - ontology/Person
+    TargetSelector:
+      type: object
+      description: |
+        Semantic Flow-scoped target selector. Filesystem-backed implementations
+        may realize these targets at corresponding host paths, but host paths
+        are not normative API inputs. If both `meshBase` and `meshIri` are
+        supplied, they must identify the same mesh.
+      properties:
+        meshBase:
+          $ref: "#/components/schemas/MeshBase"
+        meshIri:
+          $ref: "#/components/schemas/MeshIri"
+        designatorPaths:
+          type: array
+          items:
+            $ref: "#/components/schemas/DesignatorPath"
+        recursive:
+          type: boolean
+          default: false
+        pattern:
+          type: string
+          description: |
+            Optional implementation-neutral pattern or selector expression for
+            matching candidate resources within the selected mesh scope.
+    JobProgress:
+      type: object
+      properties:
+        phase:
+          type: string
+        message:
+          type: string
+        percent:
+          type: number
+          minimum: 0
+          maximum: 100
+    JobResult:
+      type: object
+      description: Draft generic result envelope for successful jobs
+      properties:
+        created:
+          type: array
+          items:
+            type: string
+            format: uri
+        updated:
+          type: array
+          items:
+            type: string
+            format: uri
+        reports:
+          type: array
+          items:
+            type: string
+            format: uri
+        outputs:
+          type: array
+          items:
+            type: string
+            format: uri
+    JobSubmissionMetadata:
+      type: object
+      properties:
+        submittedBy:
+          type: string
+          format: uri-reference
+          description: URI identifying the submitting agent, if one is available.
+        submittedByLiteral:
+          type: string
+          description: Fallback submitter text when no stable agent resource URI is available.
+        provenanceContext:
+          $ref: "#/components/schemas/ProvenanceContextValue"
+    Job:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          required:
+            - id
+            - kind
+            - status
+            - submittedAt
+          properties:
+            id:
+              type: string
+              description: Opaque job identifier
+            kind:
+              $ref: "#/components/schemas/JobKind"
+            status:
+              $ref: "#/components/schemas/JobStatus"
+            submittedAt:
+              type: string
+              format: date-time
+            submittedBy:
+              type: string
+              format: uri-reference
+              description: URI identifying the submitting agent, if one is available.
+            submittedByLiteral:
+              type: string
+              description: Fallback submitter text when no stable agent resource URI is available.
+            provenanceContext:
+              $ref: "#/components/schemas/ProvenanceContextValue"
+            startedAt:
+              type: string
+              format: date-time
+            finishedAt:
+              type: string
+              format: date-time
+            target:
+              $ref: "#/components/schemas/TargetSelector"
+            progress:
+              $ref: "#/components/schemas/JobProgress"
+            result:
+              $ref: "#/components/schemas/JobResult"
+            error:
+              $ref: "#/components/schemas/Problem"
+            eventsUrl:
+              type: string
+              format: uri-reference
+            "hydra:operation":
+              type: array
+              items:
+                $ref: "#/components/schemas/HydraOperation"
+    JobCollection:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Job"
+            "hydra:member":
+              type: array
+              items:
+                $ref: "#/components/schemas/Job"
+            "hydra:totalItems":
+              type: integer
+              minimum: 0
+            "hydra:search":
+              $ref: "#/components/schemas/HydraSearch"
+    HydraOperation:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          description: |
+            Draft Hydra operation affordance layered onto a Semantic Flow
+            resource representation.
+          properties:
+            "hydra:title":
+              type: string
+            "hydra:description":
+              type: string
+            "hydra:method":
+              type: string
+              enum:
+                - GET
+                - POST
+                - PUT
+                - PATCH
+                - DELETE
+            "hydra:expects":
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+            "hydra:returns":
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+            "hydra:target":
+              type: string
+              format: uri-reference
+            kind:
+              $ref: "#/components/schemas/JobKind"
+    HydraIriTemplateMapping:
+      type: object
+      properties:
+        "hydra:variable":
+          type: string
+        "hydra:property":
+          type: string
+        "hydra:required":
+          type: boolean
+    HydraSearch:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          properties:
+            "hydra:template":
+              type: string
+            "hydra:variableRepresentation":
+              type: string
+            "hydra:mapping":
+              type: array
+              items:
+                $ref: "#/components/schemas/HydraIriTemplateMapping"
+    ProvenanceContext:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          description: |
+            Draft JSON-LD representation of a Semantic Flow provenance context.
+            This schema is intentionally light while the draft `sfmeta`
+            vocabulary and JSON-LD context are still settling.
+          additionalProperties: true
+    ProvenanceContextValue:
+      description: URI reference or embedded JSON-LD provenance context.
+      oneOf:
+        - type: string
+          format: uri-reference
+        - $ref: "#/components/schemas/ProvenanceContext"
+    ReferenceRole:
+      type: string
+      enum:
+        - canonical
+        - supplemental
+        - deprecated
+    ReferenceLinkInput:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          description: |
+            Draft input for creating a ReferenceLink on a targeted resource.
+            At least one of `referenceTarget` or `referenceUri` should be
+            supplied.
+          properties:
+            referenceTarget:
+              type: string
+              format: uri-reference
+              description: URI of the semantic resource used as the reference target, if known.
+            referenceUri:
+              type: string
+              format: uri
+              description: Retrievable reference location without asserting denotation.
+            roles:
+              type: array
+              items:
+                $ref: "#/components/schemas/ReferenceRole"
+            verifiedAt:
+              type: string
+              format: date-time
+            verifiedBy:
+              type: string
+              format: uri-reference
+            provenanceContext:
+              $ref: "#/components/schemas/ProvenanceContextValue"
+        - anyOf:
+            - required:
+                - referenceTarget
+            - required:
+                - referenceUri
+    KnopResource:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          description: |
+            Illustrative Knop resource representation showing how Hydra
+            affordances may advertise follow-up actions after creation. See
+            `examples/alice-bio/knop.jsonld` for a worked example payload.
+          properties:
+            designatorPath:
+              $ref: "#/components/schemas/DesignatorPath"
+            referencesUrl:
+              type: string
+              format: uri-reference
+            payloadUrl:
+              type: string
+              format: uri-reference
+            "hydra:operation":
+              type: array
+              items:
+                $ref: "#/components/schemas/HydraOperation"
+    MeshDefinition:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        meshBase:
+          $ref: "#/components/schemas/MeshBase"
+        meshIri:
+          $ref: "#/components/schemas/MeshIri"
+    MeshCreateJobRequest:
+      type: object
+      required:
+        - kind
+        - mesh
+      description: |
+        Normative core request for mesh creation. Filesystem-backed
+        implementations may offer additional implementation-specific inputs such
+        as local host paths, but those are intentionally not standardized here.
+      properties:
+        kind:
+          const: mesh.create
+        mesh:
+          $ref: "#/components/schemas/MeshDefinition"
+    KnopCreateJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+        - designatorPath
+      properties:
+        kind:
+          const: knop.create
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+        designatorPath:
+          $ref: "#/components/schemas/DesignatorPath"
+    KnopAddReferenceJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+        - reference
+      properties:
+        kind:
+          const: knop.addReference
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+        reference:
+          $ref: "#/components/schemas/ReferenceLinkInput"
+    IntegrateJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+      properties:
+        kind:
+          const: integrate
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+    VersionJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+      properties:
+        kind:
+          const: version
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+    ValidateJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+      properties:
+        kind:
+          const: validate
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+    GenerateJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+      properties:
+        kind:
+          const: generate
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+    WeaveSteps:
+      type: object
+      properties:
+        integrate:
+          type: boolean
+          default: true
+        version:
+          type: boolean
+          default: true
+        validate:
+          type: boolean
+          default: true
+        generate:
+          type: boolean
+          default: true
+      description: |
+        Optional override of the default high-level weave orchestration steps.
+    WeaveJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+      properties:
+        kind:
+          const: weave
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+        steps:
+          $ref: "#/components/schemas/WeaveSteps"
+    SubmitJobRequest:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - $ref: "#/components/schemas/JobSubmissionMetadata"
+        - oneOf:
+            - $ref: "#/components/schemas/MeshCreateJobRequest"
+            - $ref: "#/components/schemas/KnopCreateJobRequest"
+            - $ref: "#/components/schemas/KnopAddReferenceJobRequest"
+            - $ref: "#/components/schemas/IntegrateJobRequest"
+            - $ref: "#/components/schemas/VersionJobRequest"
+            - $ref: "#/components/schemas/ValidateJobRequest"
+            - $ref: "#/components/schemas/GenerateJobRequest"
+            - $ref: "#/components/schemas/WeaveJobRequest"
+    JobEventType:
+      type: string
+      enum:
+        - job.accepted
+        - job.progress
+        - job.succeeded
+        - job.failed
+        - job.cancelled
+        - resource.changed
+    JobEvent:
+      allOf:
+        - $ref: "#/components/schemas/JsonLdKeywords"
+        - type: object
+          required:
+            - type
+            - jobId
+          properties:
+            type:
+              $ref: "#/components/schemas/JobEventType"
+            jobId:
+              type: string
+            kind:
+              $ref: "#/components/schemas/JobKind"
+            status:
+              $ref: "#/components/schemas/JobStatus"
+            progress:
+              $ref: "#/components/schemas/JobProgress"
+            changed:
+              type: object
+              properties:
+                designatorPaths:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/DesignatorPath"
+                resources:
+                  type: array
+                  items:
+                    type: string
+                    format: uri
+    Problem:
+      type: object
+      required:
+        - type
+        - title
+        - status
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri-reference

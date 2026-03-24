@@ -1,0 +1,67 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/hydra/context.jsonld",
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sfjob": "https://semantic-flow.github.io/semantic-flow-job-ontology/",
+      "sfmeta": "https://semantic-flow.github.io/semantic-flow-meta-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "status": "https://api.example.org/vocab#status",
+      "submittedBy": {
+        "@id": "sfjob:submittedBy",
+        "@type": "@id"
+      },
+      "submittedAt": {
+        "@id": "sfjob:submittedAt",
+        "@type": "xsd:dateTime"
+      },
+      "eventsUrl": {
+        "@id": "https://api.example.org/vocab#eventsUrl",
+        "@type": "@id"
+      },
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "designatorPaths": "https://api.example.org/vocab#designatorPaths",
+      "provenanceContext": "https://api.example.org/vocab#provenanceContext",
+      "primaryAgent": {
+        "@id": "sfmeta:primaryAgent",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@id": "https://api.example.org/jobs/job_01HSM4A4F2W7M8K9P0Q1R2S3T4",
+  "@type": "sfjob:Job",
+  "kind": "knop.addReference",
+  "status": "accepted",
+  "submittedAt": "2026-03-23T19:31:00Z",
+  "submittedBy": "https://example.org/agents/editor/alice",
+  "target": {
+    "meshBase": "https://example.org/",
+    "meshIri": "https://example.org/_mesh",
+    "designatorPaths": [
+      "alice/bio"
+    ]
+  },
+  "provenanceContext": {
+    "@type": "sfmeta:ProvenanceContext",
+    "primaryAgent": "https://example.org/agents/editor/alice"
+  },
+  "eventsUrl": "https://api.example.org/jobs/job_01HSM4A4F2W7M8K9P0Q1R2S3T4/events",
+  "hydra:operation": [
+    {
+      "@type": "hydra:Operation",
+      "hydra:title": "Cancel this job",
+      "hydra:method": "POST",
+      "hydra:expects": "https://api.example.org/vocab#CancelJobRequest",
+      "hydra:returns": "https://api.example.org/vocab#Job",
+      "hydra:target": "https://api.example.org/jobs/job_01HSM4A4F2W7M8K9P0Q1R2S3T4/cancel"
+    }
+  ]
+}

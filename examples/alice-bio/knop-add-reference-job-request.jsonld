@@ -1,0 +1,59 @@
+{
+  "@context": [
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sfmeta": "https://semantic-flow.github.io/semantic-flow-meta-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "designatorPaths": "https://api.example.org/vocab#designatorPaths",
+      "reference": "https://api.example.org/vocab#reference",
+      "referenceUri": {
+        "@id": "https://api.example.org/vocab#referenceUri",
+        "@type": "@id"
+      },
+      "roles": "https://api.example.org/vocab#roles",
+      "verifiedAt": {
+        "@id": "https://semantic-flow.github.io/semantic-flow-ontology/verifiedAt",
+        "@type": "xsd:dateTime"
+      },
+      "verifiedBy": {
+        "@id": "https://semantic-flow.github.io/semantic-flow-ontology/verifiedBy",
+        "@type": "@id"
+      },
+      "provenanceContext": "https://api.example.org/vocab#provenanceContext",
+      "primaryAgent": {
+        "@id": "sfmeta:primaryAgent",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@type": "https://api.example.org/vocab#KnopAddReferenceJobRequest",
+  "kind": "knop.addReference",
+  "target": {
+    "meshBase": "https://example.org/",
+    "meshIri": "https://example.org/_mesh",
+    "designatorPaths": [
+      "alice/bio"
+    ]
+  },
+  "reference": {
+    "referenceUri": "https://orcid.org/0000-0002-1825-0097",
+    "roles": [
+      "canonical"
+    ],
+    "verifiedAt": "2026-03-23T19:30:00Z",
+    "verifiedBy": "https://example.org/agents/editor/alice"
+  },
+  "provenanceContext": {
+    "@type": "sfmeta:ProvenanceContext",
+    "primaryAgent": "https://example.org/agents/editor/alice"
+  }
+}

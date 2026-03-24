@@ -1,0 +1,65 @@
+{
+  "@context": [
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sfjob": "https://semantic-flow.github.io/semantic-flow-job-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "status": "https://api.example.org/vocab#status",
+      "submittedAt": {
+        "@id": "sfjob:submittedAt",
+        "@type": "xsd:dateTime"
+      },
+      "startedAt": {
+        "@id": "sfjob:startedAt",
+        "@type": "xsd:dateTime"
+      },
+      "finishedAt": {
+        "@id": "sfjob:finishedAt",
+        "@type": "xsd:dateTime"
+      },
+      "result": "https://api.example.org/vocab#result",
+      "updated": {
+        "@id": "https://api.example.org/vocab#updated",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "created": {
+        "@id": "https://api.example.org/vocab#created",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "designatorPaths": "https://api.example.org/vocab#designatorPaths"
+    }
+  ],
+  "@id": "https://api.example.org/jobs/job_01HSM4A4F2W7M8K9P0Q1R2S3T4",
+  "@type": "sfjob:Job",
+  "kind": "knop.addReference",
+  "status": "succeeded",
+  "submittedAt": "2026-03-23T19:31:00Z",
+  "startedAt": "2026-03-23T19:31:01Z",
+  "finishedAt": "2026-03-23T19:31:02Z",
+  "target": {
+    "meshBase": "https://example.org/",
+    "meshIri": "https://example.org/_mesh",
+    "designatorPaths": [
+      "alice/bio"
+    ]
+  },
+  "result": {
+    "created": [
+      "https://example.org/alice/bio/_knop/_references/orcid-0000-0002-1825-0097"
+    ],
+    "updated": [
+      "https://example.org/alice/bio/_knop"
+    ]
+  }
+}

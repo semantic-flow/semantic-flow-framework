@@ -1,0 +1,35 @@
+{
+  "@context": [
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sflo": "https://semantic-flow.github.io/semantic-flow-ontology/",
+      "referenceTarget": {
+        "@id": "sflo:referenceTarget",
+        "@type": "@id"
+      },
+      "referenceUriLiteral": {
+        "@id": "sflo:referenceUriLiteral",
+        "@type": "@id"
+      },
+      "hasReferenceRole": {
+        "@id": "sflo:hasReferenceRole",
+        "@type": "@id"
+      },
+      "verifiedAt": {
+        "@id": "sflo:verifiedAt",
+        "@type": "xsd:dateTime"
+      },
+      "verifiedBy": {
+        "@id": "sflo:verifiedBy",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@id": "https://example.org/alice/bio/_knop/_references/orcid-0000-0002-1825-0097",
+  "@type": "sflo:ReferenceLink",
+  "referenceTarget": "https://orcid.org/0000-0002-1825-0097",
+  "referenceUriLiteral": "https://orcid.org/0000-0002-1825-0097",
+  "hasReferenceRole": "https://semantic-flow.github.io/semantic-flow-ontology/ReferenceRole/Canonical",
+  "verifiedAt": "2026-03-23T19:30:00Z",
+  "verifiedBy": "https://example.org/agents/editor/alice"
+}
