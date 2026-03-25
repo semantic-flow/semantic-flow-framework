@@ -2,7 +2,7 @@
 id: 2c93t4j3o8m9k7p5v1n6x0q
 title: API Examples
 desc: ''
-updated: 1774339800000
+updated: 1774416095095
 created: 1774339800000
 ---
 
@@ -10,7 +10,7 @@ This note groups worked Semantic Flow API example payloads that are kept outside
 
 ## Alice Bio
 
-The current primary worked example set lives in `../examples/alice-bio/`.
+The current primary worked example set lives in `../examples/alice-bio/api`.
 
 Those files are anchored to the existing ontology use case in [Alice Bio](../../ontology/notes/ont.use-cases.alice-bio.md).
 

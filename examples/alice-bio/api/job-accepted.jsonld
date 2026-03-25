@@ -4,7 +4,7 @@
     {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "sfjob": "https://semantic-flow.github.io/semantic-flow-job-ontology/",
-      "sfmeta": "https://semantic-flow.github.io/semantic-flow-meta-ontology/",
+      "sfprov": "https://semantic-flow.github.io/semantic-flow-prov-ontology/",
       "kind": "https://api.example.org/vocab#kind",
       "status": "https://api.example.org/vocab#status",
       "submittedBy": {
@@ -31,7 +31,7 @@
       "designatorPaths": "https://api.example.org/vocab#designatorPaths",
       "provenanceContext": "https://api.example.org/vocab#provenanceContext",
       "primaryAgent": {
-        "@id": "sfmeta:primaryAgent",
+        "@id": "sfprov:primaryAgent",
         "@type": "@id"
       }
     }
@@ -50,7 +50,7 @@
     ]
   },
   "provenanceContext": {
-    "@type": "sfmeta:ProvenanceContext",
+    "@type": "sfprov:ProvenanceContext",
     "primaryAgent": "https://example.org/agents/editor/alice"
   },
   "eventsUrl": "https://api.example.org/jobs/job_01HSM4A4F2W7M8K9P0Q1R2S3T4/events",

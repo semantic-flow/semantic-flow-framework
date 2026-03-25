@@ -4,7 +4,7 @@
     {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
       "sflo": "https://semantic-flow.github.io/semantic-flow-ontology/",
-      "sfmeta": "https://semantic-flow.github.io/semantic-flow-meta-ontology/",
+      "sfprov": "https://semantic-flow.github.io/semantic-flow-prov-ontology/",
       "designatorPath": "sflo:designatorPath",
       "referencesUrl": {
         "@id": "https://api.example.org/vocab#referencesUrl",

@@ -2,7 +2,7 @@
   "@context": [
     {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "sfmeta": "https://semantic-flow.github.io/semantic-flow-meta-ontology/",
+      "sfprov": "https://semantic-flow.github.io/semantic-flow-prov-ontology/",
       "kind": "https://api.example.org/vocab#kind",
       "target": "https://api.example.org/vocab#target",
       "meshBase": {
@@ -30,7 +30,7 @@
       },
       "provenanceContext": "https://api.example.org/vocab#provenanceContext",
       "primaryAgent": {
-        "@id": "sfmeta:primaryAgent",
+        "@id": "sfprov:primaryAgent",
         "@type": "@id"
       }
     }
@@ -53,7 +53,7 @@
     "verifiedBy": "https://example.org/agents/editor/alice"
   },
   "provenanceContext": {
-    "@type": "sfmeta:ProvenanceContext",
+    "@type": "sfprov:ProvenanceContext",
     "primaryAgent": "https://example.org/agents/editor/alice"
   }
 }
