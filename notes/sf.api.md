@@ -2,7 +2,7 @@
 id: 9qb50tea1tul63dt6tlnaac
 title: Semantic Flow API
 desc: ''
-updated: 1774324830419
+updated: 1774502021396
 created: 1774307702138
 ---
 
@@ -18,7 +18,8 @@ The following operations have come up as likely first-class Semantic Flow operat
 - `version`
 - `validate`
 - `generate`
-- `weave` : integrate, version, validate, and generate
+- `weave` : version, validate, and generate
+- `extract`: create knops for local RDF references in RdfDocument
 
 For the thin public contract, the current direction is to model all submitted work uniformly as `Job`s, even when some implementations may execute quickly enough to feel synchronous to a client.
 
