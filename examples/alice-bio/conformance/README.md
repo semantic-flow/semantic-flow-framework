@@ -10,6 +10,9 @@ Current naming:
 - `02-mesh-created.jsonld` means `01-source-only` -> `02-mesh-created`
 - `03-mesh-created-woven.jsonld` means `02-mesh-created` -> `03-mesh-created-woven`
 - `04-alice-knop-created.jsonld` means `03-mesh-created-woven` -> `04-alice-knop-created`
+- `05-alice-knop-created-woven.jsonld` means `04-alice-knop-created` -> `05-alice-knop-created-woven`
+- `06-alice-bio-integrated.jsonld` means `05-alice-knop-created-woven` -> `06-alice-bio-integrated`
+- `07-alice-bio-integrated-woven.jsonld` means `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`
 
 Conventions used here:
 

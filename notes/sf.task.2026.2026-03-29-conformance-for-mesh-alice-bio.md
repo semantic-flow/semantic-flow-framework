@@ -19,12 +19,15 @@ This task captures conformance manifests for the `mesh-alice-bio` fixture ladder
 
 The manifests should live in `semantic-flow-framework/examples/alice-bio/conformance/` and describe expected transitions between fixture refs in the separate `mesh-alice-bio` repository. They should not be spread across the fixture branches themselves.
 
-The first wave should cover the earliest four completed transitions:
+The first wave should cover the earliest completed transitions through `07-alice-bio-integrated-woven`:
 
 - `00-blank-slate` -> `01-source-only`
 - `01-source-only` -> `02-mesh-created`
 - `02-mesh-created` -> `03-mesh-created-woven`
 - `03-mesh-created-woven` -> `04-alice-knop-created`
+- `04-alice-knop-created` -> `05-alice-knop-created-woven`
+- `05-alice-knop-created-woven` -> `06-alice-bio-integrated`
+- `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`
 
 Subsequent manifests should be added as each later transition is modeled and reviewed.
 
@@ -40,6 +43,9 @@ Recommended initial naming:
 - `02-mesh-created.jsonld`
 - `03-mesh-created-woven.jsonld`
 - `04-alice-knop-created.jsonld`
+- `05-alice-knop-created-woven.jsonld`
+- `06-alice-bio-integrated.jsonld`
+- `07-alice-bio-integrated-woven.jsonld`
 
 Those files should each carry:
 
@@ -72,7 +78,7 @@ That ordering matters. If the runner comes first, the manifests become documenta
 - Use one manifest per transition.
 - Store all manifests in `semantic-flow-framework/examples/alice-bio/conformance/`.
 - Do not store manifests in `mesh-alice-bio` branches.
-- Start with the first four completed transitions, then add later manifests as later steps are completed.
+- Start with the completed transitions through `07-alice-bio-integrated-woven`, then add later manifests as later steps are completed.
 - Author manifests first, then implement pseudo-runner or execution logic against them.
 - Patch Accord when real authoring work exposes concrete gaps, rather than freezing weak shapes and working around them in the manifests.
 - Treat the destination-branch filename convention as a convenience for the current linear ladder, not as the underlying semantic unit.
@@ -104,7 +110,10 @@ This task adds a separate conformance/acceptance layer for framework behavior. T
 - [x] Create `examples/alice-bio/conformance/02-mesh-created.jsonld` for `01-source-only` -> `02-mesh-created`.
 - [x] Create `examples/alice-bio/conformance/03-mesh-created-woven.jsonld` for `02-mesh-created` -> `03-mesh-created-woven`.
 - [x] Create `examples/alice-bio/conformance/04-alice-knop-created.jsonld` for `03-mesh-created-woven` -> `04-alice-knop-created`.
-- [x] Validate the first four manifests against Accord SHACL.
+- [x] Create `examples/alice-bio/conformance/05-alice-knop-created-woven.jsonld` for `04-alice-knop-created` -> `05-alice-knop-created-woven`.
+- [x] Create `examples/alice-bio/conformance/06-alice-bio-integrated.jsonld` for `05-alice-knop-created-woven` -> `06-alice-bio-integrated`.
+- [x] Create `examples/alice-bio/conformance/07-alice-bio-integrated-woven.jsonld` for `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`.
+- [x] Validate the first seven manifests against Accord SHACL.
 - [x] Patch Accord to add `unchanged`, tighten `compareMode`, enforce same-case RDF targeting, and prevent duplicate file expectations per path.
-- [ ] After the first four manifests are stable, create the next manifest only when the corresponding fixture transition is settled.
+- [ ] After the first seven manifests are stable, create the next manifest only when the corresponding fixture transition is settled.
 - [ ] After several manifests exist, design a minimal pseudo-runner that can compare refs and report Accord-level pass/fail results.
