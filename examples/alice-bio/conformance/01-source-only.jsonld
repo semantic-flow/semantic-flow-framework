@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:01-source-only",
+  "dcterms:title": "Alice Bio 01 source only",
+  "dcterms:description": "Checks the fixture-seeding transition from the blank repository scaffold to the plain source RDF state.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#seed-source-only",
+      "dcterms:title": "Seed plain source RDF",
+      "dcterms:description": "Adds the root alice-bio.ttl source file and confirms that no Semantic Flow mesh structure exists yet.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "fixture.seedSourceOnly",
+      "fromRef": "00-blank-slate",
+      "toRef": "01-source-only",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-ttl",
+          "type": "FileExpectation",
+          "path": "alice-bio.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> a <https://schema.org/Person> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/semantic-flow-ontology/SemanticMesh> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

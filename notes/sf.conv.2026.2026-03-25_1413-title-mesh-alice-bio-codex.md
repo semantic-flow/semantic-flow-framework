@@ -1676,3 +1676,1748 @@ Validated with:
 ```
 
 If you want a shorter second-line subject, `Add ArtifactHistory and remove ArtifactContainer` also works.
+
+# djradon_2026-03-26_1312_04
+
+OK, let's pick [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) -- any changes there? Are we ready to simulate a weave of 02?
+
+# gpt-5.4_2026-03-26_1312_19
+
+I’m checking the mesh task note against the new ArtifactHistory model and the current branch state, then I’ll tell you whether `03-mesh-created-woven` is ready to draft directly.
+
+# gpt-5.4_2026-03-26_1312_54
+
+I found two worthwhile cleanups in the task note before we move on: the file-layout section should mention the mesh support-artifact histories that `03` will actually generate, and the implementation checklist should mark `00` through `02` complete since those branches already exist.
+
+# gpt-5.4_2026-03-26_1313_11
+
+I made two small updates in [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md#L97):
+- `03-mesh-created-woven` now explicitly says `02` should version `_mesh/_meta` and `_mesh/_inventory` into `_history001/_s0001` paths.
+- the implementation checklist now marks `00`, `01`, and `02` complete in [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md#L167).
+
+Yes, we’re ready to simulate a weave of `02`.
+
+The target for `03-mesh-created-woven` is now clear:
+- keep `alice-bio.ttl` unchanged
+- version `_mesh/_meta` into `_mesh/_meta/_history001/_s0001/...`
+- version `_mesh/_inventory` into `_mesh/_inventory/_history001/_s0001/...`
+- add the corresponding `ArtifactHistory` / `HistoricalState` triples
+- keep `currentArtifactHistory`, `historyOrdinal`, `nextHistoryOrdinal`, and `nextStateOrdinal` in the current RDF
+- generate the expected ResourcePages, but still no root-page for the repo itself
+
+The only non-blocking detail we’ll still need to choose while implementing is the manifestation token naming inside each state, e.g. `meta-ttl` and `inventory-ttl`. I think those names are fine and we can proceed with them.
+
+# djradon_2026-03-26_1315_29
+
+Names are fine. proceed.
+
+# gpt-5.4_2026-03-26_1316_11
+
+I’m implementing `03-mesh-created-woven` now. The scope is: keep `alice-bio.ttl` untouched, version only `_mesh/_meta` and `_mesh/_inventory`, update the current RDF to the new `ArtifactHistory` model, and generate folder `index.html` pages for the mesh/support-artifact/history/state/manifestation folders.
+
+# djradon_2026-03-26_1318_47
+
+proceed
+
+# gpt-5.4_2026-03-26_1318_57
+
+I’m checking `03-mesh-created-woven` for any partial edits from the interrupted turn, then I’ll patch the mesh files in one go.
+
+# gpt-5.4_2026-03-26_1320_17
+
+I’m writing the actual `03-mesh-created-woven` files now: updated current RDF, snapshot copies of the old `02` support artifacts, and generated `index.html` pages for the mesh/support-artifact/history/state/manifestation folders.
+
+# gpt-5.4_2026-03-26_1322_22
+
+I’m verifying the `03-mesh-created-woven` draft now: reading back the generated RDF and pages, then running `riot` so we can catch any modeling or syntax problems before deciding it’s ready.
+
+# gpt-5.4_2026-03-26_1322_31
+
+The main structure looks right. One likely Turtle bug is already visible in `inventory.ttl`, so I’m validating next to catch the full set before patching.
+
+# gpt-5.4_2026-03-26_1322_42
+
+`inventory.ttl` has one real syntax error, not a structural problem. I’m patching that and then re-running `riot` over the full `03` surface.
+
+# gpt-5.4_2026-03-26_1323_08
+
+The RDF now validates cleanly. I’m doing one last pass on the generated file set so I can tell you whether `03-mesh-created-woven` is ready as-is or still needs a modeling adjustment.
+
+# gpt-5.4_2026-03-26_1323_15
+
+The generated set is coherent: current documents describe the woven state, and the `_history001/_s0001` snapshots preserve the pre-weave `02` state. I’m checking the final repo status once so I can give you a clean handoff.
+
+# gpt-5.4_2026-03-26_1323_25
+
+`03-mesh-created-woven` is now implemented in `mesh-alice-bio`.
+
+The woven state lives in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl). Both mesh support artifacts now have explicit `ArtifactHistory` resources at `_history001`, first states at `_s0001`, and next-ordinal counters. The pre-weave `02` state was captured in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl). Generated `ResourcePage`s were added for `_mesh`, the two artifacts, each history, each first state, and each historical Turtle manifestation. [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl) was left unchanged.
+
+Validation is clean: `riot --validate` passed for the current [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl), current [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl), and both historical snapshot Turtle files. The only issue found was one Turtle punctuation bug in inventory, which is fixed.
+
+Repo status in `mesh-alice-bio` is exactly the expected `03` draft: modified current RDF plus new `_history001` trees and generated pages. Ready for review or commit.
+
+# djradon_2026-03-26_1326_44
+
+I think we forgot to add hasWorkingLocatedFile for meta.ttl and inventory.ttl
+
+# gpt-5.4_2026-03-26_1326_55
+
+I checked the current RDF before changing anything, because this is one place where the `meta` vs `inventory` split matters.
+
+# gpt-5.4_2026-03-26_1327_05
+
+They’re already present in [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl#L15) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl#L38):
+
+- `_mesh/_meta  sflo:hasWorkingLocatedFile <_mesh/_meta/meta.ttl>`
+- `_mesh/_inventory  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl>`
+
+They are not in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl), and I think that is still the right split. `hasWorkingLocatedFile` is current-surface/inventory material, not mesh-description material.
+
+So I don’t think we forgot them. I think we intentionally kept them out of `meta.ttl`. If you want `meta.ttl` to duplicate them anyway, I can add that, but my recommendation is to leave it as-is.
+
+# djradon_2026-03-26_1327_11
+
+detailed commit message
+
+# gpt-5.4_2026-03-26_1327_21
+
+```text
+Simulate weave for mesh support artifacts in 03-mesh-created-woven
+
+- keep the root alice-bio.ttl source file unchanged
+- weave only the two mesh-managed support artifacts:
+  _mesh/_meta and _mesh/_inventory
+
+- update _mesh/_meta/meta.ttl to model the woven current state
+- add explicit ArtifactHistory resources for MeshMetadata and MeshInventory
+- set currentArtifactHistory on each artifact
+- set nextHistoryOrdinal on each artifact to 2
+- create first histories at:
+  _mesh/_meta/_history001
+  _mesh/_inventory/_history001
+- create first historical states at:
+  _mesh/_meta/_history001/_s0001
+  _mesh/_inventory/_history001/_s0001
+- set historyOrdinal to 1 on each history
+- set nextStateOrdinal to 2 on each history
+- set latestHistoricalState to the first state on each history
+
+- preserve the pre-weave 02 state as historical snapshot Turtle manifestations
+- add:
+  _mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl
+  _mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl
+- treat those snapshot files as the first manifestations of the first historical states
+- keep the current working files as:
+  _mesh/_meta/meta.ttl
+  _mesh/_inventory/inventory.ttl
+
+- expand _mesh/_inventory/inventory.ttl into a self-contained current-surface map
+- include the mesh resource page
+- include both support artifacts and their working LocatedFiles
+- include both ArtifactHistory resources and their first states
+- include manifestation resources for the historical Turtle snapshots
+- include the generated ResourcePages for the current resources, histories, states, and manifestations
+- type the working and historical Turtle files as LocatedFile and RdfDocument
+- type generated HTML files as ResourcePage and LocatedFile
+
+- generate minimal HTML ResourcePages for:
+  _mesh
+  _mesh/_meta
+  _mesh/_meta/_history001
+  _mesh/_meta/_history001/_s0001
+  _mesh/_meta/_history001/_s0001/meta-ttl
+  _mesh/_inventory
+  _mesh/_inventory/_history001
+  _mesh/_inventory/_history001/_s0001
+  _mesh/_inventory/_history001/_s0001/inventory-ttl
+- intentionally do not generate a root repository page
+- intentionally do not introduce any Knops or payload artifacts in this branch
+
+- keep the meta vs inventory split intact
+- meta.ttl remains the light mesh-description document
+- inventory.ttl remains the self-contained current-surface document
+- keep hasWorkingLocatedFile in inventory.ttl only, not duplicated into meta.ttl
+
+Validated with:
+- riot --validate _mesh/_meta/meta.ttl
+- riot --validate _mesh/_inventory/inventory.ttl
+- riot --validate _mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl
+- riot --validate _mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl
+```
+
+# djradon_2026-03-26_1329_30
+
+agreed that hasWorkingLocatedFile is better in inventory. 
+
+I do think that all these should be in inventory:
+
+<_mesh/_meta> a sflo:MeshMetadata, sflo:DigitalArtifact, sflo:RdfDocument ;
+  sflo:hasArtifactHistory <_mesh/_meta/_history001> ;
+  sflo:currentArtifactHistory <_mesh/_meta/_history001> ;
+  sflo:nextHistoryOrdinal "2"^^xsd:nonNegativeInteger .
+
+<_mesh/_meta/_history001> a sflo:ArtifactHistory ;
+  sflo:historyOrdinal "1"^^xsd:nonNegativeInteger ;
+  sflo:hasHistoricalState <_mesh/_meta/_history001/_s0001> ;
+  sflo:latestHistoricalState <_mesh/_meta/_history001/_s0001> ;
+  sflo:nextStateOrdinal "2"^^xsd:nonNegativeInteger .
+
+<_mesh/_meta/_history001/_s0001> a sflo:HistoricalState .
+
+<_mesh/_inventory> a sflo:MeshInventory, sflo:DigitalArtifact, sflo:RdfDocument ;
+  sflo:hasArtifactHistory <_mesh/_inventory/_history001> ;
+  sflo:currentArtifactHistory <_mesh/_inventory/_history001> ;
+  sflo:nextHistoryOrdinal "2"^^xsd:nonNegativeInteger .
+
+<_mesh/_inventory/_history001> a sflo:ArtifactHistory ;
+  sflo:historyOrdinal "1"^^xsd:nonNegativeInteger ;
+  sflo:hasHistoricalState <_mesh/_inventory/_history001/_s0001> ;
+  sflo:latestHistoricalState <_mesh/_inventory/_history001/_s0001> ;
+  sflo:nextStateOrdinal "2"^^xsd:nonNegativeInteger .
+
+<_mesh/_inventory/_history001/_s0001> a sflo:HistoricalState .
+
+# gpt-5.4_2026-03-26_1330_06
+
+Agreed, and that part is already true in [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl#L11) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl#L34).
+
+My recommendation is:
+- keep those artifact/history triples in [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) because it is the self-contained current-surface map
+- keep them in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl#L9) too, because they are still metadata about the two mesh support artifacts
+- keep `hasWorkingLocatedFile` and page/file facts inventory-only
+
+That gives a cleaner split:
+- `meta.ttl`: mesh/support-artifact identity and history metadata
+- `inventory.ttl`: the same current artifact/history facts plus concrete file/page surface
+
+So I don’t think anything is missing. I think the current model is the right asymmetry, and no patch is needed unless you want to make `inventory.ttl` the only canonical home for artifact-history facts.
+
+# djradon_2026-03-26_1335_01
+
+Yes, inventory should be the only canonical home for artifact-history facts. We should avoid repetition. Perhaps the only thing about surface area that should be in _meta is a convenience pointer, hasWorkingLocatedInventoryFile. What do you think?
+
+# gpt-5.4_2026-03-26_1335_18
+
+I’m checking the current core terms before I answer, because this is really about whether we want a new ontology term or just a serialization rule.
+
+# gpt-5.4_2026-03-26_1335_49
+
+Yes on the principle. If `inventory.ttl` is the canonical home for artifact-history facts, then [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) should stop repeating them.
+
+I would push back on minting `hasWorkingLocatedInventoryFile`, though. It is too special-case for what is really a bootstrap shortcut. The cleaner move is to keep one duplicated generic triple in `meta.ttl`:
+
+```ttl
+<_mesh/_inventory> sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> .
+```
+
+That gives you the convenience pointer without adding a new core term. My recommended split is:
+
+- `meta.ttl`: `_mesh`, `meshBase`, `hasMeshInventory`, support-artifact typing, and optionally that one inventory working-file shortcut
+- `inventory.ttl`: all artifact-history facts, all current file/page facts, and the rest of the current surface map
+
+So: yes to the convenience pointer idea, no to a new ontology property yet. If you want, I can patch `03-mesh-created-woven` to remove the repeated history facts from [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and leave only the bootstrap pointer.
+
+# djradon_2026-03-26_1337_48
+
+Agtreed.
+
+I guess what threw me off was [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) and /home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl are different. I was looking at /home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl. After weave the latest state and the working should be identical.
+
+# gpt-5.4_2026-03-26_1338_01
+
+You’re right. I modeled `_s0001` as the pre-weave snapshot, but with the current “weave = version + generate” semantics, the latest historical state should be the woven state, and the working files should match it. I’m fixing `03` accordingly and trimming `meta.ttl` to the lighter shape we just agreed on.
+
+# gpt-5.4_2026-03-26_1338_32
+
+I’m patching the mesh now so `meta.ttl` stops duplicating artifact-history facts, and both `_s0001` snapshot Turtle files become byte-for-byte copies of the woven working documents. That matches the semantics you just clarified.
+
+# djradon_2026-03-26_1338_32
+
+Same for the two meta.ttl
+
+# gpt-5.4_2026-03-26_1338_42
+
+I’m making the two `meta.ttl` files identical and bringing the historical `inventory.ttl` up to the same rule, then I’ll re-run `riot` across all four Turtle files.
+
+# gpt-5.4_2026-03-26_1339_17
+
+I’ve patched the core files. Now I’m diffing working vs latest-state copies directly so we can be sure they’re actually identical, not just close.
+
+# gpt-5.4_2026-03-26_1339_29
+
+The `meta.ttl` pair is now identical. The inventory pair was still off by two missing `hasResourcePage` triples on the current artifacts, so I’m fixing that last mismatch.
+
+# gpt-5.4_2026-03-26_1340_03
+
+Fixed.
+
+[meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl) are now identical. [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl) are now identical too.
+
+I also trimmed [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) to the lighter role we agreed on:
+- no repeated artifact-history facts
+- just mesh description, support-artifact typing, and the convenience pointer to the working inventory file
+
+Verified with:
+- `diff -u` on both working vs latest-state pairs: no differences
+- `riot --validate` on all four Turtle files: passes
+
+Current unstaged changes are only:
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl)
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl)
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl)
+
+If you want, I can refresh the commit message for `03-mesh-created-woven` so it matches this corrected model.
+
+# djradon_2026-03-26_1341_52
+
+In meta.ttl, instead of "<_mesh/_inventory> a sflo:MeshInventory, sflo:DigitalArtifact, sflo:RdfDocument ;
+  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> . "
+
+Maybe just <_mesh/_inventory> 
+  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> .
+
+# gpt-5.4_2026-03-26_1342_00
+
+That’s a better split. I’m trimming both `meta.ttl` copies so `_mesh/_inventory` is only a convenience pointer there, not a repeated typed artifact declaration.
+
+# gpt-5.4_2026-03-26_1342_07
+
+I’ve made the change in both places. Running a quick validation and equality check so we don’t accidentally break the “working equals latest state” rule.
+
+# gpt-5.4_2026-03-26_1342_18
+
+Yes, that’s cleaner, and I changed both [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) files accordingly.
+
+They now use just:
+
+```ttl
+<_mesh/_inventory>
+  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> .
+```
+
+So `meta.ttl` no longer repeats the inventory artifact typing at all. The two `meta.ttl` copies are still identical, and both validate with `riot`.
+
+# djradon_2026-03-26_1342_46
+
+commit message
+
+# gpt-5.4_2026-03-26_1342_56
+
+```text
+Simulate weave for mesh support artifacts in 03-mesh-created-woven
+
+- weave the two mesh-managed support artifacts:
+  _mesh/_meta and _mesh/_inventory
+- leave the root alice-bio.ttl source file unchanged
+
+- generate first explicit histories for both support artifacts
+- create _mesh/_meta/_history001 and _mesh/_inventory/_history001
+- create first states at _s0001 for each history
+- record nextHistoryOrdinal as 2 on both artifacts
+- record historyOrdinal as 1 and nextStateOrdinal as 2 on both histories
+- record currentArtifactHistory and latestHistoricalState in inventory.ttl
+
+- make the latest historical state equal to the working woven state
+- store the woven MeshMetadata graph at:
+  _mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl
+- store the woven MeshInventory graph at:
+  _mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl
+- keep the working files byte-identical to those latest-state Turtle snapshots
+
+- keep mesh metadata light
+- trim _mesh/_meta/meta.ttl to the mesh description, support-artifact typing, and a convenience pointer to the working inventory file
+- avoid repeating artifact-history facts in meta.ttl
+- avoid repeating MeshInventory typing in meta.ttl where a bare inventory pointer is enough
+
+- make _mesh/_inventory/inventory.ttl the canonical current-surface map
+- include artifact-history facts for MeshMetadata and MeshInventory
+- include working LocatedFiles for the two support artifacts
+- include manifestation and LocatedFile facts for the latest historical states
+- include generated ResourcePages for the mesh, both support artifacts, both histories, both first states, and both Turtle manifestations
+
+- generate minimal HTML ResourcePages for:
+  _mesh
+  _mesh/_meta
+  _mesh/_meta/_history001
+  _mesh/_meta/_history001/_s0001
+  _mesh/_meta/_history001/_s0001/meta-ttl
+  _mesh/_inventory
+  _mesh/_inventory/_history001
+  _mesh/_inventory/_history001/_s0001
+  _mesh/_inventory/_history001/_s0001/inventory-ttl
+- do not generate a root repository page
+- do not introduce any Knops or payload artifacts in this branch
+
+Validated with:
+- diff -u confirms working meta.ttl equals latest-state meta.ttl
+- diff -u confirms working inventory.ttl equals latest-state inventory.ttl
+- riot --validate _mesh/_meta/meta.ttl
+- riot --validate _mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl
+- riot --validate _mesh/_inventory/inventory.ttl
+- riot --validate _mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl
+```
+
+# djradon_2026-03-26_1437_03
+
+additional commit message please.
+
+I enabled github pages point to 03 and using the / root folder. Strangely, everything is 404, e.g. https://semantic-flow.github.io/mesh-alice-bio/_mesh/mesh.ttl but https://semantic-flow.github.io/mesh-alice-bio/ returns the README.md
+
+# gpt-5.4_2026-03-26_1437_36
+
+Two separate things are happening.
+
+`https://semantic-flow.github.io/mesh-alice-bio/_mesh/mesh.ttl` is expected to 404 because that file does not exist. The real files are [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl), so the corresponding URLs would be `/mesh-alice-bio/_mesh/_meta/meta.ttl` and `/mesh-alice-bio/_mesh/_inventory/inventory.ttl`.
+
+The bigger problem is GitHub Pages is almost certainly running Jekyll. GitHub’s docs say Jekyll does not build files or folders that start with `_`, `.`, or `#`, and they also note the `jekyll-readme-index` plugin is enabled by default. That explains your symptoms exactly:
+- root serves the README as the site index
+- `_mesh`, `_meta`, `_inventory`, `_history001`, etc. all 404 because Jekyll excludes underscore-prefixed paths
+
+Sources:
+- GitHub Pages and Jekyll: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll
+- GitHub Pages with Jekyll / `.nojekyll`: https://docs.github.com/articles/using-jekyll-with-pages
+
+The practical fix is to add a root `.nojekyll` file on the publishing branch. GitHub’s docs say that bypasses the Jekyll build and deploys the content directly, which is what this repo wants.
+
+Additional commit message for that fix:
+
+```text
+Disable Jekyll for GitHub Pages publishing
+
+- add a root .nojekyll file so GitHub Pages serves the repository contents directly
+- preserve underscore-prefixed Semantic Flow paths such as _mesh, _meta, _inventory, and _history001
+- avoid Jekyll excluding generated mesh resources and pages
+- keep the published site aligned with the repository's static file layout
+```
+
+If you want, I can add `.nojekyll` now.
+
+# djradon_2026-03-26_1441_00
+
+Yes please. Also, I was asking for a commit message for the previous changes to meta.ttl and inventory.ttl.
+
+Do we really want this inventory-ish data in meta?
+
+<_mesh/_meta> a sflo:MeshMetadata, sflo:DigitalArtifact, sflo:RdfDocument .
+
+# gpt-5.4_2026-03-26_1441_07
+
+I’m adding `.nojekyll` at the repo root so Pages will stop stripping underscore paths, and I’ll answer the `meta.ttl` modeling question alongside the commit message.
+
+# gpt-5.4_2026-03-26_1441_09
+
+`.nojekyll` is in place. I’m checking repo status once so the commit guidance matches the actual staged set you’re likely to use.
+
+# gpt-5.4_2026-03-26_1441_22
+
+Added [`.nojekyll`](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/.nojekyll). After Pages rebuilds, underscore paths like `_mesh/...` should stop 404ing.
+
+For the earlier `meta.ttl` / `inventory.ttl` correction, I’d use:
+
+```text
+Align woven working files with latest historical state
+
+- make the working meta.ttl graph identical to the latest MeshMetadata historical-state document
+- make the working inventory.ttl graph identical to the latest MeshInventory historical-state document
+- stop treating _s0001 as a pre-weave snapshot
+- treat _s0001 as the first woven historical state produced by 03-mesh-created-woven
+
+- trim _mesh/_meta/meta.ttl to the lighter metadata role
+- remove repeated artifact-history facts from meta.ttl
+- keep inventory.ttl as the only canonical home for artifact-history facts
+- keep only a convenience pointer from meta.ttl to the working inventory file
+
+- simplify the inventory pointer in meta.ttl
+- avoid repeating MeshInventory typing there when the file path pointer is sufficient
+
+Validated with:
+- diff -u confirms working meta.ttl equals latest-state meta.ttl
+- diff -u confirms working inventory.ttl equals latest-state inventory.ttl
+- riot --validate on both working files and both latest-state Turtle files
+```
+
+For the new Pages fix, I’d use:
+
+```text
+Disable Jekyll for GitHub Pages publishing
+
+- add a root .nojekyll file
+- preserve underscore-prefixed paths such as _mesh, _meta, _inventory, and _history001
+- avoid GitHub Pages dropping generated Semantic Flow resources during site publication
+```
+
+On this line in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl):
+
+```ttl
+<_mesh/_meta> a sflo:MeshMetadata, sflo:DigitalArtifact, sflo:RdfDocument .
+```
+
+I would keep it. That is not inventory-ish; it is the identity/type declaration for the metadata artifact itself, and `meta.ttl` is the right place for that. The thing I would avoid in `meta.ttl` is current-surface detail like history membership, pages, manifestations, or most file facts.
+
+# djradon_2026-03-26_1446_18
+
+OK, everything seems good. Shall we move on to 04?
+
+# gpt-5.4_2026-03-26_1446_20
+
+Yes.
+
+`03-mesh-created-woven` is in good shape now: working/latest-state alignment is fixed, `meta.ttl` is lighter, and `.nojekyll` should make Pages behave.
+
+`04-alice-knop-created` is the next real semantic step: introduce the `alice` Knop and its support artifacts, but still no payload integration yet. The main thing to decide before writing is how minimal you want the first Knop surface to be in `04` versus what gets deferred to `05-alice-knop-created-woven`.
+
+# djradon_2026-03-26_1449_42
+
+The alice Knop should be very minimal. No ReferenceLink yet, so just the meta.ttl and inventory.ttl right?
+
+# gpt-5.4_2026-03-26_1449_57
+
+Yes. For `04-alice-knop-created`, the `alice` Knop itself should stay that minimal:
+
+- [alice/_knop/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl)
+- [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl)
+
+And no:
+- `ReferenceLink`
+- payload artifact
+- artifact history
+- generated `index.html` pages
+- `alice/bio` anything yet
+
+The only pushback is that `04` still needs mesh-level updates so the mesh actually knows the Knop exists. So besides creating the two `alice/_knop/...` files, you should also update the mesh files to include `alice`, probably:
+- `_mesh/_meta/meta.ttl`: mesh structure, including `sflo:hasKnop <alice>`
+- `_mesh/_inventory/inventory.ttl`: the current-surface facts for `alice`, its two support artifacts, and their working files
+
+So: minimal Knop surface, yes. But not isolated files only; the mesh documents need to acknowledge the new Knop too.
+
+# djradon_2026-03-26_1453_29
+
+mesh structure goes in inventory. So given that, before we begin, I still think maybe this should only be in inventory:
+
+<_mesh/_meta> a sflo:MeshMetadata, sflo:DigitalArtifact, sflo:RdfDocument .
+
+# gpt-5.4_2026-03-26_1453_41
+
+I’m checking one ontology detail before answering, because the right split changes if `MeshMetadata` already implies `DigitalArtifact`.
+
+# gpt-5.4_2026-03-26_1453_50
+
+I’d split the difference.
+
+I would not move that triple entirely out of [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl). If you do, `meta.ttl` stops identifying its own artifact at all, which is a bit too thin.
+
+But I do think it should be reduced to just:
+
+```ttl
+<_mesh/_meta> a sflo:MeshMetadata .
+```
+
+Reason:
+- `MeshMetadata` already implies `DigitalArtifact` and `RdfDocument` in the ontology at [semantic-flow-core-ontology.ttl#L329](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L329)
+- inventory remains the canonical home for current-surface and artifact-history facts
+- `meta.ttl` still self-identifies without repeating the whole surface model
+
+So my recommendation is:
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl): keep `<_mesh/_meta> a sflo:MeshMetadata .`
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl): keep the fuller typing and all current-surface/history facts
+
+If you want, I can patch `03` that way before we start `04`.
+
+# djradon_2026-03-26_1459_50
+
+I agree on the reduction. 
+
+Regarding "<_mesh/_meta> a sflo:MeshMetadata", I still don't think it belongs in meta. It doesn't really identify that the meta.ttl file is associated with the MeshMetadata artifact anyhow. It still seems inventory-y. So does "<_mesh/_inventory>
+  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> ."
+
+That's why I wanted to introduce a special convenience predicate, or two really: meshWorkingLocatedInventoryFile and knopWorkingLocatedInventoryFile, that can hang of mesh and knop directly.
+
+# gpt-5.4_2026-03-26_1500_27
+
+I agree with your diagnosis.
+
+`<_mesh/_meta> a sflo:MeshMetadata .` is still about the support-artifact surface, not really about the mesh. Same for:
+
+```ttl
+<_mesh/_inventory>
+  sflo:hasWorkingLocatedFile <_mesh/_inventory/inventory.ttl> .
+```
+
+So if we want a hard split, I would remove both from [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and let `meta.ttl` be just the mesh-level statement:
+
+```ttl
+<_mesh> a sflo:SemanticMesh ;
+  sflo:meshBase "https://semantic-flow.github.io/mesh-alice-bio/"^^xsd:anyURI ;
+  sflo:hasMeshInventory <_mesh/_inventory> .
+```
+
+On the convenience predicate: I agree with the motivation, but I would push back on having two separate core terms like `meshWorkingLocatedInventoryFile` and `knopWorkingLocatedInventoryFile`. That feels too split-brain. If we introduce anything, I’d rather introduce one direct shortcut such as `hasWorkingInventoryLocatedFile`, hanging off the mesh or knop directly.
+
+So my recommendation is:
+
+- For `03`, remove those inventory-ish assertions from `meta.ttl` entirely.
+- For the ontology, do not add a new shortcut yet.
+- If `04` makes the same awkwardness show up for `Knop`, then we have enough evidence to add one generic direct-inventory-file predicate.
+
+That is the cleaner bar. If you want, I can patch `03` now so `meta.ttl` contains only the `_mesh` statement before we move to `04`.
+
+# djradon_2026-03-26_1502_31
+
+What would be the domain of hasWorkingInventoryLocatedFile?
+
+# gpt-5.4_2026-03-26_1502_36
+
+If we introduced exactly `hasWorkingInventoryLocatedFile`, I would give it domain `rdfs:Resource`, not `SemanticMesh` or `Knop`.
+
+Reason:
+- today you want it on meshes and probably Knops
+- later you may want the same shortcut on other inventory-owning resources without proliferating more special-case predicates
+- the name already narrows the meaning enough; the domain does not need to
+
+Range would be `sflo:LocatedFile`.
+
+If you want stricter modeling, the better long-term move would be to introduce an intermediate class like “inventory-bearing support resource” and use that as the domain. But with the current ontology, that would be over-engineering.
+
+So my answer is:
+- pragmatic domain: `rdfs:Resource`
+- practical intended users: `sflo:SemanticMesh` and `sflo:Knop`
+
+I would also make it a subproperty of nothing for now. It is a shortcut, not really a specialization of `hasWorkingLocatedFile`, because that property points from a `DigitalArtifact`, while this one would point from the owning mesh/knop.
+
+# djradon_2026-03-26_1507_40
+
+Nothing else has inventory, foreseeably ever. I think we do the two specialty properties, it's split brain with a purpose. Only two things have inventory, and the inventories actually carry different things. I'm not sure if we specified anywhere, but the mesh inventory isn't going to catalog all the elemnts of a Knop, so it will presumably only use knopWorkingLocatedInventoryFile, so that thing will be well worth it. For symmetry, I say we do one for mesh too.
+
+# gpt-5.4_2026-03-26_1507_53
+
+I agree. If only `SemanticMesh` and `Knop` will ever own inventories, two specialized shortcut properties are justified.
+
+I’d model them as:
+
+- `sflo:hasWorkingMeshInventoryLocatedFile`
+  - domain: `sflo:SemanticMesh`
+  - range: `sflo:LocatedFile`
+
+- `sflo:hasWorkingKnopInventoryLocatedFile`
+  - domain: `sflo:Knop`
+  - range: `sflo:LocatedFile`
+
+Why this is defensible:
+- the split is semantic, not accidental
+- mesh inventory and knop inventory summarize different scopes
+- the shortcut is for the owner resource, not for the inventory artifact
+- it lets `meta.ttl` point to the current inventory file without dragging inventory-artifact structure into `meta.ttl`
+
+I would not make either one a subproperty of `hasWorkingLocatedFile`, because that property’s subject is a `DigitalArtifact`, while these would point from the owning mesh/knop.
+
+So yes: purpose-built split-brain here is reasonable. If you adopt them, then [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) can stay much cleaner.
+
+# djradon_2026-03-26_1510_18
+
+Now that you mention it, yes, it shouldn't be a subproperty of hasWorkingLocatedFile because their domain is artifacts, i.e. not mesh or knop. So the right names are probably just:
+- knopInventoryFile
+- meshInventoryFile
+
+# gpt-5.4_2026-03-26_1510_31
+
+Close, but I’d keep `working` and drop `Located`.
+
+So my recommendation is:
+
+- `sflo:hasWorkingMeshInventoryFile`
+- `sflo:hasWorkingKnopInventoryFile`
+
+Why:
+- `meshInventoryFile` is ambiguous once histories exist; it could mean any file associated with mesh inventory, not specifically the current working one
+- `Located` is redundant if the range is already `sflo:LocatedFile`
+- `has...` matches the rest of the ontology better than bare nounish property names
+
+So I’d define them as:
+- domain `sflo:SemanticMesh`, range `sflo:LocatedFile`
+- domain `sflo:Knop`, range `sflo:LocatedFile`
+
+And keep them independent from `sflo:hasWorkingLocatedFile`.
+
+# djradon_2026-03-26_1511_33
+
+OK agreed. Please patch 03, the ontology, and the documentation.
+
+# gpt-5.4_2026-03-26_1511_43
+
+I’m patching this as a real model change, not just a fixture tweak: first the core ontology and SHACL, then the `03` fixture files, then the notes that describe the meta/inventory split.
+
+# gpt-5.4_2026-03-26_1511_49
+
+I’ve got the ontology surface. Next I’m reading the exact note sections that mention the current meta/inventory split so I can change the wording consistently instead of letting the docs drift.
+
+# gpt-5.4_2026-03-26_1512_01
+
+The docs change is straightforward. The only extra work is SHACL, because the new shortcut properties should validate on meshes and knops directly rather than piggybacking on artifact shapes.
+
+# gpt-5.4_2026-03-26_1512_30
+
+I’ve got the scope pinned down: new mesh/knop inventory-file shortcuts in the ontology, SHACL for those shortcuts, `03` updated to use the mesh-level one, and the notes revised so `meta.ttl` no longer claims artifact or history facts.
+
+# gpt-5.4_2026-03-26_1513_07
+
+The patches are in. I’m validating the ontology, SHACL, and the revised `03` meta files now, then I’ll sanity-check the exact diff so we know whether anything else drifted.
+
+# gpt-5.4_2026-03-26_1513_20
+
+Validation passed. The only extra sanity check I want is the main `weave` worktree, because the task note lives there rather than in the ontology or fixture repos.
+
+# gpt-5.4_2026-03-26_1513_30
+
+Patched.
+
+In `03`, [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and its latest-state copy [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl) now contain only the mesh-level statement plus `sflo:hasWorkingMeshInventoryFile`. They no longer repeat support-artifact typing or artifact-history facts.
+
+In the ontology, I added `sflo:hasWorkingMeshInventoryFile` and `sflo:hasWorkingKnopInventoryFile` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), and added matching optional validation in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld). I also updated the rationale in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), the core summary in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), and the fixture note in [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md).
+
+Verified:
+- `riot --validate` passed for [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl)
+- `jq empty` passed for [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld)
+- `riot --validate` passed for both `03` mesh metadata files
+- `diff -u` confirms the two `meta.ttl` copies are identical
+
+Ready for `04-alice-knop-created`.
+
+# djradon_2026-03-26_1514_19
+
+Do we need this line? "
+  sflo:hasMeshInventory <_mesh/_inventory> ;"
+
+# gpt-5.4_2026-03-26_1514_30
+
+Yes, I think so.
+
+That line is not inventory-ish in the same way the others were. It is a structural mesh statement: the mesh has a mesh inventory resource. Without it, [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) would only say:
+- what the mesh base is
+- where the current inventory file is
+
+but not that `_mesh/_inventory` is actually the mesh’s inventory resource.
+
+So I’d keep:
+```ttl
+sflo:hasMeshInventory <_mesh/_inventory>
+```
+
+The distinction I’d draw is:
+- keep in `meta.ttl`: mesh-level structural relations like `meshBase` and `hasMeshInventory`
+- keep out of `meta.ttl`: support-artifact typing, artifact-history facts, page facts, and working-file facts on the inventory artifact itself
+
+If you removed it, `hasWorkingMeshInventoryFile` would become a naked shortcut with no explicit target resource role in `meta.ttl`, which is weaker.
+
+# djradon_2026-03-26_1517_01
+
+But if we keep it, why not keep hasMeshMetadata too? It's inventory-ish, keep the distinction clean. All we need is the pointer to the working inventory file, all the data is in there.
+
+# gpt-5.4_2026-03-26_1517_13
+
+I think that’s a fair push, and I’d now go with the cleaner rule:
+
+- `meta.ttl` should not contain `hasMeshInventory`
+- `meta.ttl` should not contain `hasMeshMetadata`
+- `meta.ttl` should just contain the mesh-level facts plus the direct shortcut to the current inventory file
+
+So the target shape becomes:
+
+```ttl
+<_mesh> a sflo:SemanticMesh ;
+  sflo:meshBase "https://semantic-flow.github.io/mesh-alice-bio/"^^xsd:anyURI ;
+  sflo:hasWorkingMeshInventoryFile <_mesh/_inventory/inventory.ttl> .
+```
+
+Why I think this is now better:
+- we introduced `hasWorkingMeshInventoryFile` precisely to avoid dragging inventory structure into metadata
+- if inventory is the canonical home for support-artifact identity and current surface, then `hasMeshInventory` in `meta.ttl` is halfway repetition
+- `hasMeshMetadata` would be even worse, since it makes `meta.ttl` self-referential without buying much
+
+So yes, I’ve changed my mind on that line: with the new shortcut property in place, dropping `hasMeshInventory` from `meta.ttl` is the cleaner model.
+
+If you want, I can patch `03`, the ontology notes, and the task note one more time to reflect that stricter split.
+
+# djradon_2026-03-26_1517_28
+
+yes, patch everything, thanks.
+
+# gpt-5.4_2026-03-26_1517_36
+
+I’m tightening the split fully now: `meta.ttl` will only carry `meshBase` plus the direct working-inventory-file shortcut, and I’ll update the notes anywhere they still describe `hasMeshInventory` in metadata.
+
+# gpt-5.4_2026-03-26_1517_50
+
+I found the remaining references. I’m removing `hasMeshInventory` from the two `meta.ttl` files and tightening the note language so it explicitly says metadata may point only to the working inventory file, not to the inventory resource.
+
+# gpt-5.4_2026-03-26_1518_01
+
+The split is patched. I’m validating the two `meta.ttl` files again and confirming the historical copy still matches the working copy exactly.
+
+# gpt-5.4_2026-03-26_1518_08
+
+Patched.
+
+[meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) and its latest-state copy [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl) now contain only:
+
+- `_mesh a sflo:SemanticMesh`
+- `sflo:meshBase`
+- `sflo:hasWorkingMeshInventoryFile`
+
+No `hasMeshInventory` remains in metadata.
+
+I also updated the wording in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md) and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) so they now say `hasMeshInventory` belongs canonically in inventory, not metadata.
+
+Verified:
+- `riot --validate` passes for both `meta.ttl` files
+- `diff -u` confirms the working and latest-state `meta.ttl` files are still identical
+
+That split is now clean enough to start `04`.
+
+# djradon_2026-03-26_1518_19
+
+commit message please
+
+# gpt-5.4_2026-03-26_1518_28
+
+```text
+Introduce direct inventory-file shortcuts and tighten metadata/inventory split
+
+- add sflo:hasWorkingMeshInventoryFile to the core ontology
+- add sflo:hasWorkingKnopInventoryFile to the core ontology
+- model both as owner-level shortcuts from SemanticMesh and Knop to current inventory LocatedFiles
+- keep them separate from sflo:hasWorkingLocatedFile because that property applies to DigitalArtifacts, not to mesh or knop owners
+
+- update SHACL to validate the new optional inventory-file shortcuts
+- allow at most one working mesh inventory file per SemanticMesh
+- allow at most one working Knop inventory file per Knop
+- require shortcut values to be IRIs typed sflo:LocatedFile
+
+- tighten the document-role split between metadata and inventory
+- treat inventory as the canonical home for support-artifact identity, typing, hasMeshInventory/hasKnopInventory, and artifact-history facts
+- keep metadata focused on owner-level facts and direct navigation to the current inventory file
+
+- update 03-mesh-created-woven to use the new mesh-level shortcut
+- replace the metadata-side pointer pattern with:
+  sflo:hasWorkingMeshInventoryFile <_mesh/_inventory/inventory.ttl>
+- remove hasMeshInventory from the mesh metadata document
+- keep the working meta.ttl and latest-state meta.ttl identical after the change
+
+- update docs to match the stricter split
+- revise the ontology decision log so metadata no longer claims canonical hasMeshInventory facts
+- revise the Alice Bio task note to say mesh metadata carries only mesh-level facts plus the direct inventory-file shortcut
+- revise the ontology summary to describe the new owner-level shortcut properties
+
+Validated with:
+- riot --validate semantic-flow-core-ontology.ttl
+- jq empty sflo-core-shacl.jsonld
+- riot --validate _mesh/_meta/meta.ttl
+- riot --validate _mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl
+- diff -u confirms the working and latest-state meta.ttl files are identical
+```
+
+# djradon_2026-03-26_1519_41
+
+smaller commit message just for the "ontology" repo current changes.
+
+# gpt-5.4_2026-03-26_1519_43
+
+```text
+Add direct mesh/knop inventory-file shortcuts
+
+- add hasWorkingMeshInventoryFile and hasWorkingKnopInventoryFile
+- validate the new shortcut properties in SHACL
+- document that metadata stays owner-level while inventory remains the canonical current-surface map
+```
+
+# djradon_2026-03-26_1521_02
+
+OK, proceed with 04
+
+# gpt-5.4_2026-03-26_1521_09
+
+I’m checking the `mesh-alice-bio` branch state and the `04-alice-knop-created` target in the task note, then I’ll draft the minimal `alice` Knop surface directly into the repo.
+
+# gpt-5.4_2026-03-26_1521_24
+
+I’ve got `04` on a clean branch. The key design choice is now the Knop analogue of the mesh split: keep `alice/_knop/_meta/meta.ttl` owner-level only, and push all support-artifact identity and current-surface facts into `alice/_knop/_inventory/inventory.ttl`.
+
+# gpt-5.4_2026-03-26_1521_26
+
+The ontology supports the clean Knop analogue now: `designatorPath` and `hasWorkingKnopInventoryFile` can live in Knop metadata, while the canonical `hasKnopMetadata` / `hasKnopInventory` surface stays in inventory. That gives us a very sparse `04` without inventing extra structure.
+
+# gpt-5.4_2026-03-26_1522_16
+
+The sparse shape is clear now. I’m implementing `04` with the stricter inventory split: mesh inventory will know about the `alice` Knop and point to its inventory file, while the Knop inventory will carry the full internal support-artifact facts.
+
+# gpt-5.4_2026-03-26_1522_21
+
+I’m writing the actual `04` files now: update the mesh inventory to register `alice`, then add minimal Knop metadata and the self-contained Knop inventory.
+
+# gpt-5.4_2026-03-26_1522_50
+
+The RDF is in place. I’m validating the new Knop files now, and if they pass I’ll update the task note to mark `03` and `04` complete so the progress matches the branch state.
+
+# gpt-5.4_2026-03-26_1522_57
+
+Validation is clean. I’m marking the task note progress next; the branch work itself is done.
+
+# gpt-5.4_2026-03-26_1523_15
+
+Implemented `04-alice-knop-created`.
+
+The new minimal Knop files are [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl). The Knop metadata stays sparse: `alice/_knop` has `designatorPath "alice"` plus `hasWorkingKnopInventoryFile`. The Knop inventory is the self-contained map for the Knop and carries `hasKnopMetadata`, `hasKnopInventory`, and the working file facts for the two support artifacts.
+
+I also updated the mesh inventory at [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) so `_mesh` now has `hasKnop <alice/_knop>`, and the mesh-level view only points to the Knop’s inventory file instead of cataloging the Knop’s internal artifacts. [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) now marks `03` and `04` complete.
+
+Verified with `riot --validate` on:
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl)
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl)
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl)
+
+If you want, I can give you the commit message next or move straight into planning `05-alice-knop-created-woven`.
+
+# djradon_2026-03-26_1524_48
+
+You think we should repeate the sflo:designatorPath "alice"  in knop inventory.ttl? Probably best not to repeat ourselves? So maybe not even in mesh inventory... we don't need it for readability since it mimics the IRI path.
+
+# gpt-5.4_2026-03-26_1525_38
+
+There’s one real tradeoff here: removing `designatorPath` from inventories makes the split cleaner, but it also means those inventory docs stop being owner-complete if you validate them in isolation. I’m checking the current files before deciding whether to patch just the repeated property or the typing too.
+
+# gpt-5.4_2026-03-26_1525_49
+
+I agree with the non-repetition goal. I’m removing `designatorPath "alice"` from the two inventory docs and keeping it only in Knop metadata, which makes the split more coherent.
+
+# gpt-5.4_2026-03-26_1526_01
+
+I’ve patched the two inventories. Running syntax validation now, then I’ll note the one modeling consequence this creates for standalone SHACL on partial inventory docs.
+
+# gpt-5.4_2026-03-26_1526_12
+
+I agree, and I removed `sflo:designatorPath "alice"` from both inventories:
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl)
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl)
+
+It now lives only in [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl), which is the cleaner canonical home.
+
+One consequence: if you SHACL-validate those inventory docs in isolation, the `Knop` node will no longer satisfy the standalone `designatorPath` requirement. I think that’s acceptable if we treat inventories as partial current-surface documents rather than owner-complete documents. Syntax is still fine; `riot --validate` passes for both updated inventory files.
+
+# djradon_2026-03-26_1526_58
+
+what do you mean by "owner-complete". Like for SHACL validation?
+
+# gpt-5.4_2026-03-26_1527_08
+
+Yes.
+
+By “owner-complete” I mean: if a document mentions a resource as a `sflo:Knop` or `sflo:SemanticMesh`, does that document by itself contain enough triples for that resource to satisfy the relevant SHACL expectations?
+
+Example:
+- [alice/_knop/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) is closer to owner-complete for `alice/_knop`, because it includes `a sflo:Knop`, `designatorPath`, and the direct inventory-file shortcut.
+- [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) is now intentionally not owner-complete, because it omits `designatorPath` and relies on metadata to carry that owner fact.
+
+So the distinction is:
+- owner-complete document: can validate the owner resource largely on its own
+- partial current-surface document: valid RDF, but not intended to be a standalone complete description of every resource it mentions
+
+Given the split you’re pushing toward, inventory documents are becoming more like partial current-surface maps, not standalone owner-complete records. I think that is coherent, but it does matter for how we run SHACL:
+- validate whole merged graphs, or
+- use document-role-aware shapes instead of assuming every doc is self-sufficient
+
+I think the whole-graph approach fits your direction better.
+
+# djradon_2026-03-26_1527_15
+
+commit message please
+
+# gpt-5.4_2026-03-26_1527_25
+
+```text
+Create minimal alice Knop in 04-alice-knop-created
+
+- add alice/_knop/_meta/meta.ttl
+- add alice/_knop/_inventory/inventory.ttl
+- model alice/_knop as a minimal Knop with designatorPath and a direct working inventory-file shortcut in Knop metadata
+- keep Knop inventory as the canonical home for hasKnopMetadata, hasKnopInventory, and working file facts for the Knop support artifacts
+
+- update _mesh/_inventory/inventory.ttl to register the alice Knop
+- add sflo:hasKnop <alice/_knop> on the mesh
+- add a direct working Knop inventory-file pointer from the mesh inventory surface
+- do not introduce payload artifacts, ReferenceLinks, histories, or generated pages for alice yet
+
+- avoid repeating designatorPath in inventory documents
+- keep sflo:designatorPath "alice" only in alice/_knop/_meta/meta.ttl
+- treat the inventory documents as current-surface maps rather than standalone owner-complete descriptions
+
+Validated with:
+- riot --validate _mesh/_inventory/inventory.ttl
+- riot --validate alice/_knop/_meta/meta.ttl
+- riot --validate alice/_knop/_inventory/inventory.ttl
+```
+
+# djradon_2026-03-26_2036_05
+
+looks good. ready for 05?
+
+# gpt-5.4_2026-03-26_2036_11
+
+Yes.
+
+`04-alice-knop-created` is now cleanly minimal, so `05-alice-knop-created-woven` has a clear job:
+- version `alice/_knop/_meta`
+- version `alice/_knop/_inventory`
+- add the corresponding history/state/manifestation/page structure
+- keep the latest-state files identical to the working woven files
+- update the mesh inventory to reflect the new generated Knop surface
+
+The one thing to keep watching is the same split we just enforced:
+- `alice/_knop/_meta/meta.ttl` should stay owner-level and light
+- `alice/_knop/_inventory/inventory.ttl` should remain the canonical home for Knop artifact/history/current-surface facts
+
+If you want, I can proceed directly with `05`.
+
+# gpt-5.4_2026-03-26_2036_13
+
+Yes.
+
+`04-alice-knop-created` is now cleanly minimal, so `05-alice-knop-created-woven` has a clear job:
+- version `alice/_knop/_meta`
+- version `alice/_knop/_inventory`
+- add the corresponding history/state/manifestation/page structure
+- keep the latest-state files identical to the working woven files
+- update the mesh inventory to reflect the new generated Knop surface
+
+The one thing to keep watching is the same split we just enforced:
+- `alice/_knop/_meta/meta.ttl` should stay owner-level and light
+- `alice/_knop/_inventory/inventory.ttl` should remain the canonical home for Knop artifact/history/current-surface facts
+
+If you want, I can proceed directly with `05`.
+
+# djradon_2026-03-26_2038_20
+
+proceed
+
+# gpt-5.4_2026-03-26_2040_02
+
+I’m editing the two inventory documents and adding the generated `alice/_knop` woven files/pages now. After that I’ll validate the new Turtle and then mark `05` complete in the task note.
+
+# gpt-5.4_2026-03-26_2041_41
+
+The `05` shape is in place. I’m validating the new Turtle and checking that the working files match their latest-state snapshots exactly before I touch the task note.
+
+# gpt-5.4_2026-03-26_2041_52
+
+The only mismatch left is syntactic, not semantic: the working `alice/_knop/_inventory/inventory.ttl` used full datatype IRIs while the latest-state copy uses `xsd:`. I’m normalizing the working file so the two are byte-identical.
+
+# gpt-5.4_2026-03-26_2042_10
+
+I’m re-running the last diff and validation pass now. If this comes back clean, `05` is done and I’ll update the task note status.
+
+# gpt-5.4_2026-03-26_2042_16
+
+The working/latest pairs are now aligned for both Knop artifacts, and all the new Turtle validates. I’m just marking `05` complete in the task note so the documentation matches the branch.
+
+# gpt-5.4_2026-03-26_2042_31
+
+`05-alice-knop-created-woven` is implemented.
+
+The Knop artifacts are now versioned and generated. [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) now carries the canonical Knop-side history/current-surface facts for `alice/_knop/_meta` and `alice/_knop/_inventory`, with first histories at `_history001` and first states at `_s0001`. [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) stayed light and owner-level, and its latest-state copy is identical. Generated pages were added for `alice/_knop`, its two support artifacts, and their history/state/manifestation folders.
+
+The mesh inventory was also advanced in [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl): it now gives `alice/_knop` a ResourcePage and records a new mesh-inventory state at `_s0002`, with [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl) identical to the working mesh inventory file. The mesh inventory still does not catalog the Knop’s internal support artifacts; it only points to the Knop’s working inventory file, which matches the split you wanted.
+
+Verified:
+- `riot --validate` passed for the updated mesh inventory and both Knop Turtle files plus their latest-state copies
+- `diff -u` confirms working/latest equality for:
+  - [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl)
+  - [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) and [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl)
+  - [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) and [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl)
+
+[wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) now marks `05` complete. Ready for `06-alice-bio-integrated`.
+
+# djradon_2026-03-26_2057_43
+
+I think we should've created an alice/index.html resourcepage even though we don't have any data about Alice yet. Maybe what we do is include the designatorPath in big/bold <h1>, and a footer in tiny that says something like "The Semantice Flow identifier http://... has an associated Knop at _knop, and _knop is a link to the knop .
+
+# gpt-5.4_2026-03-26_2057_57
+
+I agree with that change. A public identifier can earn a ResourcePage before it has payload data, and `alice/index.html` makes the `alice` vs `alice/_knop` distinction much easier to see. I’m patching `05` so the mesh inventory knows about `alice`’s page, and I’ll make the page itself explicitly point down to `_knop`.
+
+# gpt-5.4_2026-03-26_2058_14
+
+I’m adding the public `alice/index.html` page and threading it into the current mesh inventory plus the latest mesh-inventory state, so `05` stays internally consistent.
+
+# gpt-5.4_2026-03-26_2058_29
+
+The page and RDF references are in. I’m validating the updated inventory files and rechecking the working/latest equality for the mesh inventory state.
+
+# gpt-5.4_2026-03-26_2058_37
+
+Agreed, and I implemented it.
+
+There is now an [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) ResourcePage even though `alice` does not yet have domain data. It uses `alice` as the prominent heading and includes a footer pointing to the associated Knop at `./_knop`.
+
+I also updated the current mesh inventory and its latest-state copy so they both include:
+- `<alice> sflo:hasResourcePage <alice/index.html> .`
+- `<alice/index.html> a sflo:ResourcePage, sflo:LocatedFile .`
+
+Verified:
+- `riot --validate` passes for both updated mesh inventory Turtle files
+- `diff -u` confirms the working mesh inventory still matches the latest-state `_s0002` snapshot exactly
+
+So yes, `05` now models the public identifier page more cleanly.
+
+# djradon_2026-03-27_0627_53
+
+I feel like we should be capturing all these details as part of a spec. We have some OpenAPI example payloads and the semantic-flow-api-spec.yaml spec with the JobRequest types, but how should we capture the expected behavior we're learning about with this mesh-alice-bio task? What existing formats are there for behaviour specification. It's kind of the internal API vs the one specified in the openapi yaml, so I assume it should be kept separately?
+
+# gpt-5.4_2026-03-27_0628_11
+
+I’m grounding this in the repo’s current spec surface first: the OpenAPI file, the API examples note, and the task note. Then I’ll tell you what I think belongs in a separate behavior-spec layer versus the external API contract.
+
+# gpt-5.4_2026-03-27_0628_49
+
+Yes, separate.
+
+I would not treat this as “the internal API” exactly. What `mesh-alice-bio` is teaching you is closer to an operation-semantics spec plus a conformance spec.
+
+The split I’d use is:
+
+- [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml): external transport contract only
+- [sf.api.examples.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.examples.md): worked request/response examples only
+- a new operation-semantics spec: what `mesh.create`, `knop.create`, `integrate`, `version`, `generate`, and `weave` are supposed to do to the graph/filesystem
+- a new conformance manifest tied to `mesh-alice-bio`: the concrete expected before/after states and invariants
+
+Existing formats that are commonly used:
+
+- OpenAPI / JSON Schema: good for payload shapes, bad for state-transition behavior
+- Gherkin / BDD: readable, but weak for RDF/filesystem diffs
+- ADRs / decision logs: good for rationale, not good as normative behavior spec
+- golden/snapshot fixtures: very good, but underspecified unless paired with a manifest
+- state-machine specs: good for lifecycle modeling, but too abstract by themselves
+- YAML/JSON conformance manifests: probably the best fit here
+
+My recommendation is:
+
+1. Keep the normative HTTP/job contract in OpenAPI.
+2. Add a separate `sf.operation-semantics.md` note in `semantic-flow-framework` that defines each operation’s intended effects in Semantic Flow terms.
+3. Add a machine-readable manifest, probably YAML, that maps fixture transitions like:
+   - `03-mesh-created-woven -> 04-alice-knop-created`
+   - operation: `knop.create`
+   - expected additions
+   - expected non-additions
+   - expected equality rules
+   - volatile-field exclusions
+4. Treat `mesh-alice-bio` branches as the goldens that the manifest points at.
+
+Concretely, I’d capture fields like:
+
+```yaml
+scenario_id: alice_knop_create_minimal
+fixture_repo: mesh-alice-bio
+from_branch: 03-mesh-created-woven
+to_branch: 04-alice-knop-created
+operation: knop.create
+target:
+  designator_path: alice
+expect:
+  add_files:
+    - alice/_knop/_meta/meta.ttl
+    - alice/_knop/_inventory/inventory.ttl
+  update_files:
+    - _mesh/_inventory/inventory.ttl
+  must_assert:
+    - "_mesh hasKnop alice/_knop"
+    - "alice/_knop hasWorkingKnopInventoryFile alice/_knop/_inventory/inventory.ttl"
+  must_not_assert:
+    - "alice/_knop hasReferenceLink ?x"
+    - "alice/_knop hasPayloadArtifact ?x"
+  equality:
+    exclude:
+      - created
+      - updated
+```
+
+That gives you three clean layers instead of overloading one:
+
+- external API contract
+- semantic behavior contract
+- executable fixture conformance
+
+I think that is the right bar. `wd.task...` is a design/work note, not the long-term normative home. If you want, I can sketch the actual file layout and naming for this new spec layer next.
+
+# djradon_2026-03-27_0658_13
+
+Can you give me a prompt to fork this "YAML/JSON conformance manifest" into another conversation. I want to review existing standards and efforts around conformance specification for spec-driven development.
+
+# gpt-5.4_2026-03-27_0658_27
+
+Use this:
+
+```text
+I’m working on a Semantic Flow / Weave project and want to design a machine-readable conformance manifest for spec-driven development.
+
+Please research existing standards, common formats, and established practices for behavior/conformance specification, especially for systems where:
+- there is an external HTTP/API contract already described in OpenAPI
+- there is also a separate operation-semantics layer describing expected state transitions
+- conformance needs to be checked against concrete before/after fixtures
+- the target state includes both filesystem layout and RDF graph content
+- exact byte equality is sometimes too strict, so canonical graph equivalence and volatile-field exclusions matter
+
+I am specifically interested in formats or approaches analogous to:
+- OpenAPI conformance / contract testing
+- executable specifications
+- conformance manifests
+- snapshot/golden testing with machine-readable metadata
+- behavior-driven or scenario-driven specs
+- W3C or IETF styles of test manifests and conformance classes
+- JSON Schema / YAML-based test vector formats
+- manifest-driven test runners
+- RDF test suite conventions, if relevant
+
+Please do the following:
+
+1. Survey existing standards and serious prior art.
+2. Distinguish between:
+   - transport/API contract specs
+   - semantic/behavior specs
+   - test/conformance manifests
+3. Identify formats that are machine-readable and suitable for automation.
+4. Call out which approaches are best for:
+   - state-transition operations
+   - before/after fixture comparison
+   - filesystem + RDF mixed outputs
+   - exclusion of volatile fields like timestamps
+5. Recommend 2-4 candidate approaches for my use case.
+6. For each candidate, explain:
+   - what ecosystem or standard it comes from
+   - what problems it solves well
+   - where it is weak
+   - whether it is overkill
+7. Propose a practical recommendation for a project that already has:
+   - OpenAPI for the public API
+   - worked API examples outside the OpenAPI file
+   - hand-built fixture branches representing expected semantic outcomes
+8. Include example schemas or manifest shapes where useful.
+9. Prefer primary sources and concrete standards over blog-post folklore.
+
+Context:
+- We already have a thin public OpenAPI spec.
+- What we need is a separate, likely YAML or JSON, behavior/conformance layer that can say things like:
+  - from_branch: 03-mesh-created-woven
+  - to_branch: 04-alice-knop-created
+  - operation: knop.create
+  - expected added files
+  - expected updated files
+  - RDF assertions that must or must not appear
+  - graph-comparison rules
+  - exclusions for volatile fields
+- This is not just transport validation; it is operational semantics + conformance checking.
+
+Please end with a proposed shortlist and a recommendation for whether a custom YAML manifest is warranted or whether an existing standard can be adapted cleanly.
+```
+
+If you want, I can also give you a shorter version optimized for a fast exploratory answer rather than a thorough survey.
+
+# djradon_2026-03-27_1708_20
+
+OK, we've got a new "accord ontology". Please review [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl) and [accord-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl) and let me know what you think. Change suggestions welcome.
+
+OK, we've got a new "accord ontology". Please review [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl) and [accord-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl) and let me know what you think. Change suggestions welcome.
+
+# gpt-5.4_2026-03-27_1708_35
+
+I’m reviewing the two Accord RDF files as a code/ontology review: first the ontology, then the SHACL, then I’ll call out concrete problems or mismatches with file/line references.
+
+# gpt-5.4_2026-03-27_1709_07
+
+I’ve got two likely semantic mismatches already. I’m doing a quick syntax pass so I can separate “model issue” from “file issue” cleanly in the review.
+
+# gpt-5.4_2026-03-27_1709_50
+
+**Findings**
+- High: [accord-ontology.ttl#L25](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L25) and [accord-shacl.ttl#L85](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L85) define `accord:RdfExpectation`, but there is no property that says which RDF-bearing file or dataset it applies to. Once a case has more than one RDF file, `ignorePredicate` and `hasAskAssertion` become ambiguous. I would add an explicit target such as `accord:targetPath`, `accord:targetFileExpectation`, or `accord:targetDataset`.
+- Medium: [accord-ontology.ttl#L76](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L76) and [accord-shacl.ttl#L95](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L95) require `ignorePredicate` values to be `rdf:Property`. That is too strict for conformance manifests. In practice you often want to ignore any predicate IRI, even if the vocabulary is not loaded or explicitly typed. I would keep this to `sh:nodeKind sh:IRI` and drop the class/range restriction.
+- Medium: [accord-ontology.ttl#L37](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L37), [accord-ontology.ttl#L71](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L71), and [accord-ontology.ttl#L146](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L146) split RDF comparison semantics awkwardly between `FileExpectation.compareMode` and a separate `RdfExpectation`. That creates invalid-but-legal states like “file says `rdfCanonical`, but no RDF expectation exists” or “RDF expectation exists, but it is not tied to any file.” I would either bind `RdfExpectation` to a `FileExpectation`, or collapse RDF-specific fields into `FileExpectation` itself.
+
+**Open Questions**
+- I’m assuming `fromRef` and `toRef` are meant to name goldens, such as git branches or fixture snapshots, and that file expectations compare the same path across those refs. If that is wrong, the model needs another layer for fixture resources.
+- If you want standalone manifests to support non-RDF checks later, you may also want a generic assertion class alongside `SparqlAskAssertion` rather than making RDF the only rich assertion type.
+
+**Summary**
+Both files parse cleanly with `riot --validate`, and the overall direction is good: small surface area, readable terms, and a clear attempt to separate file-level and RDF-level expectations. My main pushback is that the current model is one relation short of being reliably executable. Add an explicit binding from RDF expectations to their target file/dataset, relax `ignorePredicate`, and the design gets much stronger.
+
+# djradon_2026-03-27_2304_25
+
+ok, your suggestions were incorporated. Are there equivalents for everything you wanted to express here:
+
+scenario_id: alice_knop_create_minimal
+fixture_repo: mesh-alice-bio
+from_branch: 03-mesh-created-woven
+to_branch: 04-alice-knop-created
+operation: knop.create
+target:
+  designator_path: alice
+expect:
+  add_files:
+    - alice/_knop/_meta/meta.ttl
+    - alice/_knop/_inventory/inventory.ttl
+  update_files:
+    - _mesh/_inventory/inventory.ttl
+  must_assert:
+    - "_mesh hasKnop alice/_knop"
+    - "alice/_knop hasWorkingKnopInventoryFile alice/_knop/_inventory/inventory.ttl"
+  must_not_assert:
+    - "alice/_knop hasReferenceLink ?x"
+    - "alice/_knop hasPayloadArtifact ?x"
+  equality:
+    exclude:
+      - created
+      - updated
+
+# gpt-5.4_2026-03-27_2305_55
+
+I’m checking the updated Accord ontology against that example manifest directly: which concepts now map cleanly, which still need a term, and where the fit is awkward.
+
+# gpt-5.4_2026-03-27_2306_29
+
+Not quite. It covers a good chunk of that shape, but not all of it cleanly.
+
+Current mapping:
+
+- `scenario_id`
+  - Partial.
+  - You can use the `TransitionCase` node IRI itself as the case identifier.
+  - There is no dedicated Accord property for this in [accord-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl).
+
+- `fixture_repo`
+  - No direct equivalent.
+  - [accord:fromRef](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L88) and [accord:toRef](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L94) are just strings, so the repo has to be implied or encoded into those strings.
+
+- `from_branch`
+  - Yes: [accord:fromRef](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L88)
+
+- `to_branch`
+  - Yes: [accord:toRef](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L94)
+
+- `operation`
+  - Yes: [accord:operationId](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L82)
+
+- `target.designator_path`
+  - No direct equivalent.
+
+- `expect.add_files` / `expect.update_files`
+  - Yes.
+  - Use [accord:hasFileExpectation](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L47) with [accord:path](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L100) and [accord:changeType](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L65), with individuals like [accord:added](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L118) and [accord:updated](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L122).
+
+- `must_assert` / `must_not_assert`
+  - Yes, mostly.
+  - Use [accord:hasRdfExpectation](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L53) plus [accord:hasAskAssertion](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L59) and [accord:expectedBoolean](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L112).
+
+- `equality.exclude`
+  - Partial yes.
+  - That maps to [accord:ignorePredicate](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L76) on an `accord:RdfExpectation`.
+
+The real missing pieces are:
+
+- `fixture_repo`
+- `target.designator_path`
+- a clear way to say what the RDF expectation is scoped to, if not “the whole case”
+
+So my answer is:
+
+- yes for `from_branch`, `to_branch`, `operation`, file adds/updates, and ASK-style positive/negative assertions
+- partial for `scenario_id` and `equality.exclude`
+- no for `fixture_repo` and `target.designator_path`
+
+If you want this YAML shape to round-trip cleanly, I’d add:
+
+- `accord:fixtureRepo`
+- either `accord:targetDesignatorPath` or a more general `accord:targetRef`
+- probably use the case node `@id` for `scenario_id` rather than minting a separate property
+
+That would get you much closer.
+
+# djradon_2026-03-29_1038_05
+
+Please refamiliarize yourself with the new accord ontology/shacl/readme and point out any serious gaps or problems.
+
+I've created the examples/alice-bio/conformance folder. I guess we want one conformance file for each step/branch, starting back with 01. Should we create a task in [sflo.conv.2026.2026-03-17_1307-please-review-task-2026-2026-03-17-web-commands-md-dev-do-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-17_1307-please-review-task-2026-2026-03-17-web-commands-md-dev-do-codex.md)
+
+# gpt-5.4_2026-03-29_1038_17
+
+I’m reviewing the updated Accord ontology, SHACL, and README first, then I’ll assess whether the conformance examples should be one file per branch and whether that belongs in a new task note rather than a conversation note.
+
+# gpt-5.4_2026-03-29_1038_25
+
+I’ve reloaded the current Accord files. The big changes are there now, so I’m doing a second pass for structural gaps rather than the older missing-target issue.
+
+# gpt-5.4_2026-03-29_1038_56
+
+The more I read it, the main issues are no longer missing vocabulary. They’re now mostly around runner semantics and case scoping. I’m validating the TTL now so I can separate syntax from model gaps.
+
+# gpt-5.4_2026-03-29_1039_18
+
+I’ve got three substantive issues. One of them is directly relevant to `mesh-alice-bio`: Accord still can’t cleanly say “this file must stay unchanged,” which is going to matter almost immediately.
+
+# gpt-5.4_2026-03-29_1039_49
+
+I’m checking one small README detail before I close this out: whether the example ASK query is pointing at the current Semantic Flow namespace or an older one.
+
+# gpt-5.4_2026-03-29_1040_31
+
+**Findings**
+- High: Accord still cannot say “this file must remain unchanged.” [accord-ontology.ttl#L32](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L32), [accord-ontology.ttl#L134](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L134), and [accord-shacl.ttl#L75](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L75) only give you `added|updated|removed|absent`. For `mesh-alice-bio`, that is a real hole, because many transitions need to assert that files like `alice-bio.ttl` or prior woven files stay identical. Omission means “don’t care,” not “must stay the same.” I would add `accord:unchanged` and allow/require `compareMode` on it.
+- High: RDF expectations are not scoped to the same transition case as the file expectation they target. [accord-ontology.ttl#L52](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L52), [accord-ontology.ttl#L58](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl#L58), and [accord-shacl.ttl#L117](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L117) ensure that an `RdfExpectation` targets a valid RDF file expectation, but not that it targets one belonging to the same `TransitionCase`. That leaves cross-case leakage possible. Best fix: either hang RDF expectations directly off `FileExpectation`, or add a SHACL SPARQL constraint for same-case ownership.
+- Medium: `compareMode` is optional even for `added` and `updated` files. [accord-shacl.ttl#L83](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L83) permits omission except for the RDF special case. That leaves runner behavior underspecified: two validators can make different choices for the same manifest. I would require `compareMode` for `added`, `updated`, and `unchanged`, and allow omission only for `removed`/`absent`.
+- Medium: duplicate or conflicting file expectations for the same path are still legal. [accord-shacl.ttl#L54](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L54) and [accord-shacl.ttl#L65](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl#L65) do not prevent two `FileExpectation`s in one case from both pointing at `alice/_knop/_meta/meta.ttl` with different change types. I would add a uniqueness constraint on `accord:path` within a case.
+- Low: the README example’s ASK query looks out of sync with the current Semantic Flow namespace. [README.md#L133](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/README.md#L133) uses `https://semantic-flow.org/ns/core/Knop`, while the live core ontology is based at [semantic-flow-core-ontology.ttl#L1](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L1). I would update that example before it calcifies.
+
+Both Accord TTL files parse cleanly with `riot --validate`, so these are model/behavior gaps, not syntax problems.
+
+For `examples/alice-bio/conformance`, I would not do “one file per branch” in the abstract. Accord is transition-shaped. The practical compromise is one manifest file per transition, named by the destination branch if you like the ladder feel:
+- `01-source-only.jsonld` for `00-blank-slate -> 01-source-only`
+- `02-mesh-created.jsonld` for `01-source-only -> 02-mesh-created`
+
+That works because your ladder is linear. If you want less ambiguity, use `00-to-01-source-only.jsonld` style names.
+
+And no, I would not create a task in a `*.conv.*` note. Use the task note you already made at [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) for the framework-side work, and create a separate Accord-side task only if you decide to patch the ontology/SHACL. The conversation note is background, not the task record.
+
+# djradon_2026-03-29_1049_46
+
+I think we're planning one transition per branch, so we'll effectively have one manifest per branch, but I'm not saying we keep one manifest in one branch. The manifests can all go in sff/examples/alice-bio/conformance, no branches.
+
+OK, fill out the task note please. I think we can create manifests for each of the first four transistions that we've already created, and then do subsequent manifests as we progress? Do we do the manifests first and then their pseudo-implementations after?
+
+# gpt-5.4_2026-03-29_1049_56
+
+I’m filling out the framework task note now. I’ll anchor it around one manifest per transition, seed the first four completed transitions, and make the ordering explicit so we don’t blur spec authoring with later runner work.
+
+# gpt-5.4_2026-03-29_1050_06
+
+I have the note skeleton and the empty conformance folder. I’m patching the task note with the transition list, file naming, sequencing, and the current Accord gaps so the work stays executable rather than aspirational.
+
+# gpt-5.4_2026-03-29_1050_27
+
+The task note is filled out. I’m doing one readback pass to make sure the sequencing and the Accord caveats are stated cleanly rather than as hand-wavy blockers.
+
+# gpt-5.4_2026-03-29_1050_36
+
+Updated [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md).
+
+The note now says:
+- one manifest per transition
+- all manifests live in `semantic-flow-framework/examples/alice-bio/conformance/`
+- start with the first four completed transitions:
+  - `00 -> 01`
+  - `01 -> 02`
+  - `02 -> 03`
+  - `03 -> 04`
+- author manifests first, then validate them with Accord SHACL, then build pseudo-runner logic afterward
+- track the current Accord gaps explicitly, especially missing `unchanged`
+
+So yes: manifests first, pseudo-implementations after. That is the right order if you want the manifests to be normative rather than post-hoc documentation of a runner.
+
+I would not create a task in the `*.conv.*` note. The new task note is the right home. If you want, I can next scaffold:
+- [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md)
+- `01-source-only.jsonld`
+- `02-mesh-created.jsonld`
+- `03-mesh-created-woven.jsonld`
+- `04-alice-knop-created.jsonld`
+
+# djradon_2026-03-29_1101_50
+
+OK, accord updates first please.
+
+# gpt-5.4_2026-03-29_1102_02
+
+I’m patching Accord first. I’m narrowing the change set to the concrete gaps we just identified: `unchanged`, stricter compare-mode rules, same-case RDF targeting, per-case path uniqueness, and the stale README example.
+
+# gpt-5.4_2026-03-29_1102_04
+
+I’ve confirmed the current Accord files and I’m validating the baseline before patching. Next I’m editing ontology, SHACL, and README together so the model and authoring guidance stay aligned.
+
+# gpt-5.4_2026-03-29_1102_32
+
+I have the exact patch set. It’s small but consequential: one new change type, two SHACL SPARQL constraints, stricter compare-mode semantics, and README fixes so the example doesn’t teach stale namespace or underspecified behavior.
+
+# gpt-5.4_2026-03-29_1103_07
+
+The model patch is in. I’m validating now because the SHACL changes are the risky part; the new SPARQL constraints need to parse cleanly before I hand this back.
+
+# gpt-5.4_2026-03-29_1103_19
+
+The Accord patch validates cleanly. I’m doing one last sanity check on repo status so I can hand back a precise summary instead of a vague “changed some files.”
+
+# gpt-5.4_2026-03-29_1103_31
+
+Patched Accord in:
+- [accord-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl)
+- [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl)
+- [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/README.md)
+
+What changed:
+- added `accord:unchanged` as a first-class file change type
+- made `compareMode` explicitly a `FileExpectation` property
+- tightened SHACL so `added`, `updated`, and `unchanged` must declare `compareMode`
+- tightened SHACL so `removed` and `absent` must not declare `compareMode`
+- added a SHACL SPARQL constraint requiring each `RdfExpectation` to target a `FileExpectation` in the same `TransitionCase`
+- added a SHACL SPARQL constraint preventing duplicate file expectations for the same path within one case
+- updated the README prose to include `unchanged` and fixed the stale Semantic Flow namespace in the ASK example
+
+Validation:
+- `riot --validate` passed for [accord-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-ontology.ttl)
+- `riot --validate` passed for [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl)
+
+One remaining hardening step I did not add yet: SHACL still does not require every `FileExpectation` or `RdfExpectation` node to be owned by exactly one `TransitionCase`; it now checks same-case consistency if they are linked, but not orphan prevention. That is the next thing I’d tighten if you want Accord to be stricter before we author manifests.
+
+If you want, I’ll update the framework task note to mark those Accord gaps as resolved and then scaffold the first four manifests.
+
+# djradon_2026-03-29_1108_46
+
+Maybe it makes sense for a File/RdfExpectation to be re-used?
+
+# gpt-5.4_2026-03-29_1108_54
+
+Maybe, but I would not optimize for reuse yet.
+
+My pushback is that `FileExpectation` and especially `RdfExpectation` are currently case-scoped semantically, even if the ontology does not force that perfectly:
+- `changeType` is about a specific transition
+- `path` is interpreted against a specific fixture comparison
+- `ignorePredicate` and ASK assertions usually belong to one exact transition expectation, not a universally reusable truth
+
+If you force reuse too early, you start needing extra machinery:
+- parameterization
+- shared libraries/modules
+- override semantics
+- rules for whether one reused expectation can belong to multiple cases with different refs
+
+That is a lot of complexity for a problem you may not really have yet.
+
+So my recommendation is:
+- keep `FileExpectation` and `RdfExpectation` reusable in principle at the RDF level
+- but do not add SHACL that assumes reuse is a primary use case
+- and do not add same-case ownership constraints if you want reuse to remain possible
+
+A good compromise is:
+- keep the current no-orphan requirement out
+- keep the new same-case check only when both are attached within a case
+- treat reuse as allowed but uncommon
+- revisit only after you actually see repeated expectation bundles across manifests
+
+So yes, it may make sense, but I would describe it as “permitted, not designed around.” That keeps the model flexible without prematurely turning Accord into a templating language.
+
+# djradon_2026-03-29_1109_17
+
+OK, commit message for the accord changes?
+
+# gpt-5.4_2026-03-29_1109_19
+
+```text
+Tighten Accord transition semantics for conformance manifests
+
+- add accord:unchanged as a first-class file change type
+- clarify that compareMode is a property of FileExpectation
+
+- strengthen SHACL around file comparison semantics
+- require compareMode for added, updated, and unchanged file expectations
+- forbid compareMode on removed and absent file expectations
+- keep rdfCanonical file expectations paired with exactly one RDF expectation
+
+- tighten RDF expectation scoping
+- require each RDF expectation to target a file expectation in the same transition case
+- prevent duplicate file expectations for the same path within one transition case
+
+- update README guidance to match the stricter model
+- document unchanged as a supported file outcome
+- explain when compareMode should and should not appear
+- fix the example ASK query to use the current Semantic Flow ontology namespace
+```
+
+# djradon_2026-03-29_1109_44
+
+OK, proceed with the task please
+
+# gpt-5.4_2026-03-29_1109_57
+
+I’m moving from the Accord patch into the framework task itself. First I’m pulling the exact branch-to-branch diffs for the first four `mesh-alice-bio` transitions so the manifests are grounded in real fixture state rather than memory.
+
+# gpt-5.4_2026-03-29_1110_19
+
+I’ve got the branch ladder and the tentative operation names. One thing is already clear: `00 -> 01` is not really a Semantic Flow operation, so I’m treating that as a fixture-seeding transition rather than pretending it’s part of the public op set.
+
+# gpt-5.4_2026-03-29_1110_25
+
+The branch diff command was malformed. I’m rerunning it cleanly because the manifests need exact add/update/unchanged paths, not hand reconstruction.
+
+# gpt-5.4_2026-03-29_1110_48
+
+I have the transition file lists. I’m reading the actual RDF for `03` and the mesh inventory delta for `04` now so the ASK assertions are specific, not generic fluff.
+
+# gpt-5.4_2026-03-29_1111_24
+
+I’m at file-authoring stage. Before I write the manifests, I’m checking whether the local Jena install can actually run SHACL validation on JSON-LD so I can verify the manifests in the same pass instead of leaving them as unchecked syntax.
+
+# gpt-5.4_2026-03-29_1117_13
+
+I’m checking the live ontology terms for “payload” and “reference” before I freeze the negative ASK assertions in `04`. The manifest shouldn’t invent property names that don’t exist.
+
+# gpt-5.4_2026-03-29_1117_44
+
+I’ve got the manifest shapes decided. I’m creating the conformance README plus the first four JSON-LD manifests now, with the early seed transition explicitly marked as fixture prep rather than a public Semantic Flow operation.
+
+# gpt-5.4_2026-03-29_1119_10
+
+The manifests are in place. I’m validating them now in two layers: JSON-LD syntax first, then SHACL against the Accord shapes if the local Jena `shacl` tool cooperates.
+
+# gpt-5.4_2026-03-29_1119_24
+
+The JSON-LD syntax is clean. I’ve got the `shacl validate` invocation now, so I’m running the manifests against Accord’s shapes before I touch the task checklist.
+
+# gpt-5.4_2026-03-29_1119_39
+
+The manifests are structurally fine, but the JSON-LD context was too thin: `changeType` and `compareMode` are coming through as plain strings instead of Accord IRIs. I’m patching the context rather than the data, which is the right fix.
+
+# gpt-5.4_2026-03-29_1119_55
+
+The context fix is in. I’m rerunning both syntax and SHACL validation now; if this passes, I’ll update the task checklist in the same pass.
+
+# gpt-5.4_2026-03-29_1120_13
+
+I found a real Accord SHACL bug while validating the new manifests: the enum checks use `sh:class` on the enum IRIs, which fails unless the ontology graph is merged into the data. That’s too brittle for manifest authoring. I’m fixing the shape instead of papering over it in the validation command.
+
+# gpt-5.4_2026-03-29_1120_25
+
+The manifests exposed an actual shapes bug, not bad data. I removed the ontology-dependent enum `sh:class` checks, which is the right authoring-time behavior for standalone manifests. Re-running validation now.
+
+# gpt-5.4_2026-03-29_1120_44
+
+The first four manifests now conform. I’m updating the task note so it reflects reality instead of the earlier pre-Accord-patch assumptions.
+
+# gpt-5.4_2026-03-29_1121_04
+
+The task note is aligned now. I’m doing a final status check across the framework and Accord repos so I can separate my new files from the pre-existing conversation-note change in the framework repo.
+
+# gpt-5.4_2026-03-29_1121_16
+
+Created the first four conformance manifests and the folder README under [examples/alice-bio/conformance/README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md):
+
+- [01-source-only.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/01-source-only.jsonld)
+- [02-mesh-created.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/02-mesh-created.jsonld)
+- [03-mesh-created-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/03-mesh-created-woven.jsonld)
+- [04-alice-knop-created.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/04-alice-knop-created.jsonld)
+
+I also updated [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) to mark those items done and to replace the old Accord-gap assumptions with the remaining open questions.
+
+During validation, the manifests exposed one more real Accord shapes bug: enum checks in [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl) were using `sh:class` in a way that required the ontology graph to be merged into every manifest validation. I removed that dependency, and now all four manifests conform.
+
+Verification:
+- `riot --validate` passed for all four `.jsonld` manifest files
+- `shacl validate --shapes accord-shacl.ttl --data ...` passed for all four manifests
+- `riot --validate` passed for [accord-shacl.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/accord-shacl.ttl)
+
+One existing unrelated change remains in the framework repo: [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md). I left it alone.
+
+Next sensible step is `05-alice-knop-created-woven.jsonld` once you want to continue the ladder, or I can give you commit messages for the framework and Accord changes now.
+
+# djradon_2026-03-29_1121_16
+
+Update the task and then proceed with [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) -- It says 05 is done, but I'm not so sure.
+
+# gpt-5.4_2026-03-29_1121_29
+
+I’m checking the `mesh-alice-bio` task note against the actual `05-alice-knop-created-woven` branch state before I touch the checklist. If `05` is not really complete, I’ll unmark it and then carry the branch work forward instead of leaving the note ahead of reality.
+
+# gpt-5.4_2026-03-29_1121_51
+
+I see the `05` branch exists and has the expected broad file additions, but that alone is not enough. I’m reading the actual `05` RDF and checking the equality/validation rules that mattered in `03`, because that’s where a fake “done” status would show up.
+
+# gpt-5.4_2026-03-29_1122_23
+
+I’ve read the `05` branch contents. It looks coherent, but I’m doing the stronger check now: validating the live working-tree Turtle files and diffing the working files against their latest historical-state copies. That’s the bar that decides whether `05` stays checked off.
+
+# gpt-5.4_2026-03-29_1122_35
+
+`05` clears the stronger checks: the relevant Turtle files validate, the working files equal their latest historical-state copies, and the expected `alice`/Knop pages exist. I’m updating the task note to make that explicit, then I’m moving into `06-alice-bio-integrated`.
+
+# gpt-5.4_2026-03-29_1122_46
+
+I’ve got the next design constraint: `05` really is complete, so the task note should say that more clearly. For `06`, I’m checking one remaining modeling choice from the earlier discussion: whether integration should keep `alice-bio.ttl` as the working payload file at repo root or relocate it under `alice/bio/`. That choice changes the branch shape.
+
+# gpt-5.4_2026-03-29_1123_14
+
+I’ve confirmed `05` is genuinely done, so I’m not going to uncheck it. I’m patching the task note to record the actual acceptance criteria we just verified, including the decision that `alice/index.html` appears in the woven branch even before any payload is integrated.
+
+# gpt-5.4_2026-03-29_1124_54
+
+I’m taking the next step as `06-alice-bio-integrated` with one explicit assumption: integration keeps the working payload bytes in the existing root [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl) and makes that file the working `LocatedFile` for the new `alice/bio` payload artifact. That is the cleanest fit with the earlier decisions and avoids gratuitous file relocation in the non-woven branch.
+
+# gpt-5.4_2026-03-29_1125_09
+
+I’m editing the actual `06` branch now. The branch shape is intentionally sparse: new `alice/bio` payload and Knop surfaces, mesh inventory updated to know about them, but no histories or generated pages yet because this is integrate, not weave.
+
+# gpt-5.4_2026-03-29_1125_33
+
+The `06` draft is in place. I’m validating the new RDF before I touch the task checklist; if the shape is wrong, I’d rather catch it here than mark `06` done on bad data.
+
+# gpt-5.4_2026-03-29_1125_41
+
+`06` validates cleanly. I’m updating the task note with the integration choice we just used, then I’ll confirm the new branch status and hand back the concrete result.
+
+# gpt-5.4_2026-03-29_1125_55
+
+The task note is aligned with the actual `06` decision now. I’m checking the new branch’s working-tree status so I can summarize exactly what changed and avoid implying anything got committed when it hasn’t.
+
+# gpt-5.4_2026-03-29_1126_10
+
+I checked `05` rather than trusting the checkbox. It is genuinely done, so I did not uncheck it.
+
+What I verified for `05`:
+- [alice/_knop/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) matches its latest-state copy exactly
+- [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) matches its latest-state copy exactly
+- [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) matches `_s0002` exactly
+- the expected pages exist, including [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html)
+- `riot --validate` passed on the relevant `05` Turtle files
+
+I updated [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) to record that `05` completion criterion explicitly and to capture the decision that `alice/index.html` appears in the woven branch even before payload integration.
+
+I then proceeded to `06` and created branch `06-alice-bio-integrated`. The current draft does this:
+- updates [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) to include `alice/bio` and `alice/bio/_knop`
+- adds [alice/bio/_knop/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_meta/meta.ttl)
+- adds [alice/bio/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl)
+- keeps the working payload bytes in the existing root [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl), now associated as the working `LocatedFile` for `alice/bio`
+
+Validation for `06` so far:
+- `riot --validate` passed for the updated [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl)
+- `riot --validate` passed for [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_meta/meta.ttl)
+- `riot --validate` passed for [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl)
+
+Current uncommitted `06` branch state in `mesh-alice-bio` is:
+- modified [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl)
+- new `alice/bio/` tree
+
+The task note now also marks `06` done on that basis. If you want, the next move is `07-alice-bio-integrated-woven`, or I can give you commit messages first.
+
+# djradon_2026-03-30_0941_44
+
+Should we create the 05-...jsonld file in the sff repo under slice-bio/conformance
+
+# gpt-5.4_2026-03-30_0942_08
+
+Yes, in [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md)’s scheme, `05-alice-knop-created-woven.jsonld` belongs in the framework repo under [examples/alice-bio/conformance](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance), not in the fixture repo branches.
+
+Two reasons:
+- `05` is a settled transition now, so it meets the bar we set for authoring manifests.
+- `05` is the first Knop weave, so it is a good conformance case for history creation, generated pages, and mesh-inventory advancement.
+
+One correction: the folder should be `alice-bio/conformance`, not `slice-bio/conformance`.
+
+If you want, I can create [05-alice-knop-created-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/05-alice-knop-created-woven.jsonld) next.
+
+# djradon_2026-03-30_0947_08
+
+yes please, and add the conformance file create to the task item steps moving forward. So you can do 06 now too?
+
+# gpt-5.4_2026-03-30_0947_20
+
+I’m extending the conformance set to cover `05` and `06`, and I’ll update the task notes so future branch steps explicitly include the matching conformance manifest work instead of treating it as a separate afterthought.

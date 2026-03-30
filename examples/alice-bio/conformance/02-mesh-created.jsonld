@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:02-mesh-created",
+  "dcterms:title": "Alice Bio 02 mesh created",
+  "dcterms:description": "Checks the transition from plain source RDF to the first mesh-managed state with mesh metadata and inventory.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#mesh-create",
+      "dcterms:title": "Create mesh support artifacts",
+      "dcterms:description": "Adds the first _mesh metadata and inventory files while leaving the root source RDF unchanged.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "mesh.create",
+      "fromRef": "01-source-only",
+      "toRef": "02-mesh-created",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-ttl",
+          "type": "FileExpectation",
+          "path": "alice-bio.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-meta-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> a <https://schema.org/Person> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-meta-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> a <https://semantic-flow.github.io/semantic-flow-ontology/SemanticMesh> ; <https://semantic-flow.github.io/semantic-flow-ontology/meshBase> \"https://semantic-flow.github.io/mesh-alice-bio/\"^^<http://www.w3.org/2001/XMLSchema#anyURI> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_meta> a <https://semantic-flow.github.io/semantic-flow-ontology/MeshMetadata> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_meta> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_meta> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_meta/meta.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

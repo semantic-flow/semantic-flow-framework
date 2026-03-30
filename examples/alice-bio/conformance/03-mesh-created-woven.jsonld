@@ -1,0 +1,232 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:03-mesh-created-woven",
+  "dcterms:title": "Alice Bio 03 mesh created woven",
+  "dcterms:description": "Checks the first weave over the mesh-created state, including histories, snapshot Turtle files, generated pages, and the GitHub Pages publishing guard.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-mesh-created",
+      "dcterms:title": "Weave mesh support artifacts",
+      "dcterms:description": "Versions and generates the mesh support artifacts while leaving the plain source RDF unchanged.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "02-mesh-created",
+      "toRef": "03-mesh-created-woven",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-ttl",
+          "type": "FileExpectation",
+          "path": "alice-bio.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-meta-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/meta.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#nojekyll",
+          "type": "FileExpectation",
+          "path": ".nojekyll",
+          "changeType": "added",
+          "compareMode": "bytes"
+        },
+        {
+          "id": "#mesh-index",
+          "type": "FileExpectation",
+          "path": "_mesh/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-history-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-state-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-manifestation-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/_history001/_s0001/meta-ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-history-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-state-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-manifestation-index",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/_history001/_s0001/inventory-ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/_history001/_s0001/inventory-ttl/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> a <https://schema.org/Person> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-meta-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingMeshInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshInventory> ?inventory . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory> <https://semantic-flow.github.io/semantic-flow-ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0001> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/index.html> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-meta-snapshot-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-meta-snapshot-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ]
+        },
+        {
+          "id": "#mesh-inventory-snapshot-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-snapshot-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ]
+        }
+      ]
+    }
+  ]
+}
