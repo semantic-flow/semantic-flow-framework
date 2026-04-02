@@ -51,15 +51,15 @@
     "meshBase": "https://example.org/",
     "meshIri": "https://example.org/_mesh",
     "designatorPaths": [
-      "alice/bio"
+      "alice"
     ]
   },
   "result": {
     "created": [
-      "https://example.org/alice/bio/_knop/_references/orcid-0000-0002-1825-0097"
+      "https://example.org/alice/_references/orcid-0000-0002-1825-0097"
     ],
     "updated": [
-      "https://example.org/alice/bio/_knop"
+      "https://example.org/alice/_knop"
     ]
   }
 }

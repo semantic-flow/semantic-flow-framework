@@ -4059,3 +4059,167 @@ So I would update the task note decision to:
 - but only one `ReferenceCatalog` per owner in this pass
 
 That is the cleaner first implementation.
+
+# djradon_2026-04-02_1253_35
+
+I think the task note already captures that. You can proceed with the task.
+
+# gpt-5.4_2026-04-02_1253_50
+
+I’m executing the ReferenceCatalog task in order: core ontology and SHACL first, then docs, then the Alice Bio `08` refactor and matching conformance updates.
+
+# gpt-5.4_2026-04-02_1254_25
+
+I’ve got the implementation shape. Next I’m patching the ontology and SHACL first, then I’ll update the Alice Bio `08` branch to use `alice/_references/references.ttl` and rewrite the `08` manifest around that.
+
+# gpt-5.4_2026-04-02_1254_44
+
+I’m patching the ontology core now: remove `ReferentMetadata`, add `ReferenceCatalog`, and tighten SHACL so only Knops and Meshes can own it without bringing back a fake superclass.
+
+# gpt-5.4_2026-04-02_1256_25
+
+I’m validating the new `ReferenceCatalog` direction against the ontology and the current `08` fixture state, then I’ll patch the ontology/docs first and refactor `08` plus its conformance manifest around the new artifact.
+
+# gpt-5.4_2026-04-02_1256_40
+
+I’ve got the ontology and SHACL partially patched already. Next I’m checking for lingering `ReferentMetadata` references and then I’ll finish the doc updates before I refactor `08` and `09` around `ReferenceCatalog`.
+
+# gpt-5.4_2026-04-02_1256_54
+
+I found the core consistency issue from the last partial patch: SHACL still has the new catalog shapes, but the docs and the Alice Bio `08` branch are still on the old inventory-held-link model. I’m reading the exact sections now so I can patch them consistently in one pass.
+
+# gpt-5.4_2026-04-02_1257_02
+
+The ontology summary and both task notes still assume the old inventory-held-link model. I’m validating the current ontology/SHACL edits now and then I’ll patch the `08` branch to move the link into a new `ReferenceCatalog` artifact instead of trying to paper over it in docs.
+
+# gpt-5.4_2026-04-02_1257_49
+
+I’m making one judgment call here: I’m treating “one ReferenceCatalog per owner” as settled for this pass, because SHACL already has `maxCount 1` and that keeps the model from drifting into arbitrary catalog partitioning before there’s a real use case.
+
+# gpt-5.4_2026-04-02_1258_06
+
+I found one more ripple effect: the framework’s standalone API examples already mention reference resources under `.../_knop/_references/...`, which no longer matches the model we just chose. I’m checking those now so we don’t leave an obvious contradiction behind.
+
+# gpt-5.4_2026-04-02_1259_13
+
+I’ve got the shape now. I’m patching the ontology/task docs and the `08` fixture together so the model, the example branch, and the manifest all agree on the same artifact: `alice/_references/references.ttl`.
+
+# gpt-5.4_2026-04-02_1300_41
+
+The big patch tripped over itself. I’m splitting it into smaller edits now so I can land the ontology/docs changes cleanly before I touch the fixture files and manifests.
+
+# gpt-5.4_2026-04-02_1303_01
+
+The main semantic shift is applied now. I’m running targeted searches and validations next to catch any lingering old-model references like `hasReferentMetadata` or `referenceLinkFor <alice/_knop>` before I close this out.
+
+# gpt-5.4_2026-04-02_1303_19
+
+The remaining work is validation and one quick sanity pass over the `08` branch shape. If the manifest or the new `alice/_references/references.ttl` file is off, it’ll show up now.
+
+# gpt-5.4_2026-04-02_1303_34
+
+The syntax checks all passed. I’m doing one last SHACL pass against the actual `08` data files so the new `hasReferenceCatalog` and `referenceLinkFor` constraints are exercised on real example data, not just on the ontology and Accord manifest.
+
+# gpt-5.4_2026-04-02_1303_45
+
+The inventory-only SHACL run failed exactly where we expected: `alice/_knop/_inventory/inventory.ttl` is intentionally not owner-complete by itself because `designatorPath` lives in Knop metadata. I’m rerunning against the merged Knop graph so we confirm the model is coherent rather than just rediscovering that document-role split.
+
+# gpt-5.4_2026-04-02_1304_03
+
+I’m doing one final status pass so I can separate the intentional ReferenceCatalog changes from the unrelated edits that were already sitting in the worktrees.
+
+# gpt-5.4_2026-04-02_1304_32
+
+**Done**
+
+Implemented the `ReferenceCatalog` shift across ontology, fixture, and conformance.
+
+Ontology/docs:
+- Added `ReferenceCatalog` / `hasReferenceCatalog` and removed `ReferentMetadata` / `hasReferentMetadata` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl).
+- Tightened SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld) so `referenceLinkFor` must not point at a `Knop`, and `hasReferenceCatalog` is allowed for `Knop` or `SemanticMesh` with `maxCount 1`.
+- Updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md), and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+
+Alice Bio / framework:
+- Refactored `08` so the Knop inventory now points to a catalog in [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl), and the actual link lives in the new [alice/_references/references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl).
+- Updated the fixture task note at [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) so `08` introduces a `ReferenceCatalog` and `09` will weave it.
+- Updated the conformance/task side in [08-alice-bio-referenced.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/08-alice-bio-referenced.jsonld) and [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md).
+- Also fixed the framework API examples in [reference-link.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/reference-link.jsonld) and [job-succeeded.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/job-succeeded.jsonld) so they no longer use the old `_knop/_references` path.
+
+**Validation**
+
+Passed:
+- `riot --validate` on [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl)
+- `jq empty` and `riot --validate` on [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld)
+- `riot --validate` on [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) and [alice/_references/references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl)
+- `riot --validate` and Accord SHACL on [08-alice-bio-referenced.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/08-alice-bio-referenced.jsonld)
+- `riot --validate` on the two updated API example JSON-LD files
+- Core SHACL on the merged Knop graph: [alice/_knop/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/meta.ttl) + [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) + [alice/_references/references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl)
+
+One nuance:
+- [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) alone still fails core SHACL on `designatorPath`, which is expected because that file is intentionally not owner-complete by itself; the merged Knop graph conforms.
+
+Unrelated existing edits I left alone:
+- [alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl)
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+
+Next natural step is `09-alice-bio-referenced-woven`, now weaving `alice/_references`.
+
+# djradon_2026-04-02_1314_02
+
+I'm mildly concerned about hasReferenceLink/referenceLinkFor -- the require an IRI but composability/transposability might prefer a designatorPath.
+
+# gpt-5.4_2026-04-02_1314_20
+
+I’d keep `hasReferenceLink` / `referenceLinkFor` IRI-based.
+
+Reason:
+- they are semantic relations about resources, not naming shortcuts
+- if `referenceLinkFor` became a `designatorPath`, you lose the clean inverse with `hasReferenceLink`
+- `designatorPath` is Knop-specific and mesh-relative; `referenceLinkFor` should still work for mesh-owned catalogs and other non-Knop subjects
+
+The stronger answer to your composability concern is serialization, not ontology:
+- keep the model as IRIs
+- in Turtle, use `@base` plus relative IRIs like `<alice>` rather than absolute IRIs where possible
+
+That gives you rebasing/transposability without weakening the relation.
+
+If you still want a path-level hook, I would make it a separate optional convenience property, not a replacement. Something like:
+- `referenceLinkForDesignatorPath`
+
+But I would only add that if you hit a concrete use case the relative-IRI approach cannot handle. Right now I don’t think the core model needs it.
+
+# djradon_2026-04-02_1315_55
+
+OK, commit messages for the sff changes and mesh-alice-bio changes
+
+# gpt-5.4_2026-04-02_1316_11
+
+Use these, and stage selectively.
+
+For `semantic-flow-framework`:
+
+```text
+Align 08 reference examples with ReferenceCatalog model
+
+- update 08-alice-bio-referenced conformance to expect a dedicated alice/_references/references.ttl artifact
+- model the alice Knop as owning a ReferenceCatalog rather than storing ReferenceLinks in Knop inventory
+- assert that the ReferenceLink is about <alice> and targets <alice/bio>
+- update alice-bio API examples to use the new alice/_references path shape
+- clarify in the conformance task note that 08 uses a ReferenceCatalog artifact
+```
+
+For `mesh-alice-bio`:
+
+```text
+Use ReferenceCatalog for alice references in 08 branch
+
+- remove the inventory-local ReferenceLink pattern from alice/_knop/_inventory/inventory.ttl
+- attach a ReferenceCatalog to alice/_knop via hasReferenceCatalog
+- add alice/_references/references.ttl as the working RDF file for the new ReferenceCatalog artifact
+- move the canonical ReferenceLink into alice/_references/references.ttl
+- make referenceLinkFor point to <alice> instead of the Knop support object
+```
+
+Two files to avoid staging by accident:
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl)

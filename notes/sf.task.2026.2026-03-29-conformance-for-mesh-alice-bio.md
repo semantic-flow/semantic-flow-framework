@@ -32,6 +32,8 @@ The first wave should cover the earliest completed transitions through `08-alice
 
 Subsequent manifests should be added as each later transition is modeled and reviewed.
 
+In the active model, `08-alice-bio-referenced` introduces a dedicated `ReferenceCatalog` artifact for `alice`; the manifest should not treat `ReferenceLink`s as Knop-inventory-local data.
+
 ## Discussion
 
 This work is not the public OpenAPI contract. It is a separate behavior/conformance layer that says what a Semantic Flow operation is expected to do to fixture state.
