@@ -4223,3 +4223,343 @@ Use ReferenceCatalog for alice references in 08 branch
 Two files to avoid staging by accident:
 - [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
 - [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl)
+
+# djradon_2026-04-02_1318_45
+
+Is there a way in TTL to specify and re-use a context? I think you can do that in JSONLD, would save rewriting all the @base declarations in every file if you needed to transpose.
+
+# gpt-5.4_2026-04-02_1318_59
+
+Not in standard Turtle, no.
+
+Turtle has:
+- `@base`
+- `@prefix`
+
+But those are per-document syntax directives. There is no standard equivalent of JSON-LD’s reusable external `@context`.
+
+A few important implications:
+
+- You cannot “import” prefix/base declarations into another `.ttl` file.
+- `owl:imports` imports RDF data, not Turtle syntax settings.
+- If you want transposability, hard-coding `@base` is the thing that hurts.
+
+Better options:
+
+1. Omit `@base` when possible.
+If a Turtle file is parsed from a real document URI, relative IRIs resolve against that document URI automatically. That is often the cleanest rebasing story.
+
+2. Keep `@base`, but generate it.
+Use templates or a build step so the base can be injected.
+
+3. Prefer relative IRIs plus stable file layout.
+That gives you most of the composability benefit without needing a shared context mechanism.
+
+4. If reusable context is a priority, JSON-LD is better for that specific concern.
+
+So the short answer is:
+- JSON-LD: yes, reusable external context
+- Turtle: no, not natively
+
+For your use case, I’d probably favor “omit `@base` unless you really need to pin resolution semantics.”
+
+# djradon_2026-04-02_1321_48
+
+[meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/_s0001/meta-ttl/meta.ttl) got an accidental space on the first line, corrected now. Where in git history did that happen.
+
+# gpt-5.4_2026-04-02_1322_01
+
+I’m checking the file’s commit history and blame so I can tell you exactly which commit introduced the leading space on line 1.
+
+# gpt-5.4_2026-04-02_1322_12
+
+I found the file’s lineage, but I’m checking the raw bytes now because the ordinary diffs don’t show any committed leading space on line 1. It may be that the stray space was only ever in your uncommitted working copy.
+
+# gpt-5.4_2026-04-02_1322_18
+
+No committed revision of that file ever had a leading space on line 1.
+
+What I checked:
+- file history:
+  - `0275d61` `Simulate weave for mesh support artifacts in 03-mesh-created-woven`
+  - `626fd10` `Align woven working files with latest historical state`
+  - `1e70f11` `Introduce direct inventory-file shortcuts and tighten metadata/inventory split`
+- raw first-line bytes for `0275d61`, `626fd10`, `1e70f11`, `HEAD`, and your current working tree
+
+All of them start with byte `40`, which is `@`, not `20` space.
+
+So:
+- the file was introduced in commit `0275d61ecca4ee3928ae14bafee809c5c622b2cb`
+- but the accidental leading space was not committed anywhere in git history
+- it looks like it only existed in the local working copy before you corrected it
+
+There is also currently no git diff for that file, so your correction matches `HEAD` exactly.
+
+# djradon_2026-04-02_1323_34
+
+/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl had to have had a commit with the initial space.
+
+# gpt-5.4_2026-04-02_1323_49
+
+I checked the wrong file before. You’re pointing at the `alice/_knop/...` historical meta file, so I’m checking that file’s history and raw first-line bytes now.
+
+# gpt-5.4_2026-04-02_1323_56
+
+Yes. You were right. I checked the wrong file before.
+
+For [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/_s0001/meta-ttl/meta.ttl), the leading space on line 1 was introduced in commit `34ede2b81442287e0e926524398c51eab35cc18d`:
+
+`feat: Use ReferenceCatalog for alice references in 08 branch`
+
+The diff in that commit shows exactly this:
+
+```diff
+-@base <https://semantic-flow.github.io/mesh-alice-bio/> .
++ @base <https://semantic-flow.github.io/mesh-alice-bio/> .
+```
+
+The previous committed version in `a30bfa4` did not have the space, and your current working copy no longer has it either.
+
+# djradon_2026-04-02_1328_59
+
+commit message for ontology changes please.
+
+OK, I think we are ready to move on to 09. @sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md kinda stopped at 08, so let's be aware of that... do we have to settle a fixture transition? There's some redundnacy with [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md) too?
+
+# gpt-5.4_2026-04-02_1329_31
+
+Use this for the `ontology` repo:
+
+```text
+Replace ReferentMetadata with ReferenceCatalog
+
+- remove ReferentMetadata and hasReferentMetadata from the live core
+- add ReferenceCatalog and hasReferenceCatalog
+- keep ReferenceCatalog narrow and mechanical for ReferenceLink relators only
+- enforce valid ReferenceCatalog owners in SHACL for Knop or SemanticMesh
+- require referenceLinkFor to point to the actual subject resource rather than a Knop support object
+- document the new model in the core summary, decision log, Alice Bio use case, and ReferenceCatalog task note
+```
+
+On `09`: yes, we should settle the `08 -> 09` fixture transition before writing the `09` manifest, but we do not need another task note. The three notes already have distinct jobs:
+
+- [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md): ontology-side delta and rationale
+- [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md): fixture branch semantics
+- [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md): conformance-manifest rollout
+
+The overlap is acceptable if we keep each one narrow. I would not create a fourth note.
+
+My recommendation for the settled `09` transition is:
+
+- weave the new `alice/_references` artifact
+- create `alice/_references/_history001/_s0001/...`
+- version `alice/_knop/_inventory` to a new latest state, because `08` changed that working file
+- generate ResourcePages for `alice/_references`, its history, its first state, and its Turtle manifestation
+- do not widen mesh inventory to catalog the internal `alice/_references` surface, unless you now want mesh inventory to track Knop internals more aggressively
+
+And yes, [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) should be extended as part of `09` work, since it intentionally stopped at the first eight manifests.
+
+# djradon_2026-04-02_1338_11
+
+Agreed, do not widen mesh inventory. references are per-knop. 
+
+Do you want to discuss any other open issues or other concerns with me?
+
+# gpt-5.4_2026-04-02_1338_36
+
+Only one real concern before `09`.
+
+I think `09-alice-bio-referenced-woven` should **not** advance [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl). If references are per-Knop and mesh inventory does not catalog Knop internals, then weaving `08` should only affect:
+
+- [alice/_references/references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl) and its new `_history001/_s0001`
+- [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl), because `08` changed that working file
+
+and then generate pages for the new `alice/_references` surface.
+
+That is a bit less uniform than earlier woven steps, but it is cleaner. Otherwise mesh inventory starts drifting toward tracking Knop internals by implication.
+
+Minor choice only:
+- I’d name the first manifestation path `references-ttl`, not something longer.
+
+If you agree with that asymmetry, I think we’re clear to proceed.
+
+# djradon_2026-04-02_1340_38
+
+references-ttl is the right manifestation path. 
+
+I agree, we don't want to advance mesh inventory any more that necessary. Have we made a mistake in earlier weavings where we advanced the mesh history unnecessarily?
+
+# gpt-5.4_2026-04-02_1340_58
+
+I’m comparing the mesh inventory history steps directly so I can answer this from the actual fixture, not just from the intended model.
+
+# gpt-5.4_2026-04-02_1341_11
+
+I don’t think so.
+
+From the actual mesh inventory history:
+
+- `s0001 -> s0002` added mesh-visible surface for `alice`
+  - `_mesh hasKnop <alice/_knop>`
+  - `alice/index.html`
+  - `alice/_knop/index.html`
+  - pointer to `alice/_knop/_inventory/inventory.ttl`
+
+- `s0002 -> s0003` added mesh-visible surface for `alice/bio`
+  - `_mesh hasKnop <alice/bio/_knop>`
+  - `alice/bio` as payload artifact
+  - `alice/bio/index.html`
+  - `alice/bio/_knop/index.html`
+  - pointer to `alice/bio/_knop/_inventory/inventory.ttl`
+
+Those are real changes to the mesh’s current-surface map, so advancing mesh inventory in `05` and `07` was justified.
+
+`09` is different. If `alice/_references` is per-Knop internal support state and mesh inventory does not catalog Knop internals, then weaving `08` should not advance mesh inventory. It should only advance:
+
+- `alice/_knop/_inventory`
+- `alice/_references`
+
+So my read is:
+
+- `03`: correct to advance mesh inventory
+- `05`: correct to advance mesh inventory
+- `07`: correct to advance mesh inventory
+- `09`: should not advance mesh inventory under the rule we just settled
+
+The only caveat would be if we later decide mesh inventory should expose all owner-level support artifacts. But with the current boundary, earlier weavings were fine.
+
+# djradon_2026-04-02_1342_42
+
+OK, proceed then.
+
+# gpt-5.4_2026-04-02_1343_04
+
+I’m checking the current repo state first so I don’t write `09` onto the wrong branch or trample the still-uncommitted `08` cleanup. Then I’ll weave only the `alice/_references` artifact and advance `alice/_knop/_inventory`, leaving mesh inventory alone.
+
+# gpt-5.4_2026-04-02_1343_27
+
+I’ve got the semantic shape. Now I’m checking the existing generated HTML patterns so the new `alice/_references` pages and the advanced Knop-inventory state don’t drift stylistically from the earlier woven branches.
+
+# gpt-5.4_2026-04-02_1344_09
+
+I’m filling in the exact `09` shape now: Knop inventory gets a second state, the new `ReferenceCatalog` gets its first history/state/manifestation, and only the new reference-catalog pages are generated. I’m checking the existing inventory history-page wording once so the new HTML doesn’t read like a different generator.
+
+# gpt-5.4_2026-04-02_1344_37
+
+I’m checking the existing woven-manifest naming before I write `09`, so the new manifest uses the same operation ID and expectation pattern as `03`, `05`, and `07` instead of inventing a one-off.
+
+# gpt-5.4_2026-04-02_1344_54
+
+I’m editing the `09` branch now. The main file is `alice/_knop/_inventory/inventory.ttl`; once that’s right, the rest is mostly the new state snapshot, the reference-catalog snapshot, and the generated pages around them.
+
+# gpt-5.4_2026-04-02_1346_17
+
+I’ve got the `09` artifact state in place. Next I’m writing the matching manifest and updating the three notes that now need to acknowledge `09`: the fixture task, the conformance task, and the ReferenceCatalog task.
+
+# gpt-5.4_2026-04-02_1347_34
+
+The `09` files are in place. I’m validating the two invariant bits now: working `references.ttl` must equal its first historical snapshot, and working Knop inventory must equal its new `_s0002` snapshot, while the new `09` manifest itself must pass Accord SHACL.
+
+# gpt-5.4_2026-04-02_1348_42
+
+Proceeding with `09` verification first. I’ve already applied the `ReferenceCatalog` weave changes; now I’m checking the remaining validators before I close out the branch state.
+
+# gpt-5.4_2026-04-02_1348_47
+
+Validation is clean so far. I’m checking repo state now to make sure `09` only touched the files we intended, especially that mesh inventory stayed untouched.
+
+# gpt-5.4_2026-04-02_1349_04
+
+`09-alice-bio-referenced-woven` is done.
+
+In `mesh-alice-bio`, I wove the new reference artifact without advancing mesh inventory:
+- updated [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) to advance the Knop inventory history to `_s0002`
+- added the first historical snapshot for the catalog at [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/_history001/_s0001/references-ttl/references.ttl)
+- added generated pages under [alice/_references/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/index.html)
+- left [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) untouched, as agreed
+
+In `semantic-flow-framework`, I added [09-alice-bio-referenced-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/09-alice-bio-referenced-woven.jsonld) and extended the rollout notes in [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) and [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md). I also updated the fixture/ontology task notes at [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+
+Verification passed:
+- `diff -u` confirms working/latest equality for the woven reference catalog and updated Knop inventory
+- `riot --validate` passed for the new/updated Turtle files
+- Accord SHACL passed for [09-alice-bio-referenced-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/09-alice-bio-referenced-woven.jsonld)
+- core SHACL passed on the merged `alice` graph
+
+Current repo state:
+- `mesh-alice-bio`: only intended `09` changes are present
+- `semantic-flow-framework`: intended `09` changes are present, plus an unrelated existing edit in [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+- `ontology`: only the updated task note is modified
+
+Next step is `10-alice-bio-updated`.
+
+# djradon_2026-04-02_1402_58
+
+detailed commit messages for sff and mesh-alice-bio please.
+
+# gpt-5.4_2026-04-02_1403_10
+
+For `semantic-flow-framework`:
+
+```text
+Add 09 conformance for woven alice ReferenceCatalog
+
+- add 09-alice-bio-referenced-woven.jsonld for the transition from 08-alice-bio-referenced
+- model 09 as a weave of the per-Knop ReferenceCatalog rather than a mesh-level change
+- assert that _mesh/_inventory/inventory.ttl remains unchanged across 08 -> 09
+- assert that alice/_knop/_inventory/inventory.ttl advances to a new latest historical state
+- assert that alice/_references/references.ttl remains byte-identical to its first historical-state snapshot
+- assert that 09 generates the ReferenceCatalog history/state/manifestation pages under alice/_references
+
+- update the conformance README to include the 09 manifest
+- extend the mesh-alice-bio conformance task note through 09
+- record that post-ReferenceCatalog woven transitions should not widen mesh inventory when only Knop-internal support artifacts change
+```
+
+For `mesh-alice-bio`:
+
+```text
+Weave alice ReferenceCatalog in 09-alice-bio-referenced-woven
+
+- weave the new alice/_references support artifact introduced in 08
+- add alice/_references/_history001 with first state _s0001
+- add the first historical Turtle manifestation at:
+  alice/_references/_history001/_s0001/references-ttl/references.ttl
+- keep the working references.ttl file byte-identical to that first historical-state snapshot
+
+- advance alice/_knop/_inventory to reflect the woven reference-catalog surface
+- add a new latest historical state at:
+  alice/_knop/_inventory/_history001/_s0002
+- set latestHistoricalState to _s0002 and nextStateOrdinal to 3
+- keep the working alice/_knop/_inventory/inventory.ttl file byte-identical to the _s0002 snapshot
+
+- generate ResourcePages for the new ReferenceCatalog surface:
+  alice/_references/index.html
+  alice/_references/_history001/index.html
+  alice/_references/_history001/_s0001/index.html
+  alice/_references/_history001/_s0001/references-ttl/index.html
+- generate ResourcePages for the new woven KnopInventory state:
+  alice/_knop/_inventory/_history001/_s0002/index.html
+  alice/_knop/_inventory/_history001/_s0002/inventory-ttl/index.html
+
+- do not advance mesh inventory
+- keep _mesh/_inventory/inventory.ttl unchanged because references are per-Knop internal support state
+- keep mesh inventory out of Knop-internal ReferenceCatalog history tracking
+
+Validated with:
+- diff -u confirms working references.ttl equals latest-state references.ttl
+- diff -u confirms working alice/_knop/_inventory/inventory.ttl equals latest-state _s0002 snapshot
+- riot --validate on the updated and new Turtle files
+- core SHACL on the merged alice graph
+```
+
+Avoid staging this unrelated framework file:
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+
+# djradon_2026-04-02_1406_12
+
+should we be storing the state (and history) ordinality with the state? i.e., so you can know without computing which ordinality a given state was?
+
+# gpt-5.4_2026-04-02_1406_20
+
+I’m checking the current history-related terms in the ontology first so I can answer against the model you actually have, not just the design discussion.
