@@ -13,6 +13,7 @@ Current naming:
 - `05-alice-knop-created-woven.jsonld` means `04-alice-knop-created` -> `05-alice-knop-created-woven`
 - `06-alice-bio-integrated.jsonld` means `05-alice-knop-created-woven` -> `06-alice-bio-integrated`
 - `07-alice-bio-integrated-woven.jsonld` means `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`
+- `08-alice-bio-referenced.jsonld` means `07-alice-bio-integrated-woven` -> `08-alice-bio-referenced`
 
 Conventions used here:
 

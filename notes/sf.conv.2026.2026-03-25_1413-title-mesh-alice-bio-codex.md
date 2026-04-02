@@ -3577,3 +3577,485 @@ simple commit message please
 ```text
 Weave integrated alice/bio state and add 07 conformance manifest
 ```
+
+# djradon_2026-03-30_1116_30
+
+OK, proceed with 08?
+
+# gpt-5.4_2026-03-30_1116_45
+
+I’m checking the current branch and the existing ReferenceLink vocabulary first, then I’ll apply the minimal `08-alice-bio-referenced` state rather than guessing the shape.
+
+# gpt-5.4_2026-03-30_1116_49
+
+I’ve got the right branch. The only remaining design choice is how explicit the `ReferenceLink` itself should be in `08`; I’m reading the ontology section now so I don’t invent a half-shape that we’ll need to undo in `09`.
+
+# gpt-5.4_2026-03-30_1117_01
+
+The ontology says the real semantic minimum is `hasReferenceLink` plus a `ReferenceLink` with `referenceTarget`; `referenceUriLiteral` is optional. I’m searching for any existing naming pattern before I mint the first link IRI in `08`.
+
+# gpt-5.4_2026-03-30_1117_26
+
+I’m making `08` as small as possible: update only the `alice` Knop inventory to add one canonical `ReferenceLink` targeting `alice/bio`, then I’ll validate and write the matching manifest.
+
+# gpt-5.4_2026-03-30_1117_37
+
+The branch change is in. I’m validating the updated Knop inventory and then drafting the `08` manifest around that exact minimal diff.
+
+# gpt-5.4_2026-03-30_1117_40
+
+The `08` branch itself is valid. I’m writing the manifest as a very small transition: only `alice/_knop/_inventory/inventory.ttl` changes, and the reference shows up there without any new histories or pages.
+
+# gpt-5.4_2026-03-30_1118_10
+
+The `08` manifest is drafted. I’m validating both the branch RDF and the new Accord file now, then I’ll mark `08` done in the two task notes.
+
+# gpt-5.4_2026-03-30_1118_15
+
+The branch side is good. I’m waiting on the Accord validation now; if that passes, I’ll patch the task notes to keep `08` and its manifest in lockstep.
+
+# gpt-5.4_2026-03-30_1118_15
+
+`08` conforms. I’m updating the task notes now so the branch, the manifest, and the checklist all agree.
+
+# gpt-5.4_2026-03-30_1118_40
+
+`08-alice-bio-referenced` is done.
+
+I kept it minimal:
+- updated [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) to add one canonical `ReferenceLink` from `alice/_knop` to [alice/bio](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio)
+- left mesh inventory and pages alone
+- added [08-alice-bio-referenced.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/08-alice-bio-referenced.jsonld)
+- updated the conformance index at [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md)
+- updated both task notes at [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) and [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md)
+
+Validation passed:
+- `riot --validate` for the updated Knop inventory
+- `riot --validate` for the new `08` manifest
+- `shacl validate` for the new `08` manifest
+
+Next step is `09-alice-bio-referenced-woven`.
+
+# djradon_2026-03-30_1134_54
+
+Sorry, I forgot... I wanted to invent a ReferentReferences artifact that hangs off a Knop to keep the ReferenceLinks. What's a better name than ReferentReferences ?
+
+# gpt-5.4_2026-03-30_1135_01
+
+`ReferentReferences` is too awkward.
+
+Better options, in order:
+
+- `ReferenceCatalog`
+- `ReferenceIndex`
+- `ReferenceSet`
+
+My recommendation is `ReferenceCatalog`.
+
+Why:
+- it reads like a managed artifact, not just a bag of triples
+- it fits the existing artifact pattern better than `...References`
+- it does not over-assert ordering or lookup semantics the way `Index` can
+- it avoids the redundancy of “referent references”
+
+If you want the name to stay explicitly Knop-scoped, then:
+- `KnopReferenceCatalog`
+
+I would not put `referent` in the class name unless you are contrasting multiple kinds of references, because the Knop context already tells you what the references are about.
+
+So my recommendation is:
+- class: `ReferenceCatalog`
+- relation from `Knop`: `hasReferenceCatalog`
+
+That is much cleaner than `ReferentReferences`.
+
+# djradon_2026-03-30_1148_54
+
+It's explicitly not about the Knop. It's about the Referent. But I think ReferenceCatalog may be better than ReferentLinks. Would we have any other links other than ReferenceLinks? Maybe sameAs et al?
+
+Which reminds me, referenceLinkFor shouldn't be <alice/_knop>, it should just be <alice>, right?
+
+# gpt-5.4_2026-03-30_1149_12
+
+Yes. `referenceLinkFor` should be `<alice>`, not `<alice/_knop>`.
+
+And I’d go one step further: if the link is about the referent, then the main relation should also be on `<alice>`:
+
+```ttl
+<alice> sflo:hasReferenceLink <alice/_knop/_reference001> .
+
+<alice/_knop/_reference001> a sflo:ReferenceLink ;
+  sflo:referenceLinkFor <alice> ;
+  sflo:hasReferenceRole <sflo:ReferenceRole/Canonical> ;
+  sflo:referenceTarget <alice/bio> .
+```
+
+The Knop can still own the support artifact that stores those links, but the links themselves should be about the referent.
+
+On naming: if this artifact is specifically for `ReferenceLink`s, `ReferenceCatalog` is better than `ReferentLinks` or `ReferentReferences`.
+
+I would not broaden it preemptively for `owl:sameAs` and similar relations. Those are not the same thing:
+- `ReferenceLink` is a managed reference-data relation
+- `owl:sameAs` is a semantic identity assertion
+
+So my recommendation is:
+- artifact/class: `ReferenceCatalog`
+- if you want the “about the referent” idea explicit: `ReferentReferenceCatalog`
+- but plain `ReferenceCatalog` is probably enough
+
+If you want, I can patch `08` now so the link is attached to `<alice>` semantically, and then we can decide whether to refactor `09` around a new `ReferenceCatalog` artifact.
+
+# djradon_2026-03-30_1202_21
+
+Let's settle on the ontology changes first. It's analagous to KnopInventory but it's about the referent. sameAs works because it's also about the referent.
+
+# gpt-5.4_2026-03-30_1202_29
+
+I’m checking the current core around `KnopInventory`, `SemanticFlowResource`, and the reference terms so I can propose the smallest coherent ontology delta instead of a fresh parallel subsystem.
+
+# gpt-5.4_2026-03-30_1202_55
+
+I’ve got enough context. I’m checking the nearby artifact-slot pattern once more so the proposed property names line up with `hasReferentMetadata`, `hasKnopInventory`, and the rest of core.
+
+# gpt-5.4_2026-03-30_1203_15
+
+Yes. If `owl:sameAs` is in scope too, then `ReferenceCatalog` is already a bit too narrow.
+
+My recommendation is:
+
+- class: `sflo:ReferentRelations`
+- property: `sflo:hasReferentRelations`
+
+Why this is better:
+- it matches the existing pattern of [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) `hasReferentMetadata`: the Knop owns a support artifact whose contents are about the referent
+- it cleanly includes both `ReferenceLink` relators and direct referent-level link assertions like `owl:sameAs`
+- it avoids pretending that every referent-oriented relation is a `ReferenceLink`
+
+So the minimal ontology delta I’d propose is:
+
+- add `sflo:ReferentRelations` as a subclass of `sflo:DigitalArtifact`, `sflo:RdfDocument`, and `sflo:SemanticFlowResource`
+- add `sflo:hasReferentRelations` with:
+  - domain `sflo:Knop`
+  - range `sflo:ReferentRelations`
+  - `rdfs:subPropertyOf dcterms:hasPart`
+
+And the modeling rule should be:
+
+- the artifact hangs off the Knop
+- but the asserted relations inside it are about the referent
+
+So yes, this should become:
+
+```ttl
+<alice> sflo:hasReferenceLink <alice/_knop/_reference001> .
+
+<alice/_knop/_reference001> a sflo:ReferenceLink ;
+  sflo:referenceLinkFor <alice> ;
+  sflo:hasReferenceRole <sflo:ReferenceRole/Canonical> ;
+  sflo:referenceTarget <alice/bio> .
+```
+
+not `referenceLinkFor <alice/_knop>`.
+
+I would not use `ReferenceCatalog` if you want `owl:sameAs` there too. `ReferentRelations` is the cleaner umbrella. If you agree, the next patch should be:
+- ontology: add `ReferentRelations` and `hasReferentRelations`
+- fix `08` so the `ReferenceLink` is about `<alice>`
+- then decide the concrete artifact path/name for the file in `09` woven state
+
+# djradon_2026-03-30_1203_47
+
+Oh, wait. I think we already invented it... ReferentMetadata.
+
+# gpt-5.4_2026-03-30_1204_01
+
+Yes, and that changes my recommendation.
+
+If you’re comfortable treating “metadata” broadly, [ReferentMetadata](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) is probably enough. It already means “RDF about the referent,” and both `ReferenceLink` and `owl:sameAs` are about the referent.
+
+So the simpler path is:
+
+- no new `ReferenceCatalog` / `ReferentRelations` class
+- use existing `sflo:ReferentMetadata`
+- keep `sflo:hasReferentMetadata` from `Knop` to that artifact
+- put referent-oriented assertions there, including:
+  - `sflo:hasReferenceLink`
+  - `sflo:ReferenceLink`
+  - `owl:sameAs`
+  - other referent-level descriptive triples
+
+The only caution is semantic tone: `metadata` becomes a fairly broad bucket, not just “labels and notes.” I think that is acceptable, and it is probably better than minting another artifact class too early.
+
+So I’d revise the direction to:
+
+- fix `08` semantically so the link is about `<alice>`
+- then in the next cleanup pass move the reference assertions out of Knop inventory and into a `ReferentMetadata` artifact
+
+And yes, the core triple should be:
+
+```ttl
+<alice> sflo:hasReferenceLink <alice/_reference001> .
+
+<alice/_reference001> a sflo:ReferenceLink ;
+  sflo:referenceLinkFor <alice> ;
+  sflo:hasReferenceRole <sflo:ReferenceRole/Canonical> ;
+  sflo:referenceTarget <alice/bio> .
+```
+
+not `referenceLinkFor <alice/_knop>`.
+
+# djradon_2026-04-01_1420_52
+
+I don't love metadata either. Metadata has the connotation of data about data but that feels wrong or ambiguous if we're including "sameAs" or other data about the referent. 
+
+ReferenceCatlaog is probably the best so far, especially if we restrict it to ReferenceLinks.
+
+# gpt-5.4_2026-04-01_1421_11
+
+I agree.
+
+If you restrict the artifact to `ReferenceLink`s only, `ReferenceCatalog` is the cleanest name so far.
+
+My recommendation is:
+
+- class: `sflo:ReferenceCatalog`
+- property: `sflo:hasReferenceCatalog`
+
+And the intended reading should be:
+
+- the artifact hangs off the Knop as a support artifact
+- but its contents are about the referent, not about the Knop
+
+So I’d keep the semantics explicit in the comment, not the class name. Something like:
+
+- `ReferenceCatalog`: “A DigitalArtifact RdfDocument used to catalog ReferenceLinks about the resource denoted by a Knop’s associated Semantic Flow identifier.”
+
+I would also keep `owl:sameAs` out of it for now. That is the important line to hold. If you let `sameAs` in, `ReferenceCatalog` stops being a precise name and you’re back in the “relations/metadata” ambiguity.
+
+So the clean split is:
+
+- `ReferenceCatalog` for `ReferenceLink` relators only
+- `referenceLinkFor` points to `<alice>`, not `<alice/_knop>`
+
+That’s a much better ontology story than broadening `ReferentMetadata` until it means everything.
+
+# djradon_2026-04-01_1423_34
+
+is the domain of hasReferenceCatalog <Knop>?
+
+Can you propose a plan to update the ontology and SHACL, and supporting docs and examples?
+
+# gpt-5.4_2026-04-01_1423_44
+
+I’m checking the current ontology and SHACL patterns around `hasReferentMetadata`, `hasKnopInventory`, and `ReferenceLink` so the plan matches the existing slot vocabulary instead of drifting into a parallel design.
+
+# gpt-5.4_2026-04-01_1424_16
+
+I’m checking the existing Knop SHACL shape now. That will tell us whether `hasReferenceCatalog` should slot into an existing “Knop support artifacts” shape or get a dedicated new shape.
+
+# gpt-5.4_2026-04-01_1424_55
+
+Yes. If `ReferenceCatalog` is a support artifact that hangs off the Knop, `hasReferenceCatalog` should have domain `sflo:Knop`.
+
+The key distinction is:
+- ownership: Knop
+- subject matter inside the artifact: the referent
+
+So I’d plan it like this.
+
+**Ontology**
+1. Update [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl).
+   - Add class `sflo:ReferenceCatalog`.
+   - Make it a subclass of `sflo:DigitalArtifact`, `sflo:RdfDocument`, and `sflo:SemanticFlowResource`.
+   - Add property `sflo:hasReferenceCatalog`.
+   - Set `rdfs:subPropertyOf dcterms:hasPart`.
+   - Set domain `sflo:Knop`.
+   - Set range `sflo:ReferenceCatalog`.
+   - Add comments that the artifact catalogs `sflo:ReferenceLink`s about the resource denoted by the Knop’s identifier.
+2. Do not broaden it to `owl:sameAs` in this pass.
+   - Keep `ReferenceCatalog` precise: `ReferenceLink`s only.
+3. Clarify existing reference semantics in comments if needed.
+   - `referenceLinkFor` should point to the referent IRI like `<alice>`, not `<alice/_knop>`.
+
+**SHACL**
+1. Update [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld).
+   - Extend `KnopSlotsShape` with optional `sflo:hasReferenceCatalog`.
+   - Use `qualifiedMaxCount: 1`.
+   - Require values to be typed `sflo:ReferenceCatalog`.
+   - I would keep it optional for now, not required on every Knop.
+2. Add a light `ReferenceCatalog` shape only if useful.
+   - Probably not much beyond existing `DigitalArtifact` validation, since it is just another RDF-bearing support artifact.
+3. Add one targeted constraint or at least a warning for examples/docs:
+   - in this serialization pattern, `referenceLinkFor` should not point to a `sflo:Knop`.
+
+**Docs**
+1. Update [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md).
+   - Add `ReferenceCatalog` to the artifact-level support types.
+   - Add `hasReferenceCatalog` to the slot vocabulary list.
+   - State explicitly that links in a `ReferenceCatalog` are about the referent.
+2. Update [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md).
+   - Record the decision that `ReferenceLink`s no longer live in `KnopInventory`.
+3. Update [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md).
+   - Change `08` from “update Knop inventory” to “introduce ReferenceCatalog”.
+   - Change `09` woven semantics so it versions the new catalog.
+4. Update [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) only where manifest assumptions change.
+
+**Examples**
+1. Fix `08` in `mesh-alice-bio`.
+   - Current [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) is now the wrong home.
+   - Move the `ReferenceLink` into a new reference-catalog artifact.
+   - Change `referenceLinkFor` to `<alice>`.
+2. Update [08-alice-bio-referenced.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/08-alice-bio-referenced.jsonld).
+   - Expect a new reference-catalog file instead of an inventory update.
+3. Redefine `09`.
+   - `09` should weave the `ReferenceCatalog` artifact: history, latest-state snapshot, pages, and manifest.
+
+**Serialization recommendation**
+- Resource: `D/_references`
+- file: `D/_references/references.ttl`
+
+That is consistent with `_meta` and `_inventory` without forcing the class name into the path.
+
+One concrete inconsistency to fix once this starts: the current `08` branch and its manifest are semantically off, because they put the `ReferenceLink` in Knop inventory and point `referenceLinkFor` at the Knop-support surface rather than the referent.
+
+If you want, I can implement this plan next, starting with the ontology and SHACL.
+
+# djradon_2026-04-01_1439_05
+
+What about getting rid of ReferentMetadata/hasReferentMetadata.
+
+And also, for symmetry, should we allow <Mesh> as a domain of hasReferenceCatalog? That implies bringin back the ... what did we call it, ArtifactContainer class?
+
+# gpt-5.4_2026-04-01_1439_41
+
+I would not remove `ReferentMetadata` outright.
+
+Reason: `ReferenceCatalog` is narrow by design if we keep it to `ReferenceLink`s only. Once you want anything broader about the referent, like descriptive triples or eventually `owl:sameAs`, you need a non-Knop home again. So in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), I’d keep the concept, but I’d seriously consider renaming it instead of deleting it. `ReferentDescription` is cleaner than `ReferentMetadata`.
+
+On `hasReferenceCatalog`, I would not bring back `ArtifactContainer`. That was the wrong abstraction. If you want meshes to own reference catalogs too, do not model that via a fake common superclass just for symmetry.
+
+Better options:
+- Best pragmatic choice: no RDFS/OWL domain on `hasReferenceCatalog`, and enforce allowed owners in SHACL with separate shapes for `Knop` and `SemanticMesh`.
+- Acceptable but fussier: make the domain an explicit `owl:unionOf ( sflo:Knop sflo:SemanticMesh )`.
+- Bad choice: two `rdfs:domain` lines, because that means intersection, not either/or.
+
+So my recommendation is:
+- keep `ReferenceCatalog` / `hasReferenceCatalog`
+- keep a broader referent-description artifact too, probably renamed from `ReferentMetadata`
+- do not resurrect `ArtifactContainer`
+- if mesh support is wanted, handle it in SHACL or a union domain, not a container superclass
+
+If you want, I can turn that into the concrete ontology delta:
+- `ReferentMetadata` -> `ReferentDescription`
+- add `ReferenceCatalog` / `hasReferenceCatalog`
+- SHACL shapes for Knop and optionally Mesh owners
+
+# djradon_2026-04-01_1530_56
+
+I guess at some point I decided that "Referent data and metadata" could just go in a separate dataset, i.e. a payload dataset, that gets its own Knop. That's kinda what's going on with alice-bio. That really gives us all the flexibility we need for "data about the referent", but it's tempting to allow direct description too. I think we keep ReferenceCatalog because it's semi-mechanical. But the question becomes: do we keep ReferentMetadata/ReferentDescription. 
+
+Pros and cons please.
+
+# gpt-5.4_2026-04-01_1531_39
+
+Yes. This is the real fork.
+
+**Keep `ReferentMetadata` / `ReferentDescription`**
+Pros:
+- Gives a low-ceremony slot for a small amount of RDF about the referent.
+- Lets a Knop exist with direct descriptive RDF even when no separate payload dataset/Knop is worth creating.
+- Useful for sparse non-digital referents where you just want a few descriptive facts.
+- Keeps `ReferenceCatalog` narrow: links in one artifact, descriptive RDF in another.
+
+Cons:
+- It overlaps conceptually with “just make a payload RDF artifact with its own Knop,” which is exactly what [alice-bio](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio) is already demonstrating.
+- It weakens modeling discipline: people will ask “should this be `ReferentMetadata` or a payload artifact?” over and over.
+- “Metadata” is the wrong word if the content is substantial RDF about the referent.
+- It creates one more support-artifact slot to serialize, validate, and explain.
+
+**Remove it**
+Pros:
+- Much cleaner model boundary.
+- If RDF about the referent matters, give it a proper digital identity as a payload artifact or dataset with its own Knop.
+- Avoids the recurring ambiguity between “supporting description” and “real content.”
+- Keeps support artifacts more mechanical:
+  - `KnopMetadata`
+  - `KnopInventory`
+  - `ReferenceCatalog`
+
+Cons:
+- Tiny direct descriptions become awkward.
+- You lose the “just hang a few triples off the Knop as a support artifact” escape hatch.
+- Some cases may feel over-modeled if they need a full payload artifact just to say a little about the referent.
+
+**My recommendation**
+Remove `ReferentMetadata` if you want a sharper system.
+
+Keep:
+- `ReferenceCatalog` for `ReferenceLink`s only
+- payload artifacts/datasets for actual RDF content about the referent
+
+That gives a cleaner rule:
+- mechanical referent-support links: `ReferenceCatalog`
+- substantive referent description: payload dataset/artifact with its own identity
+
+If you are not ready to remove it entirely, the compromise is:
+- keep it for now
+- rename it to `ReferentDescription`
+- explicitly mark it as discouraged except for sparse stopgap use
+
+But I think the cleaner long-term model is to drop it.
+
+# djradon_2026-04-01_1952_40
+
+Remove entirely. Use SHACL to support hasReferenceCatalog domain of Knop or Mesh. Do you want to update the plan before beginning execution? Formalize into [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md) ?
+
+# gpt-5.4_2026-04-01_1953_03
+
+I’m opening the new ReferenceCatalog task note now and I’ll turn the decisions you just made into an executable plan before we touch the ontology.
+
+# djradon_2026-04-02_0051_06
+
+continue. its empty
+
+# gpt-5.4_2026-04-02_0051_22
+
+I’m filling the ReferenceCatalog task note now with the decisions we’ve already converged on, including removal of `ReferentMetadata`, SHACL-based owner support for Knop or Mesh, and the downstream example/conformance updates.
+
+# gpt-5.4_2026-04-02_0052_20
+
+Yes. I formalized it in [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+
+The note now reflects the plan you just chose:
+- remove `ReferentMetadata` / `hasReferentMetadata`
+- add `ReferenceCatalog` / `hasReferenceCatalog`
+- keep `ReferenceCatalog` restricted to `ReferenceLink`s
+- support `Knop` or `SemanticMesh` owners in SHACL rather than through an ontology domain or a revived container superclass
+- refactor Alice Bio `08` and `09` plus the matching conformance manifests
+
+So yes, the plan is updated and ready for execution.
+
+# djradon_2026-04-02_1227_39
+
+Should we support multiple ReferenceCatalogs per Knop/Mesh?
+
+# gpt-5.4_2026-04-02_1227_53
+
+Not by default.
+
+My recommendation is:
+- support at most one `ReferenceCatalog` per `Knop`
+- support at most one `ReferenceCatalog` per `SemanticMesh`
+
+Reason:
+- one catalog already gives you multiple `ReferenceLink`s with roles
+- multiple catalogs immediately raise partitioning questions with no rule: by source, by trust level, by lifecycle, by language?
+- the Alice Bio fixture does not need that complexity
+- SHACL and generation logic stay much simpler
+
+If you later discover a real need for partitioned catalogs, it is easier to relax `maxCount 1` than to claw back a loose model that already allows arbitrary multiplicity.
+
+So I would update the task note decision to:
+- allow `Knop` or `SemanticMesh` as owners
+- but only one `ReferenceCatalog` per owner in this pass
+
+That is the cleaner first implementation.

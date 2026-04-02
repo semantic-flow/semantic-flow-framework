@@ -1,0 +1,158 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:08-alice-bio-referenced",
+  "dcterms:title": "Alice Bio 08 alice bio referenced",
+  "dcterms:description": "Checks the first explicit ReferenceLink from the alice Knop to the alice/bio RDF document without weaving any new history or pages.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#add-alice-reference-link",
+      "dcterms:title": "Add alice to alice/bio reference link",
+      "dcterms:description": "Adds one canonical ReferenceLink in the alice Knop inventory targeting the integrated alice/bio RDF document while leaving the rest of the woven surface unchanged.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "knop.addReference",
+      "fromRef": "07-alice-bio-integrated-woven",
+      "toRef": "08-alice-bio-referenced",
+      "targetDesignatorPath": "alice",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-ttl",
+          "type": "FileExpectation",
+          "path": "alice-bio.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_meta/meta.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-bio-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> a <https://schema.org/Person> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-knop-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-knop-meta-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/designatorPath> \"alice\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-knop-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_reference001> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_reference001> a <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceLink> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceRole> <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceRole/Canonical> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTarget> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-bio-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-knop-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> ?referenceLink . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
