@@ -4563,3 +4563,814 @@ should we be storing the state (and history) ordinality with the state? i.e., so
 # gpt-5.4_2026-04-02_1406_20
 
 I’m checking the current history-related terms in the ontology first so I can answer against the model you actually have, not just the design discussion.
+
+# gpt-5.4_2026-04-02_1406_38
+
+Partly.
+
+`historyOrdinal` is already on `ArtifactHistory`, which is the right place for it in the current model at [semantic-flow-core-ontology.ttl#L108](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L108). What you do **not** have is a `stateOrdinal` on `HistoricalState`; you only have `nextStateOrdinal` on the history at [semantic-flow-core-ontology.ttl#L120](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L120).
+
+My recommendation:
+- add `sflo:stateOrdinal` on `HistoricalState`
+- keep `sflo:historyOrdinal` only on `ArtifactHistory`
+- do **not** duplicate `historyOrdinal` onto each state
+
+Why:
+- `stateOrdinal` is useful operational metadata, like `historyOrdinal`
+- it lets you inspect a state without traversing `previousHistoricalState` or parsing `_s0002`
+- it stays stable as long as ordinals are immutable within a history, which matches your current direction
+
+Why not also copy `historyOrdinal` onto each state:
+- that is second-order duplication
+- the state already belongs to exactly one history via `hasHistoricalState`
+- if you need the history ordinal, you can get it from the history node; that is one hop, not a graph walk
+
+So the clean model is:
+- `ArtifactHistory`: `historyOrdinal`, `nextStateOrdinal`
+- `HistoricalState`: `stateOrdinal`, optional `previousHistoricalState`
+
+If you want, I’d make that the next small ontology delta before `10`.
+
+# djradon_2026-04-02_1408_27
+
+Yes, let's make that small ontology delta. 
+
+AND THEN, we should probably patch up the historical branches to include that everywhere, right?
+
+# gpt-5.4_2026-04-02_1408_36
+
+I’m updating the core model first, then I’ll patch the fixture branches that already materialize `HistoricalState`s so they stop lagging the ontology. After that I’ll verify the affected Turtle files and branch states.
+
+# gpt-5.4_2026-04-02_1408_44
+
+This is enough surface area to plan explicitly. I’m treating it as two linked changes: add `stateOrdinal` to the core model and SHACL, then backfill every woven `mesh-alice-bio` branch that already materializes states so the examples match the ontology.
+
+# gpt-5.4_2026-04-02_1409_08
+
+I’ve got the ontology targets. Next I’m looking at the actual state shapes in the fixture so I can backfill `stateOrdinal` mechanically without guessing wrong about punctuation or branch-specific variants.
+
+# gpt-5.4_2026-04-02_1409_27
+
+I’m keeping the ontology change small: new `stateOrdinal`, matching SHACL, and just enough doc text to make the artifact-history vocabulary internally coherent. Then I’ll backfill the fixture branches in place so the examples don’t drift.
+
+# gpt-5.4_2026-04-02_1409_33
+
+I’ve got the exact ontology/doc touch points. I’m applying those first so the fixture backfill can follow the new vocabulary instead of inventing it ad hoc.
+
+# gpt-5.4_2026-04-02_1410_06
+
+The ontology delta is in place. I’m validating that now before I touch the fixture branches, so any later failures are clearly fixture-side rather than model-side.
+
+# gpt-5.4_2026-04-02_1410_54
+
+I’m about to propagate this through `03` to `09`. To make that stick across multiple branches cleanly, I’m going to persist the fixture backfill branch-by-branch instead of leaving one uncommitted tree that can’t travel.
+
+# gpt-5.4_2026-04-02_1411_14
+
+The branch backfill is running now. I’m watching that closely because it’s the one place a mechanical edit could go wrong; if it does, I’ll stop and fix the edit logic before it spreads further.
+
+# gpt-5.4_2026-04-02_1411_42
+
+The backfill is propagating branch-by-branch as expected. I’m waiting for the last few branches to finish, then I’ll spot-check the current `09` files and the ontology status together.
+
+# gpt-5.4_2026-04-02_1412_16
+
+The branch backfill finished cleanly. I’m doing one last spot-check on `09` and repo status now so I can tell you exactly what changed where, including the branch commits.
+
+# gpt-5.4_2026-04-02_1412_27
+
+The mechanical backfill landed correctly. I’m running one core-SHACL spot check against the current `09` merged graph so the new property isn’t just syntactically valid, but still plays well with the existing shapes.
+
+# gpt-5.4_2026-04-02_1412_55
+
+Implemented.
+
+In `ontology`, I added `sflo:stateOrdinal` on `HistoricalState` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), added matching SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld), and updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), and [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md). Those ontology changes are validated but still uncommitted. There is also an existing unrelated modification still present in [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+
+In `mesh-alice-bio`, I backfilled `stateOrdinal` across every branch that already materializes `HistoricalState`s, and I persisted those branch updates with the same commit message, `Add stateOrdinal to HistoricalState examples`:
+- `03-mesh-created-woven` `8e52dd8`
+- `04-alice-knop-created` `82504f4`
+- `05-alice-knop-created-woven` `d32b477`
+- `06-alice-bio-integrated` `91a1c6a`
+- `07-alice-bio-integrated-woven` `920aa90`
+- `08-alice-bio-referenced` `46259d3`
+- `09-alice-bio-referenced-woven` `6fa607d`
+
+Verification:
+- `riot --validate` passed for [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) and [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld)
+- the changed Turtle files in each patched mesh branch validated before commit
+- the current merged `alice` graph in `09` conforms to core SHACL
+- validating only [_mesh/_meta/meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/meta.ttl) plus [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) still hits the existing owner-complete issue for Knops mentioned from mesh inventory; that is unchanged by `stateOrdinal`
+
+Current state:
+- `mesh-alice-bio` is clean on `09-alice-bio-referenced-woven`
+- `ontology` has the intended `stateOrdinal` changes uncommitted
+
+If you want, I can give you the ontology commit message next, or move on to `10-alice-bio-updated`.
+
+# djradon_2026-04-02_1425_07
+
+yes, ontology commit message please
+
+# gpt-5.4_2026-04-02_1425_17
+
+```text
+Add stateOrdinal to HistoricalState
+
+- add sflo:stateOrdinal as optional ordinal metadata on HistoricalState
+- keep historyOrdinal on ArtifactHistory and nextStateOrdinal on ArtifactHistory
+- document the intended split between history-level and state-level ordinals
+
+- update SHACL so HistoricalState may carry a single xsd:nonNegativeInteger stateOrdinal
+- keep the new constraint advisory rather than mandatory
+
+- update the core summary, decision log, and ArtifactHistory task note to include stateOrdinal in the ordinal vocabulary
+```
+
+# djradon_2026-04-02_1506_28
+
+I see you're giving each ReferenceLink an explicit identity. Which I think I like, but I am puzzling over whether they are immutable. verifiedAt/By suggest they are mutable, but thinking those through... we would need a Verification object that could hold those together. Also in addition or instead of a DigitalArtifact IRI like <alice/bio> we should maybe call out a specific HistoricalState. Maybe a separate property, referenceTargetState?
+
+# gpt-5.4_2026-04-02_1506_39
+
+I’m checking the current `ReferenceLink` terms in the ontology before I answer, so I don’t blur “good idea” with “already modeled.”
+
+# gpt-5.4_2026-04-02_1507_07
+
+I think the clean answer is:
+
+- keep explicit `ReferenceLink` identities
+- treat the link as a managed relation, not as an immutable event
+- keep `verifiedAt` / `verifiedBy` only as latest-verification convenience fields for now
+- add a separate `referenceTargetState` if you want version-pinned references
+
+Why I’d keep explicit link identities:
+- the role is about the relation
+- deprecation is about the relation
+- verification is about the relation
+- later provenance/evidence will also be about the relation
+
+So the link node is earning its keep.
+
+On immutability, I would draw the line like this:
+- `referenceLinkFor`: immutable
+- `referenceTarget` or `referenceTargetState`: effectively immutable; if the target changes in substance, mint a new `ReferenceLink`
+- `hasReferenceRole`: usually immutable; if it changes from canonical to supplemental, I’d prefer a new link
+- `verifiedAt` / `verifiedBy`: mutable latest-known operational metadata
+
+That means the link is mostly stable, but not an immutable snapshot. The immutable snapshots live in the `ReferenceCatalog` history, which is already your versioning mechanism.
+
+So I would not rush to a `Verification` object yet unless you need one of these:
+- multiple verifications to be retained
+- verification status/outcome beyond “last checked”
+- evidence or method metadata
+- provenance for retractions or failures
+
+If you do need that later, then yes, a `ReferenceVerification` object is the right move, and `verifiedAt` / `verifiedBy` can remain as latest pointers.
+
+On the state-target question: yes, I think `referenceTargetState` is a good addition.
+
+I would model it as:
+- `referenceTargetState rdfs:subPropertyOf referenceTarget`
+- domain `ReferenceLink`
+- range `HistoricalState`
+
+Then use:
+- `referenceTarget` for artifact- or resource-level targets like `<alice/bio>`
+- `referenceTargetState` when the reference is specifically to something like `<alice/bio/_history001/_s0001>`
+
+That is clearer than forcing all consumers to inspect the type of the generic target.
+
+So my recommendation is:
+1. keep explicit `ReferenceLink` identity
+2. do not make `ReferenceLink` itself immutable
+3. keep `verifiedAt` / `verifiedBy` as latest convenience metadata for now
+4. add `referenceTargetState` as a subproperty of `referenceTarget`
+5. only add a `ReferenceVerification` class when you actually need verification history or evidence
+
+That’s the cleanest next step.
+
+# djradon_2026-04-02_1519_56
+
+Maybe we add a ReferenceRole for "Invalid"? We need a way. Let's add referenceTargetState to the ontology. 
+
+Are there other opportunities to introduce state-targeting properties that make sense here. 
+
+I'm a little uneasy about giving up immutability in the historical parts of the knop. But short of making ReferenceCatalogs independent PayloadArtifacts, I don't see a way around it. 
+
+I do want to preserve dereferenceability by making sure the ReferenceLink identity is dereferenceable. This could be done with a hash identifier, e.g. <alice/_references/#1>, (which I've also considered using for provenance identifiers.) Then we could just have one ResourcePage for all references.
+
+# gpt-5.4_2026-04-02_1520_12
+
+I’m treating `referenceTargetState` as a concrete ontology delta and the rest as design choices to settle around it. First I’m pulling the exact reference-related shapes so I can patch them consistently rather than just adding one loose term.
+
+# gpt-5.4_2026-04-02_1520_45
+
+I’m patching the ontology now. I’m also leaving a short paper trail in the reference-catalog note, because otherwise `referenceTargetState` shows up in the core with no rationale attached to this design discussion.
+
+# gpt-5.4_2026-04-02_1520_54
+
+I’m not adding an `Invalid` role in the same patch. I think that’s the wrong axis: canonical/supplemental/deprecated are usage roles, while invalidity is closer to status or verification outcome. I’ll keep this delta to `referenceTargetState` so the model stays coherent.
+
+# gpt-5.4_2026-04-02_1521_15
+
+The ontology patch is in. I’m validating it now, then I’ll give you the design answer on `Invalid`, immutability, and hash-based link IDs against the updated model rather than as pure speculation.
+
+# gpt-5.4_2026-04-02_1521_27
+
+Added `sflo:referenceTargetState` to the ontology in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), with matching optional SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld). I also noted it in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md). `riot` and `jq` validation passed.
+
+On the design points:
+
+- I did **not** add `ReferenceRole/Invalid`. I think that would conflate role with status. `Canonical`, `Supplemental`, and `Deprecated` are usage roles; “invalid” is closer to verification outcome or disposition. If we need that, it should probably be a separate status/verification model.
+- `referenceTargetState` is the right narrow addition. I would not add more state-targeting properties yet. The only plausible next one would be something like `verifiedAgainstState`, but that belongs on a future verification object, not directly on `ReferenceLink`.
+- I think the immutability story is still acceptable: the `ReferenceLink` itself is a managed relation that can have mutable latest-verification metadata, while the historical `ReferenceCatalog` snapshots remain immutable. If you want fully immutable verification records, that’s when a separate verification node becomes necessary.
+- Hash identifiers are a good idea here. I’d lean toward stable fragment IDs for the link identities, e.g. `<alice/_references#reference001>`, not path-segment IRIs. That preserves dereferenceability, avoids a page per link, and also works well for future provenance nodes. I would not refactor the fixture to fragments until you want to do it consistently across the catalog and any provenance examples.
+
+# djradon_2026-04-02_1531_22
+
+Maybe we don't need to model status explicitly... if we remove a reference from the mutable references.ttl, it becomes invalid? But now I'm shifting away from the hash-identified references, because we won't be able to regenerate ResourcePages that maintain dereferencability for invalidated ReferenceLinks.
+
+# gpt-5.4_2026-04-02_1531_28
+
+I agree with the pushback on hash IDs if invalidated links must remain dereferenceable.
+
+If removal from working [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl) is your invalidation mechanism, then a fragment identifier is too tied to the current document. Once the triple disappears from the working file, the live dereference target stops saying anything useful about that link.
+
+So I think the better rule is:
+
+- keep explicit non-fragment `ReferenceLink` IRIs as independent resource identities
+- do not model a separate status term yet
+- treat “present in current `ReferenceCatalog`” as active/current
+- treat “absent from current catalog but present in historical states” as inactive/withdrawn/invalidated by history
+
+That gives you:
+- persistent dereferenceable link identities
+- no separate status vocabulary yet
+- history as the source of truth for invalidation
+
+In other words, your current path-style identity like:
+- `<alice/_references/_reference001>`
+
+is actually better than `#reference001` if you want historical dereferenceability.
+
+The only thing I’d tighten is the page story:
+- current catalog page can list current links only
+- if a link IRI is no longer current, dereferencing it should still be possible through its own page or through a stable page that can say “not current; see history”
+
+So I think you just talked yourself out of hash IDs correctly. Keep standalone link IRIs.
+
+# djradon_2026-04-02_1534_02
+
+Agreed. So we need to generate alice/_references/_reference001/index.html. And do we need an ontology element for reference ordinatlity?
+
+# gpt-5.4_2026-04-02_1534_31
+
+Yes. If the `ReferenceLink` itself keeps a stable IRI like [alice/_references/_reference001](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references), then generating [alice/_references/_reference001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/_reference001/index.html) is the right move. That page would be about the link identity over time, not just the current catalog snapshot. The current catalog page can list current links; the per-link page preserves dereferenceability even if the link later disappears from current [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl).
+
+I would not add reference ordinality to the ontology yet. `stateOrdinal` earned its place because histories are ordered sequences and you often need the ordinal without walking the chain. `ReferenceLink`s are different: `_reference001` is mostly an allocation token, not a meaningful ordered lineage. If we later standardize auto-generated `_referenceNNN` links and need allocation metadata, then the clean vocabulary would be `referenceOrdinal` on `ReferenceLink` and `nextReferenceOrdinal` on `ReferenceCatalog`. For now I’d avoid it.
+
+If you want, I can patch `09` next to generate the per-link page and add the corresponding `hasResourcePage` triple.
+
+# djradon_2026-04-02_1543_10
+
+Are we sure we don't want ReferenceCatalogs to be their own stand-alone PayloadArtifact? That would take care of history and historical ResourcePages. As is, we're going to have trouble re-generating the individual ReferenceLink ResourcePages because there is no history.
+
+If we do keep ReferenceCatalogs as supporting datasets tied to knops, I think we will need referenceOrdinal, because we need auto-generation of IDs if the name isn't specified.
+
+# gpt-5.4_2026-04-02_1543_44
+
+I don’t think promoting `ReferenceCatalog` to `PayloadArtifact` actually fixes the real problem.
+
+Why not:
+- It already **is** a `DigitalArtifact` with history and pages.
+- Making it a payload artifact would change its meaning, but it would **not** automatically give you per-`ReferenceLink` history.
+- The missing thing is not artifact-ness. It’s that individual `ReferenceLink` pages need to be generated from **catalog history**, not just from the current working `references.ttl`.
+
+So my recommendation is still:
+- keep `ReferenceCatalog` as a support artifact
+- keep stable standalone `ReferenceLink` IRIs like `<alice/_references/_reference001>`
+- generate per-link pages like [alice/_references/_reference001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/_reference001/index.html)
+- when regenerating those pages, consult both:
+  - current [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl)
+  - historical catalog snapshots
+
+That way a withdrawn link can still dereference and say “not current; last seen in `_history001/_s0001`”.
+
+On ordinality: with this latest framing, yes, I think you now do want it.
+
+Not because references are semantically ordered, but because you need deterministic autogenerated IDs when no local name is supplied. So I would add:
+
+- `sflo:referenceOrdinal` on `ReferenceLink`
+- `sflo:nextReferenceOrdinal` on `ReferenceCatalog`
+
+And define them operationally, like:
+- `_reference001` -> `referenceOrdinal 1`
+- catalog tracks `nextReferenceOrdinal 2`
+
+That is analogous to `stateOrdinal`, but clearly about allocation, not meaning.
+
+So my revised view is:
+
+- `ReferenceCatalog` should stay a support artifact
+- per-link pages should be generated from catalog history
+- yes, add reference ordinality if autogenerated link IDs are part of the model
+
+If you want, I can draft the exact ontology delta for `referenceOrdinal` / `nextReferenceOrdinal` next.
+
+# djradon_2026-04-02_1559_44
+
+OK, agreed on all that. 
+
+But I now see that for the alice-bio payload artifact, we're keeping its history in _history001 OUTSIDE the Knop. I'd always imagined a _payload folder under _knop. What do you think?
+
+# gpt-5.4_2026-04-02_1605_04
+
+I think the current model is better. I would keep payload history **outside** `_knop`.
+
+Reason:
+- the payload artifact is not a support artifact of the Knop in the same way `_meta`, `_inventory`, or `_references` are
+- it is the substantive artifact the Knop points at
+- so its history should hang off the payload artifact path itself:
+  - `alice/bio`
+  - `alice/bio/_history001`
+  - `alice/bio/_history001/_s0001`
+
+If you move it under `_knop/_payload`, you blur two different things:
+- `_knop` = management surface for the identifier
+- `alice/bio` = the payload artifact itself
+
+That blur gets expensive fast:
+- `referenceTargetState` becomes awkward, because the state of `alice/bio` would live under Knop support structure
+- dereference paths get less intuitive
+- the artifact’s diachronic identity starts looking subordinate to the Knop rather than primary
+
+So my recommended rule is:
+
+- support-artifact histories live under the support artifact:
+  - `_meta/_history001`
+  - `_inventory/_history001`
+  - `_references/_history001`
+- payload-artifact histories live under the payload artifact itself:
+  - `alice/bio/_history001`
+
+That is cleaner and more composable.
+
+The only real argument for `_knop/_payload` is implementation tidiness: “put all managed machinery under `_knop`.” I think that’s the wrong tradeoff. It makes the filesystem feel neat while making the ontology worse.
+
+# djradon_2026-04-02_1631_53
+
+OK, we can leave as-is for now.
+
+Returning to ReferenceOrdinals... I'm not sure ReferenceLinks will get autogenerated. At least not in the same sequential way. I'm at a bit of a loss about how to keep a _references/ namespace clean and derferenceable.
+
+# gpt-5.4_2026-04-02_1632_40
+
+I don’t think `referenceOrdinal` is the right fix.
+
+The real requirement is this:
+
+- once a `ReferenceLink` IRI has existed, its page must stay dereferenceable
+- even if the link disappears from current [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl)
+
+That is a generation rule, not an ordinality rule.
+
+My recommendation:
+
+- keep [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl) as the catalog document
+- keep [_history001](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/_history001) for catalog history
+- put individual link identities in a separate subnamespace, not mixed directly into the catalog root
+
+For example:
+- `alice/_references/references.ttl`
+- `alice/_references/index.html`
+- `alice/_references/_history001/...`
+- `alice/_references/links/<id>`
+- `alice/_references/links/<id>/index.html`
+
+That keeps `_references/` clean:
+- catalog machinery stays at the top
+- per-link resources live under `links/`
+
+Then for `<id>`:
+- if the user supplies a stable name, use it
+- otherwise mint a short opaque token
+- not a content hash
+- not necessarily a sequential ordinal
+
+So I’d use something like:
+- `alice/_references/links/ref-k7m3q2`
+or
+- `alice/_references/links/nytimes-bio`
+
+not because those names mean much semantically, but because they are stable allocation tokens.
+
+The key generation rule should be:
+
+- current catalog page lists current links
+- per-link pages are generated from current catalog plus catalog history
+- if a link is no longer current, its page still exists and says it is no longer current, with last-seen state/history links
+
+That solves dereferenceability without forcing ordinality into the ontology.
+
+So my recommendation is:
+- no `referenceOrdinal` for now
+- add a dedicated per-link subnamespace under `_references`
+- treat per-link page generation as history-aware, not current-only
+
+If you want, I can turn that into a concrete path convention and patch plan for the fixture before `10`.
+
+# djradon_2026-04-02_1641_08
+
+So _references also doesn't live under the knop?  But reference inventory and payload inventory still live under the knop inventory right? If ReferenceCatalog is a support artifact, shouldn't it live under the knop?
+
+# gpt-5.4_2026-04-02_1641_46
+
+Yes, I think we conflated two things.
+
+My current recommendation is:
+
+- the `ReferenceCatalog` artifact itself should live under the Knop
+- the `ReferenceLink` identities can still live outside `_knop`
+
+So I’d split it like this:
+
+- catalog artifact:
+  - `alice/_knop/_references/references.ttl`
+  - `alice/_knop/_references/_history001/...`
+- dereferenceable link resources:
+  - `alice/_references/_reference001`
+  - `alice/_references/_reference001/index.html`
+
+Why:
+- `ReferenceCatalog` is a support artifact, so its artifact path should behave like `_meta` and `_inventory`
+- but the individual `ReferenceLink` resources are about `<alice>`, not about the support object, so giving them a cleaner public namespace still makes sense
+
+And one correction: there is no separate “reference inventory.” The Knop inventory at [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) should catalog the `ReferenceCatalog` artifact, just as it catalogs other Knop support artifacts. The payload inventory for `alice/bio` is its own thing at [alice/bio/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl), because that belongs to the `alice/bio` Knop, not to `alice/_knop`.
+
+So yes: if we want strict support-artifact consistency, the current `alice/_references/references.ttl` is probably the wrong artifact path. The better model is:
+- artifact under `_knop`
+- link-resource namespace outside `_knop`
+
+# gpt-5.4_2026-04-02_1641_47
+
+Yes, I think we conflated two things.
+
+My current recommendation is:
+
+- the `ReferenceCatalog` artifact itself should live under the Knop
+- the `ReferenceLink` identities can still live outside `_knop`
+
+So I’d split it like this:
+
+- catalog artifact:
+  - `alice/_knop/_references/references.ttl`
+  - `alice/_knop/_references/_history001/...`
+- dereferenceable link resources:
+  - `alice/_references/_reference001`
+  - `alice/_references/_reference001/index.html`
+
+Why:
+- `ReferenceCatalog` is a support artifact, so its artifact path should behave like `_meta` and `_inventory`
+- but the individual `ReferenceLink` resources are about `<alice>`, not about the support object, so giving them a cleaner public namespace still makes sense
+
+And one correction: there is no separate “reference inventory.” The Knop inventory at [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl) should catalog the `ReferenceCatalog` artifact, just as it catalogs other Knop support artifacts. The payload inventory for `alice/bio` is its own thing at [alice/bio/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl), because that belongs to the `alice/bio` Knop, not to `alice/_knop`.
+
+So yes: if we want strict support-artifact consistency, the current `alice/_references/references.ttl` is probably the wrong artifact path. The better model is:
+- artifact under `_knop`
+- link-resource namespace outside `_knop`
+
+# djradon_2026-04-02_1700_33
+
+I definitely don't think we should have two _references dirs. If all the ReferenceLink identifiers are made in the same references.ttl document, I'm back to thinking we just use hashIdentifiers like <alice/_references/#link-id> instead of minting  a ResourcePage for every link in the catalog. 
+
+So alice/_knop/_references/index.html is the current ReferenceCatalog resource page, and historical versions are also available at alice/_knop/_references/_history001/_s0001/, _s0002, etc. if you want to go back and recover old ResourceLinks. That makes the link namespace self-contained. If links are removed, the relevant parts of the ResourcePages can still be back-generated from history. What say you?
+
+# gpt-5.4_2026-04-02_1701_27
+
+I think this can work, with one important caveat.
+
+My recommendation now is:
+
+- keep exactly one `_references` directory
+- make it the support-artifact directory under the Knop:
+  - `alice/_knop/_references/references.ttl`
+  - `alice/_knop/_references/index.html`
+  - `alice/_knop/_references/_history001/_s0001/...`
+- use fragment IDs for the individual links:
+  - `<alice/_knop/_references#link-id>`
+
+That gives you:
+- one clean namespace
+- no per-link `index.html` files
+- one current catalog page plus historical catalog pages
+- no need for `referenceOrdinal` unless you later want autogenerated sequential IDs
+
+The caveat is important:
+- if you use fragment IDs, the link identity must resolve to the stable catalog resource, not to each historical snapshot document
+- so inside historical `references.ttl` snapshots, you cannot casually use bare `<#link-id>` unless the `@base` is pinned to the stable catalog IRI
+- otherwise the same link in history will accidentally become `.../_history001/_s0001/references-ttl/references.ttl#link-id`, which is the wrong identity
+
+So the rule would be:
+- `ReferenceLink` IRIs are stable catalog-fragment IRIs
+- historical snapshots reassert those same IRIs
+- current/historical HTML pages can render current and retired links from current state plus history
+
+One more tradeoff to be explicit about:
+- if a link is removed from current `references.ttl`, current RDF dereference of that fragment will no longer describe it
+- that may be acceptable if you treat the current catalog as current-only and rely on history pages to recover retired links
+- if you want current dereference to keep saying something about retired links, the current page has to render tombstones/history summaries for them
+
+So yes, I think your one-dir + fragment-ID approach is coherent, and it weakens the case for `referenceOrdinal`. The only thing you have to be disciplined about is stable base handling in historical snapshots.
+
+# djradon_2026-04-02_1706_43
+
+I've been thinking that @base is always the same everywhere in a (sub-)mesh. That eliminates the "use inferred base" possibility, but makes all intra-mesh references consistent (i.e., from the root). So assuming we keep using the same base everywhere, the fragment IDs will have to be specified (absolute). 
+
+If a link is removed from the working references.ttl, we COULD still back-generate historical hash IDs by going through the history.
+
+# gpt-5.4_2026-04-02_1707_02
+
+Yes, with one fixed mesh-root `@base`, the stable way to write a fragment link is:
+
+```ttl
+<alice/_knop/_references#link-id>
+```
+
+not `<#link-id>`.
+
+That part is fine.
+
+But there’s one important catch: direct dereference of a hash IRI always fetches the **current** document at `alice/_knop/_references`, then resolves the fragment client-side. It does **not** go hunt through history.
+
+So if a link is removed from current `references.ttl`, history may let you reconstruct it, but the IRI:
+
+```ttl
+<alice/_knop/_references#link-id>
+```
+
+will only remain meaningfully dereferenceable if the current [alice/_knop/_references/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_references/index.html) still contains an anchor for `link-id`.
+
+That leads to a clean rule:
+
+- current `references.ttl`: current links only
+- historical snapshots: full past states
+- current `_references/index.html`: render both
+  - current links
+  - retired links, as tombstones/back-generated anchors from history
+
+If you do that, fragment IDs work well:
+- one `_references` namespace
+- no per-link pages
+- stable link IRIs
+- historical recovery still possible
+
+So I agree with the direction, with this condition:
+- current HTML must preserve anchor targets for retired links, even if current RDF no longer asserts them
+
+Otherwise the fragment IDs are only historically reconstructable, not truly dereferenceable in the present.
+
+# djradon_2026-04-02_1712_55
+
+OK, agreed. And if there are link-id historical naming collisions, it's not so horrible. But we can probably detect collisions during that ResourcePage generation if we're scanning old versions anyhow.
+
+OK, can you plan an update? I'm not sure we need any ontology or SHACL changes, just moving _references inside the knop, using the hash-identifier, and adding resource pages and heavily updating the [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) and any other documentation. Maybe we need a an ont.reference-links.md specifically?
+
+# gpt-5.4_2026-04-02_1713_13
+
+I’m treating this as a design-plan pass, not an implementation pass yet. I’m going to lay out the concrete repo/doc changes and call out the one place where the “hash IDs with no per-link pages” rule needs careful wording.
+
+# gpt-5.4_2026-04-02_1713_30
+
+Yes. I think this wants a documentation-led refactor, not new ontology terms.
+
+My recommended plan:
+
+**Scope**
+- No new ontology or SHACL terms for this pass.
+- Treat this as a serialization and generation convention update.
+
+**Core convention**
+- `ReferenceCatalog` stays a support artifact owned by the Knop.
+- Its resource/artifact path becomes:
+  - `D/_knop/_references`
+  - working file: `D/_knop/_references/references.ttl`
+  - current page: `D/_knop/_references/index.html`
+- `ReferenceLink` identities become stable fragment IRIs rooted at the catalog resource:
+  - `<alice/_knop/_references#reference001>`
+- Historical snapshots keep reasserting those same fragment IRIs, using the same mesh-root `@base`.
+
+**Generation rule**
+- No per-link ResourcePages.
+- Current `_references/index.html` is the dereference target for all fragment IDs.
+- That page must render:
+  - current links from working `references.ttl`
+  - retired links back-generated from catalog history, so old fragment IDs still resolve meaningfully
+- During generation, detect fragment-name collisions across history and surface them clearly.
+
+**Fixture changes**
+- Refactor `08` and `09` in `mesh-alice-bio`:
+  - move `alice/_references/...` to `alice/_knop/_references/...`
+  - change link IRI from path-style to fragment-style
+  - keep Knop inventory as the place that points to the `ReferenceCatalog`
+- Update `09` woven output accordingly:
+  - history under `alice/_knop/_references/_history001/...`
+  - current page at `alice/_knop/_references/index.html`
+  - no `alice/_references/_reference001/index.html`
+
+**Conformance changes**
+- Update `08-alice-bio-referenced.jsonld`
+- Update `09-alice-bio-referenced-woven.jsonld`
+- Update the conformance README and task note so they describe:
+  - support-artifact path under `_knop`
+  - fragment-based link identities
+  - history-aware page generation for retired links
+
+**Documentation**
+- Yes, add a dedicated note.
+- I’d create:
+  - `ontology/notes/ont.reference-links.md`
+- Put the detailed rules there:
+  - what `ReferenceCatalog` is for
+  - why it lives under `_knop`
+  - why link identities are fragment IRIs
+  - how historical snapshots must reuse the same link IRIs
+  - how current pages preserve dereferenceability for retired links
+- Then heavily trim [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) to just the essential summary and link to the new note.
+
+**Other docs to update**
+- [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md)
+- [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md)
+- [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md)
+- any API/example JSON-LD that currently uses the old path-style link IRI
+
+The only caution is this: fragment dereferenceability now depends on the current `_references/index.html` retaining anchors for retired links. That rule needs to be explicit in the new note, because it is the real semantic cost of choosing fragment IDs.
+
+If you want, I can implement this plan next in that order:
+1. add `ont.reference-links.md` and update docs
+2. refactor `08` and `09`
+3. update conformance manifests and examples
+
+# djradon_2026-04-02_1723_26
+
+I created an empty ont.reference-links.md. Go ahead and execute your plan, but while you can remove link-specific stuff from [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) and do a little redundancy clean-up, I would trim too heavily, right?
+
+# gpt-5.4_2026-04-02_1723_45
+
+I’m executing the refactor now. I’m starting with the docs and current fixture shape so the path/IRI convention is explicit before I propagate it through `08`, `09`, and the conformance files.
+
+# gpt-5.4_2026-04-02_1724_00
+
+I’ve confirmed the current `09` shape. Now I’m pulling the `08/09` manifests and task notes so I can refactor the path/fragment convention consistently instead of fixing the fixture but leaving the spec text behind.
+
+# gpt-5.4_2026-04-02_1727_15
+
+I’ve got the surface area. I’m doing the path/IRI refactor in `08` first, because `09` should inherit that shape rather than reinvent it. After that I’ll rebase the woven branch onto the new catalog location and then update the docs/manifests to match.
+
+# gpt-5.4_2026-04-02_1727_25
+
+I’m editing `08` now. This is the semantic refactor point: move the support artifact under `_knop`, switch the link identity to a fragment rooted at the catalog resource, and leave page generation to `09`.
+
+# gpt-5.4_2026-04-02_1727_53
+
+`08` is clean after the move. I’m committing that branch-level refactor now so `09` can inherit the new catalog location instead of carrying a one-off override.
+
+# gpt-5.4_2026-04-02_1728_04
+
+The cherry-pick did the useful part: it exposed exactly which `09` files need to move with the catalog. I’m resolving that now by making the woven branch match the new `_knop/_references` location and fragment-style link IDs.
+
+# gpt-5.4_2026-04-02_1728_15
+
+I’ve got the `09` conflicts localized now: inventory still points at the old catalog resource, and the historical snapshot still uses the old path-style link IRI. I’m normalizing both sides to the new convention and then I’ll finish the cherry-pick.
+
+# gpt-5.4_2026-04-02_1729_26
+
+The important `09` invariant here is that the working Knop inventory must still match its latest historical-state copy exactly. I’m resolving the working file first, then I’ll mirror it into `_s0002` so the woven branch stays internally consistent.
+
+# gpt-5.4_2026-04-02_1729_56
+
+The data files are aligned again: current and latest historical copies match for both Knop inventory and the catalog. I’m validating the moved Turtle files now, then I’ll complete the `09` cherry-pick and move on to the framework/docs.
+
+# gpt-5.4_2026-04-02_1730_18
+
+The branch move is committed now on both `08` and `09`. I’m shifting to the docs/manifests next so the spec layer says `_knop/_references` and fragment IDs, rather than the old `alice/_references/_reference001` shape.
+
+# gpt-5.4_2026-04-02_1730_30
+
+I’m moving into the documentation layer now. I’m keeping `ont.summary.core.md` as a compact mental model, but I’m moving the detailed ReferenceCatalog/link-namespace rules into the new `ont.reference-links.md` note so the summary doesn’t turn into a second spec.
+
+# gpt-5.4_2026-04-02_1730_39
+
+I’m tightening the ontology notes now. The new reference-links note will carry the generation and dereferenceability rules; the core summary will keep just the compact mental model and point there.
+
+# gpt-5.4_2026-04-02_1731_29
+
+I found one more ontology note still using the old Alice Bio reference path. I’m fixing that too so the examples don’t contradict the new reference-links note.
+
+# gpt-5.4_2026-04-02_1731_48
+
+I’m updating the task notes alongside the manifests. The main thing I want locked down in prose is the asymmetry you settled: the catalog artifact lives under `_knop`, and the link identities are catalog-rooted fragments, not standalone path resources.
+
+# gpt-5.4_2026-04-02_1732_11
+
+I’m patching the `08`/`09` manifests now. These are the normative acceptance layer, so I’m updating both the file paths and the RDF assertions, not just the fixture files.
+
+# gpt-5.4_2026-04-02_1732_55
+
+I’m also updating the framework API examples. They’re not part of the fixture ladder, but leaving them on the old `_references/orcid...` pattern would make the public examples contradict the new catalog-rooted fragment convention immediately.
+
+# gpt-5.4_2026-04-02_1733_22
+
+The refactor is in place across fixture, docs, and manifests. I’m running the actual validators now so we know whether the new `_knop/_references` + fragment-ID convention is coherent, not just textually updated.
+
+# gpt-5.4_2026-04-02_1733_56
+
+Executed the refactor.
+
+The detailed reference-link rules now live in [ont.reference-links.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.reference-links.md), and [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) stays compact while still mentioning the key `ReferenceCatalog` facts. I also updated [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md), and [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) to use the new `_knop/_references` convention.
+
+In `mesh-alice-bio`, `08` and `09` now use the Knop-owned catalog path and fragment link IDs:
+- [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_references/references.ttl)
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl)
+
+The stable link IRI is now `alice/_knop/_references#reference001`, and the woven `09` page at [index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_references/index.html) includes an anchor for that fragment. I committed the branch changes as:
+- `08-alice-bio-referenced`: `136553a` `Move ReferenceCatalog under alice Knop`
+- `09-alice-bio-referenced-woven`: `e904efb` `Move ReferenceCatalog under alice Knop`
+
+In `semantic-flow-framework`, I updated:
+- [08-alice-bio-referenced.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/08-alice-bio-referenced.jsonld)
+- [09-alice-bio-referenced-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/09-alice-bio-referenced-woven.jsonld)
+- [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md)
+- [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md)
+- the API examples at [reference-link.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/reference-link.jsonld) and [job-succeeded.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/job-succeeded.jsonld)
+
+Validation passed:
+- working/latest equality for the woven `09` catalog and Knop inventory
+- `riot --validate` on the updated mesh Turtle files
+- `riot --validate` on the updated framework manifests and API examples
+- Accord SHACL on the `08` and `09` manifests
+
+Current repo state:
+- `mesh-alice-bio` is clean on `09-alice-bio-referenced-woven`
+- `semantic-flow-framework` has the intended doc/example/manifest edits, plus the unrelated existing [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+- `ontology` has the intended doc updates, and still also has the earlier uncommitted core-model changes in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) and [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld)
+
+Next sensible step is `10-alice-bio-updated`.
+
+# djradon_2026-04-02_1734_45
+
+commit messages for the changes in each repo please.
+
+# gpt-5.4_2026-04-02_1734_55
+
+For `ontology`:
+
+```text
+Document Knop-owned ReferenceCatalogs and fragment link identities
+
+- add ont.reference-links.md as the detailed note for ReferenceCatalog and ReferenceLink serialization
+- keep ont.summary.core.md compact while pointing detailed reference-link rules to the new note
+- update the decision log and ReferenceCatalog task note to use Knop-owned catalog paths
+- update the Alice Bio use-case note to use alice/_knop/_references
+- document catalog-rooted fragment IRIs such as D/_knop/_references#reference001
+- document the generation rule that current catalog pages must preserve anchors for retired links recovered from history
+```
+
+If you want to include the earlier uncommitted ontology-model changes too, use this broader one instead:
+
+```text
+Refine artifact and reference-link operational metadata
+
+- add stateOrdinal on HistoricalState and update SHACL/documentation accordingly
+- add referenceTargetState as a state-pinning subproperty of referenceTarget
+- add ont.reference-links.md for detailed ReferenceCatalog serialization and dereferenceability rules
+- update summary, decision, task, and use-case notes to use Knop-owned ReferenceCatalog paths and catalog-rooted fragment link identities
+```
+
+For `semantic-flow-framework`:
+
+```text
+Align alice-bio examples with Knop-owned ReferenceCatalogs
+
+- update 08 and 09 conformance manifests to use alice/_knop/_references
+- switch ReferenceLink identities in the manifests to catalog-rooted fragment IRIs
+- update the conformance README and task note to describe the new ReferenceCatalog convention
+- update the API examples to use alice/_knop/_references#... identifiers
+```
+
+For `mesh-alice-bio`, you already committed the branch-local refactors separately on `08` and `09` as:
+
+- `136553a` `Move ReferenceCatalog under alice Knop`
+- `e904efb` `Move ReferenceCatalog under alice Knop`
+
+If you want a fuller wording for future use, I’d phrase it like this:
+
+```text
+Move ReferenceCatalog under alice Knop
+
+- move the alice ReferenceCatalog artifact from alice/_references to alice/_knop/_references
+- keep ReferenceCatalog as a Knop-owned support artifact alongside other Knop support resources
+- switch the canonical ReferenceLink identity to a catalog-rooted fragment IRI
+- update the woven 09 history and resource pages to follow the new catalog path
+- keep current and latest historical snapshots byte-identical after the move
+```

@@ -56,7 +56,7 @@
   },
   "result": {
     "created": [
-      "https://example.org/alice/_references/orcid-0000-0002-1825-0097"
+        "https://example.org/alice/_knop/_references#orcid-0000-0002-1825-0097"
     ],
     "updated": [
       "https://example.org/alice/_knop"

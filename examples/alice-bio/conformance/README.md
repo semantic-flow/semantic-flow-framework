@@ -27,3 +27,8 @@ Conventions used here:
 The first transition, `00-blank-slate` -> `01-source-only`, is fixture seeding rather than a public Semantic Flow operation. Its `operationId` is intentionally named as fixture setup.
 
 These manifests are authored before any dedicated runner. They are meant to serve as the normative acceptance layer that a later pseudo-runner or validator will execute against.
+
+For the current Alice reference transitions, the active convention is:
+
+- the `ReferenceCatalog` support artifact lives at `alice/_knop/_references`
+- the `ReferenceLink` identities are stable fragment IRIs rooted at that catalog resource

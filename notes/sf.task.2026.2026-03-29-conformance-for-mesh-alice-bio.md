@@ -33,7 +33,7 @@ The first wave should cover the earliest completed transitions through `09-alice
 
 Subsequent manifests should be added as each later transition is modeled and reviewed.
 
-In the active model, `08-alice-bio-referenced` introduces a dedicated `ReferenceCatalog` artifact for `alice`; the manifest should not treat `ReferenceLink`s as Knop-inventory-local data.
+In the active model, `08-alice-bio-referenced` introduces a dedicated `ReferenceCatalog` artifact for `alice` at `alice/_knop/_references`; the manifest should not treat `ReferenceLink`s as Knop-inventory-local data, and the `ReferenceLink` identities themselves should be stable fragment IRIs rooted at the catalog resource.
 
 ## Discussion
 
