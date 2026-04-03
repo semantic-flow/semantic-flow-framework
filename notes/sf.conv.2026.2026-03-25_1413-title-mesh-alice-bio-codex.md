@@ -5855,3 +5855,231 @@ Ready to proceed with 12-bob-extracted
 # gpt-5.4_2026-04-02_1919_36
 
 I’m checking the `12-bob-extracted` step definition and the current branch state first so I can keep the extraction aligned with the fixture and conformance ladder.
+
+# gpt-5.4_2026-04-02_1919_50
+
+I’m checking how much “extracted” was already implied elsewhere before I touch the branch. The key question is whether `12` means only minting `bob/_knop`, or actually moving Bob’s description out of `alice-bio.ttl`.
+
+# gpt-5.4_2026-04-02_1919_57
+
+I found the current fixture only says “extract Bob into Knop-managed resources,” which is too thin to safely implement literally. I’m doing one more pass on the existing `extract` vocabulary so I don’t accidentally make `12` mean “split payload data” if the operation was only meant to mint a managed resource.
+
+# gpt-5.4_2026-04-02_1920_09
+
+The existing `extract` wording is narrower than “split the payload”: it says “create knops for local RDF references in RdfDocument.” I’m checking the Alice Bio use-case notes next so `12` lands on that semantic line instead of me inventing a stronger operation.
+
+# gpt-5.4_2026-04-02_1920_36
+
+I’ve got the safer reading now: `extract` here should mint Bob’s Knop-managed surface, not rewrite `alice-bio.ttl` into a new Bob payload. I’m checking the existing README and conformance index, then I’ll patch the branch, the manifest, and both task notes on that basis.
+
+# gpt-5.4_2026-04-02_1921_25
+
+I have the 12-shape settled: create `bob/_knop/_meta` and `bob/_knop/_inventory`, update mesh inventory to register the new Knop, and leave `alice-bio.ttl` unchanged. I’m checking the earlier non-woven manifests now so the new one matches the established pattern.
+
+# gpt-5.4_2026-04-02_1921_31
+
+I need to account for the uncommitted `11` follow-up edits before I touch `12`, so I’m checking both repos’ working trees. If they’re still dirty, I’ll work around them rather than trampling them.
+
+# gpt-5.4_2026-04-02_1921_37
+
+I have enough context. Plan is: `12` will create `bob/_knop` plus its minimal support artifacts, update mesh inventory but leave `alice-bio.ttl` and all generated pages alone, then add the matching `12` Accord manifest and extend the two task notes plus the conformance index.
+
+# gpt-5.4_2026-04-02_1921_47
+
+I’m patching the Bob Knop files and mesh inventory now. I’m keeping the extraction deliberately minimal: no payload split, no page generation, no new history until `13`.
+
+# djradon_2026-04-02_1922_03
+
+Yes, don't split the payload, but we can a ReferenceLink for bob pointing to alice-bio. I guess it would be "Supplemental"
+
+# gpt-5.4_2026-04-02_1922_25
+
+I’m incorporating that now. Bob will stay non-payload, but he’ll get a minimal `ReferenceCatalog` with one `Supplemental` link back to `alice/bio` as the document that currently carries his description.
+
+# gpt-5.4_2026-04-02_1922_27
+
+I’m updating Bob’s inventory to own a `ReferenceCatalog` as well, since otherwise the new `ReferenceLink` would have no support-artifact home.
+
+# gpt-5.4_2026-04-02_1922_39
+
+The Bob side is patched. I’m authoring `12-bob-extracted.jsonld` now, using `extract` semantics and making the Supplemental link explicit.
+
+# djradon_2026-04-03_0613_35
+
+I had to disconnect. Were you able to finish 12-bob-extracted?
+
+# gpt-5.4_2026-04-03_0614_26
+
+I only got partway through `12`. Bob’s Knop files are started in `mesh-alice-bio`, but the manifest, task-note updates, and validation still need to be finished. I’m checking the exact current state now and then I’ll complete it end to end.
+
+# gpt-5.4_2026-04-03_0614_47
+
+I’m finishing the framework side and the branch/task docs now. I’m also making the non-woven boundary explicit in the docs: Bob gets a Knop and a Supplemental reference back to `alice/bio`, but no payload split or page generation until `13`.
+
+# gpt-5.4_2026-04-03_0615_35
+
+The combined doc patch failed on a bad context match, so I’m splitting it up into smaller patches rather than forcing it. The Bob branch files are still intact; this is just the framework/doc side.
+
+# gpt-5.4_2026-04-03_0615_38
+
+I’ve confirmed nothing else landed in the framework repo. I’m applying the doc and manifest changes in smaller chunks now, then I’ll validate both sides.
+
+# gpt-5.4_2026-04-03_0616_43
+
+The branch and docs are patched. I’m validating the three Bob RDF files plus the new `12` manifest now.
+
+# gpt-5.4_2026-04-03_0616_51
+
+I’ve queued all the validators. Once they come back clean I’ll do one final status pass and give you the exact completion state.
+
+# gpt-5.4_2026-04-03_0617_14
+
+The Bob RDF is fine. The only remaining issue is the new manifest: Accord rejected three unchanged file expectations, so I’m checking the shape logic rather than guessing and making the manifest worse.
+
+# gpt-5.4_2026-04-03_0617_23
+
+Accord is enforcing the stricter rule we added earlier: every `rdfCanonical` file expectation must have exactly one RDF expectation. I’m adding those three missing expectations to the `12` manifest now.
+
+# gpt-5.4_2026-04-03_0617_38
+
+I’ve patched the missing RDF expectations. Re-running just the manifest validators now.
+
+# gpt-5.4_2026-04-03_0617_47
+
+The shape issue was the only blocker. I’m polling those two validators and then I’ll give you the exact finished state of `12`.
+
+# gpt-5.4_2026-04-03_0618_06
+
+Yes. `12-bob-extracted` is finished now.
+
+In `mesh-alice-bio`, I added Bob’s minimal Knop surface at [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_meta/meta.ttl), [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_inventory/inventory.ttl), and [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_references/references.ttl). The new `ReferenceLink` is about `<bob>`, targets `<alice/bio>`, and uses `sflo:ReferenceRole/Supplemental`. I also updated [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) so `_mesh` now registers `<bob/_knop>`, while [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl) stays unchanged and no pages or histories are generated yet.
+
+In `semantic-flow-framework`, I added [12-bob-extracted.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/12-bob-extracted.jsonld) and updated [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md), [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md), and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) to make the non-woven semantics explicit.
+
+Validated:
+- `riot --validate` passed for [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl), [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_meta/meta.ttl), [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_inventory/inventory.ttl), [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_references/references.ttl), and [12-bob-extracted.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/12-bob-extracted.jsonld)
+- Accord SHACL on [12-bob-extracted.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/12-bob-extracted.jsonld): `Conforms`
+
+One unrelated framework edit is still sitting there untouched:
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+
+If you want, I can give you the commit messages for `mesh-alice-bio` and `semantic-flow-framework` next, or proceed straight to `13-bob-extracted-woven`.
+
+# djradon_2026-04-03_0628_52
+
+Should we add referenceTargetState for bob's references?
+
+How come no "<bob> 
+  sflo:hasResourcePage <bob/index.html> . " Are you ambivalent about whether it belongs in MeshInventory?
+
+# gpt-5.4_2026-04-03_0629_08
+
+I’m checking whether `referenceTargetState` is already in the live ontology file before I answer this as if it were settled.
+
+# gpt-5.4_2026-04-03_0629_11
+
+The property is present in the ontology file, so this is just a modeling decision for `12`, not a new ontology gap.
+
+# gpt-5.4_2026-04-03_0629_22
+
+I’m adding `referenceTargetState` to Bob’s link and tightening the `12` manifest to expect it. I’m not adding `bob/index.html` in `12`; that belongs in the woven `13` step, when the page actually exists.
+
+# gpt-5.4_2026-04-03_0629_37
+
+I’ve made the link state-aware. I’m re-validating just the changed Bob reference file and the `12` manifest.
+
+# gpt-5.4_2026-04-03_0629_44
+
+The only live question left is the page line. I’m polling the validators, then I’ll give you the clean rule I’m following for MeshInventory vs generated pages.
+
+# gpt-5.4_2026-04-03_0629_49
+
+Yes, I think `referenceTargetState` is worth adding here, and I’ve added it.
+
+Bob’s link in [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_references/references.ttl) now says both:
+- `sflo:referenceTarget <alice/bio>`
+- `sflo:referenceTargetState <alice/bio/_history001/_s0002>`
+
+That is the cleaner model for `12`: the reference is generally to the `alice/bio` artifact, but it is specifically grounded in the current known woven state.
+
+On `<bob> sflo:hasResourcePage <bob/index.html> .`: I’m not ambivalent about whether it belongs in MeshInventory. It belongs there once the page exists. I did not add it in `12` because `12` is intentionally non-woven:
+- no page generation yet
+- no `bob/index.html` file yet
+- so adding the triple now would make MeshInventory lie about the current surface
+
+So the rule I’m following is:
+- `12`: register `bob/_knop` in MeshInventory, but no `bob` ResourcePage yet
+- `13`: generate `bob/index.html`, `bob/_knop/index.html`, etc., and then add the matching `hasResourcePage` triples to MeshInventory
+
+That keeps the inventory faithful to the actual filesystem instead of forecasting the next woven step.
+
+# gpt-5.4_2026-04-03_0629_50
+
+Yes, I think `referenceTargetState` is worth adding here, and I’ve added it.
+
+Bob’s link in [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_references/references.ttl) now says both:
+- `sflo:referenceTarget <alice/bio>`
+- `sflo:referenceTargetState <alice/bio/_history001/_s0002>`
+
+That is the cleaner model for `12`: the reference is generally to the `alice/bio` artifact, but it is specifically grounded in the current known woven state.
+
+On `<bob> sflo:hasResourcePage <bob/index.html> .`: I’m not ambivalent about whether it belongs in MeshInventory. It belongs there once the page exists. I did not add it in `12` because `12` is intentionally non-woven:
+- no page generation yet
+- no `bob/index.html` file yet
+- so adding the triple now would make MeshInventory lie about the current surface
+
+So the rule I’m following is:
+- `12`: register `bob/_knop` in MeshInventory, but no `bob` ResourcePage yet
+- `13`: generate `bob/index.html`, `bob/_knop/index.html`, etc., and then add the matching `hasResourcePage` triples to MeshInventory
+
+That keeps the inventory faithful to the actual filesystem instead of forecasting the next woven step.
+
+# djradon_2026-04-03_0630_23
+
+ok, commit messages please
+
+# gpt-5.4_2026-04-03_0630_34
+
+For `mesh-alice-bio`:
+
+```text
+Extract bob into Knop-managed resources in 12-bob-extracted
+
+- register bob/_knop in _mesh/_inventory without generating new pages yet
+- add bob/_knop/_meta/meta.ttl as the minimal Knop metadata surface for bob
+- add bob/_knop/_inventory/inventory.ttl as the canonical current-surface map for the bob Knop
+- add bob/_knop/_references/references.ttl as a minimal ReferenceCatalog for bob
+
+- keep bob extraction non-payload in this branch
+- leave alice-bio.ttl unchanged
+- do not create a bob payload artifact
+- do not split Bob’s description out of alice-bio.ttl yet
+- do not generate ResourcePages or histories until 13-bob-extracted-woven
+
+- record one Supplemental ReferenceLink for bob
+- assert that bob has a ReferenceLink rooted at bob/_knop/_references#reference001
+- make the link refer to bob rather than the bob Knop
+- target alice/bio as the reference artifact
+- pin the link to the current woven payload state with referenceTargetState alice/bio/_history001/_s0002
+```
+
+For `semantic-flow-framework`:
+
+```text
+Add 12 conformance for Bob extraction
+
+- add 12-bob-extracted.jsonld for 11-alice-bio-v2-woven -> 12-bob-extracted
+- model extract as creating a minimal bob Knop, KnopInventory, and ReferenceCatalog
+- assert that alice-bio.ttl remains unchanged in 12
+- assert that no bob pages are generated until the woven 13 step
+- assert that bob’s ReferenceLink is Supplemental, targets alice/bio, and pins to alice/bio/_history001/_s0002
+
+- update the conformance README to include 12-bob-extracted
+- extend the mesh-alice-bio conformance task note through 12
+```
+
+And if you want a short commit message for the task-note/README edits in `weave` itself:
+
+```text
+Clarify Bob extraction semantics in mesh-alice-bio task note
+```

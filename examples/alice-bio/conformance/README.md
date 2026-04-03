@@ -17,6 +17,7 @@ Current naming:
 - `09-alice-bio-referenced-woven.jsonld` means `08-alice-bio-referenced` -> `09-alice-bio-referenced-woven`
 - `10-alice-bio-updated.jsonld` means `09-alice-bio-referenced-woven` -> `10-alice-bio-updated`
 - `11-alice-bio-v2-woven.jsonld` means `10-alice-bio-updated` -> `11-alice-bio-v2-woven`
+- `12-bob-extracted.jsonld` means `11-alice-bio-v2-woven` -> `12-bob-extracted`
 
 Conventions used here:
 
