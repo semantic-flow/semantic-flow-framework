@@ -6083,3 +6083,168 @@ And if you want a short commit message for the task-note/README edits in `weave`
 ```text
 Clarify Bob extraction semantics in mesh-alice-bio task note
 ```
+
+# djradon_2026-04-03_0636_11
+
+OK, ready to proceed with 13-bob-extracted-woven?
+
+# gpt-5.4_2026-04-03_0636_27
+
+I’m checking the current branch and the analogous woven surfaces first, then I’ll implement `13-bob-extracted-woven` end to end rather than guessing the page/history pattern.
+
+# gpt-5.4_2026-04-03_0636_43
+
+I have the shape now. `13` needs to weave Bob’s three support artifacts, advance `_mesh/_inventory` because Bob’s public pages appear for the first time, and generate a real `bob/index.html` plus the Knop-facing pages. I’m pulling the current Bob files and the analogous Alice pages so I can mirror the established page style instead of inventing a new one.
+
+# gpt-5.4_2026-04-03_0636_55
+
+I’ve got the exact rule set now. For `13`, I’m doing four things together: version Bob’s three support artifacts, advance `_mesh/_inventory` to reflect the new Bob pages, generate the Bob-facing pages, and keep the working files identical to their latest snapshots.
+
+# gpt-5.4_2026-04-03_0637_55
+
+I’m patching the RDF surfaces first, then I’ll snapshot them and add the Bob/mesh HTML pages in one pass. The only current-page update outside Bob is `alice/index.html`, because it still says Bob is “not yet extracted.”
+
+# gpt-5.4_2026-04-03_0638_17
+
+I’m creating the Bob history/page directories first so the file patch stays clean. After that I’ll update the two inventory graphs and the current pages together.
+
+# gpt-5.4_2026-04-03_0639_26
+
+The graph changes are in. I’m adding the Bob pages and the new mesh-inventory `s0004` pages now, then I’ll snapshot the working Turtle files into their latest historical-state copies.
+
+# gpt-5.4_2026-04-03_0640_23
+
+The pages are in. I’m copying the working Bob and mesh-inventory Turtle files into their latest snapshot locations now, so the woven branch satisfies working-vs-latest equality.
+
+# gpt-5.4_2026-04-03_0640_55
+
+I’m on the framework side now. The `13` manifest will be leaner than `11`: it focuses on Bob’s new woven surface, the advanced mesh inventory, and the one current-page update on Alice.
+
+# gpt-5.4_2026-04-03_0642_20
+
+The implementation is in place. I’m validating the updated RDF surfaces, the four working-vs-latest snapshot pairs, and the new `13` manifest now.
+
+# gpt-5.4_2026-04-03_0642_29
+
+The working-vs-latest equality checks all passed. I’m just waiting on the RDF validators and the new `13` manifest SHACL check now.
+
+# gpt-5.4_2026-04-03_0642_36
+
+Everything validated cleanly. I’m doing one last status pass so the close-out is precise about what changed and what’s unrelated.
+
+# gpt-5.4_2026-04-03_0642_48
+
+`13-bob-extracted-woven` is implemented.
+
+In `mesh-alice-bio`, Bob’s three support artifacts are now woven and snapshotted:
+- [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_inventory/inventory.ttl)
+- [meta.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_meta/meta.ttl)
+- [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/_references/references.ttl)
+
+I also advanced [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) to a new latest state so the mesh now exposes Bob’s public pages, added [bob/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/index.html) and [bob/_knop/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/bob/_knop/index.html), and updated [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) so `foaf:knows` now links to Bob instead of saying he is not yet extracted.
+
+In `semantic-flow-framework`, I added [13-bob-extracted-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/13-bob-extracted-woven.jsonld) and updated the conformance/task notes plus the fixture task note [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md).
+
+Verified:
+- `diff -u` passed for all four working-vs-latest pairs:
+  - mesh inventory
+  - Bob KnopMetadata
+  - Bob KnopInventory
+  - Bob ReferenceCatalog
+- `riot --validate` passed for the changed Turtle files and the new `13` manifest
+- Accord SHACL on the new manifest: `Conforms`
+
+One unrelated framework edit is still present and untouched:
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+
+If you want, I can give you the commit messages next.
+
+# djradon_2026-04-03_0642_48
+
+I'm curious, did 12 advance the mesh inventory? I would think that, in general, only a weave can advance the inventory.
+
+# gpt-5.4_2026-04-03_0643_03
+
+I’m checking the exact `11 -> 12` delta in `_mesh/_inventory` so I can answer precisely whether “advance” means working-surface change or historical-state change.
+
+# gpt-5.4_2026-04-03_0643_16
+
+Yes, but only in the weaker sense.
+
+In `12-bob-extracted`:
+- the working [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) changed to register `<bob/_knop>`
+- but the mesh inventory history did not advance
+- `latestHistoricalState` stayed `_s0003`
+- `nextStateOrdinal` stayed `4`
+- there was no `_s0004` yet
+
+So:
+
+- `12` updated the current working inventory surface
+- `13` is the step that actually advanced mesh inventory history to `_s0004`
+
+I think that is the right distinction:
+- non-woven operations like `knop create`, `integrate`, `extract` can update the working inventory
+- only `weave` should version that inventory into a new historical state
+
+If you mean the stronger rule “only weave should touch `inventory.ttl` at all,” then not just `12`, but also earlier non-woven branches like `04` and `06`, would need to be reconsidered. I would not recommend that stronger rule.
+
+# djradon_2026-04-03_0643_52
+
+Agreed. commit messages please.
+
+# gpt-5.4_2026-04-03_0644_02
+
+For `mesh-alice-bio`:
+
+```text
+Weave extracted Bob resources in 13-bob-extracted-woven
+
+- version Bob's KnopMetadata, KnopInventory, and ReferenceCatalog into first explicit histories
+- add bob/_knop/_meta/_history001/_s0001
+- add bob/_knop/_inventory/_history001/_s0001
+- add bob/_knop/_references/_history001/_s0001
+- keep the working Bob Turtle files byte-identical to those latest-state snapshots
+
+- advance mesh inventory to reflect Bob's new public woven surface
+- add _mesh/_inventory/_history001/_s0004
+- register bob/index.html and bob/_knop/index.html in the current mesh inventory surface
+- keep _mesh/_inventory/inventory.ttl byte-identical to the _s0004 snapshot
+
+- generate Bob-facing ResourcePages
+- add bob/index.html describing the bob identifier as a schema:Person
+- add bob/_knop/index.html and Bob support-artifact pages
+- add Bob history/state/manifestation pages for _meta, _inventory, and _references
+- update alice/index.html so foaf:knows now links to bob instead of saying Bob is not yet extracted
+
+- preserve the current Bob reference semantics
+- keep bob/_knop/_references#reference001 as a Supplemental ReferenceLink
+- keep referenceTarget alice/bio and referenceTargetState alice/bio/_history001/_s0002
+
+Validated with:
+- diff -u confirms working _mesh/_inventory/inventory.ttl equals _s0004
+- diff -u confirms working Bob KnopMetadata, KnopInventory, and ReferenceCatalog files equal their _s0001 snapshots
+- riot --validate on the updated and new Turtle files
+```
+
+For `semantic-flow-framework`:
+
+```text
+Add 13 conformance for woven Bob extraction
+
+- add 13-bob-extracted-woven.jsonld for 12-bob-extracted -> 13-bob-extracted-woven
+- assert that weave versions Bob's KnopMetadata, KnopInventory, and ReferenceCatalog into first explicit histories
+- assert that Bob's working Turtle files equal their _s0001 snapshots
+- assert that mesh inventory advances to _s0004 when Bob's public pages appear
+- assert that bob/index.html, bob/_knop/index.html, and the Bob support-artifact pages are generated
+- assert that alice/index.html updates its foaf:knows rendering to link to bob
+
+- update the conformance README to include 13-bob-extracted-woven
+- extend the conformance task note through 13
+```
+
+For `weave`:
+
+```text
+Mark Bob extraction and woven Bob extraction complete in mesh-alice-bio task note
+```

@@ -19,7 +19,7 @@ This task captures conformance manifests for the `mesh-alice-bio` fixture ladder
 
 The manifests should live in `semantic-flow-framework/examples/alice-bio/conformance/` and describe expected transitions between fixture refs in the separate `mesh-alice-bio` repository. They should not be spread across the fixture branches themselves.
 
-The first wave should cover the earliest completed transitions through `12-bob-extracted`:
+The first wave should cover the earliest completed transitions through `13-bob-extracted-woven`:
 
 - `00-blank-slate` -> `01-source-only`
 - `01-source-only` -> `02-mesh-created`
@@ -33,12 +33,15 @@ The first wave should cover the earliest completed transitions through `12-bob-e
 - `09-alice-bio-referenced-woven` -> `10-alice-bio-updated`
 - `10-alice-bio-updated` -> `11-alice-bio-v2-woven`
 - `11-alice-bio-v2-woven` -> `12-bob-extracted`
+- `12-bob-extracted` -> `13-bob-extracted-woven`
 
 Subsequent manifests should be added as each later transition is modeled and reviewed.
 
 In the active model, `08-alice-bio-referenced` introduces a dedicated `ReferenceCatalog` artifact for `alice` at `alice/_knop/_references`; the manifest should not treat `ReferenceLink`s as Knop-inventory-local data, and the `ReferenceLink` identities themselves should be stable fragment IRIs rooted at the catalog resource.
 
 In the active Bob extraction model, `12-bob-extracted` should create a minimal `bob` Knop plus a `ReferenceCatalog` at `bob/_knop/_references`, with one Supplemental `ReferenceLink` about `<bob>` targeting `<alice/bio>`. The payload file `alice-bio.ttl` should remain unchanged in that branch, and page generation should remain deferred to the woven `13` step.
+
+For `13-bob-extracted-woven`, the active expectation is to version `bob/_knop/_meta`, `bob/_knop/_inventory`, and `bob/_knop/_references`, generate `bob/index.html` and the Bob Knop-facing pages, and advance `_mesh/_inventory` because Bob's public pages now become part of the current mesh surface.
 
 ## Discussion
 
@@ -60,6 +63,7 @@ Recommended initial naming:
 - `10-alice-bio-updated.jsonld`
 - `11-alice-bio-v2-woven.jsonld`
 - `12-bob-extracted.jsonld`
+- `13-bob-extracted-woven.jsonld`
 
 Those files should each carry:
 
@@ -92,7 +96,7 @@ That ordering matters. If the runner comes first, the manifests become documenta
 - Use one manifest per transition.
 - Store all manifests in `semantic-flow-framework/examples/alice-bio/conformance/`.
 - Do not store manifests in `mesh-alice-bio` branches.
-- Start with the completed transitions through `12-bob-extracted`, then add later manifests as later steps are completed.
+- Start with the completed transitions through `13-bob-extracted-woven`, then add later manifests as later steps are completed.
 - Author manifests first, then implement pseudo-runner or execution logic against them.
 - Patch Accord when real authoring work exposes concrete gaps, rather than freezing weak shapes and working around them in the manifests.
 - Treat the destination-branch filename convention as a convenience for the current linear ladder, not as the underlying semantic unit.
@@ -132,7 +136,8 @@ This task adds a separate conformance/acceptance layer for framework behavior. T
 - [x] Create `examples/alice-bio/conformance/10-alice-bio-updated.jsonld` for `09-alice-bio-referenced-woven` -> `10-alice-bio-updated`.
 - [x] Create `examples/alice-bio/conformance/11-alice-bio-v2-woven.jsonld` for `10-alice-bio-updated` -> `11-alice-bio-v2-woven`.
 - [x] Create `examples/alice-bio/conformance/12-bob-extracted.jsonld` for `11-alice-bio-v2-woven` -> `12-bob-extracted`.
-- [x] Validate the first twelve manifests against Accord SHACL.
+- [x] Create `examples/alice-bio/conformance/13-bob-extracted-woven.jsonld` for `12-bob-extracted` -> `13-bob-extracted-woven`.
+- [x] Validate the first thirteen manifests against Accord SHACL.
 - [x] Patch Accord to add `unchanged`, tighten `compareMode`, enforce same-case RDF targeting, and prevent duplicate file expectations per path.
 - [ ] After the first eight manifests are stable, create the next manifest only when the corresponding fixture transition is settled.
 - [ ] After several manifests exist, design a minimal pseudo-runner that can compare refs and report Accord-level pass/fail results.
