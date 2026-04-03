@@ -3,7 +3,7 @@ id: title-mesh-alice-bio-viwjbq
 title: 'title: mesh-alice-bio'
 desc: ''
 created: 1774473214831
-updated: 1774483267619
+updated: 1775179385332
 participants: [djradon, codex.gpt-5.4]
 conversationEventKinds: [message.assistant, message.user, tool.call, tool.result, decision]
 ---
@@ -1353,7 +1353,7 @@ Assuming we don't want a separate RdfDocument artifact for ArtifactHistory, it's
 
 For path shape, I would say D/_history001 for default initial history. Yes, hasHistoricalState should hang off ArtifactHistory. I think we can keep the same term?
 
-Let's plan the delta into ont.task.2026.2026-03-26-ArtifactHistory.md and include docs updates where appropriate.
+Let's plan the delta into ont.completed.2026.2026-03-26-ArtifactHistory.md and include docs updates where appropriate.
 
 # gpt-5.4_2026-03-26_1000_35
 
@@ -1373,7 +1373,7 @@ The task note is drafted. I’m doing one read-through to make sure the path dir
 
 # gpt-5.4_2026-03-26_1002_29
 
-Updated [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md) into a real delta plan.
+Updated [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md) into a real delta plan.
 
 It now captures:
 - explicit `ArtifactHistory` as the narrow replacement for any old `ArtifactFlow` idea
@@ -1423,7 +1423,7 @@ My stronger view is:
 
 The only reason to keep `ArtifactContainer` would be if you expect near-term common constraints or behavior for “resources that intentionally host other modeled resources.” Right now I don’t think you have that. So my recommendation is: drop it.
 
-If you want, I can patch [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) and [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md) to reflect that.
+If you want, I can patch [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) and [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md) to reflect that.
 
 # djradon_2026-03-26_1011_52
 
@@ -1445,7 +1445,7 @@ The task note now treats SHACL as part of the same job. I’m checking the resul
 
 # gpt-5.4_2026-03-26_1012_31
 
-Yes. I folded both into [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md).
+Yes. I folded both into [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md).
 
 The task now explicitly says:
 - remove `ArtifactContainer` from the core rather than reusing it for `ArtifactHistory`
@@ -1485,7 +1485,7 @@ There were two small stale bits in the note: one duplicated ontology-update bull
 
 # gpt-5.4_2026-03-26_1022_31
 
-Updated [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md) with those decisions.
+Updated [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md) with those decisions.
 
 It now records:
 - `DigitalArtifact` gets a `currentArtifactHistory` pointer in addition to `hasArtifactHistory`
@@ -1512,7 +1512,7 @@ I’m converting those answers from open questions into decisions in the Artifac
 
 # gpt-5.4_2026-03-26_1054_03
 
-Recorded in [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md).
+Recorded in [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md).
 
 The note now treats these as decisions:
 - `ArtifactHistory` is only a `SemanticFlowResource`
@@ -1616,7 +1616,7 @@ Implemented the ArtifactHistory delta.
 
 Changed [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl) to remove `ArtifactContainer`, add `ArtifactHistory`, `hasArtifactHistory`, functional `currentArtifactHistory` as a subproperty of `hasArtifactHistory`, plus `historyOrdinal`, `nextHistoryOrdinal`, and `nextStateOrdinal`, and move `hasHistoricalState` / `latestHistoricalState` onto `ArtifactHistory`. Updated [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld) to match: `DigitalArtifact` now validates histories/current history/next history ordinal, `ArtifactHistory` validates states/latest state/ordinals, and there are explicit constraints for `currentArtifactHistory` membership and presence.
 
-Updated the docs to match in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md), [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md), and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md). The path story is now `_historyNNN/_sNNNN`, not `_knop/_history/vN`.
+Updated the docs to match in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md), [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md), and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md). The path story is now `_historyNNN/_sNNNN`, not `_knop/_history/vN`.
 
 Verification:
 - `riot --validate` passed for [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl)
@@ -4007,7 +4007,7 @@ But I think the cleaner long-term model is to drop it.
 
 # djradon_2026-04-01_1952_40
 
-Remove entirely. Use SHACL to support hasReferenceCatalog domain of Knop or Mesh. Do you want to update the plan before beginning execution? Formalize into [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md) ?
+Remove entirely. Use SHACL to support hasReferenceCatalog domain of Knop or Mesh. Do you want to update the plan before beginning execution? Formalize into [[ont.completed.2026.2026-04-01-ReferenceCatalog]] ?
 
 # gpt-5.4_2026-04-01_1953_03
 
@@ -4023,7 +4023,7 @@ I’m filling the ReferenceCatalog task note now with the decisions we’ve alre
 
 # gpt-5.4_2026-04-02_0052_20
 
-Yes. I formalized it in [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+Yes. I formalized it in [[ont.completed.2026.2026-04-01-ReferenceCatalog]].
 
 The note now reflects the plan you just chose:
 - remove `ReferentMetadata` / `hasReferentMetadata`
@@ -4137,7 +4137,7 @@ Implemented the `ReferenceCatalog` shift across ontology, fixture, and conforman
 Ontology/docs:
 - Added `ReferenceCatalog` / `hasReferenceCatalog` and removed `ReferentMetadata` / `hasReferentMetadata` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl).
 - Tightened SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld) so `referenceLinkFor` must not point at a `Knop`, and `hasReferenceCatalog` is allowed for `Knop` or `SemanticMesh` with `maxCount 1`.
-- Updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md), and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+- Updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md), and [[ont.completed.2026.2026-04-01-ReferenceCatalog]].
 
 Alice Bio / framework:
 - Refactored `08` so the Knop inventory now points to a catalog in [alice/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl), and the actual link lives in the new [alice/_references/references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/references.ttl).
@@ -4324,7 +4324,7 @@ The previous committed version in `a30bfa4` did not have the space, and your cur
 
 commit message for ontology changes please.
 
-OK, I think we are ready to move on to 09. @sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md kinda stopped at 08, so let's be aware of that... do we have to settle a fixture transition? There's some redundnacy with [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md) too?
+OK, I think we are ready to move on to 09. @sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md kinda stopped at 08, so let's be aware of that... do we have to settle a fixture transition? There's some redundnacy with [[ont.completed.2026.2026-04-01-ReferenceCatalog]] too?
 
 # gpt-5.4_2026-04-02_1329_31
 
@@ -4343,7 +4343,7 @@ Replace ReferentMetadata with ReferenceCatalog
 
 On `09`: yes, we should settle the `08 -> 09` fixture transition before writing the `09` manifest, but we do not need another task note. The three notes already have distinct jobs:
 
-- [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md): ontology-side delta and rationale
+- [[ont.completed.2026.2026-04-01-ReferenceCatalog]]: ontology-side delta and rationale
 - [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md): fixture branch semantics
 - [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md): conformance-manifest rollout
 
@@ -4478,7 +4478,7 @@ In `mesh-alice-bio`, I wove the new reference artifact without advancing mesh in
 - added generated pages under [alice/_references/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_references/index.html)
 - left [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) untouched, as agreed
 
-In `semantic-flow-framework`, I added [09-alice-bio-referenced-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/09-alice-bio-referenced-woven.jsonld) and extended the rollout notes in [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) and [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md). I also updated the fixture/ontology task notes at [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+In `semantic-flow-framework`, I added [09-alice-bio-referenced-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/09-alice-bio-referenced-woven.jsonld) and extended the rollout notes in [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md) and [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md). I also updated the fixture/ontology task notes at [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) and [[ont.completed.2026.2026-04-01-ReferenceCatalog]].
 
 Verification passed:
 - `diff -u` confirms working/latest equality for the woven reference catalog and updated Knop inventory
@@ -4645,7 +4645,7 @@ The mechanical backfill landed correctly. I’m running one core-SHACL spot chec
 
 Implemented.
 
-In `ontology`, I added `sflo:stateOrdinal` on `HistoricalState` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), added matching SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld), and updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), and [ont.task.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-26-ArtifactHistory.md). Those ontology changes are validated but still uncommitted. There is also an existing unrelated modification still present in [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md).
+In `ontology`, I added `sflo:stateOrdinal` on `HistoricalState` in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), added matching SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld), and updated the supporting notes in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md), [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), and [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md). Those ontology changes are validated but still uncommitted. There is also an existing unrelated modification still present in [[ont.completed.2026.2026-04-01-ReferenceCatalog]].
 
 In `mesh-alice-bio`, I backfilled `stateOrdinal` across every branch that already materializes `HistoricalState`s, and I persisted those branch updates with the same commit message, `Add stateOrdinal to HistoricalState examples`:
 - `03-mesh-created-woven` `8e52dd8`
@@ -4778,7 +4778,7 @@ The ontology patch is in. I’m validating it now, then I’ll give you the desi
 
 # gpt-5.4_2026-04-02_1521_27
 
-Added `sflo:referenceTargetState` to the ontology in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), with matching optional SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld). I also noted it in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) and [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md). `riot` and `jq` validation passed.
+Added `sflo:referenceTargetState` to the ontology in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl), with matching optional SHACL in [sflo-core-shacl.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/sflo-core-shacl.jsonld). I also noted it in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) and [[ont.completed.2026.2026-04-01-ReferenceCatalog]]. `riot` and `jq` validation passed.
 
 On the design points:
 
@@ -5199,7 +5199,7 @@ My recommended plan:
 - Then heavily trim [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) to just the essential summary and link to the new note.
 
 **Other docs to update**
-- [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md)
+- [[ont.completed.2026.2026-04-01-ReferenceCatalog]]
 - [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md)
 - [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md)
 - any API/example JSON-LD that currently uses the old path-style link IRI
@@ -5287,7 +5287,7 @@ The refactor is in place across fixture, docs, and manifests. I’m running the 
 
 Executed the refactor.
 
-The detailed reference-link rules now live in [ont.reference-links.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.reference-links.md), and [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) stays compact while still mentioning the key `ReferenceCatalog` facts. I also updated [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md), and [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) to use the new `_knop/_references` convention.
+The detailed reference-link rules now live in [ont.reference-links.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.reference-links.md), and [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md) stays compact while still mentioning the key `ReferenceCatalog` facts. I also updated [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md), [[ont.completed.2026.2026-04-01-ReferenceCatalog]], and [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) to use the new `_knop/_references` convention.
 
 In `mesh-alice-bio`, `08` and `09` now use the Knop-owned catalog path and fragment link IDs:
 - [references.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_references/references.ttl)
@@ -5482,3 +5482,218 @@ So the split is roughly:
 - JSON-LD: compact IRIs do
 
 So your move to `<...>` in the Turtle fixture was justified, and not just stylistic.
+
+# djradon_2026-04-02_1819_42
+
+Can we move [[ont.completed.2026.2026-04-01-ReferenceCatalog]] to done? I was thinking about moving completed tasks to the sff repo.
+
+# gpt-5.4_2026-04-02_1819_52
+
+I’m checking the task-note conventions before moving anything. The main question is whether “done” already has a clear home in `ontology`, because moving a completed ontology task into `semantic-flow-framework` would blur repository ownership.
+
+# gpt-5.4_2026-04-02_1819_59
+
+I don’t think moving a completed ontology task into `semantic-flow-framework` is a good idea. It would make the execution history harder to follow, because the task drove real ontology and SHACL deltas and is already cited from ontology notes. I’m checking whether the task-note template already has a lightweight way to mark completion instead.
+
+# gpt-5.4_2026-04-02_1820_09
+
+There isn’t a built-in `done` bucket in `ontology/notes`, and moving this note into `semantic-flow-framework` would break the clean ownership line. I’m going to mark it more explicitly as complete in-place instead of inventing a cross-repo relocation convention ad hoc.
+
+# gpt-5.4_2026-04-02_1820_17
+
+I don’t think we should move it into `semantic-flow-framework`.
+
+[[ont.completed.2026.2026-04-01-ReferenceCatalog]] is an ontology-owned task note, and it is already referenced from ontology docs like [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md). Moving it cross-repo would make provenance worse, not better.
+
+I did mark it more explicitly complete in place by adding a completion line to the Summary in [[ont.completed.2026.2026-04-01-ReferenceCatalog]]. The checklist was already fully checked.
+
+My recommendation:
+- keep source task notes in the repo that owns the work
+- if you want a cross-repo “done” view, create an index/tracker in `semantic-flow-framework` that links out to completed task notes rather than relocating them
+
+If you want, I can set up that tracker note next.
+
+# djradon_2026-04-02_1823_41
+
+If you do wikilinks-style (Dendron) links like [[]] instead of [ont.task.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-04-01-ReferenceCatalog.md) when I "Dendron: Move" the note, it fixes all the links. 
+
+So normally, I would move ont.task.* to ont.completed.*
+
+# gpt-5.4_2026-04-02_1823_56
+
+That’s a better convention. I’m going to treat `ontology/notes` as a Dendron-style note set here too, move the completed task to `ont.completed...`, and update the local note references to wikilinks so future Dendron moves stay repairable.
+
+# gpt-5.4_2026-04-02_1824_17
+
+You’re right. If `ontology/notes` is following the Dendron move convention, then `ont.task.* -> ont.completed.*` is the cleaner end state, and the note references should be wikilinks rather than hard file-path markdown when they live in notes. I’m going to do the rename and update the local note references accordingly.
+
+# gpt-5.4_2026-04-02_1824_29
+
+I’m doing two things now: renaming the ontology note to the `ont.completed...` convention, and then updating the local note references so we don’t leave broken wikilinks behind from the manual move.
+
+# gpt-5.4_2026-04-02_1824_33
+
+`apply_patch` won’t accept a pure rename hunk. I’m using a straight `mv` for the file move, then I’ll patch the references normally.
+
+# gpt-5.4_2026-04-02_1824_45
+
+I’ve done the rename. Now I’m bulk-updating the note references from `[[ont.task...]]` to `[[ont.completed...]]` so the vault stays internally consistent.
+
+# gpt-5.4_2026-04-02_1825_08
+
+Done. I moved [ont.completed.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-04-01-ReferenceCatalog.md) from the old `ont.task...` name and updated the wikilink references in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md) and [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md).
+
+I think your convention is better:
+- active ontology work stays `ont.task.*`
+- completed ontology work moves to `ont.completed.*`
+- note-to-note links should prefer `[[...]]` so Dendron can repair them on moves
+
+One thing still missing is schema support for `ont.completed.*`; [task.schema.yml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/task.schema.yml) only knows about `ont.task.*` right now. That does not block the rename, but if you want, I can add a matching completed-note schema/template next.
+
+# djradon_2026-04-02_1827_02
+
+I think ont.completed.2026.2026-03-26-ArtifactHistory is complete too, right?
+
+# gpt-5.4_2026-04-02_1827_11
+
+I’m checking the ArtifactHistory note against what was actually implemented, rather than trusting the checklist. If it’s truly complete, it should probably follow the same `ont.completed.*` move we just used for ReferenceCatalog.
+
+# gpt-5.4_2026-04-02_1827_24
+
+Yes, I think [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md) is complete.
+
+The substantive work is already done:
+- `ArtifactHistory`, `hasArtifactHistory`, `currentArtifactHistory`, `historyOrdinal`, `nextHistoryOrdinal`, `nextStateOrdinal`, and later `stateOrdinal` all landed
+- `ArtifactContainer` was removed from the active core
+- SHACL and supporting docs were updated
+- the Alice Bio fixture was migrated to the explicit `_historyNNN/_sNNNN` model
+
+What’s stale is the note’s framing: it still reads like an active design/planning note rather than a completed record. So yes, it should probably follow the same move to `ont.completed.2026.2026-03-26-ArtifactHistory`. If you want, I can do that rename and update the wikilinks next.
+
+# djradon_2026-04-02_1828_04
+
+sure
+
+# gpt-5.4_2026-04-02_1828_19
+
+I’m renaming the ArtifactHistory task to the `ont.completed.*` convention and updating the note references that point at it. I’ll also make the note read as a completed record rather than a live design note while I’m in there.
+
+# gpt-5.4_2026-04-02_1828_28
+
+I confirmed the work is complete. I’m moving the note to `ont.completed.*`, then I’ll update the references and add one explicit “this is complete” line so the note no longer reads like live planning.
+
+# gpt-5.4_2026-04-02_1828_39
+
+I’ve done the rename and the ontology-side decision-log fix. The remaining cleanup is in the framework conversation note, where the old task name appears several times as historical links.
+
+# gpt-5.4_2026-04-02_1828_56
+
+Yes. I moved [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md) to the completed-task convention, added an explicit completion line at the top, and updated the references in [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md) and [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md).
+
+The ontology repo now has both completed-note renames pending together:
+- [ont.completed.2026.2026-03-26-ArtifactHistory.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-03-26-ArtifactHistory.md)
+- [ont.completed.2026.2026-04-01-ReferenceCatalog.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.completed.2026.2026-04-01-ReferenceCatalog.md)
+
+One follow-up still worth doing: [task.schema.yml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/task.schema.yml) only knows about `ont.task.*`, not `ont.completed.*`. If you want, I can add a completed-note schema/template next.
+
+# djradon_2026-04-02_1829_19
+
+No, we won't be creating any ont.completed from scratch so a template is not necessary.
+
+# gpt-5.4_2026-04-02_1829_24
+
+Agreed. A template or schema branch for `ont.completed.*` would be unnecessary overhead if those notes only arise by moving finished `ont.task.*` notes.
+
+The current rename approach is enough:
+- create work as `ont.task.*`
+- move to `ont.completed.*` when done
+- rely on wikilinks so Dendron repairs references
+
+No patch needed there.
+
+# djradon_2026-04-02_1833_25
+
+I branched to 11-alice-bio-v2-woven. For this iteration, can the generated ResourcePages include links to mesh resources (as <a href...> where appropriate and the Alice page gets a table with her properties? And the alice-bio page contains links to the currentWorking and historical payload files?
+
+# gpt-5.4_2026-04-02_1833_41
+
+I’m checking the `11-alice-bio-v2-woven` branch state and the existing generated pages first. I want to confirm the current `10` payload delta is present and then wire the new page behavior into the woven output rather than guessing from older branches.
+
+# gpt-5.4_2026-04-02_1833_55
+
+I’m checking what `_mesh/_inventory` currently tracks for `alice/bio` before I touch `11`. The main design question is whether a second payload state should advance mesh inventory or stay local to `alice/bio` and its Knop surfaces.
+
+# gpt-5.4_2026-04-02_1834_16
+
+The main modeling call is this: I’m going to keep `_mesh/_inventory` unchanged in `11` unless I find it already tracks payload-history internals. A second payload state under `alice/bio/_history001` looks like Knop-local inventory business, not mesh-inventory business, and I’d rather keep that boundary clean.
+
+# gpt-5.4_2026-04-02_1834_45
+
+I have the shape now. `11` should weave the payload artifact and advance `alice/bio/_knop/_inventory`, while leaving `_mesh/_inventory` alone. I’m going to implement that and, in the same pass, make the key public pages actually navigable: `alice/index.html` gets a property table, `alice/bio/index.html` gets current/historical payload links, and the new history pages link across the payload timeline.
+
+# djradon_2026-04-02_1834_47
+
+2nd payload should not advance mesh inventory.
+
+# gpt-5.4_2026-04-02_1835_57
+
+I’m at the file-edit phase now. The plan is: update the payload-history and Knop-inventory RDF first, then add the new `_s0002` snapshot files and the richer linked HTML pages around them, and only after that write the `11` manifest.
+
+# gpt-5.4_2026-04-02_1836_36
+
+I’m regenerating the public and history-facing HTML now. I’m keeping it simple: linked sections instead of generic prose, with the `alice` page showing current person properties and the `alice/bio` page explicitly linking the working file and both historical payload snapshots.
+
+# gpt-5.4_2026-04-02_1837_34
+
+The big HTML patch partially missed because some of the existing page text doesn’t match my assumed wording. I’m reading the exact current files and then I’ll reapply the page updates against the real content.
+
+# gpt-5.4_2026-04-02_1838_35
+
+I’ve updated the live inventory and page files. Next I’m materializing the new `_s0002` snapshot files from the current working payload and the updated working Knop inventory so the woven branch satisfies the “working equals latest snapshot” rule.
+
+# gpt-5.4_2026-04-02_1838_57
+
+I’m checking the exact changed file set before I write the `11` manifest. I want the manifest to reflect the real branch delta, not a hand-wavy subset that misses one of the regenerated pages.
+
+# gpt-5.4_2026-04-02_1839_23
+
+I’m writing the `11` Accord manifest against the actual changed file set now. I’m making the “no mesh inventory advance” rule explicit there so this branch locks that behavior in.
+
+# gpt-5.4_2026-04-02_1840_15
+
+The `11` manifest is drafted. I’m updating the fixture and conformance task notes now so the branch and manifest progression stays in sync with the actual implementation.
+
+# gpt-5.4_2026-04-02_1840_53
+
+I’m in the validation pass now: RDF syntax, working-vs-latest snapshot equality, and Accord SHACL on the new `11` manifest. If any of that breaks, I’ll fix it before touching the checklist again.
+
+# gpt-5.4_2026-04-02_1840_56
+
+The file-set looks right. I’m just waiting on Jena to finish the syntax and Accord validation before I mark the `11` checklist complete.
+
+# gpt-5.4_2026-04-02_1841_03
+
+Validation is clean. I’m doing one last bookkeeping patch in the framework task note so it records that the first eleven manifests now validate, then I’ll give you the exact branch outcome.
+
+# gpt-5.4_2026-04-02_1841_31
+
+`11-alice-bio-v2-woven` is in place.
+
+In `mesh-alice-bio`, [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl) now advances both the `alice/bio` payload history and the `alice/bio/_knop/_inventory` history to `_s0002`, while [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) stays unchanged as requested. The new latest payload snapshot is [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_history001/_s0002/alice-bio-ttl/alice-bio.ttl), and the new latest inventory snapshot is [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl).
+
+I also regenerated the key pages the way you asked: [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) now has a property table for Alice plus mesh links, [alice/bio/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/index.html) now links the current working payload file and both historical payload snapshots, and the payload/inventory history pages now link across the relevant mesh resources instead of being dead-end stubs. In `semantic-flow-framework`, I added [11-alice-bio-v2-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/11-alice-bio-v2-woven.jsonld) and updated [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md), [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md), and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md) through `11`.
+
+Validation passed:
+- `diff -u` confirms working/latest equality for [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl) vs [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_history001/_s0002/alice-bio-ttl/alice-bio.ttl), and for [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl) vs [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl)
+- `riot --validate` passed for the updated/new Turtle files
+- Accord SHACL passed for [11-alice-bio-v2-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/11-alice-bio-v2-woven.jsonld)
+
+One unrelated framework edit is still sitting there untouched: [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md).
+
+# djradon_2026-04-02_1847_45
+
+<li>Payload artifact: <a href="./bio">./bio</a></li> and <li>Current payload file: <a href="../alice-bio.ttl">../alice-bio.ttl</a></li> makes it sound like alice has a payload. Instead of "Mesh Links" maybe we call the section "Semantic Flow support artifacts"?
+
+# gpt-5.4_2026-04-02_1847_56
+
+That’s a real modeling bug in the page wording. `alice` does not itself have a payload artifact; `alice/bio` is a related identifier/resource under the mesh. I’m patching [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) to remove that implication rather than just renaming the heading.
