@@ -5697,3 +5697,161 @@ One unrelated framework edit is still sitting there untouched: [sf.conv.2026.202
 # gpt-5.4_2026-04-02_1847_56
 
 That’s a real modeling bug in the page wording. `alice` does not itself have a payload artifact; `alice/bio` is a related identifier/resource under the mesh. I’m patching [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) to remove that implication rather than just renaming the heading.
+
+# gpt-5.4_2026-04-02_1848_06
+
+Agreed. I fixed [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) so it no longer implies that `alice` itself has a payload.
+
+The page now has:
+- `Semantic Flow Support Artifacts` for `./_knop` and `./_knop/_references`
+- `Related Mesh Resource` for `./bio`
+
+I also removed the misleading “Current payload file” line and changed the footer to say `alice` has a related integrated bio resource, not a payload artifact of its own.
+
+# djradon_2026-04-02_1849_40
+
+Also, the historical resourcepages shouldn't get rewritten normally. I think it's okay in this case, we're just pretending that they were always like this. But just want you to be aware.
+
+# gpt-5.4_2026-04-02_1849_46
+
+Yes. That’s the right rule.
+
+Normally:
+- current pages can be regenerated
+- historical snapshot files and historical ResourcePages should be treated as frozen outputs of that historical state
+
+What I did in `11` rewrote some older historical pages to improve navigation, which is acceptable only because we’re still shaping the fixture conventions and effectively retconning the earlier generated style. I agree that should not become the normal weave behavior.
+
+So the rule I’ll follow going forward is:
+- new weave state may add new historical pages
+- existing historical pages should stay unchanged unless we are doing an explicit fixture-wide corrective retrofit like this one
+
+# djradon_2026-04-02_1850_22
+
+mesh-alice-bio commit message please
+
+# gpt-5.4_2026-04-02_1850_27
+
+```text
+Weave second alice/bio payload state in 11-alice-bio-v2-woven
+
+- version the updated alice/bio payload into a second historical state at:
+  alice/bio/_history001/_s0002
+- add the second payload manifestation at:
+  alice/bio/_history001/_s0002/alice-bio-ttl/alice-bio.ttl
+- keep the working alice-bio.ttl file byte-identical to the latest payload snapshot
+
+- advance alice/bio KnopInventory to a second historical state at:
+  alice/bio/_knop/_inventory/_history001/_s0002
+- update latestHistoricalState and nextStateOrdinal for both the payload history and the alice/bio KnopInventory history
+- keep the working alice/bio/_knop/_inventory/inventory.ttl file byte-identical to the latest inventory snapshot
+
+- do not advance _mesh/_inventory
+- keep mesh inventory unchanged because a second payload state does not widen the mesh-level current-surface map
+
+- regenerate the key ResourcePages around alice and alice/bio
+- enrich alice/index.html with support-artifact links and a current property table
+- enrich alice/bio/index.html with links to the current working payload file and both historical payload snapshots
+- add navigable links across the new payload and KnopInventory history/state pages
+
+Validated with:
+- diff -u confirms working alice-bio.ttl equals latest payload snapshot
+- diff -u confirms working alice/bio/_knop/_inventory/inventory.ttl equals latest inventory snapshot
+- riot --validate on the updated and new Turtle files
+```
+
+# djradon_2026-04-02_1905_28
+
+On https://semantic-flow.github.io/mesh-alice-bio/alice/bio/ -- what is the point of "referrent"? Maybe Alice is the subject, but she's not the referent of the identifier https://semantic-flow.github.io/mesh-alice-bio/alice/bio/. 
+
+On https://semantic-flow.github.io/mesh-alice-bio/alice/bio/ -- same thing "Supporting Semantic Flow Resources" instead of Mesh Links. Let's have a line for KnopMetadata with a link to the current file, and to the history IRI, and a KnopInventory line with a link to the current inventory and then the history IRI. Every payload IRI should link to the current payload file, and the current history. 
+
+The ResourcePage for a Semantic Flow identifier should state what it denotes. For alice it denotes a Person, for alice/bio it denotes an RdfDocument.
+
+Can you do that for both the Semantic Flow identifiers. (alice and alice/bio)
+
+# gpt-5.4_2026-04-02_1905_45
+
+I’m patching the two identifier pages directly. The main fixes are semantic wording and link structure: remove the sloppy “referent” framing on `alice/bio`, rename the support section, and make each identifier page say what it denotes while linking its current support files and history resources explicitly.
+
+# gpt-5.4_2026-04-02_1906_13
+
+I’m tightening just the two current identifier pages. The goal is to separate denotation from support structure cleanly: each page will say what the identifier denotes, then list supporting Semantic Flow resources with file/history links, and only then list any related resource like `alice/bio`.
+
+# gpt-5.4_2026-04-02_1906_34
+
+Done.
+
+I updated [alice/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/index.html) and [alice/bio/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/index.html) so they now:
+
+- explicitly say what the identifier denotes
+  - `alice` denotes a `schema:Person`
+  - `alice/bio` denotes an `sflo:RdfDocument`
+- use `Supporting Semantic Flow Resources` instead of the vague `Mesh Links`
+- list `KnopMetadata` with current file and history links
+- list `KnopInventory` with current file and history links
+- keep payload-specific links only on the payload identifier page
+- treat `alice/bio` on the `alice` page as a related Semantic Flow resource, not as Alice’s own payload
+
+That also removes the misleading “referent” phrasing from `alice/bio`.
+
+# djradon_2026-04-02_1914_39
+
+And the history ResourcePages should list all their states.
+
+# gpt-5.4_2026-04-02_1914_53
+
+I’m treating that as a current-branch page-generation rule, not a new ontology change. I’m going to patch the current history landing pages in `11` so each one enumerates its states explicitly, and then I’ll decide whether the `11` manifest needs to mention the extra updated pages.
+
+# gpt-5.4_2026-04-02_1916_09
+
+I’m updating the current history landing pages so each one lists its states, then I’ll decide whether the `11` conformance manifest should capture those extra HTML changes.
+
+# gpt-5.4_2026-04-02_1916_26
+
+I’ve confirmed which history landing pages are still stubs. I’m checking the state folders and one existing richer history page so I can make the rest consistent rather than hand-wave them.
+
+# gpt-5.4_2026-04-02_1916_33
+
+I’ve got the exact state counts. I’m patching the stub history landing pages now and then I’ll extend the `11` manifest so the conformance spec actually expects those richer pages.
+
+# gpt-5.4_2026-04-02_1917_02
+
+I’ve patched the remaining history landing pages and extended the `11` manifest to expect them. I’m validating the manifest now; the HTML itself doesn’t need RDF validation.
+
+# gpt-5.4_2026-04-02_1917_06
+
+The pages now show explicit state lists with latest markers. I’m just waiting for the two manifest validators to finish.
+
+# gpt-5.4_2026-04-02_1917_13
+
+I’ve finished the patch and validation. I’m checking the exact changed-file set so the close-out is precise.
+
+# gpt-5.4_2026-04-02_1917_24
+
+Updated the current history landing pages so they now list all states, with latest marked where applicable:
+
+- [_mesh/_meta/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_meta/_history001/index.html)
+- [_mesh/_inventory/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/_history001/index.html)
+- [alice/_knop/_meta/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_meta/_history001/index.html)
+- [alice/_knop/_inventory/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/_history001/index.html)
+- [alice/_knop/_references/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_references/_history001/index.html)
+- [alice/bio/_knop/_meta/_history001/index.html](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_meta/_history001/index.html)
+
+I also updated the `11` conformance manifest to expect those richer pages:
+- [11-alice-bio-v2-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/11-alice-bio-v2-woven.jsonld)
+
+Validation passed:
+- `riot --validate` on the updated manifest
+- `shacl validate` against Accord: `Conforms`
+
+One unrelated framework edit is still present and untouched:
+- [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md)
+
+# djradon_2026-04-02_1919_24
+
+Ready to proceed with 12-bob-extracted
+
+# gpt-5.4_2026-04-02_1919_36
+
+I’m checking the `12-bob-extracted` step definition and the current branch state first so I can keep the extraction aligned with the fixture and conformance ladder.
