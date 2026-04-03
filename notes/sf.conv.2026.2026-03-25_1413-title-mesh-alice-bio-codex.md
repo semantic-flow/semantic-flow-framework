@@ -6403,3 +6403,43 @@ My recommendation is:
 - let LLMs explain failures, not decide pass/fail
 
 I did not change any ontology or SHACL files, and I did not start implementing the CLI yet.
+
+# djradon_2026-04-03_0844_35
+
+OK, I think we're done with the task as envisioned. But I want to capture all your insight and learnings, perhaps into the currently-empty[wd.spec.2026-04-03-weave-behavior.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.spec.2026-04-03-weave-behavior.md) -- if you have other insights that don't fit into a "weave behavior spec", let me know.
+
+# gpt-5.4_2026-04-03_0844_46
+
+I’m going to read the empty spec note and look for any nearby spec-note patterns, then I’ll write the high-signal behavior spec distilled from the fixture ladder rather than dumping a retrospective.
+
+# gpt-5.4_2026-04-03_0845_02
+
+I found the new spec note is completely empty and there isn’t an existing spec-note pattern in this repo, so I’m going to make this one the canonical high-level behavior note. I’m also locating the mesh task note by path before I reference it so I don’t bake in broken links.
+
+# gpt-5.4_2026-04-03_0845_10
+
+I’ve got the main patterns. I’m pulling one more read from the completed Alice/Bob fixture note so the new spec reflects the settled ladder semantics rather than my memory of them.
+
+# gpt-5.4_2026-04-03_0845_26
+
+I’ve got the settled behavior patterns from the ladder. I’m writing the spec note now, focusing on what Weave is expected to do versus what other operations do, and I’ll keep the conformance-tooling insight separate so the spec doesn’t turn into a CLI note.
+
+# gpt-5.4_2026-04-03_0846_08
+
+The spec is written. I’m doing one quick read-through to make sure it stays behavior-focused and doesn’t accidentally turn into a duplicate of the Alice/Bob task note or the ReferenceLink note.
+
+# gpt-5.4_2026-04-03_0846_16
+
+Filled out [wd.spec.2026-04-03-weave-behavior.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.spec.2026-04-03-weave-behavior.md).
+
+The note now captures the main behavioral conclusions from `mesh-alice-bio`:
+
+- `weave` means `version + validate + generate`, not semantic creation/integration/extraction
+- non-woven steps may change working inventories, but only `weave` should materialize new historical states
+- after weave, working Turtle files should match the latest historical snapshot exactly
+- mesh inventory should only advance when the public mesh surface widens, not for every Knop-internal change
+- support artifacts live under `_knop`, payload history lives under the payload artifact, and metadata stays light while inventory is the canonical current-surface map
+- current ResourcePages are regenerable, historical ones should normally be frozen
+- identifier pages should say what they denote and history pages should list all states
+
+The main adjacent insight that does not really belong in a weave behavior spec is the Accord side: the manifests are now strong enough that a thin deterministic checker is the right next step, and prompt-only evaluation is not enough if the manifests are meant to stay normative. That belongs in the Accord task/note set more than in this spec.
