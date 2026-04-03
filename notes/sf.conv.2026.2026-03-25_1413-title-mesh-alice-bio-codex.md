@@ -5374,3 +5374,111 @@ Move ReferenceCatalog under alice Knop
 - update the woven 09 history and resource pages to follow the new catalog path
 - keep current and latest historical snapshots byte-identical after the move
 ```
+
+# djradon_2026-04-02_1738_47
+
+OK, are we ready to proceed on 10-alice-bio-updated? Any open issues? Might be fairly straightforward.
+
+# gpt-5.4_2026-04-02_1740_40
+
+I’m checking the current `10/11` expectations first. The main question is whether `10` should be just a payload-bytes change, or whether any inventories/manifests are meant to move with it.
+
+# gpt-5.4_2026-04-02_1741_52
+
+I’m checking the `10-alice-bio-updated` step against the current fixture and task notes first. I want to confirm whether `10` is just a payload-file mutation or whether anything around inventories, histories, or conformance also needs to move with it.
+
+# gpt-5.4_2026-04-02_1742_06
+
+Yes. `10-alice-bio-updated` looks ready, and it should be fairly straightforward.
+
+I don’t see any blocking ontology or serialization issue from the recent `ReferenceCatalog` work. The only real choice left is the exact payload change in [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl). Structurally, `10` should be a non-woven working-state update only:
+
+- update [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl)
+- leave [alice/bio/_knop/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl) unchanged
+- leave [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) unchanged
+- do not add new history states or regenerate pages until `11-alice-bio-v2-woven`
+- add `10-alice-bio-updated.jsonld` in the framework repo for `09 -> 10`
+
+So the main open issue is just content: what do we want the `v2` payload change to be? If you don’t already have a preferred edit, I’d make it a small but unmistakable semantic update, like adding one more property to `:alice` and maybe expanding the `:bob` relation enough that `11` has a clear second payload state to weave.
+
+# djradon_2026-04-02_1813_01
+
+What about moving to <alice> and <bob> in the new repo, i.e., using the base. And then we assert that Alice created her bio. And add that Bob is a Person with foaf:givenName "Robert" and foaf:nickname "Bob"
+
+# gpt-5.4_2026-04-02_1813_19
+
+Those are good `10`-level changes, with one caveat I want to call out before I patch anything: `:alice` and `:bob` already resolve to the mesh base because the file has `@prefix : <https://semantic-flow.github.io/mesh-alice-bio/> .` So switching from `:alice` to `<alice>` is only a syntax/style change unless you want to make that explicit for readability.
+
+# gpt-5.4_2026-04-02_1813_36
+
+I’m going to treat that as the concrete `10` payload delta and patch both the fixture and the matching conformance manifest. I’ll keep the inventories untouched unless the manifest or task notes need a small bookkeeping update.
+
+# gpt-5.4_2026-04-02_1813_57
+
+I’m making one judgment call on the content: I’ll express “Alice created her bio” as an artifact-level statement, not a self-description statement, so the added triple will be on `<alice/bio>`, not on `<alice>`. That keeps the payload update meaningful without making the person resource say something odd about creating herself.
+
+# gpt-5.4_2026-04-02_1814_21
+
+I have the `10` shape now: the only actual file mutation is the working payload, but I’m also encoding the important non-change that the old `_s0001` payload snapshot stays put. That’s the boundary between `10` and `11`, and it’s worth making explicit in the manifest.
+
+# gpt-5.4_2026-04-02_1815_09
+
+One correction before I validate: FOAF’s short nickname property is `foaf:nick`, not `foaf:nickname`. I’m going to normalize Bob to `foaf:nick "Bob"` rather than bake a non-FOAF term into the fixture.
+
+# gpt-5.4_2026-04-02_1815_27
+
+I’ve got the payload edit and the `10` manifest in place. Next I’m validating the updated Turtle and the new Accord manifest, then I’ll do a quick sanity pass on repo state before closing it out.
+
+# gpt-5.4_2026-04-02_1815_31
+
+The patch scope is clean so far: only `alice-bio.ttl` changed in the fixture repo, and the framework repo has the new `10` manifest plus the expected README/task-note updates. I’m just waiting on the Jena validators to finish.
+
+# gpt-5.4_2026-04-02_1815_45
+
+There was one stale line in the framework task note: it still said “first nine manifests” after adding `10`. I’m fixing that bookkeeping line now so the task note matches the actual rollout.
+
+# gpt-5.4_2026-04-02_1816_09
+
+`10-alice-bio-updated` is now in place as an uncommitted working state.
+
+I updated [alice-bio.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice-bio.ttl) to use explicit mesh-root IRIs `<alice>` and `<bob>`, added `<alice/bio> dcterms:creator <alice>`, and expanded Bob into a local `schema:Person` with `foaf:givenName "Robert"` and `foaf:nick "Bob"`. I left [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl), [inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl), and [_mesh/_inventory/inventory.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/_mesh/_inventory/inventory.ttl) unchanged, which is the right boundary between `10` and the future woven `11`.
+
+I also added [10-alice-bio-updated.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/10-alice-bio-updated.jsonld) and updated [README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/README.md), [sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.task.2026.2026-03-29-conformance-for-mesh-alice-bio.md), and [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md). Validation passed with `riot --validate` on the updated Turtle and manifest, and Accord SHACL on the new manifest.
+
+One minor correction I made: FOAF’s nickname property is `foaf:nick`, not `foaf:nickname`. One unrelated framework edit is still sitting there and untouched: [sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.conv.2026.2026-03-25_1413-title-mesh-alice-bio-codex.md). No blocker remains for `11-alice-bio-v2-woven`.
+
+# djradon_2026-04-02_1816_24
+
+I wanted to make the switch because <> is the preferred syntax for intra-mesh links, as I believe curries don't support the slashes required for hierarchical namespaces. Which is horrible. Maybe only in TTL tho, jsonld can support slashes in curries?
+
+# gpt-5.4_2026-04-02_1816_44
+
+Yes. In Turtle, that’s basically the problem.
+
+`alice/bio` cannot be written as a prefixed name like `:alice/bio`. Turtle prefixed names are much stricter than general IRIs, and `/` is not valid in the local part. So for hierarchical intra-mesh identifiers, angle-bracket IRIs are the sane form:
+
+```ttl
+<alice>
+<alice/bio>
+<alice/_knop/_references#reference001>
+```
+
+That is one good reason to prefer them in this repo.
+
+JSON-LD is looser here. Compact IRIs can use a prefix plus a suffix containing `/`, so something like this is fine in JSON-LD:
+
+```json
+{
+  "@context": {
+    "mesh": "https://semantic-flow.github.io/mesh-alice-bio/"
+  },
+  "@id": "mesh:alice/bio"
+}
+```
+
+So the split is roughly:
+
+- Turtle: prefixed names do not work well for slashy hierarchical locals
+- JSON-LD: compact IRIs do
+
+So your move to `<...>` in the Turtle fixture was justified, and not just stylistic.
