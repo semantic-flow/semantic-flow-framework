@@ -6248,3 +6248,158 @@ For `weave`:
 ```text
 Mark Bob extraction and woven Bob extraction complete in mesh-alice-bio task note
 ```
+
+# djradon_2026-04-03_0644_59
+
+OK, can we proceed with the repo README update?
+
+# gpt-5.4_2026-04-03_0645_11
+
+I’m updating the `mesh-alice-bio` README to make the branch ladder self-explanatory, then I’ll mark that task item done in the fixture note.
+
+# gpt-5.4_2026-04-03_0645_19
+
+I’ve got the current README. I’m expanding the ladder just enough to capture the branch intent, not turning it into a task note. After that I’ll tick off the README item in the fixture note.
+
+# gpt-5.4_2026-04-03_0645_41
+
+The README is updated and the task item is checked off. I’m doing a quick readback so the wording stays at README level and doesn’t drift into task-note sludge.
+
+# gpt-5.4_2026-04-03_0645_48
+
+Done.
+
+[README.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/mesh-alice-bio/README.md) now explains the full branch ladder through `13-bob-extracted-woven` in plain README language, and it includes a short “How to read the ladder” section that distinguishes non-woven from woven branches.
+
+I also marked the README task item complete in [wd.task.2026.2026-03-25-mesh-alice-bio.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-25-mesh-alice-bio.md).
+
+If you want, I can give you the commit message for this README/task-note cleanup next.
+
+# djradon_2026-04-03_0650_02
+
+OK, let's discuss the pseudo-runner/comparison workflow. Maybe we don't even need them, or they just look like a prompt we can feed to LLM agents?
+
+# gpt-5.4_2026-04-03_0650_22
+
+I don’t think a pure “prompt fed to an LLM agent” is enough if you want the manifests to stay normative.
+
+The clean split is:
+
+- [12-bob-extracted.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/12-bob-extracted.jsonld) and the other Accord manifests define expected behavior.
+- a very thin deterministic checker verifies them.
+- an LLM can sit on top to explain failures, propose fixes, or even drive the checker.
+
+So I would not build a big “runner,” but I also would not stop at prompts alone.
+
+Why prompts alone are weak:
+- they are not reliably repeatable
+- they blur normative spec and interpretation
+- they are bad at exact filesystem assertions and drift detection
+- once a prompt disagrees with the manifest, it is unclear which one is authoritative
+
+What I’d recommend instead is a tiny comparison workflow, not a heavy framework:
+
+1. Input:
+   - one Accord manifest like [13-bob-extracted-woven.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/13-bob-extracted-woven.jsonld)
+
+2. Deterministic checks:
+   - materialize `fromRef` and `toRef` from `mesh-alice-bio`
+   - verify file presence/add/update/remove/absence
+   - compare `text` and `bytes` files directly
+   - compare `rdfCanonical` files by canonicalized graph, not raw bytes
+   - run the manifest’s ASK assertions against the target file graphs
+
+3. Output:
+   - pass/fail per file expectation
+   - pass/fail per RDF expectation
+   - a compact machine-readable report
+
+Then the LLM layer becomes optional but useful:
+- summarize failures
+- explain likely causes
+- suggest manifest fixes vs fixture fixes
+- generate review prose
+
+So my recommendation is:
+
+- keep the Accord manifests
+- build a minimal deterministic checker
+- use LLMs as operators and explainers, not as the source of truth
+
+The “pseudo-runner” can be very small. Honestly, the first version could just be a script that:
+- reads the manifest
+- shells out to `git show`, `diff`, `riot`, and SPARQL ASK execution
+- prints a structured report
+
+That is enough to prove the layer is executable without overbuilding it.
+
+If you want, I can sketch the exact minimal architecture next:
+- no-runner option
+- thin-checker option
+- LLM-assisted option
+- my recommended first implementation among those three
+
+# djradon_2026-04-03_0655_20
+
+Let's fill out ac.task.2026.2026-04-03-accord-cli with a thin-checker option. This could be an opportunity to check Deno's compatibility with Comunica + N3. What else should we discuss?
+
+# gpt-5.4_2026-04-03_0655_28
+
+I’m opening the new Accord CLI task note and a nearby note/template first so I can write it in the repo’s existing note style instead of inventing one.
+
+# gpt-5.4_2026-04-03_0655_38
+
+I have the blank note. I’m scanning the Accord repo structure now so the task note can name a realistic implementation target instead of hand-wavy “build a CLI.”
+
+# gpt-5.4_2026-04-03_0657_09
+
+I’m going to review the local guidance and the current Accord task note, then I’ll patch the note with a thin deterministic checker plan and call out the real open design questions rather than leaving it vague.
+
+# gpt-5.4_2026-04-03_0657_19
+
+I’ve got the current Accord framing. Next I’m checking nearby notes and repo shape so the task note lands as a concrete execution plan instead of another abstract “future direction” note.
+
+# gpt-5.4_2026-04-03_0657_32
+
+I have enough context to write the note. Before patching it, I’m doing a small Deno spike so the task note can say something concrete about `npm:n3` and `npm:@comunica/query-sparql` instead of hand-waving.
+
+# gpt-5.4_2026-04-03_0657_52
+
+`n3` worked immediately. `Comunica` loaded under Deno too, but my first query spike used the wrong source shape and failed for a real interop reason, which is useful. I’m tightening that spike now so the note can separate “package compatibility” from “we chose the wrong runtime source contract.”
+
+# gpt-5.4_2026-04-03_0658_33
+
+I’ve got the shape. I’m patching the Accord task note now with a concrete thin-checker plan, including the Deno/Comunica/N3 spike result and the design questions that are actually worth deciding before code.
+
+# gpt-5.4_2026-04-03_0659_08
+
+The note is patched. I’m doing a quick read-through now to make sure it stays task-shaped rather than turning into a vague architecture memo.
+
+# gpt-5.4_2026-04-03_0659_16
+
+The note reads cleanly. I’m checking off the one thing we actually just completed so the plan reflects reality instead of leaving even the note-writing step marked open.
+
+# gpt-5.4_2026-04-03_0659_27
+
+Updated [ac.task.2026.2026-04-03-accord-cli.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/spectacular-voyage/accord/documentation/notes/ac.task.2026.2026-04-03-accord-cli.md) with a concrete thin-checker plan.
+
+The note now commits to a small deterministic `accord check` direction instead of a prompt-only workflow or a full runner. It also records the local Deno spike result:
+- `npm:n3` works under Deno for Turtle parsing and RDFJS stores
+- `npm:@comunica/query-sparql` works under Deno for `ASK` against an RDFJS `n3` store
+- the real hard part is still `rdfCanonical`, not SPARQL execution
+
+The main things still worth deciding before code are:
+- whether SHACL validation is built into the CLI or kept as a separate preflight
+- how strict `rdfCanonical` must be in v1, especially around blank nodes
+- whether ref access should use `git show`/`git cat-file` or temporary worktrees
+- whether the CLI should emit text only or text plus JSON
+- whether multi-case manifests default to “all cases” or require explicit selection
+
+My recommendation is:
+- first version: local manifest, local fixture repo, local git refs
+- use `git show` for path-level reads
+- support only `bytes`, `text`, and `rdfCanonical`
+- keep SHACL conceptually separate even if the CLI later offers a convenience preflight
+- let LLMs explain failures, not decide pass/fail
+
+I did not change any ontology or SHACL files, and I did not start implementing the CLI yet.

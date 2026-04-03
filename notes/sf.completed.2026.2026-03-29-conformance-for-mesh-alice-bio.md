@@ -2,7 +2,7 @@
 id: ztjerlzsapa0vglf6ycnqin
 title: 2026 03 29 Conformance for Mesh Alice Bio
 desc: ''
-updated: 1774807747342
+updated: 1775225097669
 created: 1774804332190
 ---
 
@@ -139,5 +139,5 @@ This task adds a separate conformance/acceptance layer for framework behavior. T
 - [x] Create `examples/alice-bio/conformance/13-bob-extracted-woven.jsonld` for `12-bob-extracted` -> `13-bob-extracted-woven`.
 - [x] Validate the first thirteen manifests against Accord SHACL.
 - [x] Patch Accord to add `unchanged`, tighten `compareMode`, enforce same-case RDF targeting, and prevent duplicate file expectations per path.
-- [ ] After the first eight manifests are stable, create the next manifest only when the corresponding fixture transition is settled.
-- [ ] After several manifests exist, design a minimal pseudo-runner that can compare refs and report Accord-level pass/fail results.
+- [x] After the first eight manifests are stable, create the next manifest only when the corresponding fixture transition is settled.
+- [x] After several manifests exist, design a minimal pseudo-runner that can compare refs and report Accord-level pass/fail results.
