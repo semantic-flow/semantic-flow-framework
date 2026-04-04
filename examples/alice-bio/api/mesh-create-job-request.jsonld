@@ -1,0 +1,32 @@
+{
+  "@context": [
+    {
+      "sfprov": "https://semantic-flow.github.io/semantic-flow-prov-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "provenanceContext": "https://api.example.org/vocab#provenanceContext",
+      "primaryAgent": {
+        "@id": "sfprov:primaryAgent",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@type": "https://api.example.org/vocab#MeshCreateJobRequest",
+  "kind": "mesh.create",
+  "target": {
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh"
+  },
+  "provenanceContext": {
+    "@type": "sfprov:ProvenanceContext",
+    "primaryAgent": "https://example.org/agents/editor/alice"
+  }
+}

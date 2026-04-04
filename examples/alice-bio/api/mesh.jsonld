@@ -1,0 +1,47 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/hydra/context.jsonld",
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sflo": "https://semantic-flow.github.io/semantic-flow-ontology/",
+      "meshBase": {
+        "@id": "sflo:meshBase",
+        "@type": "@id"
+      },
+      "meshMetadataUrl": {
+        "@id": "https://api.example.org/vocab#meshMetadataUrl",
+        "@type": "@id"
+      },
+      "meshInventoryUrl": {
+        "@id": "https://api.example.org/vocab#meshInventoryUrl",
+        "@type": "@id"
+      },
+      "kind": "https://api.example.org/vocab#kind"
+    }
+  ],
+  "@id": "https://semantic-flow.github.io/mesh-alice-bio/_mesh",
+  "@type": "sflo:SemanticMesh",
+  "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+  "meshMetadataUrl": "https://api.example.org/meshes/mesh-alice-bio/metadata",
+  "meshInventoryUrl": "https://api.example.org/meshes/mesh-alice-bio/inventory",
+  "hydra:operation": [
+    {
+      "@type": "hydra:Operation",
+      "hydra:title": "Create a knop in this mesh",
+      "hydra:method": "POST",
+      "hydra:expects": "https://api.example.org/vocab#KnopCreateJobRequest",
+      "hydra:returns": "https://api.example.org/vocab#Job",
+      "hydra:target": "https://api.example.org/jobs",
+      "kind": "knop.create"
+    },
+    {
+      "@type": "hydra:Operation",
+      "hydra:title": "Weave this mesh",
+      "hydra:method": "POST",
+      "hydra:expects": "https://api.example.org/vocab#WeaveJobRequest",
+      "hydra:returns": "https://api.example.org/vocab#Job",
+      "hydra:target": "https://api.example.org/jobs",
+      "kind": "weave"
+    }
+  ]
+}

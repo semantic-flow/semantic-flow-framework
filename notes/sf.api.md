@@ -2,7 +2,7 @@
 id: 9qb50tea1tul63dt6tlnaac
 title: Semantic Flow API
 desc: ''
-updated: 1774502021396
+updated: 1775267145775
 created: 1774307702138
 ---
 
@@ -18,12 +18,26 @@ The following operations have come up as likely first-class Semantic Flow operat
 - `version`
 - `validate`
 - `generate`
-- `weave` : version, validate, and generate
+- `weave` : validate, version, and generate
 - `extract`: create knops for local RDF references in RdfDocument
 
 For the thin public contract, the current direction is to model all submitted work uniformly as `Job`s, even when some implementations may execute quickly enough to feel synchronous to a client.
 
 At minimum, `integrate`, `version`, `mesh create`, and large validation or generation work should be treated as likely candidates for first-class long-running jobs.
+
+## First Concrete Slice
+
+The first concrete carried public operation example is `mesh.create`.
+
+Current direction for that slice:
+
+- the thin public contract should stay semantic and implementation-neutral
+- a `mesh.create` request should define the mesh identity being established, starting with `meshBase`
+- `meshIri` remains distinct from `meshBase`, but may be explicit or conventionally derived as `_mesh` resolved against `meshBase`
+- host filesystem paths should stay out of the thin core contract even if a specific implementation such as Weave accepts them locally
+- the successful result should at minimum make the created `SemanticMesh`, `MeshMetadata`, and `MeshInventory` resources discoverable
+
+Worked examples for that slice now live beside the other Alice Bio API examples in `../examples/alice-bio/api/`.
 
 ## Mesh Identity
 
