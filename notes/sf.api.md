@@ -69,6 +69,19 @@ Current direction for that slice:
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
+## Fourth Concrete Slice
+
+The fourth concrete carried public operation example is `integrate`.
+
+Current direction for that slice:
+
+- the target should identify an existing mesh together with one `designatorPath`
+- the thin request should also carry one semantic `sourceUri` for the bytes being integrated
+- host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
+- the successful result should at minimum make the created payload artifact and Knop surfaces discoverable and surface that the `MeshInventory` was updated
+
+Worked examples for that slice now also live in `../examples/alice-bio/api/`.
+
 ## Mesh Identity
 
 The current direction is to distinguish:

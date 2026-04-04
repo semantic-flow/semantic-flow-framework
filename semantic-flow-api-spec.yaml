@@ -287,6 +287,17 @@ components:
       examples:
         - alice/bio
         - ontology/Person
+    SourceUri:
+      type: string
+      format: uri
+      description: |
+        Semantic source URI for the bytes being integrated. This may be a
+        dereferenceable network location or another implementation-resolved URI,
+        but host filesystem paths are intentionally not part of the normative
+        public API.
+      examples:
+        - https://uploads.example.org/alice-bio.ttl
+        - file:///tmp/alice-bio.ttl
     TargetSelector:
       type: object
       description: |
@@ -619,11 +630,22 @@ components:
       required:
         - kind
         - target
+        - designatorPath
+        - sourceUri
+      description: |
+        Normative core request for integrating a payload artifact into an
+        existing mesh. Filesystem-backed implementations may offer additional
+        implementation-specific conveniences such as local source paths, but
+        those are intentionally not standardized here.
       properties:
         kind:
           const: integrate
         target:
           $ref: "#/components/schemas/TargetSelector"
+        designatorPath:
+          $ref: "#/components/schemas/DesignatorPath"
+        sourceUri:
+          $ref: "#/components/schemas/SourceUri"
     VersionJobRequest:
       type: object
       required:
