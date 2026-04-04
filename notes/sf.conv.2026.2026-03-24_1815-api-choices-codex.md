@@ -3,7 +3,7 @@ id: api-choices-kxm25i
 title: 'api choices'
 desc: ''
 created: 1774401310610
-updated: 1774416149932
+updated: 1775334213849
 participants: [djradon, codex.gpt-5.4]
 conversationEventKinds: [message.assistant, message.user, tool.call, tool.result]
 ---
@@ -30,7 +30,7 @@ I have enough context to answer usefully. I’m pulling exact line numbers for t
 
 You’re missing one strong default: a plain resource-oriented HTTP API with first-class `Operation`/`Job` resources, optionally paired with an event stream.
 
-Given Weave’s direction, I would not make AsyncAPI the primary contract. The repo keeps pointing toward a filesystem-shaped, dereferenceable API with daemon-backed jobs, not an event-native system: [product-vision.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/product-vision.md#L9), [wd.task.2026.2026-03-20-architecture-planning.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-20-architecture-planning.md#L21), [product.plugins.sflo-api.md](/home/djradon/hub/semantic-flow/sflo/documentation/product.plugins.sflo-api.md#L10), [product.plugins.sflo-api.md](/home/djradon/hub/semantic-flow/sflo/documentation/product.plugins.sflo-api.md#L151).
+Given Weave’s direction, I would not make AsyncAPI the primary contract. The repo keeps pointing toward a filesystem-shaped, dereferenceable API with daemon-backed jobs, not an event-native system: [[product-vision|product-vision.md]], [[wd.task.2026.2026-03-20-architecture-planning|wd.task.2026.2026-03-20-architecture-planning.md]], [[product.plugins.sflo-api|product.plugins.sflo-api.md]], [[product.plugins.sflo-api|product.plugins.sflo-api.md]].
 
 The good options are:
 
@@ -172,7 +172,7 @@ In some recent conversation we were talking about the CLI having a dual nature, 
 
 I’m searching the local notes and conversation archive for the CLI “dual nature” discussion, especially phrases around `http mode`, `local mode`, and the CLI acting both as a daemon client and a standalone implementation.
 
-I found one close match in the Weave planning note and the archived architecture conversation, but not yet the exact `http mode` / `local mode` wording. I’m widening the search to the sibling repos under `/home/djradon/hub` and the archived conversation files, since your active note lives outside the current repo.
+I found one close match in the Weave planning note and the archived architecture conversation, but not yet the exact `http mode` / `local mode` wording. I’m widening the search to the sibling repos under `hub` and the archived conversation files, since your active note lives outside the current repo.
 
 I’ve got the strongest nearby hit already: the planning note says the CLI might both talk to the daemon and implement some of the API itself. I’m doing one more pass for the more explicit “HTTP mode / local mode” phrasing so I can give you either the exact quote or tell you the closest surviving formulation.
 
@@ -180,28 +180,28 @@ I found the exact idea in two places now: a recent Weave planning note with the 
 
 Yes. I found the idea in a few places, with one especially close match.
 
-The closest recent Weave phrasing is in [wd.task.2026.2026-03-20-architecture-planning.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-20-architecture-planning.md#L78):
+The closest recent Weave phrasing is in [[wd.task.2026.2026-03-20-architecture-planning|wd.task.2026.2026-03-20-architecture-planning.md]]:
 - official clients are primarily clients of the daemon
 - the CLI might both talk to the daemon and implement some of the Weave API on its own
 
-That same split also shows up in the archived March 20 architecture conversation at [wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/weave-dev-archive/notes/wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md#L149):
+That same split also shows up in the archived March 20 architecture conversation at [[wa.conv.2026.2026-03-20_1630-architecture-planning-codex|wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md]]:
 - framework-level protocol defines semantics
 - Weave provides the daemon/control-plane binding and local filesystem behavior
 
-The most explicit “two modes” note I found is older, in [sflo.conv.2025-11-27-api-and-metadata-flow.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2025-11-27-api-and-metadata-flow.md#L11):
+The most explicit “two modes” note I found is older, in [[sflo.conv.2025-11-27-api-and-metadata-flow|sflo.conv.2025-11-27-api-and-metadata-flow.md]]:
 - CLI as REST client, but with an offline/local mode
 - “single engine, two transports”
 - remote = REST API
 - local = `file://` plus Git working tree
 
-And it gets even more concrete here: [sflo.conv.2025-11-27-api-and-metadata-flow.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2025-11-27-api-and-metadata-flow.md#L233)
+And it gets even more concrete here: [[sflo.conv.2025-11-27-api-and-metadata-flow|sflo.conv.2025-11-27-api-and-metadata-flow.md]]
 - `sflo weave --offline` directly manipulates the local mesh
 - `sflo weave --remote` serializes the same intent into HTTP
 
-There’s also an older version of the same idea in [sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md#L1774):
+There’s also an older version of the same idea in [[sflo.conv.chatgpt.2025-06-21-semantic-flow-iris|sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md]]:
 - CLI can call a local API server
 - or fall back to direct imports in `--local mode`
-- with an explicit table for `in-process`, `local daemon`, and `remote service` at [sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md#L1825)
+- with an explicit table for `in-process`, `local daemon`, and `remote service` at [[sflo.conv.chatgpt.2025-06-21-semantic-flow-iris|sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md]]
 
 So the short answer is: yes, the idea is definitely in your notes. The best exact references are the November 2025 note for explicit mode separation, and the March 2026 Weave planning note for the more recent “dual nature” phrasing.
 
@@ -222,13 +222,13 @@ I found a same-day framework conversation note in the embedded `semantic-flow-fr
 I couldn’t find a clean, recent March 18-23 quote where I explicitly named the CLI’s non-HTTP mode.
 
 The likeliest term was `in-process` or `in-process invocation`, meaning: the CLI calls shared code directly in the same process instead of talking to a daemon over HTTP. That older phrasing shows up here:
-- [sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md#L1750)
-- [sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md#L1829)
+- [[sflo.conv.chatgpt.2025-06-21-semantic-flow-iris|sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md]]
+- [[sflo.conv.chatgpt.2025-06-21-semantic-flow-iris|sflo.conv.chatgpt.2025-06-21-semantic-flow-iris.md]]
 
 The closest recent Weave phrasing is less jargon-heavy:
-- the CLI could “implement some of the Weave API on its own” in [wd.task.2026.2026-03-20-architecture-planning.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-20-architecture-planning.md#L79)
+- the CLI could “implement some of the Weave API on its own” in [[wd.task.2026.2026-03-20-architecture-planning|wd.task.2026.2026-03-20-architecture-planning.md]]
 
-There was also a recent phrase `control-plane binding` in [wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/weave-dev-archive/notes/wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md#L150), but that was about Weave as an implementation layer, not really the CLI mode itself.
+There was also a recent phrase `control-plane binding` in [[wa.conv.2026.2026-03-20_1630-architecture-planning-codex|wa.conv.2026.2026-03-20_1630-architecture-planning-codex.md]], but that was about Weave as an implementation layer, not really the CLI mode itself.
 
 If you want a clearer name going forward, I’d use:
 - `remote mode` for HTTP-to-daemon
@@ -238,7 +238,7 @@ I’d avoid `offline mode` unless you specifically mean “works with no daemon/
 
 # djradon_2026-03-23_1631_33
 
-OK, can you summarize into [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md) -- concisely please.
+OK, can you summarize into [[sf.api.architecture]] -- concisely please.
 
 # gpt-5.4_2026-03-23_1631_43
 
@@ -248,7 +248,7 @@ I found the target note is essentially empty, so I’m writing a short architect
 
 The note is patched. I’m doing a quick readback now to make sure it stayed concise and didn’t accidentally drift into implementation-detail sprawl.
 
-Updated [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md) with a concise architecture summary.
+Updated [[sf.api.architecture]] with a concise architecture summary.
 
 It now says the Semantic Flow API is the public contract, Weave is an implementation, OpenAPI should be primary, AsyncAPI should be a companion for standardized public events, long-running work should use durable `Job`/`Operation` resources, SSE is a good live-progress transport even for CLI clients, and CLI dual-mode concerns stay on the client/implementation side rather than reshaping the public contract. No tests ran since this was a docs-only edit.
 
@@ -260,7 +260,7 @@ And yes, the CLI should be able to work offline, with no daemon or network at al
 
 I’m tightening the note to make the CLI requirement explicit: offline operation with no daemon and no network, while keeping that as an implementation/client-mode concern rather than changing the public API shape.
 
-Updated [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md) to make that explicit.
+Updated [[sf.api.architecture]] to make that explicit.
 
 It now says the CLI should support an offline local or in-process mode with no daemon and no network required, and that this should be treated as a first-class execution mode rather than a fallback.
 
@@ -274,9 +274,9 @@ I’m searching the local notes and conversation archive for the tentative opera
 
 I found the closest tentative list in the architecture-planning note, and I’m folding a short version of it into the framework API architecture note so it doesn’t stay buried in the archive.
 
-Added a short `Tentative Operations` section to [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md).
+Added a short `Tentative Operations` section to [[sf.api.architecture]].
 
-The closest source was [wd.task.2026.2026-03-20-architecture-planning.md](/home/djradon/hub/semantic-flow/weave/documentation/notes/wd.task.2026.2026-03-20-architecture-planning.md#L80), which had:
+The closest source was [[wd.task.2026.2026-03-20-architecture-planning|wd.task.2026.2026-03-20-architecture-planning.md]], which had:
 - `weave integrate <tree>`
 - `weave version`
 - `weave mesh create`
@@ -298,8 +298,8 @@ I’m checking the live ontology vocabulary and the current `sf.api` note first 
 
 The cleanest answer from the current live vocabulary is:
 
-- `PayloadArtifact` already means “the primary non-supporting DigitalArtifact hosted by a Knop” in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L263).
-- The summary note says the same thing more plainly: a `Knop` may have one primary payload resource plus support resources in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md#L78).
+- `PayloadArtifact` already means “the primary non-supporting DigitalArtifact hosted by a Knop” in [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L263).
+- The summary note says the same thing more plainly: a `Knop` may have one primary payload resource plus support resources in [[ont.summary.core|ont.summary.core.md]].
 
 So if you want the ontology term, use `PayloadArtifact`.
 
@@ -351,7 +351,7 @@ OK, what's our next step.
 
 The next step is to stop debating API style in the abstract and pin down the minimal public contract.
 
-I’d do this next in [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md):
+I’d do this next in [[sf.api]]:
 
 1. Define the core resource model.
    - `Operation` or `Job`
@@ -385,7 +385,7 @@ I’d do this next in [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependen
 
 So the concrete next move is: write the first thin normative skeleton of the Semantic Flow API, not the full spec.
 
-If you want, I can draft that skeleton directly into [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md) in one concise pass.
+If you want, I can draft that skeleton directly into [[sf.api]] in one concise pass.
 
 # djradon_2026-03-23_2056_18
 
@@ -401,7 +401,7 @@ Yes, I’d change `regenerate` to `generate`. `generate` cleanly covers first-ti
 
 On the filesystem issue: the mirroring is real, but I still would not make host filesystem paths part of the normative framework contract. `designatorPath` is the normative, mesh-level path value. A filesystem-backed implementation like Weave can realize that at a matching local path, but that is an implementation mapping, not the core API identity model. If host paths matter, expose them only in implementation-specific metadata/admin surfaces.
 
-And yes, I think the thin normative skeleton should become an OpenAPI 3.1 spec, but not OpenAPI alone. Use OpenAPI for the HTTP binding and concrete resource shapes. Keep [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md) as the short prose note for semantics, terminology, and operation intent. AsyncAPI can wait until the event surface is stable enough to deserve its own binding.
+And yes, I think the thin normative skeleton should become an OpenAPI 3.1 spec, but not OpenAPI alone. Use OpenAPI for the HTTP binding and concrete resource shapes. Keep [[sf.api]] as the short prose note for semantics, terminology, and operation intent. AsyncAPI can wait until the event surface is stable enough to deserve its own binding.
 
 If you want, the next concrete move is: I draft a tiny OpenAPI skeleton with just `Job`/`Operation`, `/jobs`, `/jobs/{id}`, and placeholder operation request shapes for `mesh create`, `knop create`, `integrate`, `version`, `validate`, `generate`, and `weave`.
 
@@ -475,7 +475,7 @@ Ruby isn’t installed here, so I’m falling back to Python to validate the YAM
 
 There isn’t a local YAML parser installed in Ruby or Python, so I’m using Deno’s standard YAML parser for one final syntax check.
 
-Drafted the first OpenAPI skeleton in [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml).
+Drafted the first OpenAPI skeleton in [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml).
 
 I chose `Job` as the canonical execution resource, with `POST /jobs`, `GET /jobs/{jobId}`, `POST /jobs/{jobId}/cancel`, and `GET /jobs/{jobId}/events`. The job kinds are the tentative operations we discussed: `mesh.create`, `knop.create`, `integrate`, `version`, `validate`, `generate`, and `weave`. I also made `designatorPath` the normative targeting input and explicitly kept host filesystem paths out of the public contract.
 
@@ -497,7 +497,7 @@ I’m making the same clarification in the OpenAPI draft: `Job` is canonical, an
 
 I’ve applied the terminology and filesystem-boundary changes. I’m doing one quick YAML parse again so we don’t leave the spec in a broken state.
 
-`Job` is the better canonical term. I updated the wording in [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml) and [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md) to prefer `Job` consistently.
+`Job` is the better canonical term. I updated the wording in [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml) and [[sf.api.architecture]] to prefer `Job` consistently.
 
 On `mesh create`: yes, a filesystem-backed implementation like Weave will probably need a local-path variant. My recommendation is not to put bare host paths into the thin normative core. The workaround is: keep the framework contract semantic and implementation-neutral, and let Weave expose local filesystem path inputs either through the CLI or through an implementation-specific profile/endpoint. If we later decide to standardize that family of inputs, I’d do it as a separate filesystem-backed profile, not as a mandatory field on core `mesh.create`.
 
@@ -548,7 +548,7 @@ I’ve got the JSON-LD shape in mind. I’m patching the spec now so `applicatio
 
 The JSON-LD patch is in. I’m running the YAML parse again now, then I’ll hand back the changes and the one obvious next step: minting the `sf-job` context/ontology for real.
 
-Patched [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml) so jobs can be represented canonically as JSON-LD.
+Patched [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml) so jobs can be represented canonically as JSON-LD.
 
 The spec now:
 - accepts `application/ld+json` on `POST /jobs`
@@ -628,7 +628,7 @@ The ontology surface is now complete enough for a first public draft. I’m runn
 
 Parser is still chewing on the import graph, which usually means the file itself is syntactically fine. I’m polling once more to confirm and then I’ll give you the concise handoff.
 
-Created the first draft of [semantic-flow-job-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-job-ontology.ttl).
+Created the first draft of [semantic-flow-job-ontology.ttl](../../ontology/semantic-flow-job-ontology.ttl).
 
 It now defines a public `sf-job` vocabulary around:
 - `Job`, `JobKind`, `JobStatus`, `JobTarget`, `JobProgress`, `JobResult`, `JobError`, and `JobEvent`
@@ -662,9 +662,9 @@ Only descriptive prose still says “completed successfully,” which is fine se
 I agreed with your read and normalized the live draft to `succeeded` rather than adding a status hierarchy right now.
 
 Updated:
-- [semantic-flow-job-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-job-ontology.ttl)
-- [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml)
-- [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md)
+- [semantic-flow-job-ontology.ttl](../../ontology/semantic-flow-job-ontology.ttl)
+- [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml)
+- [[sf.api.architecture]]
 
 The important changes are:
 - `JobStatus/Completed` became `JobStatus/Succeeded`
@@ -680,7 +680,7 @@ Validation passed:
 
 # djradon_2026-03-23_2132_52
 
-Maybe we add submittedBy, with ObjectProperty and DatatypeProperty variants. [sflo-meta-ontology.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/old/sflo-meta-ontology.jsonld) already has richer provenance with "delegationChain", ProvenanceContext etc.
+Maybe we add submittedBy, with ObjectProperty and DatatypeProperty variants. [sflo-meta-ontology.jsonld](../../ontology/old/sflo-meta-ontology.jsonld) already has richer provenance with "delegationChain", ProvenanceContext etc.
 
 # gpt-5.4_2026-03-23_2133_04
 
@@ -697,8 +697,8 @@ This is in a good place conceptually. I’m doing a parser pass now and then I�
 Added that, with one small modeling adjustment: in OWL we can’t cleanly use the same property IRI as both an `owl:ObjectProperty` and an `owl:DatatypeProperty`, so I modeled it as `submittedBy` plus `submittedByLiteral`.
 
 Updated:
-- [semantic-flow-job-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-job-ontology.ttl)
-- [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml)
+- [semantic-flow-job-ontology.ttl](../../ontology/semantic-flow-job-ontology.ttl)
+- [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml)
 
 What’s there now:
 - `submittedBy` as an object property on `Job`, with range `prov:Agent`, and as a subproperty of `prov:wasAssociatedWith`
@@ -757,9 +757,9 @@ YAML is clean. The Turtle validators are still running through the import graph,
 
 Yes: the current direction is “all submitted work is a `Job`,” not “every API interaction is a job.” Reads still stay normal HTTP, but submitted work now has one uniform model, which I think is the cleaner choice.
 
-I went ahead and made that concrete. I added a live draft [semantic-flow-meta-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-meta-ontology.ttl) with `ProvenanceContext`, delegation-chain, and agent-role vocabulary, then rewired [semantic-flow-job-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-job-ontology.ttl) to use it instead of the temporary job-local provenance placeholder. I also added the new job kind `KnopAddReference` there.
+I went ahead and made that concrete. I added a live draft [semantic-flow-meta-ontology.ttl](../../ontology/semantic-flow-meta-ontology.ttl) with `ProvenanceContext`, delegation-chain, and agent-role vocabulary, then rewired [semantic-flow-job-ontology.ttl](../../ontology/semantic-flow-job-ontology.ttl) to use it instead of the temporary job-local provenance placeholder. I also added the new job kind `KnopAddReference` there.
 
-In [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml), I added `knop.addReference`, made the “all submitted work is modeled as a Job” direction explicit, and added a draft `ReferenceLinkInput` plus provenance support. Right now `provenanceContext` can be supplied either as submission metadata or on the reference payload itself, and it can be either a URI or an embedded JSON-LD object. I also updated [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md) and [sf.api.architecture.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.architecture.md) to match.
+In [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml), I added `knop.addReference`, made the “all submitted work is modeled as a Job” direction explicit, and added a draft `ReferenceLinkInput` plus provenance support. Right now `provenanceContext` can be supplied either as submission metadata or on the reference payload itself, and it can be either a URI or an embedded JSON-LD object. I also updated [[sf.api]] and [[sf.api.architecture]] to match.
 
 Validation passed with `riot --validate` on both Turtle files and a YAML parse check on the OpenAPI file. I didn’t run a full OpenAPI linter yet.
 
@@ -803,7 +803,7 @@ My caution is only: don’t make Hydra replace the whole API design. Hydra tooli
 
 So the short version is: yes, I think Hydra is more practical now than it used to be, especially for AI-driven exploration. In this project, it feels like a complement to the current direction, not a replacement for it.
 
-If you want, I can draft a minimal Hydra layer next for [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml): just enough to show `Knop` affordances like `knop.addReference` and `weave`.
+If you want, I can draft a minimal Hydra layer next for [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml): just enough to show `Knop` affordances like `knop.addReference` and `weave`.
 
 # djradon_2026-03-23_2154_13
 
@@ -819,7 +819,7 @@ I’m updating the prose note now so the Hydra choice is written down as an arch
 
 The Hydra layer is in. I’m checking the YAML and skimming the inserted sections now, mostly to catch any quoting/indentation mistakes around the Hydra keys before I hand it back.
 
-Added a thin Hydra layer to [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml) and updated [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md) to describe the new direction.
+Added a thin Hydra layer to [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml) and updated [[sf.api]] to describe the new direction.
 
 In the spec, Hydra is layered onto the existing JSON-LD model rather than replacing the OpenAPI contract. The main additions are:
 - `Job` can advertise follow-up affordances via `hydra:operation`
@@ -839,7 +839,7 @@ OK, what's next?
 
 The next step is a single vertical slice, not more abstract API debate.
 
-Hydra gets really valuable once one resource can genuinely advertise “what next?”, so I’d make `Knop` plus references the first fully worked path in [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml).
+Hydra gets really valuable once one resource can genuinely advertise “what next?”, so I’d make `Knop` plus references the first fully worked path in [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml).
 
 1. Add real read resources, not just jobs.
    `GET /meshes/{meshId}`, `GET /knops/{designatorPath}`, and `GET /knops/{designatorPath}/references`.
@@ -856,7 +856,7 @@ Hydra gets really valuable once one resource can genuinely advertise “what nex
 5. Close the loop on the write flow.
    `knop.addReference` submits a `Job`, the job result links to the created/updated reference resource, and the refreshed `Knop` advertises the next available actions.
 
-My recommendation is to do that vertical slice next and hold off on adding more job kinds until it’s crisp. I can take that pass now in [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml) and [semantic-flow-meta-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-meta-ontology.ttl).
+My recommendation is to do that vertical slice next and hold off on adding more job kinds until it’s crisp. I can take that pass now in [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml) and [semantic-flow-meta-ontology.ttl](../../ontology/semantic-flow-meta-ontology.ttl).
 
 # djradon_2026-03-23_2200_36
 
@@ -870,7 +870,7 @@ I found the core tension: in the ontology, mesh identity is URI-like (`meshBase`
 
 I would not make `{meshId}` the canonical mesh identifier.
 
-The live ontology already points the other way: mesh identity is URI-like `meshBase`, and Knop identity is a slash-bearing `designatorPath` ([semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L235), [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L252)). The current API draft is still fuzzy there with `mesh: string` / “mesh identifier or implementation-neutral mesh handle” ([semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml#L277)).
+The live ontology already points the other way: mesh identity is URI-like `meshBase`, and Knop identity is a slash-bearing `designatorPath` ([semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L235), [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L252)). The current API draft is still fuzzy there with `mesh: string` / “mesh identifier or implementation-neutral mesh handle” ([semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml#L277)).
 
 My recommendation is:
 
@@ -900,8 +900,8 @@ I found one important constraint in the live ontology: `meshBase` is intentional
 I would not overload `meshBase` in the current model.
 
 The live ontology already leans the other way:
-- `meshBase` is a URI literal “to avoid asserting anything about the denoted thing” in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L235)
-- `_mesh` already denotes the mesh surface in [ont.summary.core.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.summary.core.md#L83), [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md#L23), and [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md#L25)
+- `meshBase` is a URI literal “to avoid asserting anything about the denoted thing” in [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L235)
+- `_mesh` already denotes the mesh surface in [[ont.summary.core|ont.summary.core.md]], [[ont.use-cases.alice-bio|ont.use-cases.alice-bio.md]], and [[ont.decision-log|ont.decision-log.md]]
 
 So I think the clean answer is:
 
@@ -943,9 +943,9 @@ I’m doing a final sweep now for leftover fuzzy “mesh” wording and then val
 
 Patched the distinction through the live draft:
 
-- [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml)
-- [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md)
-- [semantic-flow-job-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-job-ontology.ttl)
+- [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml)
+- [[sf.api]]
+- [semantic-flow-job-ontology.ttl](../../ontology/semantic-flow-job-ontology.ttl)
 
 `TargetSelector.mesh` is gone. The spec now uses:
 - `meshBase` for naming context
@@ -989,7 +989,7 @@ If you want, I can do that next as a concrete spec/example pass rather than more
 
 Sounds good, but where are you proposing the example lives? I believe I'm seen examples directly in the yaml before, but that seems less-than-ideal to me, clutter thing spec like that.
 
-FYI, [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) is our best existing example case.
+FYI, [[ont.use-cases.alice-bio]] is our best existing example case.
 
 # gpt-5.4_2026-03-23_2233_50
 
@@ -1002,7 +1002,7 @@ My recommendation:
 - Put worked example payloads in separate files.
   - one folder in the spec repo, something like `examples/`
 - Keep conceptual example walkthroughs in prose notes.
-  - and yes, [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) is the right anchor case
+  - and yes, [[ont.use-cases.alice-bio]] is the right anchor case
 
 A clean structure would be:
 
@@ -1017,7 +1017,7 @@ A clean structure would be:
 - `notes/sf.api.examples.md`
   - short narrative tying those files together
 - ontology note:
-  - [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) remains the domain/example source of truth
+  - [[ont.use-cases.alice-bio]] remains the domain/example source of truth
 
 Then the spec can reference examples by convention and by file path in repo docs, without turning the YAML into a giant example warehouse.
 
@@ -1044,16 +1044,16 @@ I’ve moved the payloads out of the spec. I’m adding one small pointer in the
 
 The structure is in place now. I’m validating the new JSON-LD files and the trimmed YAML so we know the move actually improved things instead of just relocating mistakes.
 
-Moved the worked Hydra example out of [semantic-flow-api-spec.yaml](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/semantic-flow-api-spec.yaml). The `KnopResource` schema now just points to `examples/alice-bio/knop.jsonld` instead of carrying a long inline payload.
+Moved the worked Hydra example out of [semantic-flow-api-spec.yaml](../semantic-flow-api-spec.yaml). The `KnopResource` schema now just points to `examples/alice-bio/knop.jsonld` instead of carrying a long inline payload.
 
-Added a dedicated Alice Bio example set under [examples/alice-bio](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio):
-- [knop.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/knop.jsonld)
-- [knop-add-reference-job-request.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/knop-add-reference-job-request.jsonld)
-- [job-accepted.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/job-accepted.jsonld)
-- [job-succeeded.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/job-succeeded.jsonld)
-- [reference-link.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/api/reference-link.jsonld)
+Added a dedicated Alice Bio example set under [examples/alice-bio](../examples/alice-bio):
+- [knop.jsonld](../examples/alice-bio/api/knop.jsonld)
+- [knop-add-reference-job-request.jsonld](../examples/alice-bio/api/knop-add-reference-job-request.jsonld)
+- [job-accepted.jsonld](../examples/alice-bio/api/job-accepted.jsonld)
+- [job-succeeded.jsonld](../examples/alice-bio/api/job-succeeded.jsonld)
+- [reference-link.jsonld](../examples/alice-bio/api/reference-link.jsonld)
 
-I also added [sf.api.examples.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.examples.md) and a short Examples section in [sf.api.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/semantic-flow-framework/notes/sf.api.md), with [ont.use-cases.alice-bio.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.use-cases.alice-bio.md) as the ontology-side anchor.
+I also added [[sf.api.examples]] and a short Examples section in [[sf.api]], with [[ont.use-cases.alice-bio]] as the ontology-side anchor.
 
 Validation passed:
 - all new `.jsonld` files parse as JSON
@@ -1061,7 +1061,7 @@ Validation passed:
 
 # djradon_2026-03-23_2243_16
 
-I'm open to other next steps, but it might be a good time to modernize [sflo.conv.claude.2025-07-21-node-configuration-semantic-modeling.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.claude.2025-07-21-node-configuration-semantic-modeling.md) 
+I'm open to other next steps, but it might be a good time to modernize [[sflo.conv.claude.2025-07-21-node-configuration-semantic-modeling]] 
 
 It's mostly concerned with what we should rename to OutputTemplateMappings, and AbstractArtifact would I think be replaced by DigitalArtifact. But it also needs to contain, somehow, integration templates, that allow you to map how DigitalArtifacts are mapped to Knops.
 
@@ -1085,7 +1085,7 @@ I’ve got the shape now. I’m turning the empty task note into a current-state
 
 The note is fleshed out. I’m giving it one quick readback now to make sure it’s actionable and not accidentally committing us to a bad modeling choice too early.
 
-Updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) into a real task brief.
+Updated [[ont.task.2026.2026-03-23-config-modernization]] into a real task brief.
 
 It now reframes the work around the current ontology: primary goal is resolving effective `Knop` config, secondary goal is mesh-level config, with the old Flow/Distribution framing explicitly marked as something not to port forward literally. I also captured likely term replacements like `AbstractArtifact -> DigitalArtifact` and `TemplateMapping -> OutputTemplateMapping`, plus an explicit “Integration Templates” section that treats artifact-to-Knop mapping as related but probably a second phase unless a small shared core emerges.
 
@@ -1113,17 +1113,17 @@ I have the main thread and the current ontology decision. I’m grabbing exact l
 
 Yes, I think subsuming old `Flow`/`AbstractArtifact` into `DigitalArtifact` is still the right current choice.
 
-That is the live direction in the ontology, not just a half-remembered idea: [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md#L55) explicitly says `DigitalArtifact` is the governing artifact-level resource and that `AbstractArtifact`, `ArtifactFlow`, `ArtifactState`, `WorkingState`, and `CurrentState` are out of the current core. So for config modernization, I would not reintroduce a separately addressable Flow-like thing just to model config history. If a config needs its own IRI and lifecycle, I’d model it as a `DigitalArtifact` with an appropriate config role, and let `Knop` and `SemanticMesh` point at it.
+That is the live direction in the ontology, not just a half-remembered idea: [[ont.decision-log|ont.decision-log.md]] explicitly says `DigitalArtifact` is the governing artifact-level resource and that `AbstractArtifact`, `ArtifactFlow`, `ArtifactState`, `WorkingState`, and `CurrentState` are out of the current core. So for config modernization, I would not reintroduce a separately addressable Flow-like thing just to model config history. If a config needs its own IRI and lifecycle, I’d model it as a `DigitalArtifact` with an appropriate config role, and let `Knop` and `SemanticMesh` point at it.
 
-On the template names: yes, I’d rename them. The old config ontology still defines `InnerTemplate` / `OuterTemplate` as `AbstractArtifact` subclasses for generated resource pages in [sflo-config-ontology.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/old/sflo-config-ontology.jsonld#L149). Given where the design has gone, `InnerResourcePageTemplate` and `OuterResourcePageTemplate` are better than `InnerOutputTemplate` / `OuterOutputTemplate` right now, because the semantics are still specifically about ResourcePage composition, not arbitrary outputs. If you want even clearer names, I’d seriously consider `ResourcePageBodyTemplate` and `ResourcePageShellTemplate`; they say more than “inner/outer.”
+On the template names: yes, I’d rename them. The old config ontology still defines `InnerTemplate` / `OuterTemplate` as `AbstractArtifact` subclasses for generated resource pages in [sflo-config-ontology.jsonld](../../ontology/old/sflo-config-ontology.jsonld#L149). Given where the design has gone, `InnerResourcePageTemplate` and `OuterResourcePageTemplate` are better than `InnerOutputTemplate` / `OuterOutputTemplate` right now, because the semantics are still specifically about ResourcePage composition, not arbitrary outputs. If you want even clearer names, I’d seriously consider `ResourcePageBodyTemplate` and `ResourcePageShellTemplate`; they say more than “inner/outer.”
 
-And yes, I found the Turbo/static-site thread you were remembering. The best match is [sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md#L145). The key idea there was:
+And yes, I found the Turbo/static-site thread you were remembering. The best match is [[sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2|sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md]]. The key idea there was:
 - each `index.html` should contain solid standalone page content
 - shared chrome/nav should be emitted separately
 - a small client layer can load that chrome
 - Turbo is the enhancement layer for smooth MPA navigation, not the generator itself
 
-That gets summarized especially clearly at [sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md#L153) and then tied back to template mapping as a presentation layer at [sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md#L325).
+That gets summarized especially clearly at [[sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2|sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md]] and then tied back to template mapping as a presentation layer at [[sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2|sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md]].
 
 So my short recommendation is:
 - keep `DigitalArtifact` as the artifact-level center
@@ -1131,7 +1131,7 @@ So my short recommendation is:
 - rename templates toward ResourcePage-specific terms
 - and treat Turbo as browser-layer enhancement over real woven HTML, not as the core rendering model
 
-If you want, I can fold that into [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) next.
+If you want, I can fold that into [[ont.task.2026.2026-03-23-config-modernization]] next.
 
 # djradon_2026-03-23_2254_31
 
@@ -1147,7 +1147,7 @@ The note is patched. I’m doing a quick read-back now to make sure the renamed 
 
 One small consistency fix: the scope section still said “output-template mapping vocabulary,” which is a bit broader than the new guidance. I’m tightening that phrase so the note doesn’t argue with itself.
 
-Updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md).
+Updated [[ont.task.2026.2026-03-23-config-modernization]].
 
 It now makes the current direction explicit:
 - keep `DigitalArtifact` as the artifact-level center and do not reintroduce old `Flow`/`AbstractArtifact` machinery through config
@@ -1239,13 +1239,13 @@ If you want, I can also turn that into a shorter subject/body variant optimized 
 
 # djradon_2026-03-23_2307_41
 
-OK, should I start a new chat for [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) ?
+OK, should I start a new chat for [[ont.task.2026.2026-03-23-config-modernization]] ?
 
 # gpt-5.4_2026-03-23_2307_47
 
 Yes, probably.
 
-We’ve crossed from API architecture into ontology/config design, and [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) is now a decent handoff point. A fresh chat would give us a cleaner working context for questions like:
+We’ve crossed from API architecture into ontology/config design, and [[ont.task.2026.2026-03-23-config-modernization]] is now a decent handoff point. A fresh chat would give us a cleaner working context for questions like:
 - what `Config` is
 - whether config is a role on `DigitalArtifact`
 - mesh vs knop config inheritance
@@ -1268,7 +1268,7 @@ I’m adding that explicitly. The note currently talks about “integration temp
 
 I’ve patched it. I’m reading the updated section back once to make sure `IntegrationConfig` now lands as a first-class concern without collapsing the whole note into integration design.
 
-Agreed. I updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) to make `IntegrationConfig` explicit.
+Agreed. I updated [[ont.task.2026.2026-03-23-config-modernization]] to make `IntegrationConfig` explicit.
 
 The note now treats it as a real config concern, not just a vague “integration templates” follow-up. It calls out that config for `weave integrate` may need to cover candidate matching, claim rules, designator-path derivation, knop creation rules, metadata-template assignment, external working sources, and history/no-history policy. It also adds the key open question of whether `IntegrationConfig` should be a named subclass/role of `Config` or just a config family expressed through properties.
 
@@ -1290,12 +1290,12 @@ I linked the two discussion references you called out. I’m doing one tiny pass
 
 There’s one more obvious one: “the current core decision.” I’m linking that to the decision log too so the note is consistent.
 
-Updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) so those references are clickable.
+Updated [[ont.task.2026.2026-03-23-config-modernization]] so those references are clickable.
 
 I added links for:
-- the current core decision to [ont.decision-log.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.decision-log.md)
-- the ResourcePage/Turbo thread to [sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md)
-- the March 14 `weave integrate` thread to [sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex.md](/home/djradon/hub/semantic-flow/sflo/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex.md)
+- the current core decision to [[ont.decision-log]]
+- the ResourcePage/Turbo thread to [[sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2]]
+- the March 14 `weave integrate` thread to [[sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex]]
 
 If you want, I can do the same style of link pass on the other newer notes too.
 
@@ -1309,11 +1309,11 @@ I’m fixing those links to point at the still-live copies under `weave/dependen
 
 I found the surviving copies and have the shorter relative paths. I’m patching the note now so the links stay valid in the current workspace layout.
 
-Fixed in [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md).
+Fixed in [[ont.task.2026.2026-03-23-config-modernization]].
 
 Those two conversation links now point to the copies under `weave/dependencies/github.com/semantic-flow/sflo-dendron-notes/`:
-- [sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2.md)
-- [sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/sflo-dendron-notes/sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex.md)
+- [[sflo.conv.2026.2026-03-13_2159-chrome-on-static-sites-codex-2]]
+- [[sflo.conv.2026.2026-03-14_0958-existing-solutions-that-could-be-extended-with-weave-codex]]
 
 Good catch.
 
@@ -1329,7 +1329,7 @@ I agree with that pushback. I’m changing the note to separate “config may it
 
 The note is updated. I’m reading back the key section now to make sure it no longer implies `DigitalArtifact` is a config target, only a possible carrier for a named config resource.
 
-Agreed. I updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) to make that distinction explicit.
+Agreed. I updated [[ont.task.2026.2026-03-23-config-modernization]] to make that distinction explicit.
 
 It now says:
 - config attaches directly to `SemanticMesh` and `Knop`
@@ -1348,7 +1348,7 @@ I’m tightening that wording in the task note so it reflects the current replac
 
 I found the exact spot. I’m changing it to say the old named classes are gone, while the artifact-state concerns are now represented by `HistoricalState`, `latestHistoricalState`, and `hasWorkingLocatedFile`.
 
-Agreed. I updated [ont.task.2026.2026-03-23-config-modernization.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.task.2026.2026-03-23-config-modernization.md) so it no longer reads as if those concerns vanished entirely.
+Agreed. I updated [[ont.task.2026.2026-03-23-config-modernization]] so it no longer reads as if those concerns vanished entirely.
 
 It now says the old named classes are gone as such, while their roles are handled by the current model:
 - `ArtifactState` -> roughly `HistoricalState`
@@ -1380,15 +1380,15 @@ I’ve got the mesh/inventory side. I’m opening the ReferenceLink slice next s
 I think you’re right about inventory: it still fits comfortably in core.
 
 The current core already gives you most of the inventory surface:
-- mesh membership via [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L245) `hasKnop`
-- payload/support slots via [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L268) `hasPayloadArtifact`, [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L296) `hasKnopMetadata`, [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L303) `hasMeshMetadata`, [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L324) `hasMeshInventory`, and [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L331) `hasKnopInventory`
-- inventory role classes via [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L314) `MeshInventory` and [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L319) `KnopInventory`
+- mesh membership via [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L245) `hasKnop`
+- payload/support slots via [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L268) `hasPayloadArtifact`, [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L296) `hasKnopMetadata`, [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L303) `hasMeshMetadata`, [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L324) `hasMeshInventory`, and [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L331) `hasKnopInventory`
+- inventory role classes via [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L314) `MeshInventory` and [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L319) `KnopInventory`
 
 So I would not make a separate inventory ontology unless inventory grows beyond “what belongs to this mesh/knop and what inventory artifact describes it.”
 
 On submeshes: I would not add `hasMesh`. That’s too vague. If nested meshes are a real modeled relation, `hasSubmesh` / `submeshOf` is much clearer. If “submesh” is just an implementation or scoping idea, I’d skip it for now.
 
-On `ReferenceLink`, small correction: the semantically meaningful target is [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L193) `referenceTarget`, not `hasReferenceRole`. `hasReferenceRole` points to controlled role terms like Canonical/Supplemental/Deprecated at [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L186). `referenceUriLiteral` at [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl#L198) is the retrievable locator. If you need a mesh-relative locator, yes, I think that should be a separate property. I’d only use a `designatorPath`-like property if it is meant to resolve to a Semantic Flow identifier; otherwise use something more literal like `referenceMeshPathLiteral`.
+On `ReferenceLink`, small correction: the semantically meaningful target is [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L193) `referenceTarget`, not `hasReferenceRole`. `hasReferenceRole` points to controlled role terms like Canonical/Supplemental/Deprecated at [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L186). `referenceUriLiteral` at [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl#L198) is the retrievable locator. If you need a mesh-relative locator, yes, I think that should be a separate property. I’d only use a `designatorPath`-like property if it is meant to resolve to a Semantic Flow identifier; otherwise use something more literal like `referenceMeshPathLiteral`.
 
 On config, I’m mostly with you, with one caution:
 - `SemanticFlowConfig` as a first-class class makes sense.
@@ -1417,7 +1417,7 @@ Your rationale makes sense to me: “submesh” sounds more like a role or relat
 
 That rationale is coherent. If “submesh” is just a mesh in an embedded role, then `hasMesh` is much easier to defend as the core relation, and `submesh` becomes contextual prose rather than a separate ontological species.
 
-I updated [principles.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/principles.md) and [ont.concepts.submesh.md](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/notes/ont.concepts.submesh.md) to capture that, including the reminder that Git submodules are only one realization strategy. The notes now explicitly say the ontology should stay flexible across Git submodules, vendored folders, generated embeddings, and non-filesystem compositions.
+I updated [[principles]] and [[ont.concepts.submesh]] to capture that, including the reminder that Git submodules are only one realization strategy. The notes now explicitly say the ontology should stay flexible across Git submodules, vendored folders, generated embeddings, and non-filesystem compositions.
 
 If we carry this into the core ontology, my only caution is naming symmetry: `hasMesh` works well for the containing relation, and we could still use something like `meshFor` or `embeddedInMesh` later if we want the inverse to read more clearly than `submeshOf`. Docs-only change, so no tests ran.
 
@@ -1455,7 +1455,7 @@ Pros:
 - Lets config evolve faster without destabilizing core.
 - Much better fit for the fact that not all configs are `DigitalArtifact`s.
 - Easier to split authored config, effective config, integration config, and host/runtime extensions.
-- You already have precedent for this layering in [sflo-config-ontology.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/old/sflo-config-ontology.jsonld) and [sflo-host-ontology.jsonld](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/old/sflo-host-ontology.jsonld).
+- You already have precedent for this layering in [sflo-config-ontology.jsonld](../../ontology/old/sflo-config-ontology.jsonld) and [sflo-host-ontology.jsonld](../../ontology/old/sflo-host-ontology.jsonld).
 
 Cons:
 - More indirection.
@@ -1463,7 +1463,7 @@ Cons:
 - Config can start to feel “secondary” even if it is operationally important.
 
 My recommendation:
-- Keep **inventory in core**. It already fits there structurally in [semantic-flow-core-ontology.ttl](/home/djradon/hub/semantic-flow/weave/dependencies/github.com/semantic-flow/ontology/semantic-flow-core-ontology.ttl).
+- Keep **inventory in core**. It already fits there structurally in [semantic-flow-core-ontology.ttl](../../ontology/semantic-flow-core-ontology.ttl).
 - Keep **config in a separate ontology**.
 - Let that config ontology define `Config`, `MeshConfig`, `KnopConfig`, `IntegrationConfig`, template vocab, and the attachment properties like `hasMeshConfig` / `meshConfigFor` and `hasKnopConfig` / `knopConfigFor`.
 - Reserve core for things that are true of Semantic Flow resources regardless of weaving/publication policy.
