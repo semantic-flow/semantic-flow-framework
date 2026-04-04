@@ -1,0 +1,70 @@
+{
+  "@context": [
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sfjob": "https://semantic-flow.github.io/semantic-flow-job-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "status": "https://api.example.org/vocab#status",
+      "submittedAt": {
+        "@id": "sfjob:submittedAt",
+        "@type": "xsd:dateTime"
+      },
+      "startedAt": {
+        "@id": "sfjob:startedAt",
+        "@type": "xsd:dateTime"
+      },
+      "finishedAt": {
+        "@id": "sfjob:finishedAt",
+        "@type": "xsd:dateTime"
+      },
+      "result": "https://api.example.org/vocab#result",
+      "created": {
+        "@id": "https://api.example.org/vocab#created",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "updated": {
+        "@id": "https://api.example.org/vocab#updated",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "designatorPath": "https://api.example.org/vocab#designatorPath",
+      "knopIri": {
+        "@id": "https://api.example.org/vocab#knopIri",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@id": "https://api.example.org/jobs/job_01HSM4KNOPCREATE000000001",
+  "@type": "sfjob:Job",
+  "kind": "knop.create",
+  "status": "succeeded",
+  "submittedAt": "2026-04-03T23:42:00Z",
+  "startedAt": "2026-04-03T23:42:01Z",
+  "finishedAt": "2026-04-03T23:42:02Z",
+  "target": {
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh",
+    "designatorPath": "alice",
+    "knopIri": "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop"
+  },
+  "result": {
+    "created": [
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_meta",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory"
+    ],
+    "updated": [
+      "https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory"
+    ]
+  }
+}

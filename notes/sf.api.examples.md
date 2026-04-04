@@ -19,6 +19,8 @@ Current files:
 - `mesh-create-job-request.jsonld` : the request payload for submitting `mesh.create`
 - `mesh-create-job-accepted.jsonld` : the accepted `Job` resource returned immediately after `mesh.create` submission
 - `mesh-create-job-succeeded.jsonld` : the terminal successful `mesh.create` `Job` resource with created mesh-surface resources
+- `knop-create-job-request.jsonld` : the request payload for submitting `knop.create`
+- `knop-create-job-succeeded.jsonld` : the terminal successful `knop.create` `Job` resource with created Knop resources and the updated mesh inventory
 - `mesh.jsonld` : a `SemanticMesh` representation with Hydra affordances for follow-up actions
 - `knop.jsonld` : a `Knop` representation with Hydra affordances for follow-up actions
 - `knop-add-reference-job-request.jsonld` : the request payload for submitting `knop.addReference`

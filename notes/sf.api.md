@@ -39,6 +39,19 @@ Current direction for that slice:
 
 Worked examples for that slice now live beside the other Alice Bio API examples in `../examples/alice-bio/api/`.
 
+## Next Concrete Slice
+
+The next carried public operation example is `knop.create`.
+
+Current direction for that slice:
+
+- the target should identify an existing mesh together with one `designatorPath`
+- `knopIri` remains distinct from `designatorPath`, but may be explicit or conventionally derived as `designatorPath + "/_knop"` resolved against `meshBase`
+- host filesystem paths should stay out of the thin core contract even if a specific implementation such as Weave resolves mesh state from a local workspace
+- the successful result should at minimum make the created `Knop`, `KnopMetadata`, and `KnopInventory` resources discoverable and surface that the `MeshInventory` was updated
+
+Worked examples for that slice now also live in `../examples/alice-bio/api/`.
+
 ## Mesh Identity
 
 The current direction is to distinguish:
