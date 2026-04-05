@@ -1,0 +1,66 @@
+{
+  "@context": [
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "sfjob": "https://semantic-flow.github.io/semantic-flow-job-ontology/",
+      "kind": "https://api.example.org/vocab#kind",
+      "status": "https://api.example.org/vocab#status",
+      "submittedAt": {
+        "@id": "sfjob:submittedAt",
+        "@type": "xsd:dateTime"
+      },
+      "startedAt": {
+        "@id": "sfjob:startedAt",
+        "@type": "xsd:dateTime"
+      },
+      "finishedAt": {
+        "@id": "sfjob:finishedAt",
+        "@type": "xsd:dateTime"
+      },
+      "result": "https://api.example.org/vocab#result",
+      "created": {
+        "@id": "https://api.example.org/vocab#created",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "updated": {
+        "@id": "https://api.example.org/vocab#updated",
+        "@container": "@set",
+        "@type": "@id"
+      },
+      "target": "https://api.example.org/vocab#target",
+      "meshBase": {
+        "@id": "https://api.example.org/vocab#meshBase",
+        "@type": "@id"
+      },
+      "meshIri": {
+        "@id": "https://api.example.org/vocab#meshIri",
+        "@type": "@id"
+      },
+      "designatorPath": "https://api.example.org/vocab#designatorPath",
+      "sourceUri": {
+        "@id": "https://api.example.org/vocab#sourceUri",
+        "@type": "@id"
+      }
+    }
+  ],
+  "@id": "https://api.example.org/jobs/job_01HSM4PAYLOADUPDATE0000001",
+  "@type": "sfjob:Job",
+  "kind": "payload.update",
+  "status": "succeeded",
+  "submittedAt": "2026-04-04T20:22:00Z",
+  "startedAt": "2026-04-04T20:22:01Z",
+  "finishedAt": "2026-04-04T20:22:02Z",
+  "target": {
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh"
+  },
+  "designatorPath": "alice/bio",
+  "sourceUri": "https://uploads.example.org/alice-bio-v2.ttl",
+  "result": {
+    "created": [],
+    "updated": [
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/bio"
+    ]
+  }
+}

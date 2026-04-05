@@ -243,6 +243,7 @@ components:
         - mesh.create
         - knop.create
         - knop.addReference
+        - payload.update
         - integrate
         - version
         - validate
@@ -646,6 +647,27 @@ components:
           $ref: "#/components/schemas/DesignatorPath"
         sourceUri:
           $ref: "#/components/schemas/SourceUri"
+    PayloadUpdateJobRequest:
+      type: object
+      required:
+        - kind
+        - target
+        - designatorPath
+        - sourceUri
+      description: |
+        Normative core request for replacing the working bytes of an existing
+        payload artifact in an existing mesh. Filesystem-backed implementations
+        may offer local staging conveniences, but those are intentionally not
+        standardized here.
+      properties:
+        kind:
+          const: payload.update
+        target:
+          $ref: "#/components/schemas/TargetSelector"
+        designatorPath:
+          $ref: "#/components/schemas/DesignatorPath"
+        sourceUri:
+          $ref: "#/components/schemas/SourceUri"
     VersionJobRequest:
       type: object
       required:
@@ -714,6 +736,7 @@ components:
             - $ref: "#/components/schemas/KnopCreateJobRequest"
             - $ref: "#/components/schemas/KnopAddReferenceJobRequest"
             - $ref: "#/components/schemas/IntegrateJobRequest"
+            - $ref: "#/components/schemas/PayloadUpdateJobRequest"
             - $ref: "#/components/schemas/VersionJobRequest"
             - $ref: "#/components/schemas/ValidateJobRequest"
             - $ref: "#/components/schemas/GenerateJobRequest"

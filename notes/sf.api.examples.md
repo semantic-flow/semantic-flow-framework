@@ -23,6 +23,8 @@ Current files:
 - `knop-create-job-succeeded.jsonld` : the terminal successful `knop.create` `Job` resource with created Knop resources and the updated mesh inventory
 - `integrate-job-request.jsonld` : the request payload for submitting `integrate` with one `designatorPath` and one semantic `sourceUri`
 - `integrate-job-succeeded.jsonld` : the terminal successful `integrate` `Job` resource with the created payload and Knop resources plus the updated mesh inventory
+- `payload-update-job-request.jsonld` : the request payload for submitting `payload.update` with one `designatorPath` and one semantic replacement `sourceUri`
+- `payload-update-job-succeeded.jsonld` : the terminal successful `payload.update` `Job` resource with the updated payload artifact
 - `weave-job-request.jsonld` : the request payload for submitting `weave` over the Alice mesh with a narrowed `designatorPaths` target
 - `weave-job-succeeded.jsonld` : the terminal successful `weave` `Job` resource with created histories and updated current artifacts
 - `mesh.jsonld` : a `SemanticMesh` representation with Hydra affordances for follow-up actions
