@@ -171,7 +171,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-file> <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-file> <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -188,7 +188,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-file> <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-file> <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]

@@ -15,22 +15,24 @@ In the current core ontology this pattern is modeled by `ArtifactResolutionTarge
 An `ArtifactResolutionTarget` may resolve through:
 
 - a target `DigitalArtifact`
+- a direct mesh-local path string such as `targetMeshPath`
 - a target `LocatedFile`
 - another explicit packaged target if the vocabulary later grows one
 
-This means a target artifact IRI is allowed but not required. If a direct `LocatedFile` is sufficient, that is a complete and valid resolution target on its own.
+This means a target artifact IRI is allowed but not required. If a direct mesh-local path or direct `LocatedFile` is sufficient, that is a complete and valid resolution target on its own.
 
 Typical consequences:
 
 - if the target is a `DigitalArtifact` in `Current` mode, resolution usually follows that artifact's current `hasWorkingLocatedFile`
 - if the target is a `DigitalArtifact` in `Pinned` mode, resolution follows the requested history or state subject to the allowed fallback policy
+- if the target is a direct `targetMeshPath`, resolution uses that exact mesh-root-relative file path with fail-closed behavior
 - if the target is already a direct `LocatedFile`, no artifact-history lookup is needed; resolution can use that file directly
-- direct workspace-relative file targets are a specialized case of `LocatedFile` resolution, not a separate third system beside artifact resolution and import
 - imported content is not a separate resolution kind once imported; after import it participates in governed artifact resolution like any other managed `DigitalArtifact`
 
 So the important split is not “artifact source vs imported source.” The important split is:
 
 - governed artifact resolution
+- direct mesh-path resolution
 - direct located-file resolution
 
 This is both a runtime term and now also an ontology term through `ArtifactResolutionTarget`.

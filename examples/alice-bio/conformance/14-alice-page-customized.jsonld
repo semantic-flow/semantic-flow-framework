@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:14-alice-page-customized",
   "dcterms:title": "Alice Bio 14 alice page customized",
-  "dcterms:description": "Checks the non-woven step that adds Alice's knop-owned page-definition support artifact, local workspace-relative page sources, and a KnopAssetBundle without changing generated public pages yet.",
+  "dcterms:description": "Checks the non-woven step that adds Alice's knop-owned page-definition support artifact, mesh-local page source paths, and a KnopAssetBundle without changing generated public pages yet.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#define-alice-page",
       "dcterms:title": "Add Alice page-definition artifact without weaving",
-      "dcterms:description": "Adds alice/_knop/_page/page.ttl, workspace-local Markdown sources at natural repository paths, and alice/_knop/_assets/alice.css, updates alice/_knop/_inventory to register the new ResourcePageDefinition support artifact and KnopAssetBundle, and leaves alice/index.html unchanged until weave runs.",
+      "dcterms:description": "Adds alice/_knop/_page/page.ttl, mesh-local Markdown sources at natural repository paths, and alice/_knop/_assets/alice.css, updates alice/_knop/_inventory to register the new ResourcePageDefinition support artifact and KnopAssetBundle, and leaves alice/index.html unchanged until weave runs.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "resourcePage.define",
       "fromRef": "13-bob-extracted-woven",
@@ -119,12 +119,12 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/hasTargetLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-file> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-file> a <https://semantic-flow.github.io/ontology/core/WorkspaceRelativeFile>, <https://semantic-flow.github.io/semantic-flow-ontology/LocatedFile> ; <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"alice/alice.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/hasTargetLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-file> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-file> a <https://semantic-flow.github.io/ontology/core/WorkspaceRelativeFile>, <https://semantic-flow.github.io/semantic-flow-ontology/LocatedFile> ; <https://semantic-flow.github.io/ontology/core/workspaceRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
