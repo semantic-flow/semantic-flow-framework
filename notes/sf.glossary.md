@@ -24,8 +24,9 @@ This means a target artifact IRI is allowed but not required. If a direct mesh-l
 Typical consequences:
 
 - if the target is a `DigitalArtifact` in `Current` mode, resolution usually follows that artifact's current `hasWorkingLocatedFile`
+- if the target is a `DigitalArtifact` in `Current` mode and that artifact also declares `workingFilePath`, local runtime resolution should follow `workingFilePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
 - if the target is a `DigitalArtifact` in `Pinned` mode, resolution follows the requested history or state subject to the allowed fallback policy
-- if the target is a direct `targetMeshPath`, resolution uses that exact mesh-root-relative file path with fail-closed behavior
+- if the target is a direct `targetMeshPath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
 - if the target is already a direct `LocatedFile`, no artifact-history lookup is needed; resolution can use that file directly
 - imported content is not a separate resolution kind once imported; after import it participates in governed artifact resolution like any other managed `DigitalArtifact`
 
@@ -36,3 +37,9 @@ So the important split is not “artifact source vs imported source.” The impo
 - direct located-file resolution
 
 This is both a runtime term and now also an ontology term through `ArtifactResolutionTarget`.
+
+Related current-byte rule:
+
+- `workingFilePath` is the operational local-path hook for a `DigitalArtifact`
+- `hasWorkingLocatedFile` remains the semantic `LocatedFile` hook
+- when both are present for the same local working surface, they should identify the same current bytes; mismatch should fail closed rather than silently picking one
