@@ -146,18 +146,6 @@
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#alice-knop-main-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/main.md",
-          "changeType": "absent"
-        },
-        {
-          "id": "#alice-knop-sidebar-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/sidebar.md",
-          "changeType": "absent"
-        },
-        {
           "id": "#alice-page-public-css",
           "type": "FileExpectation",
           "path": "alice/_assets/alice.css",

@@ -95,30 +95,6 @@
           "changeType": "absent"
         },
         {
-          "id": "#alice-knop-main-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/main.md",
-          "changeType": "absent"
-        },
-        {
-          "id": "#alice-knop-sidebar-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/sidebar.md",
-          "changeType": "absent"
-        },
-        {
-          "id": "#alice-page-subtree-main-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/_page/main.md",
-          "changeType": "absent"
-        },
-        {
-          "id": "#alice-page-subtree-sidebar-md",
-          "type": "FileExpectation",
-          "path": "alice/_knop/_page/sidebar.md",
-          "changeType": "absent"
-        },
-        {
           "id": "#alice-page-subtree-css",
           "type": "FileExpectation",
           "path": "alice/_knop/_page/_assets/alice.css",
