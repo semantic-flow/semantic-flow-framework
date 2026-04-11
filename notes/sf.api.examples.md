@@ -34,4 +34,13 @@ Current files:
 - `job-succeeded.jsonld` : the terminal successful `Job` resource with result links
 - `reference-link.jsonld` : the created `ReferenceLink` resource
 
+Next likely additions:
+
+- `extract-job-request.jsonld` : a request payload for extracting identifiers and Knops from terms mentioned in an existing ingested `RdfDocument`, likely starting with an ontology-term extraction example
+- `extract-job-succeeded.jsonld` : the terminal successful `extract` `Job` resource with the created identifier and Knop surfaces
+- `import-job-request.jsonld` : a request payload for importing outside-the-tree or extra-mesh content into a governed in-tree artifact boundary
+- `import-job-succeeded.jsonld` : the terminal successful `import` `Job` resource with the imported artifact and current working file
+
+Those are planned example names, not files that already exist in `../examples/alice-bio/api`.
+
 This is meant to be a realistic vertical slice rather than an exhaustive example catalog.

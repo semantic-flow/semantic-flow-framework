@@ -19,19 +19,28 @@ The following draft job kinds have come up as likely first-class Semantic Flow o
 - `knop.create`
 - `knop.addReference`
 - `integrate`
+- `import`
+- `payload.update`
 - `version`
 - `validate`
 - `generate`
 - `weave` : validate, version, and generate
-- `extract` : create Knops for local RDF references in an `RdfDocument`
+- `extract` : create identifiers and Knops from terms mentioned in an existing `RdfDocument`
 
 For the thin public contract, the current direction is to model all submitted work uniformly as `Job`s, even when some implementations may execute quickly enough to feel synchronous to a client.
 
 At minimum, `integrate`, `version`, `mesh.create`, and large validation or generation work should be treated as likely candidates for first-class long-running jobs.
 
-## First Concrete Slice
+## Concrete Slices
 
-The first concrete carried public operation example is `mesh.create`.
+Ordering is not especially important here. The useful distinction is between:
+
+- concrete carried slices that already have worked API examples
+- adjacent next slices that should be reflected in the thin API note before they are fully exemplified
+
+### Current Carried Slices
+
+#### `mesh.create`
 
 Current direction for that slice:
 
@@ -43,9 +52,7 @@ Current direction for that slice:
 
 Worked examples for that slice now live beside the other Alice Bio API examples in `../examples/alice-bio/api/`.
 
-## Second Concrete Slice
-
-The second concrete carried public operation example is `knop.create`.
+#### `knop.create`
 
 Current direction for that slice:
 
@@ -56,9 +63,29 @@ Current direction for that slice:
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
-## Third Concrete Slice
+#### `integrate`
 
-The third concrete carried public operation example is `weave`.
+Current direction for that slice:
+
+- the target should identify an existing mesh together with one `designatorPath`
+- the thin request should also carry one semantic `sourceUri` for the bytes being integrated
+- host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
+- the successful result should at minimum make the created payload artifact and Knop surfaces discoverable and surface that the `MeshInventory` was updated
+
+Worked examples for that slice now also live in `../examples/alice-bio/api/`.
+
+#### `payload.update`
+
+Current direction for that slice:
+
+- the target should identify an existing mesh together with one existing payload-bearing `designatorPath`
+- the thin request should carry one semantic replacement `sourceUri` for the new working bytes
+- host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
+- the successful result should at minimum make the updated payload artifact discoverable as changed without implying that histories or generated pages were also materialized in the same operation
+
+Worked examples for that slice now also live in `../examples/alice-bio/api/`.
+
+#### `weave`
 
 Current direction for that slice:
 
@@ -69,18 +96,31 @@ Current direction for that slice:
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
-## Fourth Concrete Slice
+### Next Likely Slices
 
-The fourth concrete carried public operation example is `integrate`.
+#### `extract`
 
 Current direction for that slice:
 
-- the target should identify an existing mesh together with one `designatorPath`
-- the thin request should also carry one semantic `sourceUri` for the bytes being integrated
-- host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
-- the successful result should at minimum make the created payload artifact and Knop surfaces discoverable and surface that the `MeshInventory` was updated
+- `extract` should operate over an existing ingested `RdfDocument` or similar already-governed source artifact, not over arbitrary host-local source bytes
+- the typical use case is minting identifiers and Knops for the terms mentioned in that source, for example creating identifier surfaces for ontology terms referenced in an ontology document
+- the thin request should identify the existing source artifact being extracted from and may later narrow scope with selectors, target classes, or similar extraction criteria
+- the successful result should at minimum make the created identifiers, Knops, and their discoverable support surfaces visible as outputs of the extraction
+- a specific implementation may still carry a narrower first local extract slice, for example extracting one explicitly targeted resource from one existing woven `RdfDocument`, but that narrower runtime slice should not define the broader API concept
 
-Worked examples for that slice now also live in `../examples/alice-bio/api/`.
+Worked examples for this slice are still thinner than the carried `mesh.create` / `knop.create` / `integrate` / `payload.update` / `weave` set and should be expanded deliberately rather than implied from the fixture ladder alone.
+
+#### `import`
+
+Current direction for that slice:
+
+- `import` should be the explicit boundary for bringing outside-the-tree or extra-mesh content into a governed in-tree artifact
+- `import` should stay distinct from `integrate`
+- `integrate` associates bytes with a target designator and payload surface, while `import` establishes a governed local artifact boundary that later operations may follow
+- the thin request should identify an existing mesh together with one semantic outside source, not a host-specific local-path contract
+- the successful result should at minimum make the imported governed artifact and its current working file discoverable
+
+This matters for resource-page source behavior in particular: a page definition should follow the imported in-tree artifact's current working file, not a direct live outside source.
 
 ## Mesh Identity
 
