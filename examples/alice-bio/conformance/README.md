@@ -25,6 +25,8 @@ Current naming:
 - `17-alice-page-main-integrated-woven.jsonld` means `16-alice-page-main-integrated` -> `17-alice-page-main-integrated-woven`
 - `18-alice-page-artifact-source.jsonld` means `17-alice-page-main-integrated-woven` -> `18-alice-page-artifact-source`
 - `19-alice-page-artifact-source-woven.jsonld` means `18-alice-page-artifact-source` -> `19-alice-page-artifact-source-woven`
+- `20-bob-page-imported-source.jsonld` means `19-alice-page-artifact-source-woven` -> `20-bob-page-imported-source`
+- `21-bob-page-imported-source-woven.jsonld` means `20-bob-page-imported-source` -> `21-bob-page-imported-source-woven`
 
 Conventions used here:
 
