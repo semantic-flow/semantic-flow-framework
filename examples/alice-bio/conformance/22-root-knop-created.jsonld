@@ -1,0 +1,145 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:22-root-knop-created",
+  "dcterms:title": "Alice Bio 22 root knop created",
+  "dcterms:description": "Checks the later-ladder transition that introduces the root Knop support surface without yet weaving root histories or public root pages.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#knop-create-root",
+      "dcterms:title": "Create root Knop",
+      "dcterms:description": "Adds the root Knop support artifacts at _knop and updates the carried mesh inventory to register the root Knop while leaving root identifier pages and root page-definition support absent until later weave/customization steps.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "knop.create",
+      "fromRef": "21-bob-page-imported-source-woven",
+      "toRef": "22-root-knop-created",
+      "targetDesignatorPath": "/",
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-page",
+          "type": "FileExpectation",
+          "path": "index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#root-knop-page",
+          "type": "FileExpectation",
+          "path": "_knop/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#root-knop-page-definition-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_page/page.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/index.html> . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-meta-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/designatorPath> \"\" ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_meta> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> ?payload . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/ontology/core/hasResourcePageDefinition> ?pageDefinition . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
