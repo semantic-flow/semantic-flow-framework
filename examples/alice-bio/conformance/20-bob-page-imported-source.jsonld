@@ -146,7 +146,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/page-main> a <https://semantic-flow.github.io/semantic-flow-ontology/PayloadArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/bob-page-main.md> ; <https://semantic-flow.github.io/ontology/core/workingAccessUrl> \"https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/page-main> a <https://semantic-flow.github.io/semantic-flow-ontology/PayloadArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/bob-page-main.md> ; <https://semantic-flow.github.io/ontology/core/workingAccessUrl> \"https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md\"^^<http://www.w3.org/2001/XMLSchema#anyURI> . }",
               "expectedBoolean": true
             },
             {
