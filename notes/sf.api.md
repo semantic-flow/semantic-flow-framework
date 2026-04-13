@@ -20,12 +20,13 @@ The following draft job kinds have come up as likely first-class Semantic Flow o
 - `knop.addReference`
 - `integrate`
 - `import`
-- `payload.update`
 - `version`
 - `validate`
 - `generate`
 - `weave` : validate, version, and generate
 - `extract` : create identifiers and Knops from terms mentioned in an existing `RdfDocument`
+
+`payload.update` is currently better understood as a local convenience mutation surface than as a strong first-class Semantic Flow job kind. Replacing current working bytes is real implementation work, but the semantically meaningful lifecycle step is still `version` / `weave`, which records those bytes into explicit artifact history.
 
 For the thin public contract, the current direction is to model all submitted work uniformly as `Job`s, even when some implementations may execute quickly enough to feel synchronous to a client.
 
@@ -74,17 +75,6 @@ Current direction for that slice:
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
-#### `payload.update`
-
-Current direction for that slice:
-
-- the target should identify an existing mesh together with one existing payload-bearing `designatorPath`
-- the thin request should carry one semantic replacement `sourceUri` for the new working bytes
-- host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
-- the successful result should at minimum make the updated payload artifact discoverable as changed without implying that histories or generated pages were also materialized in the same operation
-
-Worked examples for that slice now also live in `../examples/alice-bio/api/`.
-
 #### `weave`
 
 Current direction for that slice:
@@ -108,7 +98,20 @@ Current direction for that slice:
 - the successful result should at minimum make the created identifiers, Knops, and their discoverable support surfaces visible as outputs of the extraction
 - a specific implementation may still carry a narrower first local extract slice, for example extracting one explicitly targeted resource from one existing woven `RdfDocument`, but that narrower runtime slice should not define the broader API concept
 
-Worked examples for this slice are still thinner than the carried `mesh.create` / `knop.create` / `integrate` / `payload.update` / `weave` set and should be expanded deliberately rather than implied from the fixture ladder alone.
+Worked examples for this slice are still thinner than the carried `mesh.create` / `knop.create` / `integrate` / `weave` set and should be expanded deliberately rather than implied from the fixture ladder alone.
+
+### Local Convenience Surfaces
+
+#### `payload.update`
+
+Current direction for that slice:
+
+- `payload.update` should not currently be treated as a core semantic job kind on par with `integrate`, `import`, or `weave`
+- it is better understood as a convenience mutation for replacing the current working bytes of an already-known payload surface
+- the semantically meaningful lifecycle step remains `version` / `weave`, not the replacement itself
+- a local implementation such as Weave may still keep this command for repo/workspace ergonomics even if the thin public API does not emphasize it
+
+Worked examples may still exist for this surface in `../examples/alice-bio/api/`, but they should be read as convenience examples rather than as a strong signal that `payload.update` belongs in the core job taxonomy.
 
 #### `import`
 
