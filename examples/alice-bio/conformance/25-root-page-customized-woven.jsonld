@@ -1,0 +1,234 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:25-root-page-customized-woven",
+  "dcterms:title": "Alice Bio 25 root page customized woven",
+  "dcterms:description": "Checks the weave over the root page-definition support artifact, including first history/state materialization for _knop/_page, an advanced root KnopInventory state, and an updated root index.html that follows the customized root page definition without inventing a root reference-catalog surface.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-root-page-definition",
+      "dcterms:title": "Weave root page-definition support artifact",
+      "dcterms:description": "Versions _knop/_page as a normal support artifact, generates support-artifact pages for the root page definition, advances _knop/_inventory to register the new page-definition history, updates index.html to the customized repo-tour rendering, keeps _mesh/_inventory unchanged, and leaves root _knop free of a reference-catalog surface.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "24-root-page-customized",
+      "toRef": "25-root-page-customized-woven",
+      "targetDesignatorPath": "/",
+      "hasFileExpectation": [
+        {
+          "id": "#root-home-md",
+          "type": "FileExpectation",
+          "path": "home.md",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-sidebar-md",
+          "type": "FileExpectation",
+          "path": "mesh-content/root-sidebar.md",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-asset-css",
+          "type": "FileExpectation",
+          "path": "_knop/_assets/site.css",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-definition-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_page/page.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-page-definition-page",
+          "type": "FileExpectation",
+          "path": "_knop/_page/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-history-page",
+          "type": "FileExpectation",
+          "path": "_knop/_page/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-s1-page",
+          "type": "FileExpectation",
+          "path": "_knop/_page/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-s1-manifestation-page",
+          "type": "FileExpectation",
+          "path": "_knop/_page/_history001/_s0001/page-ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-s1-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_page/_history001/_s0001/page-ttl/page.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-inventory-s2-page",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/_history001/_s0002/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-inventory-s2-manifestation-page",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/_history001/_s0002/inventory-ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-inventory-s2-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-page",
+          "type": "FileExpectation",
+          "path": "index.html",
+          "changeType": "updated",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-references-page",
+          "type": "FileExpectation",
+          "path": "_knop/_references/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#root-knop-page-definition-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-page-definition-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/root-sidebar.md\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-page-s1-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-page-s1-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/root-sidebar.md\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/_history001> ; <https://semantic-flow.github.io/semantic-flow-ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/_history001> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/index.html> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/_history001/_s0002> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceCatalog> ?catalog . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-inventory-s2-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-inventory-s2-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/_history001/_s0002> <https://semantic-flow.github.io/semantic-flow-ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_inventory/_history001/_s0001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

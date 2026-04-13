@@ -1,0 +1,154 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:24-root-page-customized",
+  "dcterms:title": "Alice Bio 24 root page customized",
+  "dcterms:description": "Checks the non-woven step that adds the root knop-owned page-definition support artifact, mesh-local root page source files, and a root knop-local stylesheet without yet weaving root page-definition histories or replacing the generic root page.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#define-root-page",
+      "dcterms:title": "Add root page-definition artifact without weaving",
+      "dcterms:description": "Adds _knop/_page/page.ttl, home.md, mesh-content/root-sidebar.md, and _knop/_assets/site.css, updates _knop/_inventory to register the new root ResourcePageDefinition and KnopAssetBundle, and leaves index.html unchanged until weave runs.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "resourcePage.define",
+      "fromRef": "23-root-knop-created-woven",
+      "toRef": "24-root-page-customized",
+      "targetDesignatorPath": "/",
+      "hasFileExpectation": [
+        {
+          "id": "#root-home-md",
+          "type": "FileExpectation",
+          "path": "home.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-sidebar-md",
+          "type": "FileExpectation",
+          "path": "mesh-content/root-sidebar.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-asset-css",
+          "type": "FileExpectation",
+          "path": "_knop/_assets/site.css",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-definition-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_page/page.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-page",
+          "type": "FileExpectation",
+          "path": "index.html",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#root-knop-page-definition-page",
+          "type": "FileExpectation",
+          "path": "_knop/_page/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#root-knop-page-definition-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-page-definition-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> a <https://semantic-flow.github.io/ontology/core/ResourcePageDefinition> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> <https://semantic-flow.github.io/ontology/core/hasPageRegion> ?mainRegion, ?sidebarRegion . ?mainRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"main\" . ?sidebarRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"sidebar\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"home.md\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/root-sidebar.md\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#root-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-knop-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/ontology/core/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> ; <https://semantic-flow.github.io/ontology/core/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_assets> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> a <https://semantic-flow.github.io/ontology/core/ResourcePageDefinition>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/RdfDocument> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page/page.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_assets> a <https://semantic-flow.github.io/ontology/core/KnopAssetBundle> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> ?history . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

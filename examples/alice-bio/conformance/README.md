@@ -29,6 +29,8 @@ Current naming:
 - `21-bob-page-imported-source-woven.jsonld` means `20-bob-page-imported-source` -> `21-bob-page-imported-source-woven`
 - `22-root-knop-created.jsonld` means `21-bob-page-imported-source-woven` -> `22-root-knop-created`
 - `23-root-knop-created-woven.jsonld` means `22-root-knop-created` -> `23-root-knop-created-woven`
+- `24-root-page-customized.jsonld` means `23-root-knop-created-woven` -> `24-root-page-customized`
+- `25-root-page-customized-woven.jsonld` means `24-root-page-customized` -> `25-root-page-customized-woven`
 
 Conventions used here:
 
