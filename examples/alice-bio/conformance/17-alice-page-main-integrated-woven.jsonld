@@ -1,0 +1,168 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:17-alice-page-main-integrated-woven",
+  "dcterms:title": "Alice Bio 17 alice page main integrated woven",
+  "dcterms:description": "Checks the first weave over the governed alice/page-main Markdown payload artifact while keeping Alice's page definition and public Alice page unchanged until the later artifact-backed repoint step.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-alice-page-main-integrated",
+      "dcterms:title": "Weave integrated alice/page-main payload artifact",
+      "dcterms:description": "Versions the newly integrated alice/page-main Markdown payload artifact and its Knop support artifacts, advances mesh inventory, and leaves Alice's page definition still pointing at its direct mesh-local Markdown source.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "16-alice-page-main-integrated",
+      "toRef": "17-alice-page-main-integrated-woven",
+      "targetDesignatorPath": "alice/page-main",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-page-main-md",
+          "type": "FileExpectation",
+          "path": "alice-page-main.md",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-page-main-page",
+          "type": "FileExpectation",
+          "path": "alice/page-main/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-history-page",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-s1-page",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-s1-manifestation-page",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_history001/_s0001/alice-page-main-md/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-s1-md",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_history001/_s0001/alice-page-main-md/alice-page-main.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-knop-page",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_knop/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-page-main-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/page-main/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-knop-page-definition-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_page/page.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-page",
+          "type": "FileExpectation",
+          "path": "alice/index.html",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0004> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/index.html> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_history001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-page-main-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-page-main-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_inventory/_history001/_s0001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-knop-page-definition-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-knop-page-definition-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

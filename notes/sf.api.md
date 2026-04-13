@@ -71,7 +71,14 @@ Current direction for that slice:
 - the target should identify an existing mesh together with one `designatorPath`
 - the thin request should also carry one semantic `sourceUri` for the bytes being integrated
 - host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
+- the local/runtime slice should support both in-mesh local files and policy-approved extra-mesh local files, because that is the main path for associating current bytes with a payload artifact before `weave` / `version`
 - the successful result should at minimum make the created payload artifact and Knop surfaces discoverable and surface that the `MeshInventory` was updated
+
+Current open boundary:
+
+- the current Weave CLI/runtime slice already supports workspace-local and policy-approved extra-mesh local file sources
+- whether `integrate` should broaden beyond those local source forms to remote/external locator handling is still open
+- if remote-origin association becomes first-class, it may still be cleaner to keep `import` as the operation that establishes a governed local boundary while `integrate` remains the thinner local-byte-binding surface
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
