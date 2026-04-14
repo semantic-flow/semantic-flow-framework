@@ -32,6 +32,29 @@ Current naming:
 - `24-root-page-customized.jsonld` means `23-root-knop-created-woven` -> `24-root-page-customized`
 - `25-root-page-customized-woven.jsonld` means `24-root-page-customized` -> `25-root-page-customized-woven`
 
+How to read the ladder:
+
+- most steps come in pairs
+- the first branch in a pair introduces or edits the current working surface without yet materializing new histories or public pages
+- the second branch in a pair is usually the `weave` step that versions those changes and regenerates current public HTML
+- the manifests are transition-shaped even when the branch names make the ladder look branch-shaped
+
+Ladder walkthrough:
+
+- `00 -> 01`: fixture seed only. This is not a public Semantic Flow operation.
+- `01 -> 02 -> 03`: create the mesh, then weave it so `_mesh/_inventory` and `_mesh/index.html` exist.
+- `03 -> 04 -> 05`: create Alice's Knop, then weave it so Alice gets Knop support-artifact histories and `alice/index.html`.
+- `05 -> 06 -> 07`: integrate the governed payload artifact `alice/bio`, then weave it into explicit artifact history and updated public pages.
+- `07 -> 08 -> 09`: add Alice reference-catalog support artifacts, then weave them.
+- `09 -> 10 -> 11`: update Alice bio content, then weave the new current artifact state and regenerated pages.
+- `11 -> 12 -> 13`: extract Bob from existing RDF content, then weave Bob's first identifier page and support surfaces.
+- `13 -> 14 -> 15`: add Alice's knop-owned page definition at `alice/_knop/_page/page.ttl`, then weave it so `alice/index.html` follows customized Markdown sources instead of the generic page path.
+- `15 -> 16 -> 17`: introduce a separate governed Markdown artifact `alice/page-main`, then weave that artifact. Alice's page still points at the old direct file source at this stage.
+- `17 -> 18 -> 19`: repoint Alice's page definition so the main region follows governed artifact `alice/page-main`, then weave that page-definition revision.
+- `19 -> 20 -> 21`: import outside-origin Markdown into governed artifact `bob/page-main`, then weave Bob's page-definition revision so `bob/index.html` follows that imported governed artifact. `bob/page-main` itself intentionally remains unwoven in this pair.
+- `21 -> 22 -> 23`: add the root Knop later in the mesh lifecycle, then weave it so root `index.html` and root `_knop` support surfaces exist.
+- `23 -> 24 -> 25`: add the root page definition, root repo-tour content, root sidebar, and root stylesheet, then weave that root page-definition revision so `index.html` becomes a customized root page.
+
 Conventions used here:
 
 - one Accord `Manifest` per file
