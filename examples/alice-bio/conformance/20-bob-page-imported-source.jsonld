@@ -86,8 +86,7 @@
           "id": "#bob-page",
           "type": "FileExpectation",
           "path": "bob/index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         },
         {
           "id": "#bob-page-main-page",

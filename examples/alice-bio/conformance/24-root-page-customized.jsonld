@@ -79,8 +79,7 @@
           "id": "#root-page",
           "type": "FileExpectation",
           "path": "index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         },
         {
           "id": "#root-knop-page-definition-page",

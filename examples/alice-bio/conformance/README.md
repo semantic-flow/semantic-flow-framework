@@ -60,7 +60,7 @@ Conventions used here:
 - one Accord `Manifest` per file
 - one `TransitionCase` per manifest for now
 - RDF-bearing files use `rdfCanonical`
-- generated HTML pages use `text`
+- generated Resource Page HTML expectations omit `compareMode`; their `changeType` and `path` are presence/absence contracts, not exact HTML content contracts
 - non-text control files such as `.nojekyll` use `bytes`
 
 The first transition, `00-blank-slate` -> `01-source-only`, is fixture seeding rather than a public Semantic Flow operation. Its `operationId` is intentionally named as fixture setup.

@@ -100,127 +100,109 @@
           "id": "#mesh-inventory-history-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#mesh-inventory-s4-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0004/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s4-manifestation-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0004/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#bob-page",
           "type": "FileExpectation",
           "path": "bob/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-page",
           "type": "FileExpectation",
           "path": "bob/_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-meta-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_meta/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-meta-history-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_meta/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-meta-s1-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_meta/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-meta-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_meta/_history001/_s0001/meta-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-s1-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/_s0001/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-references-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_references/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-references-history-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_references/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-references-s1-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_references/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-references-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_references/_history001/_s0001/references-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         }
       ],
       "hasRdfExpectation": [

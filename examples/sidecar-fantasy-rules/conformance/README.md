@@ -52,7 +52,7 @@ Conventions used here:
 - one `TransitionCase` per manifest for now
 - fixture paths in expectations are repository-root-relative, so sidecar mesh paths include the `docs/` prefix
 - RDF-bearing files use `rdfCanonical`
-- generated HTML pages use `text`
+- generated Resource Page HTML expectations should omit `compareMode`; their `changeType` and `path` are presence/absence contracts, not exact HTML content contracts
 - non-text control files such as `.nojekyll` use `bytes`
 
 These manifests should be authored before any dedicated runner or generated fixture path is allowed to define the behavior. The intended acceptance loop is manifest-first: write the transition expectation, validate the manifest itself, then run any implementation or pseudo-runner against it.

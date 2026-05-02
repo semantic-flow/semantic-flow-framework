@@ -79,8 +79,7 @@
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         },
         {
           "id": "#alice-knop-page-definition-page",

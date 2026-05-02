@@ -93,141 +93,121 @@
           "id": "#mesh-meta-history-page",
           "type": "FileExpectation",
           "path": "_mesh/_meta/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#mesh-inventory-history-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-knop-meta-history-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_meta/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_inventory/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-references-history-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-meta-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_meta/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-page",
           "type": "FileExpectation",
           "path": "alice/bio/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-s1-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0001/alice-bio-ttl/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-s2-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0002/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-s2-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0002/alice-bio-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s1-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0001/inventory-ttl/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0002/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0002/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-ttl",

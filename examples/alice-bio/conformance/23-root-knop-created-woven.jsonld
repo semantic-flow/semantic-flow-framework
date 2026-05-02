@@ -44,15 +44,13 @@
           "id": "#mesh-inventory-s6-index",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0006/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s6-manifestation-index",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0006/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s6-ttl",
@@ -65,15 +63,13 @@
           "id": "#root-page",
           "type": "FileExpectation",
           "path": "index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-page",
           "type": "FileExpectation",
           "path": "_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-meta-ttl",
@@ -86,29 +82,25 @@
           "id": "#root-knop-meta-page",
           "type": "FileExpectation",
           "path": "_knop/_meta/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-meta-history-page",
           "type": "FileExpectation",
           "path": "_knop/_meta/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-meta-state-page",
           "type": "FileExpectation",
           "path": "_knop/_meta/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-meta-manifestation-page",
           "type": "FileExpectation",
           "path": "_knop/_meta/_history001/_s0001/meta-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-meta-snapshot-ttl",
@@ -128,29 +120,25 @@
           "id": "#root-knop-inventory-page",
           "type": "FileExpectation",
           "path": "_knop/_inventory/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "_knop/_inventory/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-inventory-state-page",
           "type": "FileExpectation",
           "path": "_knop/_inventory/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-inventory-manifestation-page",
           "type": "FileExpectation",
           "path": "_knop/_inventory/_history001/_s0001/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-inventory-snapshot-ttl",

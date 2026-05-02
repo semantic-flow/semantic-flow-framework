@@ -58,43 +58,37 @@
           "id": "#mesh-inventory-s0005-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0005/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s0005-manifestation-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0005/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-page",
           "type": "FileExpectation",
           "path": "alice/page-main/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-history-page",
           "type": "FileExpectation",
           "path": "alice/page-main/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-s1-page",
           "type": "FileExpectation",
           "path": "alice/page-main/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/page-main/_history001/_s0001/alice-page-main-md/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-s1-md",
@@ -107,8 +101,7 @@
           "id": "#alice-page-main-knop-page",
           "type": "FileExpectation",
           "path": "alice/page-main/_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-page-main-knop-inventory-ttl",
@@ -128,8 +121,7 @@
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         }
       ],
       "hasRdfExpectation": [

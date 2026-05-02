@@ -57,15 +57,13 @@
           "id": "#mesh-inventory-s3-index",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0003/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s3-manifestation-index",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/_s0003/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-s3-ttl",
@@ -78,29 +76,25 @@
           "id": "#alice-bio-page",
           "type": "FileExpectation",
           "path": "alice/bio/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-state-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0001/alice-bio-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-snapshot-ttl",
@@ -113,8 +107,7 @@
           "id": "#alice-bio-knop-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-meta-ttl",
@@ -127,29 +120,25 @@
           "id": "#alice-bio-knop-meta-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_meta/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-meta-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_meta/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-meta-state-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_meta/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-meta-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_meta/_history001/_s0001/meta-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-meta-snapshot-ttl",
@@ -169,29 +158,25 @@
           "id": "#alice-bio-knop-inventory-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-state-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/bio/_knop/_inventory/_history001/_s0001/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-snapshot-ttl",

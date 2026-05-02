@@ -64,15 +64,13 @@
           "id": "#alice-knop-inventory-s2-index",
           "type": "FileExpectation",
           "path": "alice/_knop/_inventory/_history001/_s0002/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-knop-inventory-s2-manifestation-index",
           "type": "FileExpectation",
           "path": "alice/_knop/_inventory/_history001/_s0002/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-knop-inventory-s2-ttl",
@@ -92,29 +90,25 @@
           "id": "#alice-references-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-references-history-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-references-state-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-references-manifestation-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/_history001/_s0001/references-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alice-references-snapshot-ttl",

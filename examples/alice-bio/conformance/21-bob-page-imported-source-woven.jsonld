@@ -71,29 +71,25 @@
           "id": "#bob-knop-page-definition-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_page/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-page-history-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_page/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-page-s1-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_page/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-page-s1-manifestation-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_page/_history001/_s0001/page-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-page-s1-ttl",
@@ -113,22 +109,19 @@
           "id": "#bob-knop-inventory-history-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#bob-knop-inventory-s2-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/_s0002/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-s2-manifestation-page",
           "type": "FileExpectation",
           "path": "bob/_knop/_inventory/_history001/_s0002/inventory-ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#bob-knop-inventory-s2-ttl",
@@ -141,8 +134,7 @@
           "id": "#bob-page",
           "type": "FileExpectation",
           "path": "bob/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         }
       ],
       "hasRdfExpectation": [

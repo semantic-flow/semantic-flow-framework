@@ -79,8 +79,7 @@
           "id": "#alice-knop-page-definition-page",
           "type": "FileExpectation",
           "path": "alice/_knop/_page/index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         },
         {
           "id": "#alice-knop-page-s1-ttl",
@@ -100,8 +99,7 @@
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "unchanged",
-          "compareMode": "text"
+          "changeType": "unchanged"
         }
       ],
       "hasRdfExpectation": [
