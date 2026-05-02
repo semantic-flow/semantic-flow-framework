@@ -12,7 +12,7 @@ This note groups worked Semantic Flow API example payloads that are kept outside
 
 The current primary worked example set lives in `../examples/alice-bio/api`.
 
-Those files are anchored to the existing ontology use case in [Alice Bio](../../ontology/notes/ont.use-cases.alice-bio.md).
+Those files are anchored to the existing ontology use case in [[ont.use-case.biographical-data-publishing]].
 
 Current files:
 
@@ -47,3 +47,24 @@ Next likely additions:
 Those are planned example names, not files that already exist in `../examples/alice-bio/api`.
 
 This is meant to be a realistic vertical slice rather than an exhaustive example catalog.
+
+## Fantasy Rules Sidecar
+
+The next planned worked example family should live in `../examples/sidecar-fantasy-rules/` once the first fixture ladder is settled.
+
+That set should be anchored to [[ont.use-case.dereferenceable-ontology]] and the Weave planning note [[wd.task.2026.2026-05-02-fantasy-rules-sidecar]]. It should reuse the Alice Bio split:
+
+- `api/` for request and response payload examples when a public API slice needs an example
+- `conformance/` for Accord transition manifests
+
+The expected fixture repository is `mesh-sidecar-fantasy-rules`. Unlike Alice Bio, this example should focus on a docs-rooted sidecar mesh where authored ontology and SHACL files stay outside the mesh root while public identifiers, generated pages, and copied historical release bytes live under `docs/`.
+
+The conformance approach should follow Alice Bio: one manifest per transition, named after the destination branch only as a convenience for the current linear ladder. The manifests should describe behavior for transitions such as source seeding, docs-root mesh creation, ontology integration, SHACL integration, release weaving, and later resource-page improvements. They should not be treated as branch metadata or postponed until the fixture is otherwise complete.
+
+Likely API/example pressure points:
+
+- `mesh.create` with a mesh root that is not the repository root
+- `integrate` using policy-approved repo-adjacent `workingFilePath` sources such as `../ontology/fantasy-rules-ontology.ttl`
+- `weave` producing artifact-local release paths such as `ontology/releases/v0.1.0`
+- `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
+- `owl:versionIRI` pointing at versioned `LocatedFile` bytes rather than the abstract historical state

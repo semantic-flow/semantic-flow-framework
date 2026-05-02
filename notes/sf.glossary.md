@@ -48,3 +48,16 @@ Related current-byte rule:
 - `workingAccessUrl` is the operational remote/external current-byte hook for a `DigitalArtifact`
 - `hasWorkingLocatedFile` remains the semantic `LocatedFile` hook
 - when multiple current-byte locators are present for the same working surface, they should identify the same current bytes; mismatch should fail closed rather than silently picking one
+
+## Sidecar Mesh
+
+A sidecar mesh is a `SemanticMesh` that rides alongside the primary source files in a repository rather than being the repository's main subject.
+
+A common form is a docs-rooted sidecar mesh: the mesh root is a publishable directory such as `docs/`, while working payload files remain elsewhere in the same repo under explicit repo-local path policy. The mesh governs public identifiers, generated resource pages, and historical snapshots without requiring the source tree itself to be organized as the public mesh.
+
+Typical consequences:
+
+- `workingFilePath` may point from the mesh root to adjacent source files such as `../ontology/example-ontology.ttl`
+- repo-local operational policy decides which adjacent paths the runtime may read
+- when versioning is enabled, woven historical snapshots should still be materialized inside the mesh by default
+- immutable external or remote `LocatedFile` references may be modeled separately, but they are not the default replacement for mesh-owned historical snapshots

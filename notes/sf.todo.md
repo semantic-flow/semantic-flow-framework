@@ -11,6 +11,8 @@ created: 1731041743071
 
 ## Eventually
 
+- Decide whether `mesh-content/` should live under `_mesh/` instead of as a top-level sibling. The likely direction is to keep mesh-owned page-source/support content inside the mesh support surface, perhaps as `_mesh/content/` or `_mesh/_content/`, so top-level paths stay focused on public identifiers and working payloads. Check the impact on page-source examples, `targetMeshPath` conventions, root-page customization fixtures, and sidecar mesh layouts before changing the convention.
+
 - late answers on
   - https://stackoverflow.com/questions/46705136/how-to-make-an-ontology-public-accessible
   - https://www.reddit.com/r/semanticweb/comments/1rxdk1a/comment/obbqgoa/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
