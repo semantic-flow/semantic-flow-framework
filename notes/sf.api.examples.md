@@ -65,6 +65,7 @@ Likely API/example pressure points:
 
 - `mesh.create` with a mesh root that is not the repository root
 - `integrate` using policy-approved repo-adjacent `workingFilePath` sources such as `../ontology/fantasy-rules-ontology.ttl`
-- `weave` producing artifact-local release paths such as `ontology/releases/v0.1.0`
+- `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
+- `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
 - `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
 - `owl:versionIRI` pointing at versioned `LocatedFile` bytes rather than the abstract historical state

@@ -288,6 +288,16 @@ components:
       examples:
         - alice/bio
         - ontology/Person
+    PathSegment:
+      type: string
+      pattern: "^[A-Za-z0-9._~-]+$"
+      description: |
+        A single IRI/storage path segment. Values are path segment names, not
+        labels, filesystem paths, or slash-containing relative paths.
+      examples:
+        - releases
+        - v0.0.1
+        - ttl
     SourceUri:
       type: string
       format: uri
@@ -673,11 +683,18 @@ components:
       required:
         - kind
         - target
+      description: |
+        Normative core request for creating the next version state for targeted
+        payload artifacts. Optional `versioning` fields request concrete path
+        segments for the ArtifactHistory, HistoricalState, and
+        ArtifactManifestation created by the operation.
       properties:
         kind:
           const: version
         target:
           $ref: "#/components/schemas/TargetSelector"
+        versioning:
+          $ref: "#/components/schemas/VersionNamingOptions"
     ValidateJobRequest:
       type: object
       required:
@@ -715,11 +732,49 @@ components:
           default: true
       description: |
         Optional override of the default high-level weave orchestration steps.
+    VersionNamingOptions:
+      type: object
+      description: |
+        Optional path-segment naming inputs for payload artifact versioning.
+        These fields are version-oriented controls, not generic target
+        selectors. Implementations must reject unsupported or conflicting
+        segment requests instead of silently creating a different version path.
+        If one request targets multiple payload artifacts, these segment names
+        apply under each targeted artifact identity.
+      examples:
+        - historySegment: releases
+          stateSegment: v0.0.1
+          manifestationSegment: ttl
+      properties:
+        historySegment:
+          allOf:
+            - $ref: "#/components/schemas/PathSegment"
+          description: |
+            Requested ArtifactHistory segment for the targeted payload artifact,
+            for example `releases` in `ontology/releases`.
+        stateSegment:
+          allOf:
+            - $ref: "#/components/schemas/PathSegment"
+          description: |
+            Requested HistoricalState segment for the newly-created state, for
+            example `v0.0.1` in `ontology/releases/v0.0.1`.
+        manifestationSegment:
+          allOf:
+            - $ref: "#/components/schemas/PathSegment"
+          description: |
+            Requested ArtifactManifestation segment for the newly-created
+            historical-state bytes, for example `ttl` in
+            `ontology/releases/v0.0.1/ttl`.
     WeaveJobRequest:
       type: object
       required:
         - kind
         - target
+      description: |
+        Normative core request for high-level weave orchestration. Optional
+        `versioning` fields apply only when the version step is enabled and must
+        be rejected if the selected targets cannot honor the requested version
+        path segments.
       properties:
         kind:
           const: weave
@@ -727,6 +782,8 @@ components:
           $ref: "#/components/schemas/TargetSelector"
         steps:
           $ref: "#/components/schemas/WeaveSteps"
+        versioning:
+          $ref: "#/components/schemas/VersionNamingOptions"
     SubmitJobRequest:
       allOf:
         - $ref: "#/components/schemas/JsonLdKeywords"
