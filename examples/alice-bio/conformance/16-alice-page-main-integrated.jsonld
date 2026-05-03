@@ -96,7 +96,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"alice/alice.md\" . }",
               "expectedBoolean": true
             },
             {

@@ -118,12 +118,12 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"alice/alice.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"alice/alice.md\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetMeshPath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]

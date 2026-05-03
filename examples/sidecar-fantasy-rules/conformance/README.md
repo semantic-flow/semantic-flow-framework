@@ -27,8 +27,8 @@ Ladder walkthrough:
 
 - `00 -> 01`: fixture seed only. This is not a public Semantic Flow operation. It should introduce the small authored ontology and SHACL source tree, the SRD attribution boundary in `NOTICE.md`, and no docs-rooted mesh yet.
 - `01 -> 02 -> 03`: create the docs-rooted sidecar mesh, then weave it so `docs/_mesh` support artifacts and initial generated pages exist.
-- `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingFilePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
-- `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingFilePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
+- `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingLocalRelativePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
+- `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingLocalRelativePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
 
 Source-shape conventions for the first ladder:
 

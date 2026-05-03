@@ -15,7 +15,7 @@ In the current core ontology this pattern is modeled by `ArtifactResolutionTarge
 An `ArtifactResolutionTarget` may resolve through:
 
 - a target `DigitalArtifact`
-- a direct mesh-local path string such as `targetMeshPath`
+- a direct mesh-local path string such as `targetLocalRelativePath`
 - a direct remote/external URL such as `targetAccessUrl`
 - a target `LocatedFile`
 - another explicit packaged target if the vocabulary later grows one
@@ -25,10 +25,10 @@ This means a target artifact IRI is allowed but not required. If a direct mesh-l
 Typical consequences:
 
 - if the target is a `DigitalArtifact` in `Current` mode, resolution usually follows that artifact's current `hasWorkingLocatedFile`
-- if the target is a `DigitalArtifact` in `Current` mode and that artifact also declares `workingFilePath`, local runtime resolution should follow `workingFilePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
+- if the target is a `DigitalArtifact` in `Current` mode and that artifact also declares `workingLocalRelativePath`, local runtime resolution should follow `workingLocalRelativePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
 - if the target is a `DigitalArtifact` in `Current` mode and that artifact declares `workingAccessUrl`, a runtime may use that URL only when its operational profile explicitly permits remote current-byte access
 - if the target is a `DigitalArtifact` in `Pinned` mode, resolution follows the requested history or state subject to the allowed fallback policy
-- if the target is a direct `targetMeshPath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
+- if the target is a direct `targetLocalRelativePath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
 - if the target is a direct `targetAccessUrl`, resolution may use that URL only when its operational profile explicitly permits remote target access
 - if the target is already a direct `LocatedFile`, no artifact-history lookup is needed; resolution can use that file directly
 - imported content is not a separate resolution kind once imported; after import it participates in governed artifact resolution like any other managed `DigitalArtifact`
@@ -44,7 +44,7 @@ This is both a runtime term and now also an ontology term through `ArtifactResol
 
 Related current-byte rule:
 
-- `workingFilePath` is the operational local-path hook for a `DigitalArtifact`
+- `workingLocalRelativePath` is the operational local-path hook for a `DigitalArtifact`
 - `workingAccessUrl` is the operational remote/external current-byte hook for a `DigitalArtifact`
 - `hasWorkingLocatedFile` remains the semantic `LocatedFile` hook
 - when multiple current-byte locators are present for the same working surface, they should identify the same current bytes; mismatch should fail closed rather than silently picking one
@@ -57,7 +57,7 @@ A common form is a docs-rooted sidecar mesh: the mesh root is a publishable dire
 
 Typical consequences:
 
-- `workingFilePath` may point from the mesh root to adjacent source files such as `../ontology/example-ontology.ttl`
+- `workingLocalRelativePath` may point from the mesh root to adjacent source files such as `../ontology/example-ontology.ttl`
 - repo-local operational policy decides which adjacent paths the runtime may read
 - when versioning is enabled, woven historical snapshots should still be materialized inside the mesh by default
 - immutable external or remote `LocatedFile` references may be modeled separately, but they are not the default replacement for mesh-owned historical snapshots

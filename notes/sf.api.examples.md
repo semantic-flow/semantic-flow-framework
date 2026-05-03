@@ -8,6 +8,19 @@ created: 1774339800000
 
 This note groups worked Semantic Flow API example payloads that are kept outside the OpenAPI file so the normative contract can stay lean.
 
+## API Example Development Notes
+
+Purpose: keep the example ladders usable as conformance fixtures for Semantic Flow implementations, not just as snapshots of the latest repository state.
+
+When ontology terms, JSON-LD shapes, or expected API payload fields change, update every affected branch in the ladder. Do not rely on test-helper normalization to translate old fixture vocabulary at runtime; each branch should remain independently valid as an example of the API and ontology vocabulary it currently claims to use.
+
+Preferred strategy:
+
+- Start with the earliest affected branch, because later branches usually carry forward RDF, manifests, page definitions, or generated files from earlier states.
+- Commit each branch separately with the same focused change description when the edit is mechanical across the ladder.
+- After updating a branch, advance to the next branch from its existing branch tip rather than regenerating the whole ladder from the final state.
+- Re-run the conformance or Weave fixture tests after the ladder has been updated, and treat failures as evidence that some carried-forward state was missed.
+
 ## Alice Bio
 
 The current primary worked example set lives in `../examples/alice-bio/api`.
@@ -64,7 +77,7 @@ The conformance approach should follow Alice Bio: one manifest per transition, n
 Likely API/example pressure points:
 
 - `mesh.create` with a mesh root that is not the repository root
-- `integrate` using policy-approved repo-adjacent `workingFilePath` sources such as `../ontology/fantasy-rules-ontology.ttl`
+- `integrate` using policy-approved repo-adjacent `workingLocalRelativePath` sources such as `../ontology/fantasy-rules-ontology.ttl`
 - `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
 - `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
 - `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
