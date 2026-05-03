@@ -52,6 +52,13 @@
           "path": "_mesh/_inventory/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#nojekyll",
+          "type": "FileExpectation",
+          "path": ".nojekyll",
+          "changeType": "added",
+          "compareMode": "text"
         }
       ],
       "hasRdfExpectation": [
