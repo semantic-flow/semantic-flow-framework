@@ -59,8 +59,10 @@ The thin API contract for `mesh.create` should remain semantic and implementatio
 For Weave-style local execution, use this conceptual split:
 
 - `--workspace`: the checked-out project or local workspace root
-- `--mesh-root`: the mesh root path inside that workspace, defaulting to `.`
+- `--mesh-root`: the mesh root path, defaulting to `.`
 - `--mesh-base`: the public base IRI for identifiers in that mesh
+
+The CLI resolves both `--workspace` and `--mesh-root` from the command working directory, then requires the resolved mesh root to stay inside the resolved workspace root.
 
 For a docs-rooted GitHub Pages sidecar, the command shape should be:
 
