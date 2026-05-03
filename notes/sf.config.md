@@ -34,7 +34,9 @@ For a docs-rooted sidecar mesh, that means:
 
 The file should be treated like other support RDF: discoverable from mesh inventory, versionable by Weave, and suitable for conformance fixtures. It should not live at a repository root name such as `.sf-repo-access.ttl`, because meshes do not always occupy an entire repository and do not always live in repositories.
 
-A newly created mesh should include a minimal `MeshConfig` support artifact by default. That baseline config may have no access rules. It gives implementations a stable place to add portable config later and lets conformance fixtures assert the support surface consistently.
+A newly created sidecar mesh should include a `MeshConfig` support artifact when the caller specifies a workspace root that differs from the mesh root. For example, `weave mesh create --workspace . --mesh-root docs ...` should create `docs/_mesh/_config/config.ttl`. Whole-root meshes do not need a config artifact merely to record that the workspace root and mesh root are the same.
+
+The sidecar `MeshConfig` should record the portable workspace relationship with `sfcfg:workspaceRootRelativeToMeshRoot`. For a `docs/` sidecar, that value is `"../"`. This is a relative relationship from the mesh root to the containing workspace root; it is not an absolute host path and it does not grant access by itself.
 
 When `mesh.create` is given explicit sidecar path-policy options, it may write initial `sfcfg:hasLocalPathAccessRule` entries into the same config file. Without explicit policy options, it should not grant extra-mesh access.
 
