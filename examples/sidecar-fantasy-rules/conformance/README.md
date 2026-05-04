@@ -21,6 +21,8 @@ Planned first naming:
 - `13-gunaar-example-dataset-woven.jsonld` means `12-gunaar-example-dataset` -> `13-gunaar-example-dataset-woven`
 - `14-first-release.jsonld` means `13-gunaar-example-dataset-woven` -> `14-first-release`
 - `15-first-release-woven.jsonld` means `14-first-release` -> `15-first-release-woven`
+- `16-return-to-ordinal-history.jsonld` is planned for a later explicit return from named release state naming to default ordinal history/state allocation
+- `17-return-to-ordinal-history-woven.jsonld` is planned for weaving that explicit fallback and proving it is not an implicit broad-weave default
 
 How to read the ladder:
 
@@ -41,6 +43,7 @@ Ladder walkthrough:
 - `09 -> 10 -> 11`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface, then weave those collection surfaces into public sidecar history and pages.
 - `11 -> 12 -> 13`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
 - `13 -> 14 -> 15`: add first-release metadata to the authored ontology and SHACL sources, then publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
+- `15 -> 16 -> 17` is planned as an explicit ordinal fallback pair. A broad weave after `v0.0.1` should fail unless the caller provides a next `stateSegment` or deliberately requests an ordinal fallback segment/history.
 
 Source-shape conventions for the first ladder:
 

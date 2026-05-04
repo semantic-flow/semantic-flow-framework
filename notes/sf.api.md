@@ -90,6 +90,10 @@ Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 Current direction for that slice:
 
 - the target should identify an existing mesh and may optionally narrow the local focus with one or more `designatorPaths`
+- target entries may carry version-naming fields for payload artifacts, such as `historySegment`, `stateSegment`, and `manifestationSegment`, when the operation includes versioning
+- a broader target may carry general payload version segment defaults for all matched payload artifacts, while more specific target entries can override those defaults
+- version-naming fields should not rename support artifacts unless a separate support-artifact naming contract is defined
+- once a payload history has established a named state such as `v0.0.1`, a later `weave` or `version` should fail before writes if that payload would be versioned without an explicit next `stateSegment` or explicit ordinal fallback segment
 - the thin request should default to the full high-level `weave` behavior rather than requiring an explicit `steps` object for the common case
 - host filesystem paths should stay out of the thin core contract even if a specific implementation such as Weave uses a local workspace as the execution substrate
 - the successful result should at minimum make newly created histories or historical states discoverable and surface the updated current artifacts that were versioned and rendered
