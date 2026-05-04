@@ -20,6 +20,8 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `11-
 
 The next carried extension is the `mesh-sidecar-fantasy-rules` transition from `07-shacl-integrated-woven` to `08-ontology-and-shacl-terms-extracted`. That extension keeps the same non-woven extraction boundary while proving docs-rooted sidecar operation, multiple governed payload artifacts, repeated term extraction, and explicit source-payload selection for terms mentioned by more than one woven RDF document.
 
+The following sidecar weave step proves that an extracted term's public path does not have to match the source artifact path. For example, `ontology/CharacterShape` is extracted into the ontology namespace from a pinned `shacl` source state whose Turtle uses the `fant:` prefix for the ontology IRI.
+
 This note is intentionally narrower than a generic RDF graph-refactoring or payload-splitting design. If future fixture work wants broader extraction behavior, that should be specified explicitly rather than inferred from this slice.
 
 ## Inputs
@@ -77,6 +79,7 @@ In this first slice, `extract` does not:
 - `referenceLinkFor` points to `<bob>`, not to `<bob/_knop>`
 - the carried first slice should use `ReferenceRole/Supplemental`
 - `referenceTargetState` should point to the latest woven historical state of the source payload artifact, not to the source Knop or to the working payload file
+- the extracted term namespace does not imply the source artifact; consumers should use `referenceTarget` and `referenceTargetState` when they need source facts after extraction
 - `alice-bio.ttl` must remain unchanged
 - existing Alice support artifacts and page files must remain unchanged
 - Bob should gain no `hasPayloadArtifact` relationship in this slice

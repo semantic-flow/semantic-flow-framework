@@ -19,10 +19,11 @@ This is a current behavior spec, not a frozen final standard.
 The rules below are the best current synthesis of:
 
 - the `mesh-alice-bio` branch ladder
+- the `mesh-sidecar-fantasy-rules` branch ladder
 - the corresponding Accord conformance manifests
 - the current Semantic Flow ontology direction
 
-The carried local implementation of this behavior currently includes the settled Alice Bio `04-alice-knop-created` -> `05-alice-knop-created-woven`, `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`, `08-alice-bio-referenced` -> `09-alice-bio-referenced-woven`, `10-alice-bio-updated` -> `11-alice-bio-v2-woven`, and `12-bob-extracted` -> `13-bob-extracted-woven` slices.
+The carried local implementation of this behavior currently includes the settled Alice Bio `04-alice-knop-created` -> `05-alice-knop-created-woven`, `06-alice-bio-integrated` -> `07-alice-bio-integrated-woven`, `08-alice-bio-referenced` -> `09-alice-bio-referenced-woven`, `10-alice-bio-updated` -> `11-alice-bio-v2-woven`, and `12-bob-extracted` -> `13-bob-extracted-woven` slices, plus the Fantasy Rules sidecar `08-ontology-and-shacl-terms-extracted` -> `09-ontology-and-shacl-terms-extracted-woven` slice.
 
 If future fixture work contradicts this note, the contradiction should be treated as a real design issue and resolved explicitly rather than silently drifting.
 
@@ -59,6 +60,8 @@ In particular:
 - but only `weave` should materialize a new historical state for that inventory
 
 This is why `12-bob-extracted` could update the working mesh inventory surface to register `bob/_knop`, while `13-bob-extracted-woven` is the step that actually advanced `_mesh/_inventory/_history001` to `_s0004`.
+
+The Fantasy Rules sidecar `09` slice extends the same rule to a multi-target extracted-term batch. The non-woven `08` branch registers the extracted term Knops, while `09` advances `_mesh/_inventory/_history001` from `_s0003` through `_s0008` as five term pages become part of the public current mesh surface.
 
 ## What The `weave` Operation Does
 
@@ -152,6 +155,7 @@ The same pattern held for:
 - `04` then `05` for Knop creation
 - `08` then `09` for ReferenceCatalog introduction
 - `12` then `13` for Bob extraction
+- `08` then `09` in the Fantasy Rules sidecar for ontology and SHACL term extraction
 
 ### The `weave` operation does not automatically widen mesh inventory for every internal change
 
@@ -265,6 +269,15 @@ The evolved fixture pages now do a better job of this by including:
 - links between related Semantic Flow resources
 - structured tables for properties where useful
 
+### Extracted term pages should use pinned source states
+
+For extracted resources, generated identifier pages may need source-derived facts from the payload artifact that originally described the resource. That source is identified by the extracted term's `ReferenceCatalog`:
+
+- `referenceTarget` identifies the source artifact designator
+- `referenceTargetState` pins the historical source state whose bytes should be used for page facts
+
+The term namespace and the source artifact designator are independent. In the Fantasy Rules sidecar `09` slice, `ontology/CharacterShape` is an ontology term sourced from the woven `shacl` artifact; the source Turtle uses the `fant:` prefix to name `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape`. Page generation should follow the pinned `ReferenceCatalog` state rather than assuming the `ontology/...` path means the current `ontology` payload is the source.
+
 ## ReferenceCatalog-Specific Behavior
 
 Detailed serialization rules for `ReferenceCatalog` and `ReferenceLink` are already captured in [[ont.reference-links]].
@@ -285,7 +298,7 @@ That history-aware dereferenceability requirement is unusual enough that it shou
 
 The fixture ladder also clarified how `weave` operation behavior should be compared against expected results.
 
-The right comparison unit is a transition, not an isolated branch. That is why the Accord manifests in `semantic-flow-framework/examples/alice-bio/conformance/` are one manifest per transition.
+The right comparison unit is a transition, not an isolated branch. That is why the Accord manifests in `semantic-flow-framework/examples/alice-bio/conformance/` and `semantic-flow-framework/examples/sidecar-fantasy-rules/conformance/` are one manifest per transition.
 
 The comparison standard is currently:
 

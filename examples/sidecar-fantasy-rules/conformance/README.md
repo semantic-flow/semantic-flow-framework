@@ -36,7 +36,7 @@ Ladder walkthrough:
 - `01 -> 02 -> 03`: create the docs-rooted sidecar mesh, then weave it so `docs/_mesh` support artifacts and initial generated pages exist.
 - `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingLocalRelativePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
 - `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingLocalRelativePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
-- `07 -> 08 -> 09`: extract selected slash-IRI ontology and SHACL terms from the woven ontology and SHACL documents into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages.
+- `07 -> 08 -> 09`: extract selected slash-IRI ontology and SHACL terms from the woven ontology and SHACL documents into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages. This includes `ontology/CharacterShape`, which stays under the ontology namespace even though its pinned source facts come from the `shacl` artifact.
 - `09 -> 10`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface.
 - `10 -> 11 -> 12`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
 - `12 -> 13 -> 14`: publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
@@ -51,6 +51,7 @@ Source-shape conventions for the first ladder:
 - first-pass ontology term IRIs use slash paths under the ontology namespace, such as `ontology/AbilityScore`, with hash-term coverage deferred
 - the first term-extraction pair should keep the extracted term set narrow and explicit, starting with class-like terms such as `ontology/AbilityScore`, `ontology/Alignment`, and `ontology/Character`, plus a narrow SHACL shape term such as `ontology/CharacterShape` if the authored SHACL graph already carries that public IRI
 - authored Turtle uses the `fant:` prefix for `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/`
+- extracted term page facts should follow the term `ReferenceCatalog` `referenceTarget` and `referenceTargetState`; they should not infer the source artifact from the term path prefix
 - first release/weave transitions use custom ArtifactHistory segment `releases`, HistoricalState segment `v0.0.1`, and Turtle ArtifactManifestation segment `ttl`
 - first versioned located files should be `docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl` and `docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl`
 - example dataset integration should add the constrained `../examples/` local path grant only when the Gunaar dataset artifact is integrated
