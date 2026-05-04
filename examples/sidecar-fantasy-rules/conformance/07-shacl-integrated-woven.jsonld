@@ -51,6 +51,18 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#mesh-inventory-state3-page-html",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_inventory/_history001/_s0003/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#mesh-inventory-state3-manifestation-page-html",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_inventory/_history001/_s0003/inventory-ttl/index.html",
+          "changeType": "added"
+        },
+        {
           "id": "#shacl-knop-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/shacl/_knop/_inventory/inventory.ttl",
@@ -115,9 +127,45 @@
           "changeType": "added"
         },
         {
+          "id": "#shacl-knop-meta-history-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_meta/_history001/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#shacl-knop-meta-state-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_meta/_history001/_s0001/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#shacl-knop-meta-manifestation-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_meta/_history001/_s0001/meta-ttl/index.html",
+          "changeType": "added"
+        },
+        {
           "id": "#shacl-knop-inventory-page-html",
           "type": "FileExpectation",
           "path": "docs/shacl/_knop/_inventory/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#shacl-knop-inventory-history-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_inventory/_history001/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#shacl-knop-inventory-state-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_inventory/_history001/_s0001/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#shacl-knop-inventory-manifestation-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_inventory/_history001/_s0001/inventory-ttl/index.html",
           "changeType": "added"
         }
       ],
