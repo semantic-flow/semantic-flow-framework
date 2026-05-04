@@ -1,0 +1,191 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:sidecar-fantasy-rules:12-gunaar-example-dataset",
+  "dcterms:title": "Fantasy Rules Sidecar 12 Gunaar example dataset",
+  "dcterms:description": "Checks the non-woven integration of the Gunaar example dataset into the docs-rooted sidecar mesh.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#integrate-gunaar-example-dataset",
+      "dcterms:title": "Integrate the Gunaar example dataset artifact",
+      "dcterms:description": "Runs integrate from the fixture workspace root with mesh root docs. The Gunaar source remains under examples/, the mesh config gains a constrained ../examples/ workingLocalRelativePath grant, the dataset is introduced at public path examples/gunaar, and generated ResourcePages and histories are deferred to the following weave step.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-sidecar-fantasy-rules",
+      "operationId": "integrate",
+      "fromRef": "11-root-knop-woven",
+      "toRef": "12-gunaar-example-dataset",
+      "targetDesignatorPath": "examples/gunaar",
+      "sourcePath": "examples/gunaar.ttl",
+      "meshRoot": "docs",
+      "grantSourceDirectory": "examples",
+      "hasFileExpectation": [
+        {
+          "id": "#notice-md",
+          "type": "FileExpectation",
+          "path": "NOTICE.md",
+          "changeType": "unchanged",
+          "compareMode": "text"
+        },
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_config/config.ttl",
+          "changeType": "modified",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_inventory/inventory.ttl",
+          "changeType": "modified",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_knop/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#examples-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/examples/_knop/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-page-html",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-knop-page-html",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/_knop/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-history-page-html",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/_history001/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-knop-inventory-history-page-html",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/_knop/_inventory/_history001/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?ontologyRule, ?shaclRule, ?examplesRule . ?ontologyRule a <https://semantic-flow.github.io/ontology/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/ontology/config/hasLocalPathBase> <https://semantic-flow.github.io/ontology/config/meshRootPathBase> ; <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../ontology/\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/ontology/config/workingLocalRelativePathLocatorKind> . ?shaclRule a <https://semantic-flow.github.io/ontology/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/ontology/config/hasLocalPathBase> <https://semantic-flow.github.io/ontology/config/meshRootPathBase> ; <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../shacl/\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/ontology/config/workingLocalRelativePathLocatorKind> . ?examplesRule a <https://semantic-flow.github.io/ontology/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/ontology/config/hasLocalPathBase> <https://semantic-flow.github.io/ontology/config/meshRootPathBase> ; <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../examples/\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/ontology/config/workingLocalRelativePathLocatorKind> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> a <https://semantic-flow.github.io/semantic-flow-ontology/PayloadArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/RdfDocument> ; <https://semantic-flow.github.io/semantic-flow-ontology/workingLocalRelativePath> \"../examples/gunaar.ttl\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> ?file . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> ?payload . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/semantic-flow-ontology/workingLocalRelativePath> \"../examples/gunaar.ttl\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

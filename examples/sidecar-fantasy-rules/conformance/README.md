@@ -16,10 +16,11 @@ Planned first naming:
 - `08-ontology-and-shacl-terms-extracted.jsonld` means `07-shacl-integrated-woven` -> `08-ontology-and-shacl-terms-extracted`
 - `09-ontology-and-shacl-terms-extracted-woven.jsonld` means `08-ontology-and-shacl-terms-extracted` -> `09-ontology-and-shacl-terms-extracted-woven`
 - `10-root-knop.jsonld` means `09-ontology-and-shacl-terms-extracted-woven` -> `10-root-knop`
-- `11-gunaar-example-dataset.jsonld` means `10-root-knop` -> `11-gunaar-example-dataset`
-- `12-gunaar-example-dataset-woven.jsonld` means `11-gunaar-example-dataset` -> `12-gunaar-example-dataset-woven`
-- `13-first-release.jsonld` means `12-gunaar-example-dataset-woven` -> `13-first-release`
-- `14-first-release-woven.jsonld` means `13-first-release` -> `14-first-release-woven`
+- `11-root-knop-woven.jsonld` means `10-root-knop` -> `11-root-knop-woven`
+- `12-gunaar-example-dataset.jsonld` means `11-root-knop-woven` -> `12-gunaar-example-dataset`
+- `13-gunaar-example-dataset-woven.jsonld` means `12-gunaar-example-dataset` -> `13-gunaar-example-dataset-woven`
+- `14-first-release.jsonld` means `13-gunaar-example-dataset-woven` -> `14-first-release`
+- `15-first-release-woven.jsonld` means `14-first-release` -> `15-first-release-woven`
 
 How to read the ladder:
 
@@ -37,9 +38,9 @@ Ladder walkthrough:
 - `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingLocalRelativePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
 - `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingLocalRelativePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
 - `07 -> 08 -> 09`: extract selected slash-IRI ontology and SHACL terms from the woven ontology and SHACL documents into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages. This includes `ontology/CharacterShape`, which stays under the ontology namespace even though its pinned source facts come from the `shacl` artifact.
-- `09 -> 10`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface.
-- `10 -> 11 -> 12`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
-- `12 -> 13 -> 14`: publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
+- `09 -> 10 -> 11`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface, then weave those collection surfaces into public sidecar history and pages.
+- `11 -> 12 -> 13`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
+- `13 -> 14 -> 15`: publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
 
 Source-shape conventions for the first ladder:
 
