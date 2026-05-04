@@ -40,7 +40,7 @@ Ladder walkthrough:
 - `07 -> 08 -> 09`: extract selected slash-IRI ontology and SHACL terms from the woven ontology and SHACL documents into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages. This includes `ontology/CharacterShape`, which stays under the ontology namespace even though its pinned source facts come from the `shacl` artifact.
 - `09 -> 10 -> 11`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface, then weave those collection surfaces into public sidecar history and pages.
 - `11 -> 12 -> 13`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
-- `13 -> 14 -> 15`: publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
+- `13 -> 14 -> 15`: add first-release metadata to the authored ontology and SHACL sources, then publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
 
 Source-shape conventions for the first ladder:
 

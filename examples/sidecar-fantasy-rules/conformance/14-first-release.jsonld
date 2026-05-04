@@ -1,0 +1,138 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:sidecar-fantasy-rules:14-first-release",
+  "dcterms:title": "Fantasy Rules Sidecar 14 first release",
+  "dcterms:description": "Checks the non-woven first-release preparation step for the authored ontology and SHACL sources.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#prepare-first-release-metadata",
+      "dcterms:title": "Prepare first-release metadata in authored RDF sources",
+      "dcterms:description": "Updates the authored ontology and SHACL RDF to point at the intended v0.0.1 Semantic Flow release states and versioned Turtle bytes. The named release histories and located files are still absent until the following weave step.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-sidecar-fantasy-rules",
+      "operationId": "source.update",
+      "fromRef": "13-gunaar-example-dataset-woven",
+      "toRef": "14-first-release",
+      "targetDesignatorPaths": [
+        "ontology",
+        "shacl"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "modified",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "modified",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/_knop/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/shacl/_knop/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#shacl-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#ontology-release-page-html",
+          "type": "FileExpectation",
+          "path": "docs/ontology/releases/v0.0.1/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#shacl-release-page-html",
+          "type": "FileExpectation",
+          "path": "docs/shacl/releases/v0.0.1/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#ontology-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ontology-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <http://purl.org/dc/terms/hasVersion> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1> ; <http://www.w3.org/2002/07/owl#versionIRI> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> a <http://www.w3.org/ns/shacl#ShapesGraph>, <http://www.w3.org/2002/07/owl#Ontology> ; <http://purl.org/dc/terms/hasVersion> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1> ; <http://www.w3.org/2002/07/owl#versionIRI> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
