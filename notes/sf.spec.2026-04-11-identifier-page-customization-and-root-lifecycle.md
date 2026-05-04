@@ -10,7 +10,7 @@ created: 1775902232359
 
 This note captures the current intended behavior for identifier-page customization driven by a knop-owned `_knop/_page` support artifact.
 
-It is an implementation-facing behavior spec for the first identifier-page customization slice, not a final public API contract or a full template-system design.
+It is a current Semantic Flow behavior spec for the first identifier-page customization slice, not the complete thin public API contract or a full template-system design.
 
 ## Status
 

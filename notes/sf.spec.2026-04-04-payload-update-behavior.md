@@ -8,9 +8,9 @@ created: 1775359260000
 
 ## Purpose
 
-This note captures the current expected behavior of the first `payload.update` slice for Weave.
+This note captures the current expected behavior of the first `payload.update` slice.
 
-It is an implementation-facing behavior spec for the first local or in-process path, not a final public API contract.
+It is a current behavior spec for a local convenience surface, not a complete thin public API contract or a claim that `payload.update` is a first-class Semantic Flow job kind.
 
 ## Status
 

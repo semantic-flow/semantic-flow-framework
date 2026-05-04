@@ -8,9 +8,9 @@ created: 1775277600000
 
 ## Purpose
 
-This note captures the current expected behavior of the first `knop create` slice for Weave.
+This note captures the current expected behavior of the first `knop.create` / `knop create` slice for Semantic Flow.
 
-It is an implementation-facing behavior spec for the first local or in-process path, not a final public API contract.
+It is a current Semantic Flow behavior spec for the first carried path, not the complete thin public API contract.
 
 ## Status
 

@@ -1,6 +1,6 @@
 ---
 id: m3gu8prfjajglvn2r12u34i
-title: 2026 04 03 Weave Behavior
+title: 2026 04 03 Weave Operation Behavior
 desc: ''
 updated: 1775230930110
 created: 1775230930110
@@ -10,7 +10,7 @@ created: 1775230930110
 
 This note captures the current expected behavior of the `weave` operation as learned from the settled `mesh-alice-bio` fixture ladder in [[wa.completed.2026.2026-03-25-mesh-alice-bio]].
 
-It is meant to be the high-level operational spec for Weave behavior, not a replay of every branch detail and not a CLI design note.
+It is meant to be the high-level operational spec for the Semantic Flow `weave` operation, not a replay of every branch detail and not a CLI design note.
 
 ## Status
 
@@ -60,7 +60,7 @@ In particular:
 
 This is why `12-bob-extracted` could update the working mesh inventory surface to register `bob/_knop`, while `13-bob-extracted-woven` is the step that actually advanced `_mesh/_inventory/_history001` to `_s0004`.
 
-## What Weave Does
+## What The `weave` Operation Does
 
 For each relevant changed artifact, `weave` currently does four main things.
 
@@ -126,18 +126,22 @@ For the current carried local runtime, the implemented validation floor is parse
 That includes:
 
 - current identifier pages such as `alice/index.html`, `alice/bio/index.html`, and `bob/index.html`
+- current mesh support pages such as `_mesh/index.html`, `_mesh/_meta/index.html`, and `_mesh/_inventory/index.html`
+- current config support pages such as `_mesh/_config/index.html` when the mesh carries a `MeshConfig`
 - support-artifact landing pages such as `D/_knop/_meta/index.html`
 - history landing pages such as `D/_knop/_inventory/_history001/index.html`
 - state pages such as `.../_s0001/index.html`
 - manifestation pages such as `.../inventory-ttl/index.html`
 
+For a newly created mesh with no Knops or payload artifacts yet, `weave` may still have useful current-surface work: it can add and render the current mesh support ResourcePages. This is still part of the `weave` operation because it records and materializes dereferenceable current pages for existing mesh support artifacts; it is not semantic integration of a domain resource.
+
 For the current carried local `05`, `07`, `09`, and `11` slices, keep the generated HTML aligned with the settled fixture pages even when those pages remain intentionally minimal. Richer identifier wording, state listings, and navigable current pages are proven more fully in later fixture states and should not be retroactively imposed on the earlier acceptance targets.
 
-## What Weave Does Not Do
+## What The `weave` Operation Does Not Do
 
 The fixture ladder also clarified several important non-behaviors.
 
-### Weave does not perform semantic integration
+### The `weave` operation does not perform semantic integration
 
 `06-alice-bio-integrated` created the semantic payload association.
 
@@ -149,7 +153,7 @@ The same pattern held for:
 - `08` then `09` for ReferenceCatalog introduction
 - `12` then `13` for Bob extraction
 
-### Weave does not automatically widen mesh inventory for every internal change
+### The `weave` operation does not automatically widen mesh inventory for every internal change
 
 Mesh inventory should reflect the public current-surface map of the mesh, not every internal support-artifact detail.
 
@@ -161,7 +165,7 @@ This means:
 
 This distinction matters. Otherwise mesh inventory drifts into cataloging Knop-internal details that belong in Knop inventory instead.
 
-### Weave should not normally rewrite historical pages
+### The `weave` operation should not normally rewrite historical pages
 
 A current page may be regenerated repeatedly.
 
@@ -265,7 +269,7 @@ The evolved fixture pages now do a better job of this by including:
 
 Detailed serialization rules for `ReferenceCatalog` and `ReferenceLink` are already captured in [[ont.reference-links]].
 
-The main weave-behavior consequences are:
+The main `weave` operation behavior consequences are:
 
 - a `ReferenceCatalog` is a support artifact and lives under `D/_knop/_references`
 - a woven `ReferenceCatalog` gets explicit history and state structure like other support artifacts
@@ -279,7 +283,7 @@ That history-aware dereferenceability requirement is unusual enough that it shou
 
 ## Comparison and Conformance
 
-The fixture ladder also clarified how Weave behavior should be compared against expected results.
+The fixture ladder also clarified how `weave` operation behavior should be compared against expected results.
 
 The right comparison unit is a transition, not an isolated branch. That is why the Accord manifests in `semantic-flow-framework/examples/alice-bio/conformance/` are one manifest per transition.
 
@@ -295,14 +299,14 @@ This is one reason a thin deterministic conformance checker is preferable to a p
 
 - How strict should weave-time validation be for partial current-surface documents versus whole merged graphs?
 - When a generated HTML page evolves, which changes should count as material behavior changes versus cosmetic template changes?
-- Should the first real Weave implementation treat HTML generation as fully deterministic output that participates in strict text comparison, or should some normalization layer be introduced?
+- Should the first real implementation of the `weave` operation treat HTML generation as fully deterministic output that participates in strict text comparison, or should some normalization layer be introduced?
 - How should multi-artifact operations report partial success if versioning succeeds but generation or validation fails?
 
 ## Non-Goals
 
 This note does not specify:
 
-- the public Weave API
+- the full public Semantic Flow API
 - CLI flag design
 - Accord CLI design in detail
 - low-level RDF canonicalization algorithms

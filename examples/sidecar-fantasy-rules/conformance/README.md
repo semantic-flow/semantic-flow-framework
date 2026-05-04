@@ -13,6 +13,8 @@ Planned first naming:
 - `05-ontology-integrated-woven.jsonld` means `04-ontology-integrated` -> `05-ontology-integrated-woven`
 - `06-shacl-integrated.jsonld` means `05-ontology-integrated-woven` -> `06-shacl-integrated`
 - `07-shacl-integrated-woven.jsonld` means `06-shacl-integrated` -> `07-shacl-integrated-woven`
+- `08-ontology-terms-extracted.jsonld` means `07-shacl-integrated-woven` -> `08-ontology-terms-extracted`
+- `09-ontology-terms-extracted-woven.jsonld` means `08-ontology-terms-extracted` -> `09-ontology-terms-extracted-woven`
 
 How to read the ladder:
 
@@ -29,6 +31,7 @@ Ladder walkthrough:
 - `01 -> 02 -> 03`: create the docs-rooted sidecar mesh, then weave it so `docs/_mesh` support artifacts and initial generated pages exist.
 - `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingLocalRelativePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
 - `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingLocalRelativePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
+- `07 -> 08 -> 09`: extract selected slash-IRI ontology terms from the woven ontology document into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages.
 
 Source-shape conventions for the first ladder:
 
@@ -37,6 +40,7 @@ Source-shape conventions for the first ladder:
 - authored ontology source lives under `ontology/`
 - authored SHACL source lives under `shacl/`
 - first-pass ontology term IRIs use slash paths under the ontology namespace, such as `ontology/AbilityScore`, with hash-term coverage deferred
+- the first term-extraction pair should keep the extracted term set narrow and explicit, starting with class-like terms such as `ontology/AbilityScore`, `ontology/Alignment`, and `ontology/Character`
 - authored Turtle uses the `fant:` prefix for `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/`
 - first release/weave transitions use custom ArtifactHistory segment `releases`, HistoricalState segment `v0.0.1`, and Turtle ArtifactManifestation segment `ttl`
 - first versioned located files should be `docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl` and `docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl`

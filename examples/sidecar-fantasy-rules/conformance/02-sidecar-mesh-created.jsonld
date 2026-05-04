@@ -40,13 +40,6 @@
           "compareMode": "text"
         },
         {
-          "id": "#readme-md",
-          "type": "FileExpectation",
-          "path": "README.md",
-          "changeType": "unchanged",
-          "compareMode": "text"
-        },
-        {
           "id": "#notice-md",
           "type": "FileExpectation",
           "path": "NOTICE.md",
