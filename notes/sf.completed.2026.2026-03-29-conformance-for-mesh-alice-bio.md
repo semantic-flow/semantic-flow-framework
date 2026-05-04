@@ -39,9 +39,9 @@ Subsequent manifests should be added as each later transition is modeled and rev
 
 In the active model, `08-alice-bio-referenced` introduces a dedicated `ReferenceCatalog` artifact for `alice` at `alice/_knop/_references`; the manifest should not treat `ReferenceLink`s as Knop-inventory-local data, and the `ReferenceLink` identities themselves should be stable fragment IRIs rooted at the catalog resource.
 
-In the active Bob extraction model, `12-bob-extracted` should create a minimal `bob` Knop plus a `ReferenceCatalog` at `bob/_knop/_references`, with one Supplemental `ReferenceLink` about `<bob>` targeting `<alice/bio>`. The payload file `alice-bio.ttl` should remain unchanged in that branch, and page generation should remain deferred to the woven `13` step.
+In the active Bob extraction model, `12-bob-extracted` should create a minimal `bob` Knop whose inventory carries `sfc:ExtractionSource <bob/_knop/_inventory#extraction-source>` pinned to `<alice/bio>` and its source historical state. The payload file `alice-bio.ttl` should remain unchanged in that branch, and page generation should remain deferred to the woven `13` step.
 
-For `13-bob-extracted-woven`, the active expectation is to version `bob/_knop/_meta`, `bob/_knop/_inventory`, and `bob/_knop/_references`, generate `bob/index.html` and the Bob Knop-facing pages, and advance `_mesh/_inventory` because Bob's public pages now become part of the current mesh surface.
+For `13-bob-extracted-woven`, the active expectation is to version `bob/_knop/_meta` and `bob/_knop/_inventory`, generate `bob/index.html` and the Bob Knop-facing pages, and advance `_mesh/_inventory` because Bob's public pages now become part of the current mesh surface.
 
 ## Discussion
 

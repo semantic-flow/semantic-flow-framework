@@ -271,12 +271,13 @@ The evolved fixture pages now do a better job of this by including:
 
 ### Extracted term pages should use pinned source states
 
-For extracted resources, generated identifier pages may need source-derived facts from the payload artifact that originally described the resource. That source is identified by the extracted term's `ReferenceCatalog`:
+For extracted resources, generated identifier pages may need source-derived facts from the payload artifact that originally described the resource. That source is identified by the extracted Knop inventory's `sfc:ExtractionSource`:
 
-- `referenceTarget` identifies the source artifact designator
-- `referenceTargetState` pins the historical source state whose bytes should be used for page facts
+- `sfc:hasTargetArtifact` identifies the source artifact designator
+- `sfc:hasRequestedTargetState` pins the historical source state whose bytes should be used for page facts
+- `sfc:hasArtifactResolutionMode` records whether that binding is pinned or current
 
-The term namespace and the source artifact designator are independent. In the Fantasy Rules sidecar `09` slice, `ontology/CharacterShape` is an ontology term sourced from the woven `shacl` artifact; the source Turtle uses the `fant:` prefix to name `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape`. Page generation should follow the pinned `ReferenceCatalog` state rather than assuming the `ontology/...` path means the current `ontology` payload is the source.
+The term namespace and the source artifact designator are independent. In the Fantasy Rules sidecar `09` slice, `ontology/CharacterShape` is an ontology term sourced from the woven `shacl` artifact; the source Turtle uses the `fant:` prefix to name `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape`. Page generation should follow the pinned `sfc:ExtractionSource` state rather than assuming the `ontology/...` path means the current `ontology` payload is the source.
 
 ## ReferenceCatalog-Specific Behavior
 

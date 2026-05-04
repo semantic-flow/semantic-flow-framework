@@ -51,7 +51,7 @@ Source-shape conventions for the first ladder:
 - first-pass ontology term IRIs use slash paths under the ontology namespace, such as `ontology/AbilityScore`, with hash-term coverage deferred
 - the first term-extraction pair should keep the extracted term set narrow and explicit, starting with class-like terms such as `ontology/AbilityScore`, `ontology/Alignment`, and `ontology/Character`, plus a narrow SHACL shape term such as `ontology/CharacterShape` if the authored SHACL graph already carries that public IRI
 - authored Turtle uses the `fant:` prefix for `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/`
-- extracted term page facts should follow the term `ReferenceCatalog` `referenceTarget` and `referenceTargetState`; they should not infer the source artifact from the term path prefix
+- extracted term page facts should follow the term Knop inventory's `sfc:ExtractionSource`; they should not infer the source artifact from the term path prefix
 - first release/weave transitions use custom ArtifactHistory segment `releases`, HistoricalState segment `v0.0.1`, and Turtle ArtifactManifestation segment `ttl`
 - first versioned located files should be `docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl` and `docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl`
 - example dataset integration should add the constrained `../examples/` local path grant only when the Gunaar dataset artifact is integrated
