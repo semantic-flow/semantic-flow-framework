@@ -38,7 +38,7 @@ A newly created sidecar mesh should include a `MeshConfig` support artifact when
 
 The sidecar `MeshConfig` should record the portable workspace relationship with `sfcfg:workspaceRootRelativeToMeshRoot`. For a `docs/` sidecar, that value is `"../"`. This is a relative relationship from the mesh root to the containing workspace root; it is not an absolute host path and it does not grant access by itself.
 
-When `mesh.create` is given explicit sidecar path-policy options, it may write initial `sfcfg:hasLocalPathAccessRule` entries into the same config file. Without explicit policy options, it should not grant extra-mesh access.
+`mesh.create` should not write initial `sfcfg:hasLocalPathAccessRule` entries into the config file. Constrained adjacent-source rules belong to the integration step that introduces the corresponding sidecar artifact, so the mesh grants access only when there is a concrete artifact need.
 
 ## Local Path Policy
 
@@ -48,7 +48,7 @@ Local path policy uses explicit rule objects rather than implicit trust in a rep
 - one or more locator kinds, such as `sfcfg:workingLocalRelativePathLocatorKind` or `sfcfg:targetLocalRelativePathLocatorKind`
 - a constrained path prefix
 
-For sidecar meshes, a mesh-carried rule may allow known adjacent source directories such as `../ontology/`, `../shacl/`, or `../examples/`. That is still constrained mesh-adjacent access, not arbitrary host traversal. A mesh-carried rule should fail closed if it attempts to grant broad `..` traversal or host-absolute access.
+For sidecar meshes, a mesh-carried rule may allow known adjacent source directories such as `../ontology/`, `../shacl/`, or `../examples/`. Add these rules when ontology, SHACL, or example artifacts are integrated and need `workingLocalRelativePath` access to those adjacent source trees. That is still constrained mesh-adjacent access, not arbitrary host traversal. A mesh-carried rule should fail closed if it attempts to grant broad `..` traversal or host-absolute access.
 
 `LocalConfig` is the place for broader machine-local policy such as user-home or absolute-path allowances. Those rules may be appropriate for a developer workstation or CI runner, but they are not portable mesh behavior.
 
