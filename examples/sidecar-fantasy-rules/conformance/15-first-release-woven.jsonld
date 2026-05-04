@@ -168,8 +168,8 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> ?next . }",
-              "expectedBoolean": false
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
@@ -200,8 +200,8 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> ?next . }",
-              "expectedBoolean": false
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
