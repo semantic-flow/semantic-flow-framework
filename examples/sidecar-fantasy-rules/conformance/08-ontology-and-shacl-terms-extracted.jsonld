@@ -1,0 +1,277 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:sidecar-fantasy-rules:08-ontology-and-shacl-terms-extracted",
+  "dcterms:title": "Fantasy Rules Sidecar 08 ontology and SHACL terms extracted",
+  "dcterms:description": "Checks the non-woven extraction of selected slash-IRI ontology and SHACL terms into Knop-managed current surfaces.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#extract-ontology-and-shacl-terms",
+      "dcterms:title": "Extract selected ontology and SHACL terms into Knop-managed resources",
+      "dcterms:description": "Runs extract from the fixture workspace root with mesh root docs. The selected term Knops get metadata, inventory, and ReferenceCatalog support artifacts with Supplemental links pinned to the woven ontology or SHACL state that justified the extraction. The authored source bytes, mesh config, and generated pages remain unchanged until the following weave step.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-sidecar-fantasy-rules",
+      "operationId": "extract",
+      "fromRef": "07-shacl-integrated-woven",
+      "toRef": "08-ontology-and-shacl-terms-extracted",
+      "targetDesignatorPaths": [
+        "ontology/AbilityScore",
+        "ontology/Alignment",
+        "ontology/Character",
+        "ontology/PlayerCharacter",
+        "ontology/CharacterShape"
+      ],
+      "sourceDesignatorPaths": [
+        "ontology",
+        "ontology",
+        "ontology",
+        "ontology",
+        "shacl"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/_mesh/_inventory/inventory.ttl",
+          "changeType": "modified",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScore/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScore/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-references-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScore/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alignment-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Alignment/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alignment-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Alignment/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alignment-references-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Alignment/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Character/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Character/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-references-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Character/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#player-character-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/PlayerCharacter/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#player-character-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/PlayerCharacter/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#player-character-references-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/PlayerCharacter/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-meta-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/CharacterShape/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/CharacterShape/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-references-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/CharacterShape/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-page-html",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScore/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#character-shape-page-html",
+          "type": "FileExpectation",
+          "path": "docs/ontology/CharacterShape/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#ability-score-references-page-html",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScore/_knop/_references/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?rule <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../examples/\" . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Alignment/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Character/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/PlayerCharacter/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory/inventory.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#ability-score-references-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-score-references-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_references#reference001> a <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceLink> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceRole> <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceRole/Supplemental> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTarget> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#character-shape-references-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#character-shape-references-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001> a <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceLink> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceRole> <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceRole/Supplemental> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTarget> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#character-shape-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#character-shape-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_references> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> ?payload . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
