@@ -2,7 +2,7 @@
 id: 4yb6bmtj3yq4xq0d9h8s2pe
 title: 2026 04 11 Identifier Page Customization And Root Lifecycle
 desc: ''
-updated: 1775902232359
+updated: 1778134118953
 created: 1775902232359
 ---
 
@@ -159,7 +159,7 @@ First-pass implications:
 - runtime configuration should define which directories are allowed when local paths use `../`
 - runtime configuration should define whether direct remote target access through `targetAccessUrl` is allowed at all, and if so under which origin/scheme constraints
 - runtime configuration should define whether remote current-byte access through `workingAccessUrl` is allowed at all, and if so under which origin/scheme constraints
-- earlier host-config work such as `dependencies/github.com/semantic-flow/ontology/old/sflo-host-ontology.jsonld` is relevant precedent, but the exact config vocabulary can remain separate from this page-definition contract
+- earlier host-config work such as `dependencies/github.com/semantic-flow/sflo/old/sflo-host-ontology.jsonld` is relevant precedent, but the exact config vocabulary can remain separate from this page-definition contract
 
 ### Imported outside content
 

@@ -21,6 +21,18 @@ Preferred strategy:
 - After updating a branch, advance to the next branch from its existing branch tip rather than regenerating the whole ladder from the final state.
 - Re-run the conformance or Weave fixture tests after the ladder has been updated, and treat failures as evidence that some carried-forward state was missed.
 
+Each conformance transition should also record the command or invocation shape used to climb that rung. The Accord manifest remains the durable semantic contract: operation id, source and destination refs, target designators, source designators, version segment choices, file expectations, and RDF expectations are still what tests should validate. The command transcript is a reproducibility aid for humans and implementors, not a replacement for those semantic fields.
+
+For new rungs, record the invocation before settling the branch, preferably in the transition manifest and secondarily in the conformance README when the manifest vocabulary has not caught up yet. The record should include:
+
+- the working directory, such as the fixture repository root
+- the executable and subcommand, such as `weave integrate`, `weave extract`, or the root `weave` operation
+- every non-default flag and positional argument, including `--mesh-root`, target selectors, source selectors, grant paths, history/state/manifestation segments, and confirmation flags
+- any deliberate batch semantics, such as whether one command applied one shared state segment to several selected DigitalArtifacts
+- a clear label when an older rung only has a reconstructed reproduction command rather than the exact command that was originally run
+
+Do not let the transcript become the normative behavior definition. If the CLI spelling changes later, old transcripts may remain historically useful while the manifest contract and spec notes describe the portable operation semantics.
+
 ## Alice Bio
 
 The current primary worked example set lives in `../examples/alice-bio/api`.
