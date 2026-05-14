@@ -1,77 +1,142 @@
-# Fantasy Rules Sidecar Conformance
+# Fantasy Rules Branch-Published Conformance
 
-This directory will contain Accord manifests for the `mesh-sidecar-fantasy-rules` fixture ladder.
+This directory holds Accord manifests for the Fantasy Rules ontology fixture ladder.
 
-Each file describes one transition between named fixture refs in the separate `github.com/semantic-flow/mesh-sidecar-fantasy-rules` repository. The first ladder is expected to be linear, so manifest files are named after the destination branch even though the manifest unit is still a transition.
+The directory name still says `sidecar-fantasy-rules` because the current fixture and manifest files were first authored for a `docs/` sidecar mesh. The intended next conformance shape is branch-published ontology delivery: authored source stays on the normal source branch, while the generated Semantic Flow mesh is carried by a publication branch such as `gh-pages`.
 
-Planned first naming:
+## Current Status
 
-- `01-source-only.jsonld` means `00-blank-slate` -> `01-source-only`
-- `02-sidecar-mesh-created.jsonld` means `01-source-only` -> `02-sidecar-mesh-created`
-- `03-sidecar-mesh-created-woven.jsonld` means `02-sidecar-mesh-created` -> `03-sidecar-mesh-created-woven`
-- `04-ontology-integrated.jsonld` means `03-sidecar-mesh-created-woven` -> `04-ontology-integrated`
-- `05-ontology-integrated-woven.jsonld` means `04-ontology-integrated` -> `05-ontology-integrated-woven`
-- `06-shacl-integrated.jsonld` means `05-ontology-integrated-woven` -> `06-shacl-integrated`
-- `07-shacl-integrated-woven.jsonld` means `06-shacl-integrated` -> `07-shacl-integrated-woven`
-- `08-ontology-and-shacl-terms-extracted.jsonld` means `07-shacl-integrated-woven` -> `08-ontology-and-shacl-terms-extracted`
-- `09-ontology-and-shacl-terms-extracted-woven.jsonld` means `08-ontology-and-shacl-terms-extracted` -> `09-ontology-and-shacl-terms-extracted-woven`
-- `10-root-knop.jsonld` means `09-ontology-and-shacl-terms-extracted-woven` -> `10-root-knop`
-- `11-root-knop-woven.jsonld` means `10-root-knop` -> `11-root-knop-woven`
-- `12-gunaar-example-dataset.jsonld` means `11-root-knop-woven` -> `12-gunaar-example-dataset`
-- `13-gunaar-example-dataset-woven.jsonld` means `12-gunaar-example-dataset` -> `13-gunaar-example-dataset-woven`
-- `14-first-release.jsonld` means `13-gunaar-example-dataset-woven` -> `14-first-release`
-- `15-first-release-woven.jsonld` means `14-first-release` -> `15-first-release-woven`
-- `16-return-to-ordinal-history.jsonld` is planned for a later explicit return from named release state naming to default ordinal history/state allocation
-- `17-return-to-ordinal-history-woven.jsonld` is planned for weaving that explicit fallback and proving it is not an implicit broad-weave default
+The existing JSON-LD manifests in this directory still describe the older docs-rooted sidecar ladder. They are useful historical input for the fixture-generator work, but they should not be treated as the final branch-published contract.
 
-How to read the ladder:
+Do not spend a full fixture rerung on the old docs-rooted ladder immediately before replacing it. The next durable step is to update the manifest/replay model for branch-published operation, then regenerate fixture branches in one intentional pass after the branch-published topology, repository-source locator vocabulary, and near-term config/ontology churn have settled.
 
-- destination branches are human-reviewable expected states
-- manifests are transition contracts, not branch metadata
-- most steps come in operation/weave pairs
-- the first branch in a pair introduces or edits the current working surface without yet materializing new histories or public pages
-- the second branch in a pair is usually the `weave` step that versions those changes and regenerates current public HTML
-- tests can check out the source branch, run the intended operation or `weave` in a temporary workspace, and compare the result to the destination branch under the corresponding manifest
+`bp-01-source-only.jsonld` is the first branch-published proof manifest. It checks `origin/00-blank-slate` -> `bp-01-source-only` in the existing fixture repository and proves the clean authored source branch shape before any publication branch exists.
 
-Ladder walkthrough:
+## Intended Topology
 
-- `00 -> 01`: fixture seed only. This is not a public Semantic Flow operation. It should introduce the small authored ontology and SHACL source tree, the SRD attribution boundary in `NOTICE.md`, and no docs-rooted mesh yet.
-- `01 -> 02 -> 03`: create the docs-rooted sidecar mesh, then weave it so `docs/_mesh` support artifacts and initial generated pages exist.
-- `03 -> 04 -> 05`: integrate the governed ontology artifact at public path `ontology`, using a policy-approved adjacent `workingLocalRelativePath` such as `../ontology/fantasy-rules-ontology.ttl`, then weave it into public sidecar history and pages.
-- `05 -> 06 -> 07`: integrate the governed SHACL artifact at public path `shacl`, using a policy-approved adjacent `workingLocalRelativePath` such as `../shacl/fantasy-rules-shacl.ttl`, then weave it into public sidecar history and pages.
-- `07 -> 08 -> 09`: extract selected slash-IRI ontology and SHACL terms from the woven ontology and SHACL documents into Knop-managed identifier surfaces, then weave those surfaces so the terms have public histories and dereferenceable pages. This includes `ontology/CharacterShape`, which stays under the ontology namespace even though its pinned source facts come from the `shacl` artifact.
-- `09 -> 10 -> 11`: add a friendly root Knop for the repository Resource Page and an `examples/` Knop to act as the example-dataset collection surface, then weave those collection surfaces into public sidecar history and pages.
-- `11 -> 12 -> 13`: integrate the Gunaar example dataset at public path `examples/gunaar`, using a policy-approved adjacent `workingLocalRelativePath` such as `../examples/gunaar.ttl`, then weave it into public sidecar history and pages.
-- `13 -> 14 -> 15`: add first-release metadata to the authored ontology and SHACL sources, then publish the first named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths, while keeping prior ordinal histories available as earlier publication history.
-- `15 -> 16 -> 17` is planned as an explicit ordinal fallback pair. A broad weave after `v0.0.1` should fail unless the caller provides a next `stateSegment` or deliberately requests an ordinal fallback segment/history.
+The Fantasy Rules example should prove the clean-source branch story:
 
-Source-shape conventions for the first ladder:
+- the normal source branch contains authored ontology, SHACL, example dataset, attribution, and ordinary project files
+- the normal source branch does not need `_mesh/`, `.weave/`, `docs/`, generated histories, generated pages, or Weave config
+- the publication branch uses its branch root as the mesh root by default
+- the publication branch carries `_mesh/`, mesh config, inventories, histories, generated ResourcePages, `.nojekyll`, and optional Pages control files such as `CNAME`
+- the public mesh base stays canonical, such as `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/`, and does not expose the publication branch name
+- local sibling worktree paths never appear in public RDF, generated config, or conformance expectations
 
-- the public mesh root is `docs/`
-- mesh-owned helper page content lives under `docs/_mesh/content/`
-- authored ontology source lives under `ontology/`
-- authored SHACL source lives under `shacl/`
-- authored example datasets live under `examples/`
-- first-pass ontology term IRIs use slash paths under the ontology namespace, such as `ontology/AbilityScore`, with hash-term coverage deferred
-- the first term-extraction pair should keep the extracted term set narrow and explicit, starting with class-like terms such as `ontology/AbilityScore`, `ontology/Alignment`, and `ontology/Character`, plus a narrow SHACL shape term such as `ontology/CharacterShape` if the authored SHACL graph already carries that public IRI
-- authored Turtle uses the `fant:` prefix for `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/`
-- extracted term page facts should follow the term Knop inventory's `sfc:ExtractionSource`; they should not infer the source artifact from the term path prefix
-- first release/weave transitions use custom ArtifactHistory segment `releases`, HistoricalState segment `v0.0.1`, and Turtle ArtifactManifestation segment `ttl`
-- first versioned located files should be `docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl` and `docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl`
-- example dataset integration should add the constrained `../examples/` local path grant only when the Gunaar dataset artifact is integrated
-- the first ontology seed stays small: `AbilityScore`, `Alignment`, `Character`, and representative controlled values or examples
-- SRD 5.2.1 attribution belongs in the fixture repository `NOTICE.md`
-- the SRD 5.2 Markdown transcription at `https://github.com/springbov/dndsrd5.2_markdown/blob/main/DND-SRD-5.2-CC.md` may be used as a convenience source for review and extraction
-- the official SRD source and attribution statement remain authoritative
-- ontology metadata should carry source/provenance for SRD-derived vocabulary, while `dcterms:license` identifies the fantasy-rules ontology's own license
+The fixture repository may keep its current `mesh-sidecar-fantasy-rules` name for continuity unless a separate fixture-renaming task decides otherwise. The topology, not the repository name, is the contract.
+
+## Source Branch
+
+The source branch should remain a compact ontology project. Its authored files include:
+
+- `ontology/fantasy-rules-ontology.ttl`
+- `shacl/fantasy-rules-shacl.ttl`
+- `examples/gunaar.ttl`
+- `NOTICE.md`
+
+The first ontology seed stays small: `AbilityScore`, `Alignment`, `Character`, and representative controlled values or examples. First-pass ontology term IRIs use slash paths under the ontology namespace, such as `ontology/AbilityScore`, with hash-term coverage deferred.
+
+Authored Turtle uses the `fant:` prefix for `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/`. SRD 5.2.1 attribution belongs in `NOTICE.md`. Ontology metadata should carry source/provenance for SRD-derived vocabulary, while `dcterms:license` identifies the fantasy-rules ontology's own license.
+
+## Publication Branch
+
+The publication branch should carry the generated mesh and only intentionally preserved publication controls.
+
+The generated mesh should include:
+
+- `_mesh/_meta/meta.ttl`
+- `_mesh/_inventory/inventory.ttl`
+- `_mesh/_config/config.ttl`
+- generated current and historical ResourcePages
+- versioned ontology and SHACL payload histories
+- extracted term Knop surfaces and pages
+- named release histories such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
+
+For a `gh-pages` deployment, the branch root is both the publication source folder and the mesh root unless a later manifest explicitly tests a `/docs` override.
+
+## Source Provenance
+
+Branch-published source bindings must use durable repository-source provenance rather than mesh-root-relative local working paths.
+
+Expected RDF should use the core Semantic Flow source locator shape:
+
+- `sflo:RepositorySourceLocator`
+- `sflo:hasTargetRepositorySource`
+- `sflo:sourceRepositoryUrl`
+- `sflo:sourceRepositoryRef`
+- `sflo:sourceRepositoryCommit` when known
+- `sflo:sourceRepositoryPath`
+- `sflo:hasContentDigest` on the locator or `sflo:expectsContentDigest` on the target relator when deterministic replay needs a byte pin
+
+The branch-published manifests should reject RDF or config that serializes developer-specific paths such as `../mesh-sidecar-fantasy-rules-source/ontology/fantasy-rules-ontology.ttl`. A fixture runner may accept local source root and publication root paths as command inputs, deploy profile values, or CI checkout layout, but those paths are operational inputs, not public mesh facts.
+
+Raw URLs may appear as access/rendering hints when useful, but URL-first source binding is not the default contract. Repository/ref/path/digest provenance is the durable model because it works for local worktrees, CI checkouts, private repositories, pinned commits, and deterministic replay.
+
+## Branch-Published Ladder Draft
+
+The branch-published ladder should model source and publication refs explicitly. The current one-ref `fromRef` / `toRef` manifest shape is not enough by itself because the source branch and publication branch are separate trees.
+
+The next manifest/replay shape should be able to name:
+
+- source repository and source ref before the operation
+- publication repository and publication ref before the operation
+- publication ref after the operation
+- local source root and publication root as runtime-only execution inputs
+- generated files and RDF expectations scoped to the publication branch
+- source-branch cleanliness expectations scoped to the source branch
+- repository-source locator expectations that bridge the two without leaking local paths
+
+A likely first ladder is:
+
+- seed source branch with authored ontology, SHACL, example dataset, and attribution
+- bootstrap the publication branch and create the mesh support surface at branch root
+- weave initial support artifacts and current ResourcePages
+- bind the ontology payload to its repository-source locator and materialize the first ontology history
+- bind the SHACL payload to its repository-source locator and materialize the first SHACL history
+- extract selected ontology and SHACL terms into Knop-managed identifier surfaces
+- weave extracted term surfaces and generated pages
+- add root/example collection Knops if they remain useful for the fixture story
+- bind and weave the Gunaar example dataset if example datasets stay in the branch-published fixture
+- prepare first-release metadata in the authored sources
+- publish named ontology and SHACL release histories using `releases/v0.0.1/ttl` paths
+- later, prove explicit return from named release state naming to default ordinal history/state allocation
+
+The first implementation should prove the clean-source branch story before trying to preserve the entire old sidecar ladder. Alice Bio already exercises whole-repo behavior; Fantasy Rules should exercise branch-published ontology delivery.
+
+## Term Extraction Expectations
+
+The first term-extraction pair should keep the extracted term set narrow and explicit, starting with class-like terms such as:
+
+- `ontology/AbilityScore`
+- `ontology/Alignment`
+- `ontology/Character`
+- `ontology/CharacterShape`
+
+`ontology/CharacterShape` stays under the ontology namespace even when its source facts come from the SHACL source artifact. Extracted term page facts should follow the term Knop inventory's source binding. They should not infer the source artifact from the term path prefix.
+
+## Release Expectations
+
+First release/weave transitions use custom ArtifactHistory segment `releases`, HistoricalState segment `v0.0.1`, and Turtle ArtifactManifestation segment `ttl`.
+
+First versioned located files should be:
+
+- `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
+- `shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl`
+
+Because the publication branch root is the mesh root, these paths do not carry a `docs/` prefix in the branch-published shape.
+
+## Manifest Authoring Notes
 
 Conventions used here:
 
-- one Accord `Manifest` per file
-- one `TransitionCase` per manifest for now
-- fixture paths in expectations are repository-root-relative, so sidecar mesh paths include the `docs/` prefix
+- one Accord `Manifest` per transition
+- one `TransitionCase` per manifest until a branch-published replay shape requires separate source/publication cases
+- fixture paths in publication expectations are publication-branch-root-relative
+- source cleanliness expectations are source-branch-root-relative
+- whole-tree transition completeness checks should be enabled where practical, with `ignorePaths` used only for intentional non-contract paths
+- manifests should not both ignore and explicitly expect the same path
 - RDF-bearing files use `rdfCanonical`
 - generated Resource Page HTML expectations should omit `compareMode`; their `changeType` and `path` are presence/absence contracts, not exact HTML content contracts
 - non-text control files such as `.nojekyll` use `bytes`
 
-These manifests should be authored before any dedicated runner or generated fixture path is allowed to define the behavior. The intended acceptance loop is manifest-first: write the transition expectation, validate the manifest itself, then run any implementation or pseudo-runner against it.
+These manifests should be authored before any generated fixture branch is allowed to define the behavior. The intended acceptance loop is manifest-first: write or update the transition expectation, validate the manifest itself, run the fixture generator/replay path, inspect generated branch diffs, then run the relevant fixture tests.

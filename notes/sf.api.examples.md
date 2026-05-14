@@ -73,23 +73,24 @@ Those are planned example names, not files that already exist in `../examples/al
 
 This is meant to be a realistic vertical slice rather than an exhaustive example catalog.
 
-## Fantasy Rules Sidecar
+## Fantasy Rules Branch-Published Ontology
 
-The next planned worked example family should live in `../examples/sidecar-fantasy-rules/` once the first fixture ladder is settled.
+The next planned worked example family should live in `../examples/sidecar-fantasy-rules/`. The directory name is historical; the intended next shape is branch-published ontology delivery rather than a long-lived `docs/` sidecar mesh.
 
-That set should be anchored to [[ont.use-case.dereferenceable-ontology]] and the Weave planning note [[wd.task.2026.2026-05-02-fantasy-rules-sidecar]]. It should reuse the Alice Bio split:
+That set should be anchored to [[ont.use-case.dereferenceable-ontology]] and the Weave planning notes [[wd.task.2026.2026-05-02-fantasy-rules-sidecar]] and [[wd.task.2026.2026-05-13_1655-support-gh-pages-branch-based-deployments]]. It should reuse the Alice Bio split:
 
 - `api/` for request and response payload examples when a public API slice needs an example
 - `conformance/` for Accord transition manifests
 
-The expected fixture repository is `mesh-sidecar-fantasy-rules`. Unlike Alice Bio, this example should focus on a docs-rooted sidecar mesh where authored ontology and SHACL files stay outside the mesh root while public identifiers, generated pages, and copied historical release bytes live under `docs/`.
+The expected fixture repository may remain `mesh-sidecar-fantasy-rules` for continuity, but the topology should change. Unlike Alice Bio, this example should focus on a clean source branch where authored ontology, SHACL, and example files stay on the normal branch while public identifiers, generated pages, mesh config, inventories, histories, and copied historical release bytes live on a publication branch such as `gh-pages`.
 
-The conformance approach should follow Alice Bio: one manifest per transition, named after the destination branch only as a convenience for the current linear ladder. The manifests should describe behavior for transitions such as source seeding, docs-root mesh creation, ontology integration, SHACL integration, release weaving, and later resource-page improvements. They should not be treated as branch metadata or postponed until the fixture is otherwise complete.
+The conformance approach should follow Alice Bio where it still fits: one manifest per transition, named after the destination branch only as a convenience. Branch-published manifests also need to distinguish source refs from publication refs because the source branch and generated mesh branch are different trees. The manifests should describe behavior for transitions such as source seeding, publication-branch bootstrap, ontology binding through repository-source locator provenance, SHACL binding, release weaving, and later resource-page improvements. They should not be treated as branch metadata or postponed until the fixture is otherwise complete.
 
 Likely API/example pressure points:
 
-- `mesh.create` with a mesh root that is not the repository root
-- `integrate` using policy-approved repo-adjacent `workingLocalRelativePath` sources such as `../ontology/fantasy-rules-ontology.ttl`
+- publication-branch bootstrap with source and publication roots supplied as runtime inputs
+- source bindings that use repository/ref/path/digest provenance rather than host-local sibling paths
+- `integrate` or a deploy orchestration path that materializes authored ontology and SHACL files into a publication-branch mesh
 - `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
 - `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
 - `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
