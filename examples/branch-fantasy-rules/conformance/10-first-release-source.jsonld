@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:10-first-release-source",
+  "dcterms:title": "Fantasy Rules Branch-Published 10 first release source",
+  "dcterms:description": "Checks the clean source-lane first-release update for ontology, SHACL, and Gunaar example source bytes.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#prepare-first-release-source",
+      "dcterms:title": "Prepare first-release source bytes",
+      "dcterms:description": "Applies deterministic first-release source assets to the clean source branch. Publication output is still absent; the following publication rung materializes these bytes and weaves the named release states.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "source.update",
+      "fromRef": "01-source-only",
+      "toRef": "10-first-release-source",
+      "targetDesignatorPaths": [
+        "ontology",
+        "shacl",
+        "examples/gunaar"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#publication-mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#ontology-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#shacl-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#ontology-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ontology-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> <http://purl.org/dc/terms/hasVersion> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <http://www.w3.org/2002/07/owl#versionIRI> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Alignment/chaoticGood> a <http://www.w3.org/2002/07/owl#NamedIndividual> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> a <http://www.w3.org/ns/shacl#ShapesGraph>, <http://www.w3.org/2002/07/owl#Ontology> ; <http://purl.org/dc/terms/hasVersion> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> ; <http://www.w3.org/2002/07/owl#versionIRI> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/sflo/ontology/compatibleWith> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/hasAlignment> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Alignment/chaoticGood> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/alignment-history/2016-10-30T03-14-00-04-00> a <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AlignmentHistory> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

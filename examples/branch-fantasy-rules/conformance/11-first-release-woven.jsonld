@@ -1,0 +1,405 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:11-first-release-woven",
+  "dcterms:title": "Fantasy Rules Branch-Published 11 first release woven",
+  "dcterms:description": "Checks publication of first-release source bytes from the clean source branch, including named ontology and SHACL release histories.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-first-release",
+      "dcterms:title": "Weave first named ontology and SHACL releases",
+      "dcterms:description": "Updates publication-root working payload bytes from the first-release source branch, refreshes per-Knop repository source registries, then weaves ontology and SHACL with explicit release segments and Gunaar with the default ordinal progression.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "weave",
+      "fromRef": "09-gunaar-example-dataset-woven",
+      "toRef": "11-first-release-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "payload",
+              "update",
+              "{sourceRoot}/ontology/fantasy-rules-ontology.ttl",
+              "--designator-path",
+              "ontology",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "deploy",
+              "gh-pages",
+              "--source-root",
+              "{sourceRoot}",
+              "--publish-root",
+              "{publicationRoot}",
+              "--mesh-base",
+              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+              "--source-path",
+              "ontology/fantasy-rules-ontology.ttl",
+              "--designator-path",
+              "ontology",
+              "--source-repository-url",
+              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+              "--source-ref",
+              "{sourceRef}",
+              "--source-commit",
+              "{sourceCommit}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "payload",
+              "update",
+              "{sourceRoot}/shacl/fantasy-rules-shacl.ttl",
+              "--designator-path",
+              "shacl",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "deploy",
+              "gh-pages",
+              "--source-root",
+              "{sourceRoot}",
+              "--publish-root",
+              "{publicationRoot}",
+              "--mesh-base",
+              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+              "--source-path",
+              "shacl/fantasy-rules-shacl.ttl",
+              "--designator-path",
+              "shacl",
+              "--source-repository-url",
+              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+              "--source-ref",
+              "{sourceRef}",
+              "--source-commit",
+              "{sourceCommit}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "payload",
+              "update",
+              "{sourceRoot}/examples/gunaar.ttl",
+              "--designator-path",
+              "examples/gunaar",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "deploy",
+              "gh-pages",
+              "--source-root",
+              "{sourceRoot}",
+              "--publish-root",
+              "{publicationRoot}",
+              "--mesh-base",
+              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+              "--source-path",
+              "examples/gunaar.ttl",
+              "--designator-path",
+              "examples/gunaar",
+              "--source-repository-url",
+              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+              "--source-ref",
+              "{sourceRef}",
+              "--source-commit",
+              "{sourceCommit}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--mesh-root",
+              "{publicationRoot}",
+              "--payload-history-segment",
+              "releases",
+              "--payload-state-segment",
+              "v0.0.2",
+              "--payload-manifestation-segment",
+              "ttl",
+              "--target",
+              "designatorPath=ontology",
+              "--target",
+              "designatorPath=shacl"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--mesh-root",
+              "{publicationRoot}",
+              "--target",
+              "designatorPath=examples/gunaar"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
+      "sourceRef": "10-first-release-source",
+      "targetDesignatorPaths": [
+        "ontology",
+        "shacl",
+        "examples/gunaar"
+      ],
+      "payloadHistorySegment": "releases",
+      "payloadStateSegment": "v0.0.2",
+      "payloadManifestationSegment": "ttl",
+      "hasFileExpectation": [
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-sources-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/_knop/_sources/sources.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-sources-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_sources/sources.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-sources-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/_sources/sources.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-release-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-release-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/releases/v0.0.2/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-release-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/releases/v0.0.2/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#ontology-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ontology-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#branch-source-ontology> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#branch-source-shacl> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:31211564c80fb496c0c47da840dc16c7b49b8d8c25c029b7b443dde8db3ad604\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:31211564c80fb496c0c47da840dc16c7b49b8d8c25c029b7b443dde8db3ad604\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#branch-source-examples-gunaar> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:1bddda53ff76412a4ac980bd776c185044c96c1643ecb2b599922c27a327eb1a\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"examples/gunaar.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:1bddda53ff76412a4ac980bd776c185044c96c1643ecb2b599922c27a327eb1a\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ontology-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ontology-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/sflo/ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/sflo/ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_history001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_history001/_s0002> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
