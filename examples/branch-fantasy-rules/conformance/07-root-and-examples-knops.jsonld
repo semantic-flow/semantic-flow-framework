@@ -1,0 +1,181 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:07-root-and-examples-knops",
+  "dcterms:title": "Fantasy Rules Branch-Published 07 root and examples Knops",
+  "dcterms:description": "Checks non-woven creation of the root and examples collection Knops in the branch-published publication root.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#create-root-and-examples-knops",
+      "dcterms:title": "Create root and examples collection Knops",
+      "dcterms:description": "Runs two knop create operations directly against the GitHub Pages publication root. Current support artifacts and mesh inventory are updated, while histories and generated ResourcePages are deferred to the following weave step.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "knop.create",
+      "fromRef": "06-ontology-and-shacl-terms-extracted-woven",
+      "toRef": "07-root-and-examples-knops",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "knop",
+              "create",
+              "/",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "knop",
+              "create",
+              "examples",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
+      "targetDesignatorPaths": [
+        "/",
+        "examples"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-meta-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#examples-meta-ttl",
+          "type": "FileExpectation",
+          "path": "examples/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#examples-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "examples/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#root-page-html",
+          "type": "FileExpectation",
+          "path": "index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#examples-page-html",
+          "type": "FileExpectation",
+          "path": "examples/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-source",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#root-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#root-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_knop/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_knop/_inventory> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#examples-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#examples-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/_knop/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/_knop/_inventory> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/_knop/_inventory/inventory.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

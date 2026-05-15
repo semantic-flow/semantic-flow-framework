@@ -1,0 +1,190 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:09-gunaar-example-dataset-woven",
+  "dcterms:title": "Fantasy Rules Branch-Published 09 Gunaar example dataset woven",
+  "dcterms:description": "Checks repository-source materialization, integration, and weaving of the Gunaar example dataset into the branch-published publication root.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#materialize-and-weave-gunaar-example-dataset",
+      "dcterms:title": "Materialize and weave the Gunaar example dataset",
+      "dcterms:description": "Runs deploy gh-pages with the Gunaar example source binding. The clean source ref supplies examples/gunaar.ttl; the publication root records repository source provenance in a per-Knop _sources registry and gets generated ResourcePages for the dataset and support artifacts.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "deploy.ghPages",
+      "fromRef": "08-root-and-examples-knops-woven",
+      "toRef": "09-gunaar-example-dataset-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "deploy",
+            "gh-pages",
+            "--source-root",
+            "{sourceRoot}",
+            "--publish-root",
+            "{publicationRoot}",
+            "--mesh-base",
+            "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+            "--source-path",
+            "examples/gunaar.ttl",
+            "--designator-path",
+            "examples/gunaar",
+            "--source-repository-url",
+            "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+            "--source-ref",
+            "{sourceRef}",
+            "--source-commit",
+            "{sourceCommit}"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
+      "targetDesignatorPath": "examples/gunaar",
+      "sourcePath": "examples/gunaar.ttl",
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-sources-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_history001/_s0001/ttl/gunaar.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-page-html",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#gunaar-knop-page-html",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/_knop/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#notice-md",
+          "type": "FileExpectation",
+          "path": "NOTICE.md",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?binding <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/index.html> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_history001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#branch-source-examples-gunaar> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#branch-source-examples-gunaar> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
