@@ -1,0 +1,297 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:04-shacl-integrated-woven",
+  "dcterms:title": "Fantasy Rules Branch-Published 04 SHACL integrated woven",
+  "dcterms:description": "Checks the second repository source materialization into the branch-published publication root. The SHACL source is copied from the clean source ref, integrated as the shacl designator, and woven alongside the existing ontology surface.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#shacl-integrated-woven",
+      "dcterms:title": "Materialize, integrate, and weave SHACL source",
+      "dcterms:description": "Runs deploy gh-pages with a SHACL source binding. The publication checkpoint keeps the woven ontology surface and adds the SHACL payload, Knop source registry metadata, SHACL Knop support files, and SHACL ResourcePages.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "deploy.ghPages",
+      "fromRef": "03-ontology-integrated-woven",
+      "toRef": "04-shacl-integrated-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "deploy",
+            "gh-pages",
+            "--source-root",
+            "{sourceRoot}",
+            "--publish-root",
+            "{publicationRoot}",
+            "--mesh-base",
+            "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+            "--source-path",
+            "shacl/fantasy-rules-shacl.ttl",
+            "--designator-path",
+            "shacl",
+            "--source-repository-url",
+            "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+            "--source-ref",
+            "{sourceRef}",
+            "--source-commit",
+            "{sourceCommit}"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-sources-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/_knop/_sources/sources.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-sources-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-snapshot-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-knop-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-knop-meta-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_meta/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-knop-inventory-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_inventory/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-history-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-state-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#shacl-manifestation-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/_history001/_s0001/ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#notice-md",
+          "type": "FileExpectation",
+          "path": "NOTICE.md",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-source",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?binding <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?artifact <https://semantic-flow.github.io/sflo/ontology/workingLocalRelativePath> ?path . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/fantasy-rules-shacl.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/index.html> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop> a <https://semantic-flow.github.io/sflo/ontology/Knop> ; <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/index.html> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ontology-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ontology-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#branch-source-ontology> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#branch-source-ontology> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources/sources.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#branch-source-shacl> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#branch-source-shacl> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionTarget> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> ?digest ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source a <https://semantic-flow.github.io/sflo/ontology/RepositorySourceLocator> ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryUrl> \"https://github.com/semantic-flow/mesh-branch-fantasy-rules.git\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.01-source-only\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryCommit> ?commit ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> ?digest . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#shacl-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#shacl-source-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> a <http://www.w3.org/ns/shacl#ShapesGraph> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape> a <http://www.w3.org/ns/shacl#NodeShape> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
