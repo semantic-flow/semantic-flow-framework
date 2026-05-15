@@ -23,17 +23,45 @@
       "type": "TransitionCase",
       "id": "#weave-first-release",
       "dcterms:title": "Weave first named ontology and SHACL releases",
-      "dcterms:description": "Runs targeted weave operations for ontology and shacl with payload history segment releases, state segment v0.0.1, and manifestation segment ttl. The prior ordinal histories remain present, the named release histories become current for their artifacts, and the release snapshots are byte-identical to the authored sources.",
+      "dcterms:description": "Runs targeted weave operations for ontology and shacl with payload history segment releases, state segment v0.0.2, and manifestation segment ttl. The prior ordinal histories remain present, the named release histories become current for their artifacts, and the release snapshots are byte-identical to the authored sources.",
       "fixtureRepo": "github.com/semantic-flow/mesh-sidecar-fantasy-rules",
       "operationId": "weave",
       "fromRef": "14-first-release",
       "toRef": "15-first-release-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": "docs",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--mesh-root",
+            "docs",
+            "--payload-history-segment",
+            "releases",
+            "--payload-state-segment",
+            "v0.0.2",
+            "--payload-manifestation-segment",
+            "ttl",
+            "--target",
+            "designatorPath=ontology",
+            "--target",
+            "designatorPath=shacl"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
       "targetDesignatorPaths": [
         "ontology",
         "shacl"
       ],
       "payloadHistorySegment": "releases",
-      "payloadStateSegment": "v0.0.1",
+      "payloadStateSegment": "v0.0.2",
       "payloadManifestationSegment": "ttl",
       "hasFileExpectation": [
         {
@@ -75,41 +103,27 @@
           "id": "#ontology-knop-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/_knop/_inventory/inventory.ttl",
-          "changeType": "modified",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#shacl-knop-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/shacl/_knop/_inventory/inventory.ttl",
-          "changeType": "modified",
-          "compareMode": "rdfCanonical"
-        },
-        {
-          "id": "#ontology-knop-inventory-history2-ttl",
-          "type": "FileExpectation",
-          "path": "docs/ontology/_knop/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
-        },
-        {
-          "id": "#shacl-knop-inventory-history2-ttl",
-          "type": "FileExpectation",
-          "path": "docs/shacl/_knop/_inventory/_history001/_s0002/inventory-ttl/inventory.ttl",
-          "changeType": "added",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#ontology-release-snapshot-ttl",
           "type": "FileExpectation",
-          "path": "docs/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl",
+          "path": "docs/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#shacl-release-snapshot-ttl",
           "type": "FileExpectation",
-          "path": "docs/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl",
+          "path": "docs/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -122,13 +136,13 @@
         {
           "id": "#ontology-state-page-html",
           "type": "FileExpectation",
-          "path": "docs/ontology/releases/v0.0.1/index.html",
+          "path": "docs/ontology/releases/v0.0.2/index.html",
           "changeType": "added"
         },
         {
           "id": "#ontology-manifestation-page-html",
           "type": "FileExpectation",
-          "path": "docs/ontology/releases/v0.0.1/ttl/index.html",
+          "path": "docs/ontology/releases/v0.0.2/ttl/index.html",
           "changeType": "added"
         },
         {
@@ -140,13 +154,13 @@
         {
           "id": "#shacl-state-page-html",
           "type": "FileExpectation",
-          "path": "docs/shacl/releases/v0.0.1/index.html",
+          "path": "docs/shacl/releases/v0.0.2/index.html",
           "changeType": "added"
         },
         {
           "id": "#shacl-manifestation-page-html",
           "type": "FileExpectation",
-          "path": "docs/shacl/releases/v0.0.1/ttl/index.html",
+          "path": "docs/shacl/releases/v0.0.2/ttl/index.html",
           "changeType": "added"
         }
       ],
@@ -158,27 +172,27 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/semantic-flow-ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/semantic-flow-ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/semantic-flow-ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1> ; <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> ; <https://semantic-flow.github.io/sflo/ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1> <https://semantic-flow.github.io/semantic-flow-ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1/ttl> ; <https://semantic-flow.github.io/semantic-flow-ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1/ttl> <https://semantic-flow.github.io/semantic-flow-ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/semantic-flow-ontology/historyOrdinal> ?ordinal . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases> <https://semantic-flow.github.io/sflo/ontology/historyOrdinal> ?ordinal . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.1> <https://semantic-flow.github.io/semantic-flow-ontology/stateOrdinal> ?ordinal . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/stateOrdinal> ?ordinal . }",
               "expectedBoolean": false
             }
           ]
@@ -190,27 +204,27 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/semantic-flow-ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/semantic-flow-ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/semantic-flow-ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1> ; <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> ; <https://semantic-flow.github.io/sflo/ontology/nextHistoryOrdinal> \"2\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1> <https://semantic-flow.github.io/semantic-flow-ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1/ttl> ; <https://semantic-flow.github.io/semantic-flow-ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1/ttl> <https://semantic-flow.github.io/semantic-flow-ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1/ttl/fantasy-rules-shacl.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/semantic-flow-ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"1\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/semantic-flow-ontology/historyOrdinal> ?ordinal . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases> <https://semantic-flow.github.io/sflo/ontology/historyOrdinal> ?ordinal . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.1> <https://semantic-flow.github.io/semantic-flow-ontology/stateOrdinal> ?ordinal . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/stateOrdinal> ?ordinal . }",
               "expectedBoolean": false
             }
           ]
