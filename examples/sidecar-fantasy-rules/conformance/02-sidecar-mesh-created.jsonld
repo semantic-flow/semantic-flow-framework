@@ -31,6 +31,30 @@
       "operationId": "mesh.create",
       "fromRef": "01-source-only",
       "toRef": "02-sidecar-mesh-created",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": "docs",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "mesh",
+            "create",
+            "--workspace",
+            ".",
+            "--mesh-root",
+            "docs",
+            "--mesh-base",
+            "https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
       "hasFileExpectation": [
         {
           "id": "#gitignore",
@@ -160,12 +184,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> a <https://semantic-flow.github.io/semantic-flow-ontology/SemanticMesh> ; <https://semantic-flow.github.io/semantic-flow-ontology/meshBase> \"https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/\"^^<http://www.w3.org/2001/XMLSchema#anyURI> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_inventory> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> a <https://semantic-flow.github.io/sflo/ontology/SemanticMesh> ; <https://semantic-flow.github.io/sflo/ontology/meshBase> \"https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/\"^^<http://www.w3.org/2001/XMLSchema#anyURI> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_inventory> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_meta> a <https://semantic-flow.github.io/semantic-flow-ontology/MeshMetadata> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_meta> a <https://semantic-flow.github.io/sflo/ontology/MeshMetadata> . }",
               "expectedBoolean": true
             }
           ]
@@ -177,17 +201,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_meta> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_inventory> ; <https://semantic-flow.github.io/ontology/config/hasConfig> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_inventory> ; <https://semantic-flow.github.io/ontology/config/hasConfig> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/config.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/config.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?s a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> . }",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/sflo/ontology/Knop> . }",
               "expectedBoolean": false
             }
           ]

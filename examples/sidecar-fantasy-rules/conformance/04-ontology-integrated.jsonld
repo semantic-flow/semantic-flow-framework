@@ -28,6 +28,29 @@
       "operationId": "integrate",
       "fromRef": "03-sidecar-mesh-created-woven",
       "toRef": "04-ontology-integrated",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": "docs",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "integrate",
+            "./ontology/fantasy-rules-ontology.ttl",
+            "ontology",
+            "--mesh-root",
+            "docs",
+            "--grant-source-directory",
+            "ontology"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
       "hasFileExpectation": [
         {
           "id": "#gitignore",
@@ -82,14 +105,14 @@
           "id": "#mesh-config-ttl",
           "type": "FileExpectation",
           "path": "docs/_mesh/_config/config.ttl",
-          "changeType": "modified",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#mesh-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/_mesh/_inventory/inventory.ttl",
-          "changeType": "modified",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
@@ -127,7 +150,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?rule . ?rule a <https://semantic-flow.github.io/ontology/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/ontology/config/hasLocalPathBase> <https://semantic-flow.github.io/ontology/config/meshRootPathBase> ; <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../ontology/\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/ontology/config/workingLocalRelativePathLocatorKind> . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?rule . ?rule a <https://semantic-flow.github.io/ontology/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/ontology/config/hasLocalPathBase> <https://semantic-flow.github.io/ontology/config/localPathBase_meshRoot> ; <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../ontology/\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/ontology/config/localPathLocatorKind_workingLocalRelativePath> . }",
               "expectedBoolean": true
             },
             {
@@ -149,22 +172,22 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> a <https://semantic-flow.github.io/semantic-flow-ontology/PayloadArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/RdfDocument> ; <https://semantic-flow.github.io/semantic-flow-ontology/workingLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/workingLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> ?file . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> ?file . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop/_inventory/inventory.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> a <https://semantic-flow.github.io/sflo/ontology/Knop> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop/_inventory/inventory.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -176,7 +199,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/semantic-flow-ontology/workingLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> <https://semantic-flow.github.io/sflo/ontology/workingLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" . }",
               "expectedBoolean": true
             }
           ]

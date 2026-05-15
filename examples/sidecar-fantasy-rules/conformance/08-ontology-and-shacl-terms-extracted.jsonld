@@ -23,11 +23,103 @@
       "type": "TransitionCase",
       "id": "#extract-ontology-and-shacl-terms",
       "dcterms:title": "Extract selected ontology and SHACL terms into Knop-managed resources",
-      "dcterms:description": "Runs extract from the fixture workspace root with mesh root docs. The selected term Knops get metadata and inventory support artifacts with ExtractionSource bindings pinned to the woven ontology or SHACL state that justified the extraction. The authored source bytes, mesh config, and generated pages remain unchanged until the following weave step.",
+      "dcterms:description": "Runs extract from the fixture workspace root with mesh root docs. The selected term Knops get metadata and inventory support artifacts with ExtractionSource bindings that track the current ontology or SHACL source artifact and record the observed located file digest. The authored source bytes, mesh config, and generated pages remain unchanged until the following weave step.",
       "fixtureRepo": "github.com/semantic-flow/mesh-sidecar-fantasy-rules",
       "operationId": "extract",
       "fromRef": "07-shacl-integrated-woven",
       "toRef": "08-ontology-and-shacl-terms-extracted",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": "docs",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/AbilityScore",
+              "--mesh-root",
+              "docs",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/Alignment",
+              "--mesh-root",
+              "docs",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/Character",
+              "--mesh-root",
+              "docs",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/PlayerCharacter",
+              "--mesh-root",
+              "docs",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/CharacterShape",
+              "--mesh-root",
+              "docs",
+              "--source",
+              "shacl"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
       "targetDesignatorPaths": [
         "ontology/AbilityScore",
         "ontology/Alignment",
@@ -68,7 +160,7 @@
           "id": "#mesh-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/_mesh/_inventory/inventory.ttl",
-          "changeType": "modified",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
@@ -180,17 +272,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Alignment/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Character/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/PlayerCharacter/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Alignment/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Character/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/PlayerCharacter/_knop>, <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory/inventory.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> a <https://semantic-flow.github.io/semantic-flow-ontology/Knop> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory/inventory.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop> a <https://semantic-flow.github.io/sflo/ontology/Knop> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory/inventory.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> a <https://semantic-flow.github.io/sflo/ontology/Knop> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory/inventory.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore> <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> ?page . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> ?page . }",
               "expectedBoolean": false
             }
           ]
@@ -202,7 +294,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/ontology/core/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/ontology/core/ExtractionSource> ; <https://semantic-flow.github.io/ontology/core/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/ontology/core/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/ontology/core/hasArtifactResolutionMode> <https://semantic-flow.github.io/ontology/core/ArtifactResolutionMode/Pinned> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:59d700fcb8ae22181d131668df4ccf2cb58b70b37c3bcabea4b38fece15f3bb0\" . }",
               "expectedBoolean": true
             }
           ]
@@ -214,12 +306,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/ontology/core/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/ontology/core/ExtractionSource> ; <https://semantic-flow.github.io/ontology/core/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/ontology/core/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/ontology/core/hasArtifactResolutionMode> <https://semantic-flow.github.io/ontology/core/ArtifactResolutionMode/Pinned> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:349f1ad30fb4b2f20cc9c9e5f6febae09c6adb2148bc6b62c81905c9da9cc011\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> ?payload . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> ?payload . }",
               "expectedBoolean": false
             }
           ]
