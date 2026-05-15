@@ -1,0 +1,313 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:05-ontology-and-shacl-terms-extracted",
+  "dcterms:title": "Fantasy Rules Branch-Published 05 ontology and SHACL terms extracted",
+  "dcterms:description": "Checks selected ontology and SHACL term extraction inside the branch-published publication root without writing generated output to the clean source ref.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#extract-ontology-and-shacl-terms",
+      "dcterms:title": "Extract selected ontology and SHACL terms in the publication root",
+      "dcterms:description": "Runs extract directly against the GitHub Pages publication root after ontology and SHACL source materialization. The selected term Knops get metadata and inventory support artifacts with ExtractionSource bindings, while source bytes and existing source registries remain unchanged.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "extract",
+      "fromRef": "04-shacl-integrated-woven",
+      "toRef": "05-ontology-and-shacl-terms-extracted",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/AbilityScore",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/Alignment",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/Character",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/PlayerCharacter",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--source",
+              "ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "ontology/CharacterShape",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--source",
+              "shacl"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
+      "targetDesignatorPaths": [
+        "ontology/AbilityScore",
+        "ontology/Alignment",
+        "ontology/Character",
+        "ontology/PlayerCharacter",
+        "ontology/CharacterShape"
+      ],
+      "sourceDesignatorPaths": [
+        "ontology",
+        "ontology",
+        "ontology",
+        "ontology",
+        "shacl"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ontology-sources-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/_knop/_sources/sources.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-sources-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/_knop/_sources/sources.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-meta-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/AbilityScore/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/AbilityScore/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alignment-meta-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Alignment/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alignment-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Alignment/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-meta-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Character/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Character/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#player-character-meta-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/PlayerCharacter/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#player-character-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/PlayerCharacter/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-meta-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-score-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/AbilityScore/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#character-shape-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Alignment/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Character/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/PlayerCharacter/_knop>, <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#ability-score-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-score-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#character-shape-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#character-shape-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> ?payload . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
