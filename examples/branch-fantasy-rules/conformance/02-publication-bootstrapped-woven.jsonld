@@ -1,0 +1,266 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:02-publication-bootstrapped-woven",
+  "dcterms:title": "Fantasy Rules Branch-Published 02 publication bootstrapped woven",
+  "dcterms:description": "Checks the first branch-published publication checkpoint. The source branch stays clean, while a separate GitHub Pages publication root receives Semantic Flow mesh support artifacts, .nojekyll, and woven support ResourcePages.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#publication-bootstrapped-woven",
+      "dcterms:title": "Bootstrap and weave branch-published publication root",
+      "dcterms:description": "Runs deploy gh-pages with separate source and publication roots, then weaves the publication root directly. Source files are not copied into the publication output in this first rung.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "deploy.ghPages",
+      "fromRef": "01-source-only",
+      "toRef": "02-publication-bootstrapped-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "deploy",
+              "gh-pages",
+              "--source-root",
+              "{sourceRoot}",
+              "--publish-root",
+              "{publicationRoot}",
+              "--mesh-base",
+              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
+      "hasFileExpectation": [
+        {
+          "id": "#nojekyll",
+          "type": "FileExpectation",
+          "path": ".nojekyll",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-page",
+          "type": "FileExpectation",
+          "path": "_mesh/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-meta-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_meta/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-inventory-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-config-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-config-history-state-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/_history001/_s0001/ttl/config.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-history-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/_history001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-config-history-state-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/_history001/_s0001/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#mesh-config-history-state-manifestation-page",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/_history001/_s0001/ttl/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#readme-md",
+          "type": "FileExpectation",
+          "path": "README.md",
+          "changeType": "absent"
+        },
+        {
+          "id": "#notice-md",
+          "type": "FileExpectation",
+          "path": "NOTICE.md",
+          "changeType": "absent"
+        },
+        {
+          "id": "#ontology-source",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#shacl-source",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "absent"
+        },
+        {
+          "id": "#gunaar-source",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-meta-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> a <https://semantic-flow.github.io/sflo/ontology/SemanticMesh> ; <https://semantic-flow.github.io/sflo/ontology/meshBase> \"https://semantic-flow.github.io/mesh-branch-fantasy-rules/\"^^<http://www.w3.org/2001/XMLSchema#anyURI> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_inventory> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_meta> a <https://semantic-flow.github.io/sflo/ontology/MeshMetadata> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_inventory> ; <https://semantic-flow.github.io/ontology/config/hasConfig> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/config.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/sflo/ontology/Knop> . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?rule . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
