@@ -82,13 +82,13 @@
         {
           "id": "#alice-knop-page-s1-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/_knop/_page/_history001/_s0001/page-ttl/index.html",
+          "path": "alice/_knop/_page/_history001/_s0001/ttl/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-knop-page-s1-ttl",
           "type": "FileExpectation",
-          "path": "alice/_knop/_page/_history001/_s0001/page-ttl/page.ttl",
+          "path": "alice/_knop/_page/_history001/_s0001/ttl/page.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -114,13 +114,13 @@
         {
           "id": "#alice-knop-inventory-s3-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/_knop/_inventory/_history001/_s0003/inventory-ttl/index.html",
+          "path": "alice/_knop/_inventory/_history001/_s0003/ttl/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-knop-inventory-s3-ttl",
           "type": "FileExpectation",
-          "path": "alice/_knop/_inventory/_history001/_s0003/inventory-ttl/inventory.ttl",
+          "path": "alice/_knop/_inventory/_history001/_s0003/ttl/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -201,17 +201,17 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> ; <https://semantic-flow.github.io/semantic-flow-ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/page.ttl> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/index.html> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/page.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/index.html> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> <https://semantic-flow.github.io/semantic-flow-ontology/hasManifestation> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001/page-ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001/ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> . }",
               "expectedBoolean": true
             }
           ]
@@ -227,17 +227,36 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> <https://semantic-flow.github.io/semantic-flow-ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0002> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0002> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> . }",
               "expectedBoolean": true
             }
           ]
         }
-      ]
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--history-tracking-policy",
+            "versioned",
+            "--target",
+            "designatorPath=alice"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
     }
   ]
 }

@@ -43,7 +43,7 @@
         {
           "id": "#alice-bio-s1-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0001/alice-bio-ttl/alice-bio.ttl",
+          "path": "alice/bio/_history001/_s0001/ttl/alice-bio.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -62,7 +62,7 @@
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#alice-references-ttl",
+          "id": "#alice-ttl",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/references.ttl",
           "changeType": "unchanged",
@@ -127,7 +127,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0003> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0003> . }",
               "expectedBoolean": true
             }
           ]
@@ -143,7 +143,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0002> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0002> . }",
               "expectedBoolean": true
             }
           ]
@@ -151,11 +151,11 @@
         {
           "id": "#alice-references-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#alice-references-ttl",
+          "targetsFileExpectation": "#alice-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> . }",
               "expectedBoolean": true
             }
           ]
@@ -171,12 +171,43 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001> . }",
               "expectedBoolean": true
             }
           ]
         }
-      ]
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "payload",
+            "update",
+            "alice-bio-v2.ttl",
+            "alice/bio"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        },
+        "hasInputMaterialization": [
+          {
+            "type": "InputMaterialization",
+            "targetPath": "alice-bio-v2.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "10-alice-bio-updated/alice-bio-v2.ttl",
+              "derivationNote": "fixture-authored Alice Bio v2 RDF copied from the Alice Bio main branch source bytes"
+            }
+          }
+        ]
+      }
     }
   ]
 }

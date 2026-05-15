@@ -62,7 +62,7 @@
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#alice-references-ttl",
+          "id": "#alice-ttl",
           "type": "FileExpectation",
           "path": "alice/_knop/_references/references.ttl",
           "changeType": "added",
@@ -105,7 +105,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/inventory.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -117,7 +117,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/designatorPath> \"alice\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/designatorPath> \"alice\" . }",
               "expectedBoolean": true
             }
           ]
@@ -133,17 +133,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references> a <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceCatalog> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references/references.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references> a <https://semantic-flow.github.io/sflo/ontology/ReferenceCatalog> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references/references.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> ?referenceLink . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> ?referenceLink . }",
               "expectedBoolean": false
             }
           ]
@@ -151,21 +151,21 @@
         {
           "id": "#alice-references-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#alice-references-ttl",
+          "targetsFileExpectation": "#alice-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> a <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceLink> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceRole> <https://semantic-flow.github.io/semantic-flow-ontology/ReferenceRole/Canonical> ; <https://semantic-flow.github.io/semantic-flow-ontology/referenceTarget> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> <https://semantic-flow.github.io/semantic-flow-ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> . }",
               "expectedBoolean": false
             }
           ]
@@ -181,12 +181,34 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasReferenceLink> ?referenceLink . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> ?referenceLink . }",
               "expectedBoolean": false
             }
           ]
         }
-      ]
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "knop",
+            "add-reference",
+            "alice",
+            "--reference-target-designator-path",
+            "alice/bio",
+            "--reference-role",
+            "Canonical"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
     }
   ]
 }

@@ -117,17 +117,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> a <https://semantic-flow.github.io/semantic-flow-ontology/PayloadArtifact>, <https://semantic-flow.github.io/semantic-flow-ontology/DigitalArtifact> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-page-main.md> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-page-main.md> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> ?history . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> ?history . }",
               "expectedBoolean": false
             }
           ]
@@ -139,12 +139,43 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop> <https://semantic-flow.github.io/semantic-flow-ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_meta> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_inventory> ; <https://semantic-flow.github.io/semantic-flow-ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_knop/_inventory> ; <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> . }",
               "expectedBoolean": true
             }
           ]
         }
-      ]
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "integrate",
+            "alice-page-main.md",
+            "--designator-path",
+            "alice/page-main"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        },
+        "hasInputMaterialization": [
+          {
+            "type": "InputMaterialization",
+            "targetPath": "alice-page-main.md",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "16-alice-page-main-integrated/alice-page-main.md",
+              "derivationNote": "fixture-authored Alice page-main Markdown copied from the Alice Bio main branch source bytes"
+            }
+          }
+        ]
+      }
     }
   ]
 }

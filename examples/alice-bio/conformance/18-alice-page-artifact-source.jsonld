@@ -84,7 +84,7 @@
         {
           "id": "#alice-knop-page-s1-ttl",
           "type": "FileExpectation",
-          "path": "alice/_knop/_page/_history001/_s0001/page-ttl/page.ttl",
+          "path": "alice/_knop/_page/_history001/_s0001/ttl/page.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -132,7 +132,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> <https://semantic-flow.github.io/semantic-flow-ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_history001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/alice/page-main/_history001> . }",
               "expectedBoolean": true
             }
           ]
@@ -148,7 +148,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/semantic-flow-ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory/_history001/_s0003> . }",
               "expectedBoolean": true
             }
           ]

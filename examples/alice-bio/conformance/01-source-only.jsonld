@@ -58,7 +58,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?s a <https://semantic-flow.github.io/semantic-flow-ontology/SemanticMesh> . }",
+              "query": "ASK { ?s a <https://semantic-flow.github.io/sflo/ontology/SemanticMesh> . }",
               "expectedBoolean": false
             }
           ]
