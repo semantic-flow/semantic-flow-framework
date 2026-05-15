@@ -158,12 +158,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/ontology/core/hasPageRegion> ?mainRegion, ?sidebarRegion . ?mainRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"main\" . ?sidebarRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"sidebar\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/sflo/ontology/hasPageRegion> ?mainRegion, ?sidebarRegion . ?mainRegion <https://semantic-flow.github.io/sflo/ontology/regionKey> \"main\" . ?sidebarRegion <https://semantic-flow.github.io/sflo/ontology/regionKey> \"sidebar\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -175,12 +175,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/ontology/core/ResourcePageDefinition> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageDefinition> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"alice/alice.md\" . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -196,7 +196,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/ontology/core/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> ; <https://semantic-flow.github.io/ontology/core/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> . }",
               "expectedBoolean": true
             },
             {

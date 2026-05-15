@@ -146,7 +146,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -158,7 +158,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -174,7 +174,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0005> . }",
               "expectedBoolean": true
             }
           ]

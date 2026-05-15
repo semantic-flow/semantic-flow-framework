@@ -108,22 +108,22 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/ontology/core/ResourcePageDefinition> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageDefinition> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/ontology/core/hasPageRegion> ?mainRegion, ?sidebarRegion . ?mainRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"main\" . ?sidebarRegion <https://semantic-flow.github.io/ontology/core/regionKey> \"sidebar\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> <https://semantic-flow.github.io/sflo/ontology/hasPageRegion> ?mainRegion, ?sidebarRegion . ?mainRegion <https://semantic-flow.github.io/sflo/ontology/regionKey> \"main\" . ?sidebarRegion <https://semantic-flow.github.io/sflo/ontology/regionKey> \"sidebar\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"alice/alice.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"alice/alice.md\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/ontology/core/ResourcePageSource> ; <https://semantic-flow.github.io/ontology/core/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
               "expectedBoolean": true
             }
           ]
@@ -139,17 +139,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/ontology/core/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> ; <https://semantic-flow.github.io/ontology/core/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/ontology/core/ResourcePageDefinition>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page/page.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageDefinition>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/workingLocalRelativePath> \"alice/_knop/_page/page.ttl\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> a <https://semantic-flow.github.io/ontology/core/KnopAssetBundle> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> a <https://semantic-flow.github.io/sflo/ontology/KnopAssetBundle> . }",
               "expectedBoolean": true
             },
             {

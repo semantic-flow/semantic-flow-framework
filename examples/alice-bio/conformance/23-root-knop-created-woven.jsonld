@@ -170,7 +170,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0005> . }",
               "expectedBoolean": true
             }
           ]
@@ -231,7 +231,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/ontology/core/hasResourcePageDefinition> ?pageDefinition . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> ?pageDefinition . }",
               "expectedBoolean": false
             }
           ]
