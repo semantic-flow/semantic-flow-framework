@@ -1,0 +1,219 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:14-extracted-term-references",
+  "dcterms:title": "Fantasy Rules Branch-Published 14 extracted term references",
+  "dcterms:description": "Checks curated current-mode canonical ReferenceLinks from representative extracted terms to their source artifacts, without weaving the new ReferenceCatalogs yet.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#add-extracted-term-reference-links",
+      "dcterms:title": "Add representative extracted-term ReferenceLinks",
+      "dcterms:description": "Adds canonical ReferenceLinks for one ontology-extracted term, one SHACL-extracted term, and one example-extracted term. Each link targets the current source artifact rather than a pinned historical state; the pinned source-state relationship remains extraction provenance.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "knop.addReference",
+      "fromRef": "13-all-remaining-terms-woven",
+      "toRef": "14-extracted-term-references",
+      "sourceRef": "10-first-release-source",
+      "targetDesignatorPaths": [
+        "examples/gunaar/ability-score/strength",
+        "ontology/Ability",
+        "ontology/CharacterShape"
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "knop",
+              "add-reference",
+              "ontology/Ability",
+              "--reference-target-designator-path",
+              "ontology",
+              "--reference-role",
+              "Canonical",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "knop",
+              "add-reference",
+              "ontology/CharacterShape",
+              "--reference-target-designator-path",
+              "shacl",
+              "--reference-role",
+              "Canonical",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "knop",
+              "add-reference",
+              "examples/gunaar/ability-score/strength",
+              "--reference-target-designator-path",
+              "examples/gunaar",
+              "--reference-role",
+              "Canonical",
+              "--mesh-root",
+              "{publicationRoot}"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
+      },
+      "hasFileExpectation": [
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Ability/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-references-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Ability/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#character-shape-references-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-strength-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/ability-score/strength/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-strength-references-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/ability-score/strength/_knop/_references/references.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#ability-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ability-references-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-references-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001> <https://semantic-flow.github.io/sflo/ontology/referenceTargetState> ?state . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#character-shape-references-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#character-shape-references-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-strength-references-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-strength-references-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
