@@ -41,6 +41,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#alice-bio-v2-source-ttl",
+          "type": "FileExpectation",
+          "path": "alice-bio-v2.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#alice-bio-s1-ttl",
           "type": "FileExpectation",
           "path": "alice/bio/_history001/_s0001/ttl/alice-bio.ttl",
@@ -87,6 +94,23 @@
               "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> a <https://schema.org/Person> ; <http://xmlns.com/foaf/0.1/name> \"Alice\" ; <https://schema.org/birthDate> \"1990-01-15\"^^<http://www.w3.org/2001/XMLSchema#date> ; <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
               "expectedBoolean": true
             },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob> a <https://schema.org/Person> ; <http://xmlns.com/foaf/0.1/givenName> \"Robert\" ; <http://xmlns.com/foaf/0.1/nick> \"Bob\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#alice-bio-v2-source-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-v2-source-ttl",
+          "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
