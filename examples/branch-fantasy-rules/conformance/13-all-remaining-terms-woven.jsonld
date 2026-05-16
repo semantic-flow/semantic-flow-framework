@@ -1,0 +1,223 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:13-all-remaining-terms-woven",
+  "dcterms:title": "Fantasy Rules Branch-Published 13 all remaining terms woven",
+  "dcterms:description": "Checks broad weaving of the remaining extracted ontology, SHACL, and example terms so every mesh-scoped source IRI has a ResourcePage.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-all-remaining-terms",
+      "dcterms:title": "Weave all remaining extracted terms",
+      "dcterms:description": "Runs a broad weave against the branch-published publication root. The version phase skips already-settled current-only support Knops, versions the remaining extracted term Knops, and the generate phase refreshes ResourcePages across the mesh so all mesh-scoped IRIs from the ontology, SHACL, and Gunaar example sources are page-backed.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+      "operationId": "weave",
+      "fromRef": "12-all-remaining-terms-extracted",
+      "toRef": "13-all-remaining-terms-woven",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "meshRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--mesh-root",
+            "{publicationRoot}"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      },
+      "sourceRef": "10-first-release-source",
+      "targetDesignatorPaths": [
+        "examples/gunaar/ability-score/charisma",
+        "examples/gunaar/ability-score/constitution",
+        "examples/gunaar/ability-score/dexterity",
+        "examples/gunaar/ability-score/intelligence",
+        "examples/gunaar/ability-score/strength",
+        "examples/gunaar/ability-score/wisdom",
+        "examples/gunaar/alignment-history/2016-10-30T03-14-00-04-00",
+        "ontology/Ability",
+        "ontology/AbilityScoreShape",
+        "ontology/Alignment/chaoticEvil",
+        "ontology/Alignment/chaoticGood",
+        "ontology/Alignment/chaoticNeutral",
+        "ontology/Alignment/lawfulEvil",
+        "ontology/Alignment/lawfulGood",
+        "ontology/Alignment/lawfulNeutral",
+        "ontology/Alignment/neutral",
+        "ontology/Alignment/neutralEvil",
+        "ontology/Alignment/neutralGood",
+        "ontology/Alignment/unaligned",
+        "ontology/AlignmentHistory",
+        "ontology/BarbarianPrimaryAbilityChoice",
+        "ontology/BardPrimaryAbilityChoice",
+        "ontology/CharacterClass",
+        "ontology/CharacterPrimaryAbilityByClassShape",
+        "ontology/ClericPrimaryAbilityChoice",
+        "ontology/DruidPrimaryAbilityChoice",
+        "ontology/FighterPrimaryAbilityChoice",
+        "ontology/MonkPrimaryAbilityChoice",
+        "ontology/PaladinPrimaryAbilityChoice",
+        "ontology/RangerPrimaryAbilityChoice",
+        "ontology/RoguePrimaryAbilityChoice",
+        "ontology/SorcererPrimaryAbilityChoice",
+        "ontology/WarlockPrimaryAbilityChoice",
+        "ontology/WizardPrimaryAbilityChoice",
+        "ontology/alignmentValue",
+        "ontology/barbarian",
+        "ontology/bard",
+        "ontology/character",
+        "ontology/charisma",
+        "ontology/cleric",
+        "ontology/constitution",
+        "ontology/dexterity",
+        "ontology/druid",
+        "ontology/effectiveDateTime",
+        "ontology/fighter",
+        "ontology/forAbility",
+        "ontology/hasAbilityScore",
+        "ontology/hasAlignment",
+        "ontology/hasCharacterClass",
+        "ontology/intelligence",
+        "ontology/level",
+        "ontology/monk",
+        "ontology/paladin",
+        "ontology/primaryAbility",
+        "ontology/ranger",
+        "ontology/releases/v0.0.2",
+        "ontology/rogue",
+        "ontology/scoreValue",
+        "ontology/sorcerer",
+        "ontology/strength",
+        "ontology/warlock",
+        "ontology/wisdom",
+        "ontology/wizard",
+        "shacl/releases/v0.0.2"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#ontology-source-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/fantasy-rules-ontology.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#shacl-source-ttl",
+          "type": "FileExpectation",
+          "path": "shacl/fantasy-rules-shacl.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-source-ttl",
+          "type": "FileExpectation",
+          "path": "examples/gunaar.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "unchanged",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/Ability/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#ability-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/Ability/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#ability-score-shape-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/AbilityScoreShape/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#gunaar-strength-page-html",
+          "type": "FileExpectation",
+          "path": "examples/gunaar/ability-score/strength/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#ontology-release-term-page-html",
+          "type": "FileExpectation",
+          "path": "ontology/releases/v0.0.2/index.html",
+          "changeType": "updated"
+        },
+        {
+          "id": "#shacl-release-term-page-html",
+          "type": "FileExpectation",
+          "path": "shacl/releases/v0.0.2/index.html",
+          "changeType": "updated"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScoreShape> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScoreShape/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/index.html> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/index.html> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ability-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_pinned> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
