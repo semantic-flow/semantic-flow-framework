@@ -75,23 +75,28 @@ This is meant to be a realistic vertical slice rather than an exhaustive example
 
 ## Fantasy Rules Branch-Published Ontology
 
-The next planned worked example family should live in `../examples/sidecar-fantasy-rules/`. The directory name is historical; the intended next shape is branch-published ontology delivery rather than a long-lived `docs/` sidecar mesh.
+The Fantasy Rules example family is split across two fixture topologies:
 
-That set should be anchored to [[ont.use-case.dereferenceable-ontology]] and the Weave planning notes [[wd.task.2026.2026-05-02-fantasy-rules-sidecar]] and [[wd.task.2026.2026-05-13_1655-support-gh-pages-branch-based-deployments]]. It should reuse the Alice Bio split:
+- `../examples/sidecar-fantasy-rules/conformance/` covers the docs-rooted sidecar mesh carried by `mesh-sidecar-fantasy-rules`.
+- `../examples/branch-fantasy-rules/conformance/` covers the branch-published mesh carried by `mesh-branch-fantasy-rules`.
+
+Both sets are anchored to [[ont.use-case.dereferenceable-ontology]] and the Weave planning notes [[wd.task.2026.2026-05-02-fantasy-rules-sidecar]], [[wd.task.2026.2026-05-13_1655-support-gh-pages-branch-based-deployments]], and [[wd.task.2026.2026-05-15_1113-mesh-branch-fantasy-rules]]. They follow the Alice Bio split where it applies:
 
 - `api/` for request and response payload examples when a public API slice needs an example
 - `conformance/` for Accord transition manifests
 
-The expected fixture repository may remain `mesh-sidecar-fantasy-rules` for continuity, but the topology should change. Unlike Alice Bio, this example should focus on a clean source branch where authored ontology, SHACL, and example files stay on the normal branch while public identifiers, generated pages, mesh config, inventories, histories, and copied historical release bytes live on a publication branch such as `gh-pages`.
+The sidecar fixture intentionally remains a `docs/` mesh. The branch-published fixture instead keeps authored ontology, SHACL, example, release, attribution, and deterministic replay assets on a clean source branch while public identifiers, generated pages, mesh config, inventories, histories, release bytes, source registries, and references live on publication refs such as `gh-pages`.
 
-The conformance approach should follow Alice Bio where it still fits: one manifest per transition, named after the destination branch only as a convenience. Branch-published manifests also need to distinguish source refs from publication refs because the source branch and generated mesh branch are different trees. The manifests should describe behavior for transitions such as source seeding, publication-branch bootstrap, ontology binding through repository-source locator provenance, SHACL binding, release weaving, and later resource-page improvements. They should not be treated as branch metadata or postponed until the fixture is otherwise complete.
+The conformance approach follows Alice Bio where it still fits: one manifest per transition, named after the destination branch only as a convenience. Branch-published manifests distinguish source refs from publication refs because the source branch and generated mesh branch are different trees. The branch fixture currently uses numeric `a.` refs, with `main` kept close to `a.01-source-only`, publication rungs such as `a.15-extracted-term-references-woven`, and `gh-pages` fast-forwarded to the accepted publication state.
 
-Likely API/example pressure points:
+Current API/example pressure points:
 
 - publication-branch bootstrap with source and publication roots supplied as runtime inputs
 - source bindings that use repository/ref/path/digest provenance rather than host-local sibling paths
-- `integrate` or a deploy orchestration path that materializes authored ontology and SHACL files into a publication-branch mesh
+- `_knop/_sources` source registries for repository materialization bindings and extraction provenance
+- a deploy orchestration path that materializes authored ontology, SHACL, and example files into a publication-branch mesh
 - `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
 - `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
+- extracted term Knops whose source provenance can track the current source artifact while curated `ReferenceLink`s remain separate
 - `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
 - `owl:versionIRI` pointing at versioned `LocatedFile` bytes rather than the abstract historical state

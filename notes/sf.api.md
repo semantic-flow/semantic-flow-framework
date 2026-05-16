@@ -110,6 +110,8 @@ Current direction for that slice:
 - the typical use case is minting identifiers and Knops for the terms mentioned in that source, for example creating identifier surfaces for ontology terms referenced in an ontology document
 - the thin request should identify the existing source artifact being extracted from and may later narrow scope with selectors, target classes, or similar extraction criteria
 - the successful result should at minimum make the created identifiers, Knops, and their discoverable support surfaces visible as outputs of the extraction
+- extraction provenance should be visible as source provenance, not as a curated reference: the extracted Knop links to one primary `ExtractionSource`, while the `ExtractionSource` details live in the Knop's `_knop/_sources` registry together with other source bindings
+- `ReferenceLink`s remain the curated reference surface; a later API may derive reference-link candidates from extraction provenance, but extraction should not silently collapse provenance into reference curation
 - a specific implementation may still carry a narrower first local extract slice, for example extracting one explicitly targeted resource from one existing woven `RdfDocument`, but that narrower runtime slice should not define the broader API concept
 
 Worked examples for this slice are still thinner than the carried `mesh.create` / `knop.create` / `integrate` / `weave` set and should be expanded deliberately rather than implied from the fixture ladder alone.
