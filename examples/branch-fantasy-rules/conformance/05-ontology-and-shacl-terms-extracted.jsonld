@@ -192,6 +192,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#ability-score-sources-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/AbilityScore/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#alignment-meta-ttl",
           "type": "FileExpectation",
           "path": "ontology/Alignment/_knop/_meta/meta.ttl",
@@ -248,6 +255,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#character-shape-sources-ttl",
+          "type": "FileExpectation",
+          "path": "ontology/CharacterShape/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#ability-score-page-html",
           "type": "FileExpectation",
           "path": "ontology/AbilityScore/index.html",
@@ -285,7 +299,19 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ability-score-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-score-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/fantasy-rules-ontology.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:cde2f0ac40fda47f3ecae3a5183825475119129540a3b773950954085f6e9f6f\" . }",
               "expectedBoolean": true
             }
           ]
@@ -297,13 +323,25 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> ?payload . }",
               "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#character-shape-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#character-shape-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/fantasy-rules-shacl.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:37b76cd3bcc9c98b4135d6631dcfed7f039540546e5d398e00306d936ee322a9\" . }",
+              "expectedBoolean": true
             }
           ]
         }

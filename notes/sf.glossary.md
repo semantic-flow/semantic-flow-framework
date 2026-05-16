@@ -49,6 +49,17 @@ Related current-byte rule:
 - `hasWorkingLocatedFile` remains the semantic `LocatedFile` hook
 - when multiple current-byte locators are present for the same working surface, they should identify the same current bytes; mismatch should fail closed rather than silently picking one
 
+## Source Provenance
+
+Source provenance records where bytes used by a Semantic Flow operation came from. In current fixtures this is usually carried in a Knop-owned `_sources` registry, materialized as `_knop/_sources/sources.ttl`.
+
+Two common source-provenance cases are distinct:
+
+- payload source provenance records how a governed artifact was materialized from repository/ref/path/digest-shaped source bytes
+- extraction provenance records which RDF artifact resolved the source facts used to ground an extracted Knop-managed resource
+
+Extraction provenance is not the same thing as a curated `ReferenceLink`. A reference says something intentionally curated about a resource. Extraction provenance says which source bytes justified creating or rendering that extracted identifier. A future operation may derive a curated reference from extraction provenance, but the two records have different meanings.
+
 ## Sidecar Mesh
 
 A sidecar mesh is a `SemanticMesh` that rides alongside the primary source files in a repository rather than being the repository's main subject.

@@ -20,7 +20,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `11-
 
 The next carried extension is the `mesh-sidecar-fantasy-rules` transition from `07-shacl-integrated-woven` to `08-ontology-and-shacl-terms-extracted`. That extension keeps the same non-woven extraction boundary while proving docs-rooted sidecar operation, multiple governed payload artifacts, repeated term extraction, and explicit source-payload selection for terms mentioned by more than one woven RDF document.
 
-The following sidecar weave step proves that an extracted term's public path does not have to match the source artifact path. For example, `ontology/CharacterShape` is extracted into the ontology namespace from a pinned `shacl` source state whose Turtle uses the `fant:` prefix for the ontology IRI.
+The following sidecar weave step proves that an extracted term's public path does not have to match the source artifact path. For example, `ontology/CharacterShape` is extracted into the ontology namespace from a `shacl` source whose Turtle uses the `fant:` prefix for the ontology IRI.
 
 This note is intentionally narrower than a generic RDF graph-refactoring or payload-splitting design. If future fixture work wants broader extraction behavior, that should be specified explicitly rather than inferred from this slice.
 
@@ -29,11 +29,11 @@ This note is intentionally narrower than a generic RDF graph-refactoring or payl
 - the machine-facing job kind and manifest `operationId` stay `extract`
 - the first local CLI surface should be `weave extract <designatorPath>`
 - `designatorPath` is required and identifies the new local Semantic Flow identifier to extract into a minimal Knop-managed surface
-- the first local shared `core` request should stay narrow and target-oriented: target `designatorPath`, resolved source designator path, resolved source state path, current mesh inventory, and the current woven source payload state needed to justify the extraction
+- the first local shared `core` request should stay narrow and target-oriented: target `designatorPath`, resolved source designator path, optional resolved source state path, current mesh inventory, and the current woven source payload state needed to justify the extraction
 - the Alice Bio slice does not expose a separate source-designator selector because only one eligible woven payload artifact mentions `bob`
-- the Fantasy Rules sidecar slice may provide an explicit source designator, such as `--source-designator-path ontology` or `--source-designator-path shacl`, when the target term is mentioned by multiple eligible woven payload artifacts
+- the Fantasy Rules sidecar slice may provide an explicit source designator, such as `--source ontology` or `--source shacl`, when the target term is mentioned by multiple eligible woven payload artifacts
 - the target workspace must already contain `_mesh/_meta/meta.ttl`, `_mesh/_inventory/inventory.ttl`, and at least one already woven payload artifact with an explicit latest historical state
-- in the carried `12` acceptance target, the runtime resolves `bob` from the current working `alice/bio` payload surface and pins Bob's inventory `sfc:ExtractionSource` to `alice/bio/_history001/_s0002`
+- in the carried `12` acceptance target, the runtime resolves `bob` from the current working `alice/bio` payload surface and records Bob's source-registry `sfc:ExtractionSource`; current resolution is the default unless `--source-state` explicitly requests a pin
 - if zero eligible woven payload artifacts mention the target designator, or more than one eligible woven payload artifact mentions it, the first local slice should fail closed rather than guessing
 - when an explicit source designator is provided, that source must identify one eligible woven payload artifact and that payload must mention the target designator; otherwise extraction fails closed
 
@@ -46,9 +46,10 @@ In the current first slice, that means:
 - updating `_mesh/_inventory/inventory.ttl` so the mesh registers `<D/_knop>` as a current `Knop` with `hasWorkingKnopInventoryFile <D/_knop/_inventory/inventory.ttl>`
 - creating `D/_knop/_meta/meta.ttl`
 - creating `D/_knop/_inventory/inventory.ttl`
-- recording `sfc:hasExtractionSource <D/_knop/_inventory#extraction-source>` in the Knop inventory
-- creating one stable `sfc:ExtractionSource` fragment rooted at `<D/_knop/_inventory#extraction-source>`
-- recording that source binding with `sfc:hasTargetArtifact <T>`, `sfc:hasRequestedTargetState <S>`, and `sfc:hasArtifactResolutionMode <.../ArtifactResolutionMode/Pinned>`
+- creating `D/_knop/_sources/sources.ttl`
+- recording `sfc:hasKnopSourceRegistry <D/_knop/_sources>` and `sfc:hasExtractionSource <D/_knop/_sources#extraction-source>` in the Knop inventory
+- creating one stable `sfc:ExtractionSource` fragment rooted at `<D/_knop/_sources#extraction-source>`
+- recording that source binding with `sfc:hasTargetArtifact <T>` and `sfc:hasArtifactResolutionMode`; `Current` is the default mode, while `Pinned` additionally records `sfc:hasRequestedTargetState <S>`
 
 For sidecar term extraction, the mesh inventory update should preserve the existing multi-payload mesh inventory and append the new term Knop facts instead of reconstructing a single-payload inventory shape. The created term support artifacts still use the same minimal KnopMetadata and KnopInventory files; no extraction-specific `ReferenceCatalog` is created. Extraction does not add `hasResourcePage` for the term in the non-woven branch; generated pages belong to the following weave step.
 
@@ -56,7 +57,7 @@ For the carried Bob extraction target:
 
 - `D` is `bob`
 - `T` is `alice/bio`
-- `S` is `alice/bio/_history001/_s0002`
+- `S` is present only for pinned extraction, for example `alice/bio/_history001/_s0002`
 
 ## What Extract Does Not Do
 
@@ -75,11 +76,11 @@ In this first slice, `extract` does not:
 
 ## Invariants
 
-- the created `sfc:ExtractionSource` identity should be a stable fragment IRI rooted at the Knop inventory, not at a historical state
+- the created `sfc:ExtractionSource` identity should be a stable fragment IRI rooted at the Knop source registry, not at a historical state
 - the extracted Knop points to that fragment with `sfc:hasExtractionSource`
-- `sfc:hasArtifactResolutionMode` should be pinned for the current carried extract slices
-- `sfc:hasRequestedTargetState` should point to the latest woven historical state of the source payload artifact, not to the source Knop or to the working payload file
-- the extracted term namespace does not imply the source artifact; consumers should use the inventory `sfc:ExtractionSource` when they need source facts after extraction
+- `sfc:hasArtifactResolutionMode` should be `Current` by default, with `Pinned` used when the caller supplied `--source-state`
+- `sfc:hasRequestedTargetState`, when present, should point to the requested historical state of the source payload artifact, not to the source Knop or to the working payload file
+- the extracted term namespace does not imply the source artifact; consumers should use the Knop's linked source-registry `sfc:ExtractionSource` when they need source facts after extraction
 - `alice-bio.ttl` must remain unchanged
 - existing Alice support artifacts and page files must remain unchanged
 - Bob should gain no `hasPayloadArtifact` relationship in this slice
@@ -98,8 +99,8 @@ This note is adjacent to, but not replaced by:
 The current extract slice is best understood as:
 
 - `knop.create`-like creation of a new minimal Knop support surface
-- plus `ArtifactResolutionTarget`-like creation of an inventory `sfc:ExtractionSource`
-- but with extraction-specific source resolution and an explicit requested target state
+- plus `ArtifactResolutionTarget`-like creation of a source-registry `sfc:ExtractionSource`
+- but with extraction-specific source resolution and optional explicit requested target state
 - and without weave/history/page generation
 
 ## Acceptance Reference
@@ -118,4 +119,4 @@ The sidecar term-extraction behavior-level comparison target is:
 - from ref: `07-shacl-integrated-woven`
 - to ref: `08-ontology-and-shacl-terms-extracted`
 - manifest: `dependencies/github.com/semantic-flow/semantic-flow-framework/examples/sidecar-fantasy-rules/conformance/08-ontology-and-shacl-terms-extracted.jsonld`
-- local CLI execution should run from the fixture workspace root with `--mesh-root docs`, extracting the selected term set with explicit `--source-designator-path` values where needed
+- local CLI execution should run from the fixture workspace root with `--mesh-root docs`, extracting the selected term set with explicit `--source` values where needed

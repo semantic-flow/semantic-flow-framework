@@ -210,6 +210,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#ability-sources-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Ability/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#ability-score-shape-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/AbilityScoreShape/_knop/_inventory/inventory.ttl",
@@ -217,9 +224,23 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#ability-score-shape-sources-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/AbilityScoreShape/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#gunaar-strength-inventory-ttl",
           "type": "FileExpectation",
           "path": "docs/examples/gunaar/ability-score/strength/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#gunaar-strength-sources-ttl",
+          "type": "FileExpectation",
+          "path": "docs/examples/gunaar/ability-score/strength/_knop/_sources/sources.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -274,31 +295,43 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:c8fe09dcea187f153c3f61a53abdf66aa0704208a02cf66cf8017b0d40383acf\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> . }",
               "expectedBoolean": true
             }
           ]
         },
         {
-          "id": "#ability-score-shape-inventory-rdf",
+          "id": "#ability-sources-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#ability-score-shape-inventory-ttl",
+          "targetsFileExpectation": "#ability-sources-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScoreShape/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:515b54634f6a94f4c33cee5387ff6bbfb4b596a41fbbc11a5d32a9861136d13e\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:c8fe09dcea187f153c3f61a53abdf66aa0704208a02cf66cf8017b0d40383acf\" . }",
               "expectedBoolean": true
             }
           ]
         },
         {
-          "id": "#gunaar-strength-inventory-rdf",
+          "id": "#ability-score-shape-sources-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#gunaar-strength-inventory-ttl",
+          "targetsFileExpectation": "#ability-score-shape-sources-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../examples/gunaar.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:e32668363cbc7f0b7fdd27a7b54013b7f902a35755b4e3491117b5d1e6beb554\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScoreShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:515b54634f6a94f4c33cee5387ff6bbfb4b596a41fbbc11a5d32a9861136d13e\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#gunaar-strength-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#gunaar-strength-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_current> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceLocalRelativePath> \"../examples/gunaar.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:e32668363cbc7f0b7fdd27a7b54013b7f902a35755b4e3491117b5d1e6beb554\" . }",
               "expectedBoolean": true
             }
           ]

@@ -83,6 +83,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#bob-knop-sources-ttl",
+          "type": "FileExpectation",
+          "path": "bob/_knop/_sources/sources.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#mesh-inventory-history-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/_history001/index.html",
@@ -275,7 +282,19 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_inventory#extraction-source> . <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> ; <https://semantic-flow.github.io/sflo/ontology/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_pinned> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceManifestation> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002/ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002/ttl/alice-bio.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:37c15e56644d785a550522d7700eccd9465704f18cf4b4e55616db8b8824ea33\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#bob-knop-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#bob-knop-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> ; <https://semantic-flow.github.io/sflo/ontology/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_pinned> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceManifestation> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002/ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002/ttl/alice-bio.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:37c15e56644d785a550522d7700eccd9465704f18cf4b4e55616db8b8824ea33\" . }",
               "expectedBoolean": true
             }
           ]

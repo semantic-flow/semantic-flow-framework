@@ -155,6 +155,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#ability-sources-ttl",
+          "type": "FileExpectation",
+          "path": "docs/ontology/Ability/_knop/_sources/sources.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#ability-page-html",
           "type": "FileExpectation",
           "path": "docs/ontology/Ability/index.html",
@@ -210,7 +217,19 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/index.html> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_inventory#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_pinned> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:c8fe09dcea187f153c3f61a53abdf66aa0704208a02cf66cf8017b0d40383acf\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/index.html> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#ability-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#ability-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/hasRequestedTargetState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_pinned> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:c8fe09dcea187f153c3f61a53abdf66aa0704208a02cf66cf8017b0d40383acf\" . }",
               "expectedBoolean": true
             }
           ]
