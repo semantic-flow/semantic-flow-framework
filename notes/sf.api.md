@@ -32,6 +32,21 @@ For the thin public contract, the current direction is to model all submitted wo
 
 At minimum, `integrate`, `version`, `mesh.create`, and large validation or generation work should be treated as likely candidates for first-class long-running jobs.
 
+## Workspace, Mesh, Integrate, And Import
+
+The thin API should keep the workspace/mesh boundary crisp:
+
+- a workspace is an execution and storage boundary used by an implementation
+- a mesh is the governed Semantic Flow namespace and artifact graph rooted at a `meshBase`
+- local paths, worktrees, branch names, checkout roots, and source-directory grants are implementation/runtime concerns
+- mesh facts are the durable RDF assertions that remain meaningful after the local command has finished
+
+`integrate` binds existing bytes to a mesh designator and creates or updates the governed payload surface for that designator. In a local implementation, those bytes may already be inside the mesh root or may sit in a policy-approved adjacent source directory. The durable result is not "this host path was used"; it is the mesh artifact, its working-byte locator, source provenance, and the updated mesh/Knop support surfaces.
+
+`import` is the boundary-crossing operation for content that should first become a governed in-tree/local artifact before other mesh behavior follows it. This matters most for outside-origin or extra-workspace content, especially page sources. Import establishes the local governed artifact boundary; later `integrate`, page generation, `version`, or `weave` follows that governed artifact rather than a live outside source.
+
+For a branch-published site, files read from the source checkout and bound into the publication mesh are usually `integrate` inputs, not imports. They are trusted source-lane files being associated with mesh identifiers. Use `import` when the operation needs to bring content across an outside boundary and create the governed local copy that later operations should follow.
+
 ## Concrete Slices
 
 Ordering is not especially important here. The useful distinction is between:
@@ -69,19 +84,19 @@ Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 Current direction for that slice:
 
 - the target should identify an existing mesh together with one `designatorPath`
-- the thin request should also carry one semantic `sourceUri` for the bytes being integrated
+- the thin request should also carry one semantic source locator for the bytes being integrated
 - host filesystem paths should stay out of the thin core contract even if a local implementation such as Weave accepts paths or `file:` URLs at its CLI/runtime boundary
-- the local/runtime slice should support both in-mesh local files and policy-approved extra-mesh local files, because that is the main path for associating current bytes with a payload artifact before `weave` / `version`
-- when a local implementation explicitly integrates an extra-mesh current file, it may also create or update a narrow `MeshConfig` access grant for that source so later `weave` / `version` runs can resolve the carried `workingLocalRelativePath`
+- the local/runtime slice should support both in-mesh local files and policy-approved adjacent source files, because that is the main path for associating current bytes with a payload artifact before `weave` / `version`
+- when a local implementation explicitly integrates an adjacent current file, it may also create or update a narrow `MeshConfig` access grant for that source so later `weave` / `version` runs can resolve the carried `workingLocalRelativePath`
 - that generated grant should be visible in mesh-owned config, constrained to the integrated source file or an explicitly requested source directory, and should not imply workspace-wide access
 - the successful result should at minimum make the created payload artifact and Knop surfaces discoverable and surface that the `MeshInventory` was updated
 
-Current open boundary:
+Settled boundary:
 
-- the current Weave CLI/runtime slice already supports workspace-local and policy-approved extra-mesh local file sources
-- the exact local CLI shape for choosing between exact-file grants and directory-prefix grants still needs to be settled
-- whether `integrate` should broaden beyond those local source forms to remote/external locator handling is still open
-- if remote-origin association becomes first-class, it may still be cleaner to keep `import` as the operation that establishes a governed local boundary while `integrate` remains the thinner local-byte-binding surface
+- the current Weave CLI/runtime slice already supports mesh-local and policy-approved adjacent local file sources
+- exact-file access remains implicit in the selected source; directory-prefix grants are explicit local runtime input
+- remote or outside-origin content should generally cross an `import` boundary first, then be integrated or followed as a governed local artifact
+- `integrate` should stay the ordinary operation for binding source-repository files into a branch-published publication mesh
 
 Worked examples for that slice now also live in `../examples/alice-bio/api/`.
 
@@ -133,13 +148,38 @@ Worked examples may still exist for this surface in `../examples/alice-bio/api/`
 
 Current direction for that slice:
 
-- `import` should be the explicit boundary for bringing outside-the-tree or extra-mesh content into a governed in-tree artifact
+- `import` should be the explicit boundary for bringing outside-origin or extra-workspace content into a governed local artifact
 - `import` should stay distinct from `integrate`
-- `integrate` associates bytes with a target designator and payload surface, while `import` establishes a governed local artifact boundary that later operations may follow
-- the thin request should identify an existing mesh together with one semantic outside source, not a host-specific local-path contract
+- `integrate` associates available bytes with a target designator and payload surface, while `import` establishes the governed local artifact boundary that later operations may follow
+- the thin request should identify an existing mesh together with one semantic outside source, not a host-specific local-path contract as the durable API fact
 - the successful result should at minimum make the imported governed artifact and its current working file discoverable
 
-This matters for resource-page source behavior in particular: a page definition should follow the imported in-tree artifact's current working file, not a direct live outside source.
+In the usual import shape, the imported governed copy becomes the artifact's current working file. If that copy is mesh-addressable, it should normally be modeled as the artifact's `hasWorkingLocatedFile`; if the runtime also needs an operational path literal, `workingLocalRelativePath` should identify the same local copy. The outside origin should remain source/provenance, or an explicitly modeled remote locator such as `workingAccessUrl`, rather than becoming the file that page generation follows directly.
+
+This matters for resource-page source behavior in particular: a page definition should follow the imported governed artifact's current working file, not a direct live outside source.
+
+## Branch-Published Ontology Sequence
+
+A branch-published ontology site should be described as a mesh setup and integration sequence, not as a bulk import.
+
+For a source branch such as `main` and a publication branch such as `gh-pages`, the intended portable shape is:
+
+- create the publication mesh with `mesh.create`, using the public Pages base as `meshBase`
+- create a root Knop with `knop.create` for `/` when the mesh root itself should be dereferenceable as a Semantic Flow identifier
+- create a small root welcome/about RDF artifact such as `welcome.ttl` and `integrate` it at `/`
+- put root-page title and description in that RDF, for example with `dcterms:title` and `dcterms:description`
+- let the default ResourcePage renderer use the root payload RDF facts before reaching for a custom `_knop/_page` page-definition artifact
+- integrate source-lane ontology files such as core, config, and SHACL Turtle documents as ordinary payload artifacts at their target designator paths
+- weave/version those payload artifacts with the desired release/history/state/manifestation names
+- run all-terms extraction from the governed source artifacts, with explicit source references when those references should become curated mesh facts
+- weave/generate the extracted term pages and preview the publication branch before pushing
+
+The root designator does not have to identify "the semantic site" as a special kind of resource. For this ontology publication it can simply identify the publication's welcome/about resource, while `_mesh` remains the standardized `SemanticMesh` resource. This keeps three things separate:
+
+- root welcome/about description: ordinary RDF payload for `/`
+- mesh description: standardized `_mesh` resources
+- page composition: optional `ResourcePageDefinition` only when default presentation is not enough
+- outside-origin acquisition: future `import`, used when content must first cross into a governed local artifact
 
 ## Mesh Identity
 
