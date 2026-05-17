@@ -207,12 +207,12 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?rule . }",
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/hasLocalPathAccessRule> ?rule . }",
               "expectedBoolean": false
             },
             {

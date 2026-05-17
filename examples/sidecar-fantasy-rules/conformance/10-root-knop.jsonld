@@ -173,12 +173,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?ontologyRule, ?shaclRule . ?ontologyRule <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../ontology/\" . ?shaclRule <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../shacl/\" . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/sflo/config/hasLocalPathAccessRule> ?ontologyRule, ?shaclRule . ?ontologyRule <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../ontology/\" . ?shaclRule <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../shacl/\" . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?rule <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../examples/\" . }",
+              "query": "ASK { ?rule <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../examples/\" . }",
               "expectedBoolean": false
             }
           ]

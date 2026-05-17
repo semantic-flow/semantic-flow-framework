@@ -274,7 +274,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?rule <https://semantic-flow.github.io/ontology/config/pathPrefix> \"../examples/\" . }",
+              "query": "ASK { ?rule <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../examples/\" . }",
               "expectedBoolean": false
             }
           ]

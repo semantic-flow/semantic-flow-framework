@@ -208,12 +208,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_inventory> ; <https://semantic-flow.github.io/ontology/config/hasConfig> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasMeshMetadata> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasMeshInventory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_inventory> ; <https://semantic-flow.github.io/sflo/config/hasConfig> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> a <https://semantic-flow.github.io/ontology/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/config.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config> a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/config.ttl> . }",
               "expectedBoolean": true
             },
             {
@@ -245,17 +245,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/ontology/config/MeshConfig> . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/ontology/config/hasLocalPathAccessRule> ?rule . }",
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/hasLocalPathAccessRule> ?rule . }",
               "expectedBoolean": false
             }
           ]
