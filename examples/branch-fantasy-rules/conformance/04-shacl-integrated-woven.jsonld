@@ -23,9 +23,9 @@
       "type": "TransitionCase",
       "id": "#shacl-integrated-woven",
       "dcterms:title": "Materialize, integrate, and weave SHACL source",
-      "dcterms:description": "Runs deploy gh-pages with a SHACL source binding. The publication checkpoint keeps the woven ontology surface and adds the SHACL payload, Knop source registry metadata, SHACL Knop support files, and SHACL ResourcePages.",
+      "dcterms:description": "Runs prepare gh-pages with a SHACL source binding. The publication checkpoint keeps the woven ontology surface and adds the SHACL payload, Knop source registry metadata, SHACL Knop support files, and SHACL ResourcePages.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "deploy.ghPages",
+      "operationId": "prepare.ghPages",
       "fromRef": "03-ontology-integrated-woven",
       "toRef": "04-shacl-integrated-woven",
       "hasReplayProfile": {
@@ -36,7 +36,7 @@
           "type": "CommandInvocation",
           "executable": "weave",
           "argv": [
-            "deploy",
+            "prepare",
             "gh-pages",
             "--source-root",
             "{sourceRoot}",

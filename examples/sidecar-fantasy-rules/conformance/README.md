@@ -68,7 +68,7 @@ Expected RDF should use the core Semantic Flow source locator shape:
 - `sflo:sourceRepositoryPath`
 - `sflo:hasContentDigest` on the locator or `sflo:expectsContentDigest` on the target relator when deterministic replay needs a byte pin
 
-The branch-published manifests should reject RDF or config that serializes developer-specific paths such as `../mesh-sidecar-fantasy-rules-source/ontology/fantasy-rules-ontology.ttl`. A fixture runner may accept local source root and publication root paths as command inputs, deploy profile values, or CI checkout layout, but those paths are operational inputs, not public mesh facts.
+The branch-published manifests should reject RDF or config that serializes developer-specific paths such as `../mesh-sidecar-fantasy-rules-source/ontology/fantasy-rules-ontology.ttl`. A fixture runner may accept local source root and publication root paths as command inputs, configured publication-root values, or CI checkout layout, but those paths are operational inputs, not public mesh facts.
 
 Raw URLs may appear as access/rendering hints when useful, but URL-first source binding is not the default contract. Repository/ref/path/digest provenance is the durable model because it works for local worktrees, CI checkouts, private repositories, pinned commits, and deterministic replay.
 

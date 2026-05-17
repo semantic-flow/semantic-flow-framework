@@ -23,9 +23,9 @@
       "type": "TransitionCase",
       "id": "#publication-bootstrapped-woven",
       "dcterms:title": "Bootstrap and weave branch-published publication root",
-      "dcterms:description": "Runs deploy gh-pages with separate source and publication roots, then weaves the publication root directly. Source files are not copied into the publication output in this first rung.",
+      "dcterms:description": "Runs prepare gh-pages with separate source and publication roots, then weaves the publication root directly. Source files are not copied into the publication output in this first rung.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "deploy.ghPages",
+      "operationId": "prepare.ghPages",
       "fromRef": "01-source-only",
       "toRef": "02-publication-bootstrapped-woven",
       "hasReplayProfile": {
@@ -37,7 +37,7 @@
             "type": "CommandInvocation",
             "executable": "weave",
             "argv": [
-              "deploy",
+              "prepare",
               "gh-pages",
               "--source-root",
               "{sourceRoot}",

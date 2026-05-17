@@ -23,9 +23,9 @@
       "type": "TransitionCase",
       "id": "#ontology-integrated-woven",
       "dcterms:title": "Materialize, integrate, and weave ontology source",
-      "dcterms:description": "Runs deploy gh-pages with an ontology source binding. The source checkout remains clean; the publication checkpoint gains the ontology payload, Knop source registry metadata, ontology Knop support files, and ontology ResourcePages.",
+      "dcterms:description": "Runs prepare gh-pages with an ontology source binding. The source checkout remains clean; the publication checkpoint gains the ontology payload, Knop source registry metadata, ontology Knop support files, and ontology ResourcePages.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "deploy.ghPages",
+      "operationId": "prepare.ghPages",
       "fromRef": "02-publication-bootstrapped-woven",
       "toRef": "03-ontology-integrated-woven",
       "hasReplayProfile": {
@@ -36,7 +36,7 @@
           "type": "CommandInvocation",
           "executable": "weave",
           "argv": [
-            "deploy",
+            "prepare",
             "gh-pages",
             "--source-root",
             "{sourceRoot}",

@@ -55,7 +55,7 @@
             "type": "CommandInvocation",
             "executable": "weave",
             "argv": [
-              "deploy",
+              "prepare",
               "gh-pages",
               "--source-root",
               "{sourceRoot}",
@@ -102,7 +102,7 @@
             "type": "CommandInvocation",
             "executable": "weave",
             "argv": [
-              "deploy",
+              "prepare",
               "gh-pages",
               "--source-root",
               "{sourceRoot}",
@@ -149,7 +149,7 @@
             "type": "CommandInvocation",
             "executable": "weave",
             "argv": [
-              "deploy",
+              "prepare",
               "gh-pages",
               "--source-root",
               "{sourceRoot}",

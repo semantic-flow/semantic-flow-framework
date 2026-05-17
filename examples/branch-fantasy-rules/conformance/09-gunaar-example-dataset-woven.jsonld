@@ -23,9 +23,9 @@
       "type": "TransitionCase",
       "id": "#materialize-and-weave-gunaar-example-dataset",
       "dcterms:title": "Materialize and weave the Gunaar example dataset",
-      "dcterms:description": "Runs deploy gh-pages with the Gunaar example source binding. The clean source ref supplies examples/gunaar.ttl; the publication root records repository source provenance in a per-Knop _sources registry and gets generated ResourcePages for the dataset and support artifacts.",
+      "dcterms:description": "Runs prepare gh-pages with the Gunaar example source binding. The clean source ref supplies examples/gunaar.ttl; the publication root records repository source provenance in a per-Knop _sources registry and gets generated ResourcePages for the dataset and support artifacts.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "deploy.ghPages",
+      "operationId": "prepare.ghPages",
       "fromRef": "08-root-and-examples-knops-woven",
       "toRef": "09-gunaar-example-dataset-woven",
       "hasReplayProfile": {
@@ -36,7 +36,7 @@
           "type": "CommandInvocation",
           "executable": "weave",
           "argv": [
-            "deploy",
+            "prepare",
             "gh-pages",
             "--source-root",
             "{sourceRoot}",
