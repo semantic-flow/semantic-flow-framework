@@ -34,7 +34,7 @@ For a docs-rooted sidecar mesh, that means:
 
 The file should be treated like other support RDF: discoverable from mesh inventory, versionable by Weave, and suitable for conformance fixtures. It should not live at a repository root name such as `.sf-repo-access.ttl`, because meshes do not always occupy an entire repository and do not always live in repositories.
 
-A newly created sidecar mesh should include a `MeshConfig` support artifact when the caller specifies a workspace root that differs from the mesh root. For example, `weave mesh create --workspace . --mesh-root docs ...` should create `docs/_mesh/_config/config.ttl`. Whole-root meshes do not need a config artifact merely to record that the workspace root and mesh root are the same.
+A newly created sidecar mesh should include a `MeshConfig` support artifact when the caller specifies a workspace root that differs from the mesh root. For example, `weave mesh create --workspace . --mesh-root docs ...` should create `docs/_mesh/_config/config.ttl`. Whole-root meshes do not need a config artifact merely to record that the workspace root and mesh root are the same, but they may still need one when portable mesh config such as a publication profile is selected or resolved.
 
 The sidecar `MeshConfig` should record the portable workspace relationship with `sfcfg:workspaceRootRelativeToMeshRoot`. For a `docs/` sidecar, that value is `"../"`. This is a relative relationship from the mesh root to the containing workspace root; it is not an absolute host path and it does not grant access by itself.
 
@@ -74,6 +74,15 @@ This is different from treating `docs` as the workspace. `docs` is the mesh root
 
 The default `--mesh-root .` keeps whole-repo meshes such as Alice Bio ergonomic. A sidecar mesh opts into a non-root mesh location.
 
-## Pages Defaults
+## Publication Profiles
 
-When the mesh base looks like a GitHub Pages target, `mesh.create` should include `.nojekyll` by default unless the caller opts out. That publishing guard belongs to mesh creation because it affects the public static surface, not because it is RDF configuration.
+Publication-host behavior should be represented as a mesh-carried publication profile rather than as hidden mesh bootstrap behavior.
+
+Use `sfcfg:hasPublicationProfile` on `MeshConfig` to persist the resolved concrete publication profile for the mesh. Initial profile values include:
+
+- `sfcfg:publicationProfile_none`
+- `sfcfg:publicationProfile_githubPages`
+
+Request-time `auto` is not a persisted publication profile. It is a resolution mode. If `mesh.create` receives `publicationProfile=auto`, the operation may infer a concrete profile from strong signals such as a `meshBase` under `github.io`, but it should record the resolved concrete value in `MeshConfig` and report it in the operation result. Arbitrary custom domains should not imply GitHub Pages by themselves.
+
+The GitHub Pages profile may create or validate `.nojekyll` and optional `CNAME` during the same user-facing create operation. Those files are static host controls, not RDF support artifacts, and should not be listed in mesh inventory.

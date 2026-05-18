@@ -42,6 +42,9 @@ It is not currently the operation that performs semantic changes such as:
 - integrating a payload artifact
 - introducing a new reference
 - extracting a newly managed resource from referenced data
+- importing or synchronizing source bytes from another root, branch, repository, or remote location
+- applying publication-host preset controls such as GitHub Pages `.nojekyll` or `CNAME`
+- committing, pushing, or otherwise publishing a git worktree
 
 Those semantic changes happen in the non-woven branch state first. The woven branch then versions, validates, and renders the resulting current surface.
 
@@ -156,6 +159,18 @@ The same pattern held for:
 - `08` then `09` for ReferenceCatalog introduction
 - `12` then `13` for Bob extraction
 - `08` then `09` in the Fantasy Rules sidecar for ontology and SHACL term extraction
+
+### The `weave` operation does not synchronize source repositories
+
+`weave` may follow current-byte locators that are already part of the governed artifact surface and allowed by the active operational policy.
+
+It should not inspect source repository metadata, fetch remote content, copy source files into a publication tree, or update source provenance as a hidden preparation step. If current bytes live outside the mesh tree, either the active local policy must already allow that locator, or a prior import/source-sync operation must have made those bytes available.
+
+### The `weave` operation does not apply publication-host presets
+
+Static host controls such as `.nojekyll`, `CNAME`, redirect files, or hosting-platform build hints are publication-host preset concerns.
+
+`weave` can generate and validate the Semantic Flow surface that will be published, but it should not own host-specific setup or git publication actions such as local commits, tags, pushes, or deployment triggers.
 
 ### The `weave` operation does not automatically widen mesh inventory for every internal change
 
@@ -330,3 +345,4 @@ This note does not specify:
 
 - [[wa.completed.2026.2026-03-25-mesh-alice-bio]]
 - [[ont.reference-links]]
+- [[sf.spec.2026-05-18-publication-source-sync]]

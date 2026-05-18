@@ -33,6 +33,7 @@ This note is intentionally narrower than a generic RDF graph-refactoring or payl
 - the Alice Bio slice does not expose a separate source-designator selector because only one eligible woven payload artifact mentions `bob`
 - the Fantasy Rules sidecar slice may provide an explicit source designator, such as `--source ontology` or `--source shacl`, when the target term is mentioned by multiple eligible woven payload artifacts
 - the target workspace must already contain `_mesh/_meta/meta.ttl`, `_mesh/_inventory/inventory.ttl`, and at least one already woven payload artifact with an explicit latest historical state
+- extraction resolves governed payload artifacts that are already present in the mesh; import or source synchronization is a preceding operation when the relevant source bytes must first be copied into the mesh/publication tree
 - in the carried `12` acceptance target, the runtime resolves `bob` from the current working `alice/bio` payload surface and records Bob's source-registry `sfc:ExtractionSource`; current resolution is the default unless `--source-state` explicitly requests a pin
 - if zero eligible woven payload artifacts mention the target designator, or more than one eligible woven payload artifact mentions it, the first local slice should fail closed rather than guessing
 - when an explicit source designator is provided, that source must identify one eligible woven payload artifact and that payload must mention the target designator; otherwise extraction fails closed
@@ -72,6 +73,7 @@ In this first slice, `extract` does not:
 - create `bob/index.html`, `bob/_knop/index.html`, `bob/_knop/_meta/index.html`, or `bob/_knop/_inventory/index.html`
 - run `weave`, `version`, `validate`, or `generate` as separate historical-materialization steps
 - expose a broad source-selection or graph-surgery API
+- fetch, copy, or import source repository bytes
 - introduce daemon behavior
 
 ## Invariants
@@ -95,6 +97,7 @@ This note is adjacent to, but not replaced by:
 
 - [[sf.spec.2026-04-03-weave-behavior]]
 - [[sf.spec.2026-04-04-knop-add-reference-behavior]]
+- [[sf.spec.2026-05-18-publication-source-sync]]
 
 The current extract slice is best understood as:
 

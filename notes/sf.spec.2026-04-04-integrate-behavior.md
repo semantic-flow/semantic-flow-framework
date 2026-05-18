@@ -24,12 +24,17 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - the first local CLI surface takes the source artifact as the primary positional input and requires `designatorPath` either as a second positional argument or via `--designator-path`
 - the target workspace must already contain `_mesh/_meta/meta.ttl` and `_mesh/_inventory/inventory.ttl`
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI
-- the current local runtime slice accepts only an existing local source file in the workspace, addressed either by path or equivalent `file:` URL
-- shared `core` planning should operate on the resulting mesh-relative working file path rather than on a host filesystem path
+- the current first local runtime slice accepts an existing local source file in the workspace, addressed either by path or equivalent `file:` URL
+- broader runtime profiles may accept policy-approved adjacent source files; if a separate-root or separate-repository source must be copied into the mesh/publication tree first, that copy step is `import` or source synchronization, not `integrate`
+- shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
 ## What Integrate Does
 
 `integrate` establishes the first payload-artifact surface for a designator in an existing mesh.
+
+The semantic boundary is the same whether the source bytes stay in the mesh tree, an adjacent source root, the same repository, or a separate repository. Topology affects operational policy and provenance; it should not decide whether the operation is called `integrate`.
+
+`integrate` leaves the source bytes where they are. Bringing bytes into the mesh or publication tree as a new governed local copy is `import` or source synchronization. If `integrate` is later run against that imported copy, the copy already exists before integration begins.
 
 In the current first slice, that means:
 
@@ -47,12 +52,14 @@ In this first slice, `integrate` does not:
 - create `alice/bio/index.html` or any Knop support-artifact pages
 - run `weave`, `version`, `validate`, or `generate`
 - auto-create referenced-resource Knops such as `bob`
-- copy, relocate, or rewrite the working payload bytes
-- fetch remote sources or introduce daemon behavior
+- copy, relocate, import, or rewrite the working payload bytes
+- fetch or synchronize remote/separate-repository sources implicitly; import or source synchronization must be explicitly requested and policy-approved
+- introduce daemon behavior
 
 ## Invariants
 
 - the source payload bytes remain unchanged by the operation
+- any source locator recorded in public mesh state must be portable and provenance-bearing, not an absolute checkout-local path
 - `_mesh/_meta/meta.ttl` and previously woven pages such as `alice/index.html` remain unchanged
 - the created and updated files should match the current intended `06-alice-bio-integrated` fixture state for Alice Bio
 - if the target payload-Knop support-artifact files already exist, the operation should fail closed rather than silently overwrite them
@@ -67,3 +74,7 @@ The first behavior-level comparison target is:
 - to ref: `06-alice-bio-integrated`
 - manifest: `dependencies/github.com/semantic-flow/semantic-flow-framework/examples/alice-bio/conformance/06-alice-bio-integrated.jsonld`
 - local CLI execution should match that manifest-scoped result
+
+## Related Specs
+
+- [[sf.spec.2026-05-18-publication-source-sync]]

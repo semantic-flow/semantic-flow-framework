@@ -429,3 +429,7 @@ This note does not specify:
 - a generic CMS or live remote-content pipeline
 - historical page-definition versioning policy in detail
 - support-artifact page customization beyond the current identifier page
+
+## Related Specs
+
+- [[sf.spec.2026-05-18-publication-source-sync]]
