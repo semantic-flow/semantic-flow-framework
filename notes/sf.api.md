@@ -2,7 +2,7 @@
 id: 9qb50tea1tul63dt6tlnaac
 title: Semantic Flow API
 desc: ''
-updated: 1775267145775
+updated: 1779162382393
 created: 1774307702138
 ---
 
@@ -42,11 +42,13 @@ At minimum, `mesh.create`, `integrate`, `version`, `weave`, and large validation
 - `knop.create`: creates the first Knop-managed support surface for one designator in an existing mesh. See [[sf.spec.2026-04-03-knop-create]].
 - `integrate`: binds available source bytes to a target designator and payload artifact surface without moving the source bytes. Source bytes may be mesh-local, policy-approved live local bytes, or repository-backed bytes resolved with working, latest-state, or exact source policy. Sidecar and branch-published ontology payloads should use `integrate`. See [[sf.spec.2026-04-04-integrate-behavior]] and [[sf.spec.2026-05-18-publication-source-binding]].
 - `knop.addReference`: creates or updates a Knop-owned `ReferenceCatalog` with curated `ReferenceLink` facts. See [[sf.spec.2026-04-04-knop-add-reference-behavior]].
-- `weave`: versions, validates, and generates the current mesh surface. It does not create semantic integrations, fetch source repositories, apply host presets, or publish git refs. See [[sf.spec.2026-04-03-weave-behavior]].
+- `weave`: the default orchestration job for recording eligible governed working artifacts and, by default, running the configured versioning, validation, and generation phases. It may expose options such as `--validate-before` and `--validate-after` for whole-mesh validation, but it does not create semantic integrations, fetch source repositories, apply host presets, or publish git refs. See [[sf.spec.2026-04-03-weave-behavior]].
 - `extract`: creates identifiers and Knop support surfaces for resources already mentioned in governed source artifacts. See [[sf.spec.2026-04-05-extract-behavior]].
 - `payload.update`: replaces the current working bytes of an already managed payload artifact as a local convenience, without itself versioning or rendering. See [[sf.spec.2026-04-04-payload-update-behavior]].
 - `import`: copies a working file into the mesh or publication tree so that the copy becomes a governed local working file. It is not the operation for ordinary sidecar or branch-published ontology source binding. The full `import` operation still needs its own behavior spec; first-pass page-source constraints are covered in [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
-- `version`, `validate`, and `generate`: may be exposed separately, but their current combined behavior is specified through [[sf.spec.2026-04-03-weave-behavior]] until separate specs are needed.
+- `version`: a narrower operation for explicitly appending versioned payload states, using selected history and next-state intent when supplied.
+- `validate`: a narrower operation for reporting problems without recording new state. Initial scopes are `validate mesh` for whole-mesh validation and `validate publication` for narrower publication-readiness checks. Whole-mesh validation should include retained publication checks when a publication surface or profile exists.
+- `generate`: a narrower operation for rendering ResourcePages and other generated surfaces from the current mesh state.
 - publication/source binding: not a single core job kind by default. It is a composed boundary for integration, optional import, publication validation, host presets, optional git output handling, and later explicit update/refresh when source-bound or imported bytes change. See [[sf.spec.2026-05-18-publication-source-binding]].
 
 Identifier-page customization and root lifecycle behavior are specified separately because they are mostly about generated public page authority and source resolution rather than a standalone submitted job. See [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
@@ -76,7 +78,8 @@ The intended portable shape is:
 - apply the selected publication-host preset if one is needed.
 - make source-lane bytes available through mesh-local files, allowed live local locators, or repository-backed locators with working, latest-state, or exact source policy.
 - `integrate` governed payload artifacts at their target designator paths.
-- `weave`, `version`, `validate`, and `generate` those payloads with the desired history/state/manifestation naming.
+- run default `weave` for the normal record/version/validate/generate workflow.
+- use narrower `version`, `validate mesh`, `validate publication`, or `generate` operations when a workflow needs those phases separated.
 - run extraction and reference curation over governed artifacts when term pages or curated links are needed.
 - validate and publish the resulting tree through implementation-specific CI/CD or git output handling.
 

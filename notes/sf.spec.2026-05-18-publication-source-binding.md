@@ -8,9 +8,9 @@ created: 1779113220000
 
 ## Purpose
 
-This note captures the intended Semantic Flow behavior boundary for publication setup, source binding, explicit import, update/refresh, and host-specific publication controls.
+This note captures the intended Semantic Flow behavior boundary for publication setup, source binding, explicit import, update/refresh, validation, and host-specific publication controls.
 
-It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. A Weave implementation may keep `prepare gh-pages` temporarily as a transitional CLI wrapper, but portable Semantic Flow behavior should be expressed through mesh bootstrap, integration, ordinary weave/version/generate work, publication validation, optional host presets, and explicit import only when a working file is intentionally copied into the mesh. Later source changes should be handled through explicit update/refresh operations for source-bound or imported bytes.
+It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. There should be no durable `prepare gh-pages` API concept and no compatibility wrapper in the portable model. Publication setup should be expressed through mesh bootstrap, integration, default `weave` orchestration or narrower version/validate/generate operations, optional host presets, and explicit import only when a working file is intentionally copied into the mesh. Later source changes should be handled through explicit update/refresh operations for source-bound or imported bytes.
 
 ## Status
 
@@ -27,9 +27,12 @@ The portable pieces are:
 - `mesh.create` establishes the `SemanticMesh` support surface at a mesh root.
 - `integrate` establishes governed payload-artifact surfaces by linking to available source bytes without moving those bytes.
 - `import` copies a working file into the mesh or publication tree when the copy itself should become the governed local working file.
-- `weave`, `version`, `validate`, and `generate` record and render the current mesh state.
+- `weave` is the default orchestration surface: it records eligible governed working artifacts and, by default, runs the configured versioning, validation, and generation phases.
+- `version` is the narrower surface for explicitly appending versioned payload states.
+- `validate` is the narrower surface for reporting mesh or publication problems without recording new state.
+- `generate` is the narrower surface for rendering ResourcePages and other generated surfaces from the current mesh state.
 - publication-host presets add static-host controls such as GitHub Pages `.nojekyll`.
-- publication validation checks that the generated/public tree is publishable under the selected operational profile.
+- publication validation checks concrete publication-readiness concerns under the selected operational profile.
 - optional git output handling commits, tags, pushes, or otherwise publishes the resulting tree.
 
 No one of those pieces is inherently tied to `gh-pages`.
@@ -82,10 +85,7 @@ Ordinary import is usually a one-time acquisition boundary for one governed loca
 
 Static host controls are modular publication-host presets.
 
-For now, the GitHub Pages preset may create or validate:
-
-- `.nojekyll` at the publication root.
-- host-specific publish-root constraints needed by GitHub Pages.
+For now, the GitHub Pages preset may create or validate `.nojekyll` at the publication root.
 
 Custom-domain host files are human-owned for now. A user publishing GitHub Pages through a custom domain should explicitly select the GitHub Pages profile; the profile still only manages `.nojekyll`.
 
@@ -99,14 +99,22 @@ The resolved publication profile should be persisted in mesh-carried config when
 
 Publication validation is generic even when host presets add host-specific checks.
 
-Useful checks include:
+Validation should use explicit scopes:
 
-- source root and mesh or publication root are distinct when the chosen topology requires distinct roots.
-- the mesh root remains inside the configured workspace boundary.
-- generated outputs are fresh relative to the current mesh state, or the operation clearly reports stale generated output.
+- `weave validate mesh`: whole-mesh validation. This should grow over time into the comprehensive mesh integrity check and should include retained publication-readiness checks when a publication surface or profile exists.
+- `weave validate publication`: publication-readiness validation only. This may remain as a narrower convenience for release and page-regeneration workflows.
+
+For ordinary weaving, implementations may expose validation options such as `--validate-before` and `--validate-after`. Those options should invoke whole-mesh validation, not a publication-only validation mode.
+
+First-pass publication validation candidates are:
+
 - public RDF and HTML do not leak absolute host-local paths such as `/home/...`, `file:///...`, or checkout-specific temporary paths.
-- relative operational paths do not escape their allowed boundary unless that boundary is explicitly configured.
-- dirty publication worktrees are reported as warnings by default, because a human may intentionally stage local static files such as a favicon before committing.
+- selected host presets are satisfied; for GitHub Pages this currently means `.nojekyll`.
+- dirty publication worktrees warn only when an operation requests an optional local commit.
+
+Generated-output freshness is not a publication validation rule for now. "Stale" depends on generation policy, current renderer/config, and caller expectation. If needed later, freshness should be designed as generation check behavior rather than default publication validation.
+
+Source-root/publication-root boundary checking is deferred until operations expose planned read/write sets or equivalent path-policy hooks. When revisited, it should check actual planned behavior rather than infer from filesystem layout alone.
 
 Validation should be usable for sidecar meshes, whole-repository meshes, and branch-published meshes. It is not a `gh-pages`-only concern.
 
@@ -132,11 +140,10 @@ The old `prepare gh-pages` shape bundled too many concerns:
 - source binding/integration.
 - source copying only for cases that intentionally create a mesh-local working-file copy.
 - provenance updates.
-- stale-output checks.
 - path leakage checks.
 - optional local commit.
 
-Those responsibilities should be factored into the generic pieces above. If a CLI keeps `prepare gh-pages` while the pieces are being implemented, it should behave as a named wrapper over those pieces rather than as a separate Semantic Flow API concept.
+Those responsibilities should be factored into the generic pieces above. `prepare gh-pages` should be removed rather than preserved as a wrapper.
 
 ## Invariants
 
@@ -149,6 +156,7 @@ Those responsibilities should be factored into the generic pieces above. If a CL
 - `integrate` leaves source bytes where they are and records working/current or exact source policy.
 - Source copies are explicit imports and are provenance-bearing.
 - `weave` does not fetch, copy, import, or refresh source bytes as a hidden preparation step.
+- `weave --validate-before` and `weave --validate-after`, if exposed, run whole-mesh validation.
 - Public outputs should not contain absolute host-local paths or checkout-specific implementation details.
 - A re-run over unchanged source bytes, unchanged config, and unchanged target designators should either be a no-op or reproduce the same semantic current surface.
 
