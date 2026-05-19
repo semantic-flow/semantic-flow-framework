@@ -46,6 +46,8 @@ It is not currently the operation that performs semantic changes such as:
 - applying publication-host preset controls such as GitHub Pages `.nojekyll`
 - committing, pushing, or otherwise publishing a git worktree
 
+Payload history and next-state selection are current/progression metadata, not hidden versioning. Updating a payload artifact's `sflo:currentArtifactHistory` or a selected history's `sfcfg:hasNextStateSegmentHint` must not create a `HistoricalState` by itself. Those facts steer a later explicit `version` operation or the versioning phase of `weave`.
+
 Those semantic changes happen in the non-woven branch state first. The woven branch then versions, validates, and renders the resulting current surface.
 
 ## Branch Semantics
