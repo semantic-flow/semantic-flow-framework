@@ -97,6 +97,6 @@ Current API/example pressure points:
 - a deploy orchestration path that materializes authored ontology, SHACL, and example files into a publication-branch mesh
 - `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
 - `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
-- extracted term Knops whose source provenance can track the current source artifact while curated `ReferenceLink`s remain separate
+- extracted term Knops whose source provenance can track the working source artifact while curated `ReferenceLink`s remain separate
 - `RdfDocument` resource pages that expose raw RDF bytes when those bytes are locally available
 - `owl:versionIRI` pointing at versioned `LocatedFile` bytes rather than the abstract historical state

@@ -242,7 +242,7 @@ That includes at least these cases:
 - a `targetAccessUrl` source is present, but the active operational profile does not allow remote target access
 - a governed source artifact has inconsistent `workingLocalRelativePath` and `hasWorkingLocatedFile` assertions for the same current working surface
 - a governed source artifact resolves only through `workingAccessUrl`, but the active operational profile does not allow remote current-byte access
-- a pinned in-mesh source cannot be resolved under `ExactOnly`
+- an exact in-mesh source cannot be resolved under `ExactOnly`
 - an imported-source artifact lacks the in-tree governed artifact or current `WorkingLocatedFile` that generation is supposed to follow
 - a page definition attempts to point directly at outside-the-tree or extra-mesh live content instead of an imported in-tree artifact
 - a required `_knop/_assets` file is missing

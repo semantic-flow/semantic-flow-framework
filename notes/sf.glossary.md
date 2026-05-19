@@ -28,13 +28,13 @@ Typical consequences:
 - if the target is a `DigitalArtifact` in `Working` mode and that artifact also declares `workingLocalRelativePath`, local runtime resolution should follow `workingLocalRelativePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
 - if the target is a `DigitalArtifact` in `Working` mode and that artifact declares `workingAccessUrl`, a runtime may use that URL only when its operational profile explicitly permits remote working-byte access
 - if the target is a `DigitalArtifact` in `LatestState` mode, resolution follows the latest settled `HistoricalState`; a requested `ArtifactHistory` bounds that search to that history
-- if the target declares an exact `HistoricalState`, `LocatedFile`, manifestation/distribution, commit, or digest, the target is exact by default without needing `Pinned`
+- if the target declares an exact `HistoricalState`, `LocatedFile`, manifestation/distribution, commit, or digest, the target is exact by default without needing an additional resolution mode
 - if the target is a direct `targetLocalRelativePath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
 - if the target is a direct `targetAccessUrl`, resolution may use that URL only when its operational profile explicitly permits remote target access
 - if the target is already a direct `LocatedFile`, no artifact-history lookup is needed; resolution can use that file directly
 - imported content is not a separate resolution kind once imported; after import it participates in governed artifact resolution like any other managed `DigitalArtifact`
 
-`Current` is a legacy ambiguous mode name. Use `Working` for mutable working/source bytes and `LatestState` for the latest settled historical state. `Pinned` is now mostly a legacy exactness hint; exact target coordinates pin identity by themselves.
+Use `Working` for mutable working/source bytes and `LatestState` for the latest settled historical state. Exact target coordinates fix identity by themselves.
 
 So the important split is not “artifact source vs imported source.” The important split is:
 

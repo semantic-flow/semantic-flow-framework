@@ -26,7 +26,7 @@
       "type": "TransitionCase",
       "id": "#weave-extracted-term-reference-catalogs",
       "dcterms:title": "Weave extracted-term ReferenceCatalogs",
-      "dcterms:description": "Runs a publication-root weave after curated current-mode canonical ReferenceLinks were added for representative extracted terms. The weave versions the new ReferenceCatalogs, advances the owning Knop inventories, and generates the catalog ResourcePages.",
+      "dcterms:description": "Runs a publication-root weave after curated working-source canonical ReferenceLinks were added for representative extracted terms. The weave versions the new ReferenceCatalogs, advances the owning Knop inventories, and generates the catalog ResourcePages.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
       "operationId": "weave",
       "fromRef": "14-extracted-term-references",

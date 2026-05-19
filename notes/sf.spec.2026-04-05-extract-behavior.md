@@ -34,7 +34,7 @@ This note is intentionally narrower than a generic RDF graph-refactoring or payl
 - the Fantasy Rules sidecar slice may provide an explicit source designator, such as `--source ontology` or `--source shacl`, when the target term is mentioned by multiple eligible woven payload artifacts
 - the target workspace must already contain `_mesh/_meta/meta.ttl`, `_mesh/_inventory/inventory.ttl`, and at least one already woven payload artifact with an explicit latest historical state
 - extraction resolves governed payload artifacts that are already present in the mesh; `integrate` is the preceding source-binding operation, and `import` is used only when the relevant source file must first be copied into the mesh/publication tree
-- in the carried `12` acceptance target, the runtime resolves `bob` from the current working `alice/bio` payload surface and records Bob's source-registry `sfc:ExtractionSource`; current resolution is the default unless `--source-state` explicitly requests a pin
+- in the carried `12` acceptance target, the runtime resolves `bob` from the working `alice/bio` payload surface and records Bob's source-registry `sfc:ExtractionSource`; working resolution is the default unless `--source-state` explicitly requests an exact historical state
 - if zero eligible woven payload artifacts mention the target designator, or more than one eligible woven payload artifact mentions it, the first local slice should fail closed rather than guessing
 - when an explicit source designator is provided, that source must identify one eligible woven payload artifact and that payload must mention the target designator; otherwise extraction fails closed
 
@@ -50,7 +50,7 @@ In the current first slice, that means:
 - creating `D/_knop/_sources/sources.ttl`
 - recording `sfc:hasKnopSourceRegistry <D/_knop/_sources>` and `sfc:hasExtractionSource <D/_knop/_sources#extraction-source>` in the Knop inventory
 - creating one stable `sfc:ExtractionSource` fragment rooted at `<D/_knop/_sources#extraction-source>`
-- recording that source binding with `sfc:hasTargetArtifact <T>` and `sfc:hasArtifactResolutionMode`; `Working` follows mutable working bytes, while an exact extraction records `sfc:hasRequestedTargetState <S>` and does not need `Pinned` to make that state exact
+- recording that source binding with `sfc:hasTargetArtifact <T>` plus either `sfc:hasArtifactResolutionMode` for mutable working-byte resolution or `sfc:hasRequestedTargetState <S>` for exact settled-state resolution
 
 For sidecar term extraction, the mesh inventory update should preserve the existing multi-payload mesh inventory and append the new term Knop facts instead of reconstructing a single-payload inventory shape. The created term support artifacts still use the same minimal KnopMetadata and KnopInventory files; no extraction-specific `ReferenceCatalog` is created. Extraction does not add `hasResourcePage` for the term in the non-woven branch; generated pages belong to the following weave step.
 

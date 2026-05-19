@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:branch-fantasy-rules:14-extracted-term-references",
   "dcterms:title": "Fantasy Rules Branch-Published 14 extracted term references",
-  "dcterms:description": "Checks curated current-mode canonical ReferenceLinks from representative extracted terms to their source artifacts, without weaving the new ReferenceCatalogs yet.",
+  "dcterms:description": "Checks curated working-source canonical ReferenceLinks from representative extracted terms to their source artifacts, without weaving the new ReferenceCatalogs yet.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#add-extracted-term-reference-links",
       "dcterms:title": "Add representative extracted-term ReferenceLinks",
-      "dcterms:description": "Adds canonical ReferenceLinks for one ontology-extracted term, one SHACL-extracted term, and one example-extracted term. Each link targets the current source artifact rather than a pinned historical state; the pinned source-state relationship remains extraction provenance.",
+      "dcterms:description": "Adds canonical ReferenceLinks for one ontology-extracted term, one SHACL-extracted term, and one example-extracted term. Each link targets the working source artifact rather than an exact historical state; the exact source-state relationship remains extraction provenance.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
       "operationId": "knop.addReference",
       "fromRef": "13-all-remaining-terms-woven",

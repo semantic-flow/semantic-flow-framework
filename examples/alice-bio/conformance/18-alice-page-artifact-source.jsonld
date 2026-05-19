@@ -26,7 +26,7 @@
       "type": "TransitionCase",
       "id": "#repoint-alice-page-main-source-to-governed-markdown-artifact",
       "dcterms:title": "Repoint Alice main page region to a governed Markdown artifact",
-      "dcterms:description": "Updates alice/_knop/_page/page.ttl so the main region resolves through hasTargetArtifact <alice/page-main> in Current mode, keeps the shared sidebar on its mesh-local Markdown source, and leaves woven page-definition history untouched until the next weave.",
+      "dcterms:description": "Updates alice/_knop/_page/page.ttl so the main region resolves through hasTargetArtifact <alice/page-main> in Working mode, keeps the shared sidebar on its mesh-local Markdown source, and leaves woven page-definition history untouched until the next weave.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "resourcePage.define",
       "fromRef": "17-alice-page-main-integrated-woven",
