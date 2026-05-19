@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:branch-fantasy-rules:15-extracted-term-references-woven",
   "dcterms:title": "Fantasy Rules Branch-Published 15 extracted term references woven",
-  "dcterms:description": "Checks weaving of the curated extracted-term ReferenceCatalogs and their ResourcePages.",
+      "dcterms:description": "Checks current-only weaving of the curated extracted-term ReferenceCatalogs and their ResourcePages.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#weave-extracted-term-reference-catalogs",
       "dcterms:title": "Weave extracted-term ReferenceCatalogs",
-      "dcterms:description": "Runs a publication-root weave after curated working-source canonical ReferenceLinks were added for representative extracted terms. The weave versions the new ReferenceCatalogs, advances the owning Knop inventories, and generates the catalog ResourcePages.",
+      "dcterms:description": "Runs an explicit targeted weave after curated working-source canonical ReferenceLinks were added for representative extracted terms. The weave adds current ReferenceCatalog pages and advances the owning Knop inventories without materializing support-artifact histories.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
       "operationId": "weave",
       "fromRef": "14-extracted-term-references",
@@ -46,7 +46,13 @@
           "executable": "weave",
           "argv": [
             "--mesh-root",
-            "{publicationRoot}"
+            "{publicationRoot}",
+            "--target",
+            "designatorPath=examples/gunaar/ability-score/strength",
+            "--target",
+            "designatorPath=ontology/Ability",
+            "--target",
+            "designatorPath=ontology/CharacterShape"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",
@@ -71,12 +77,6 @@
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#ability-inventory-state-page",
-          "type": "FileExpectation",
-          "path": "ontology/Ability/_knop/_inventory/_history001/_s0002/index.html",
-          "changeType": "added"
-        },
-        {
           "id": "#ability-references-ttl",
           "type": "FileExpectation",
           "path": "ontology/Ability/_knop/_references/references.ttl",
@@ -90,10 +90,10 @@
           "changeType": "added"
         },
         {
-          "id": "#ability-references-snapshot-ttl",
+          "id": "#character-shape-references-ttl",
           "type": "FileExpectation",
-          "path": "ontology/Ability/_knop/_references/_history001/_s0001/ttl/references.ttl",
-          "changeType": "added",
+          "path": "ontology/CharacterShape/_knop/_references/references.ttl",
+          "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
@@ -103,10 +103,10 @@
           "changeType": "added"
         },
         {
-          "id": "#character-shape-references-snapshot-ttl",
+          "id": "#gunaar-strength-references-ttl",
           "type": "FileExpectation",
-          "path": "ontology/CharacterShape/_knop/_references/_history001/_s0001/ttl/references.ttl",
-          "changeType": "added",
+          "path": "examples/gunaar/ability-score/strength/_knop/_references/references.ttl",
+          "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
@@ -114,13 +114,6 @@
           "type": "FileExpectation",
           "path": "examples/gunaar/ability-score/strength/_knop/_references/index.html",
           "changeType": "added"
-        },
-        {
-          "id": "#gunaar-strength-references-snapshot-ttl",
-          "type": "FileExpectation",
-          "path": "examples/gunaar/ability-score/strength/_knop/_references/_history001/_s0001/ttl/references.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
         }
       ],
       "hasRdfExpectation": [
@@ -135,15 +128,15 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references> a <https://semantic-flow.github.io/sflo/ontology/ReferenceCatalog> ; <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references/_history001> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references/index.html> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references> a <https://semantic-flow.github.io/sflo/ontology/ReferenceCatalog> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references/index.html> . }",
               "expectedBoolean": true
             }
           ]
         },
         {
-          "id": "#ability-references-snapshot-rdf",
+          "id": "#ability-references-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#ability-references-snapshot-ttl",
+          "targetsFileExpectation": "#ability-references-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
@@ -153,9 +146,9 @@
           ]
         },
         {
-          "id": "#character-shape-references-snapshot-rdf",
+          "id": "#character-shape-references-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#character-shape-references-snapshot-ttl",
+          "targetsFileExpectation": "#character-shape-references-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
@@ -165,9 +158,9 @@
           ]
         },
         {
-          "id": "#gunaar-strength-references-snapshot-rdf",
+          "id": "#gunaar-strength-references-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#gunaar-strength-references-snapshot-ttl",
+          "targetsFileExpectation": "#gunaar-strength-references-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
