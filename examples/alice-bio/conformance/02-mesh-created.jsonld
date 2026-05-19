@@ -54,6 +54,13 @@
           "compareMode": "rdfCanonical"
         },
         {
+          "id": "#mesh-config-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_config/config.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
           "id": "#nojekyll",
           "type": "FileExpectation",
           "path": ".nojekyll",
@@ -117,6 +124,18 @@
               "expectedBoolean": false
             }
           ]
+        },
+        {
+          "id": "#mesh-config-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-config-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/hasPublicationProfile> <https://semantic-flow.github.io/sflo/config/publicationProfile_githubPages> . }",
+              "expectedBoolean": true
+            }
+          ]
         }
       ],
       "hasReplayProfile": {
@@ -131,7 +150,9 @@
             "--workspace",
             ".",
             "--mesh-base",
-            "https://semantic-flow.github.io/mesh-alice-bio/"
+            "https://semantic-flow.github.io/mesh-alice-bio/",
+            "--publication-profile",
+            "github-pages"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

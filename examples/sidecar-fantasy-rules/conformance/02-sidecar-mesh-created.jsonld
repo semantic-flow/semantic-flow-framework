@@ -46,7 +46,9 @@
             "--mesh-root",
             "docs",
             "--mesh-base",
-            "https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/"
+            "https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/",
+            "--publication-profile",
+            "github-pages"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",
@@ -223,7 +225,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/sflo/config/hasPublicationProfile> <https://semantic-flow.github.io/sflo/config/publicationProfile_githubPages> . }",
               "expectedBoolean": true
             },
             {

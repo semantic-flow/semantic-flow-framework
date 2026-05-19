@@ -17,50 +17,66 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:branch-fantasy-rules:09-gunaar-example-dataset-woven",
   "dcterms:title": "Fantasy Rules Branch-Published 09 Gunaar example dataset woven",
-  "dcterms:description": "Checks repository-source materialization, integration, and weaving of the Gunaar example dataset into the branch-published publication root.",
+  "dcterms:description": "Checks repository-source integration and weaving of the Gunaar example dataset into the branch-published publication root.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#materialize-and-weave-gunaar-example-dataset",
       "dcterms:title": "Materialize and weave the Gunaar example dataset",
-      "dcterms:description": "Runs prepare gh-pages with the Gunaar example source binding. The clean source ref supplies examples/gunaar.ttl; the publication root records repository source provenance in a per-Knop _sources registry and gets generated ResourcePages for the dataset and support artifacts.",
+      "dcterms:description": "Runs integrate with the Gunaar example source binding, then weaves the Gunaar target. The clean source ref supplies examples/gunaar.ttl; the publication root records repository source provenance in a per-Knop _sources registry and gets generated ResourcePages for the dataset and support artifacts.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "prepare.ghPages",
+      "operationId": "publication.sequence",
       "fromRef": "08-root-and-examples-knops-woven",
       "toRef": "09-gunaar-example-dataset-woven",
       "hasReplayProfile": {
         "type": "ReplayProfile",
         "workspaceRoot": ".",
         "meshRoot": ".",
-        "hasCommandInvocation": {
-          "type": "CommandInvocation",
-          "executable": "weave",
-          "argv": [
-            "prepare",
-            "gh-pages",
-            "--source-root",
-            "{sourceRoot}",
-            "--publish-root",
-            "{publicationRoot}",
-            "--mesh-base",
-            "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
-            "--source-path",
-            "examples/gunaar.ttl",
-            "--designator-path",
-            "examples/gunaar",
-            "--source-repository-url",
-            "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
-            "--source-ref",
-            "{sourceRef}",
-            "--source-commit",
-            "{sourceCommit}"
-          ],
-          "workingDirectory": "workspace",
-          "promptPolicy": "nonInteractive",
-          "expectedExitCode": 0,
-          "expectsOperationalLogs": true,
-          "expectsAuditLogs": true
-        }
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "{sourceRoot}/examples/gunaar.ttl",
+              "examples/gunaar",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--grant-source-directory",
+              "{sourceRoot}",
+              "--source-binding-id",
+              "branch-source-examples-gunaar",
+              "--source-repository-url",
+              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+              "--source-repository-ref",
+              "{sourceRef}",
+              "--source-repository-commit",
+              "{sourceCommit}",
+              "--source-repository-path",
+              "examples/gunaar.ttl"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--mesh-root",
+              "{publicationRoot}",
+              "--target",
+              "designatorPath=examples/gunaar"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
       },
       "targetDesignatorPath": "examples/gunaar",
       "sourcePath": "examples/gunaar.ttl",

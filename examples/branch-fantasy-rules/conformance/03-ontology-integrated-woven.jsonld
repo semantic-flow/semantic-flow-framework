@@ -17,50 +17,66 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:branch-fantasy-rules:03-ontology-integrated-woven",
   "dcterms:title": "Fantasy Rules Branch-Published 03 ontology integrated woven",
-  "dcterms:description": "Checks the first repository source materialization into the branch-published publication root. The ontology source is copied from the clean source ref, integrated as the ontology designator, and woven in the publication tree.",
+  "dcterms:description": "Checks the first repository source integration into the branch-published publication root. The ontology source remains in the clean source ref, is integrated as the ontology designator, and is woven in the publication tree.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#ontology-integrated-woven",
       "dcterms:title": "Materialize, integrate, and weave ontology source",
-      "dcterms:description": "Runs prepare gh-pages with an ontology source binding. The source checkout remains clean; the publication checkpoint gains the ontology payload, Knop source registry metadata, ontology Knop support files, and ontology ResourcePages.",
+      "dcterms:description": "Runs integrate with an ontology source binding, then weaves the ontology target. The source checkout remains clean; the publication checkpoint gains Knop source registry metadata, ontology Knop support files, and ontology ResourcePages.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "prepare.ghPages",
+      "operationId": "publication.sequence",
       "fromRef": "02-publication-bootstrapped-woven",
       "toRef": "03-ontology-integrated-woven",
       "hasReplayProfile": {
         "type": "ReplayProfile",
         "workspaceRoot": ".",
         "meshRoot": ".",
-        "hasCommandInvocation": {
-          "type": "CommandInvocation",
-          "executable": "weave",
-          "argv": [
-            "prepare",
-            "gh-pages",
-            "--source-root",
-            "{sourceRoot}",
-            "--publish-root",
-            "{publicationRoot}",
-            "--mesh-base",
-            "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
-            "--source-path",
-            "ontology/fantasy-rules-ontology.ttl",
-            "--designator-path",
-            "ontology",
-            "--source-repository-url",
-            "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
-            "--source-ref",
-            "{sourceRef}",
-            "--source-commit",
-            "{sourceCommit}"
-          ],
-          "workingDirectory": "workspace",
-          "promptPolicy": "nonInteractive",
-          "expectedExitCode": 0,
-          "expectsOperationalLogs": true,
-          "expectsAuditLogs": true
-        }
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "{sourceRoot}/ontology/fantasy-rules-ontology.ttl",
+              "ontology",
+              "--mesh-root",
+              "{publicationRoot}",
+              "--grant-source-directory",
+              "{sourceRoot}",
+              "--source-binding-id",
+              "branch-source-ontology",
+              "--source-repository-url",
+              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
+              "--source-repository-ref",
+              "{sourceRef}",
+              "--source-repository-commit",
+              "{sourceCommit}",
+              "--source-repository-path",
+              "ontology/fantasy-rules-ontology.ttl"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--mesh-root",
+              "{publicationRoot}",
+              "--target",
+              "designatorPath=ontology"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ]
       },
       "hasFileExpectation": [
         {

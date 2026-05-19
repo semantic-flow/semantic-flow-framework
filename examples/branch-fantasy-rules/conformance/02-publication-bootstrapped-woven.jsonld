@@ -23,9 +23,9 @@
       "type": "TransitionCase",
       "id": "#publication-bootstrapped-woven",
       "dcterms:title": "Bootstrap and weave branch-published publication root",
-      "dcterms:description": "Runs prepare gh-pages with separate source and publication roots, then weaves the publication root directly. Source files are not copied into the publication output in this first rung.",
+      "dcterms:description": "Creates the publication-root mesh with the GitHub Pages publication profile, then weaves the publication root directly. Source files are not copied into the publication output in this first rung.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
-      "operationId": "prepare.ghPages",
+      "operationId": "publication.sequence",
       "fromRef": "01-source-only",
       "toRef": "02-publication-bootstrapped-woven",
       "hasReplayProfile": {
@@ -37,14 +37,16 @@
             "type": "CommandInvocation",
             "executable": "weave",
             "argv": [
-              "prepare",
-              "gh-pages",
-              "--source-root",
-              "{sourceRoot}",
-              "--publish-root",
+              "mesh",
+              "create",
+              "--workspace",
+              ".",
+              "--mesh-root",
               "{publicationRoot}",
               "--mesh-base",
-              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/"
+              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
+              "--publication-profile",
+              "github-pages"
             ],
             "workingDirectory": "workspace",
             "promptPolicy": "nonInteractive",
@@ -245,7 +247,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/hasPublicationProfile> <https://semantic-flow.github.io/sflo/config/publicationProfile_githubPages> . }",
               "expectedBoolean": true
             },
             {
