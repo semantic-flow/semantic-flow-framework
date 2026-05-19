@@ -23,7 +23,7 @@
       "type": "TransitionCase",
       "id": "#weave-first-release",
       "dcterms:title": "Weave first named ontology and SHACL releases",
-      "dcterms:description": "Updates publication-root working payload bytes from the first-release source branch, refreshes per-Knop repository source registries, then weaves ontology and SHACL with explicit release segments and Gunaar with the default ordinal progression.",
+      "dcterms:description": "Weaves ontology, SHACL, and Gunaar from the first-release source branch through the existing floating working source locators.",
       "fixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
       "operationId": "weave",
       "fromRef": "09-gunaar-example-dataset-woven",
@@ -33,147 +33,6 @@
         "workspaceRoot": ".",
         "meshRoot": ".",
         "hasCommandSequence": [
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "payload",
-              "update",
-              "{sourceRoot}/ontology/fantasy-rules-ontology.ttl",
-              "--designator-path",
-              "ontology",
-              "--mesh-root",
-              "{publicationRoot}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "prepare",
-              "gh-pages",
-              "--source-root",
-              "{sourceRoot}",
-              "--publish-root",
-              "{publicationRoot}",
-              "--mesh-base",
-              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
-              "--source-path",
-              "ontology/fantasy-rules-ontology.ttl",
-              "--designator-path",
-              "ontology",
-              "--source-repository-url",
-              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
-              "--source-ref",
-              "{sourceRef}",
-              "--source-commit",
-              "{sourceCommit}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "payload",
-              "update",
-              "{sourceRoot}/shacl/fantasy-rules-shacl.ttl",
-              "--designator-path",
-              "shacl",
-              "--mesh-root",
-              "{publicationRoot}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "prepare",
-              "gh-pages",
-              "--source-root",
-              "{sourceRoot}",
-              "--publish-root",
-              "{publicationRoot}",
-              "--mesh-base",
-              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
-              "--source-path",
-              "shacl/fantasy-rules-shacl.ttl",
-              "--designator-path",
-              "shacl",
-              "--source-repository-url",
-              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
-              "--source-ref",
-              "{sourceRef}",
-              "--source-commit",
-              "{sourceCommit}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "payload",
-              "update",
-              "{sourceRoot}/examples/gunaar.ttl",
-              "--designator-path",
-              "examples/gunaar",
-              "--mesh-root",
-              "{publicationRoot}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
-          {
-            "type": "CommandInvocation",
-            "executable": "weave",
-            "argv": [
-              "prepare",
-              "gh-pages",
-              "--source-root",
-              "{sourceRoot}",
-              "--publish-root",
-              "{publicationRoot}",
-              "--mesh-base",
-              "https://semantic-flow.github.io/mesh-branch-fantasy-rules/",
-              "--source-path",
-              "examples/gunaar.ttl",
-              "--designator-path",
-              "examples/gunaar",
-              "--source-repository-url",
-              "https://github.com/semantic-flow/mesh-branch-fantasy-rules.git",
-              "--source-ref",
-              "{sourceRef}",
-              "--source-commit",
-              "{sourceCommit}"
-            ],
-            "workingDirectory": "workspace",
-            "promptPolicy": "nonInteractive",
-            "expectedExitCode": 0,
-            "expectsOperationalLogs": true,
-            "expectsAuditLogs": true
-          },
           {
             "type": "CommandInvocation",
             "executable": "weave",
@@ -228,42 +87,39 @@
           "id": "#ontology-source-ttl",
           "type": "FileExpectation",
           "path": "ontology/fantasy-rules-ontology.ttl",
-          "changeType": "updated",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#shacl-source-ttl",
           "type": "FileExpectation",
           "path": "shacl/fantasy-rules-shacl.ttl",
-          "changeType": "updated",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#gunaar-source-ttl",
           "type": "FileExpectation",
           "path": "examples/gunaar.ttl",
-          "changeType": "updated",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ontology-sources-ttl",
           "type": "FileExpectation",
           "path": "ontology/_knop/_sources/sources.ttl",
-          "changeType": "updated",
+          "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#shacl-sources-ttl",
           "type": "FileExpectation",
           "path": "shacl/_knop/_sources/sources.ttl",
-          "changeType": "updated",
+          "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#gunaar-sources-ttl",
           "type": "FileExpectation",
           "path": "examples/gunaar/_knop/_sources/sources.ttl",
-          "changeType": "updated",
+          "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
@@ -324,7 +180,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#branch-source-ontology> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources/sources.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#payload-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionTarget> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"../source/ontology/fantasy-rules-ontology.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> ?digest } FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source } }",
               "expectedBoolean": true
             }
           ]
@@ -336,7 +192,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#branch-source-shacl> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:31211564c80fb496c0c47da840dc16c7b49b8d8c25c029b7b443dde8db3ad604\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:31211564c80fb496c0c47da840dc16c7b49b8d8c25c029b7b443dde8db3ad604\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources/sources.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#payload-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionTarget> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"../source/shacl/fantasy-rules-shacl.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> ?digest } FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source } }",
               "expectedBoolean": true
             }
           ]
@@ -348,7 +204,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#branch-source-examples-gunaar> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:1bddda53ff76412a4ac980bd776c185044c96c1643ecb2b599922c27a327eb1a\" ; <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source . ?source <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryRef> \"a.10-first-release-source\" ; <https://semantic-flow.github.io/sflo/ontology/sourceRepositoryPath> \"examples/gunaar.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:1bddda53ff76412a4ac980bd776c185044c96c1643ecb2b599922c27a327eb1a\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources> a <https://semantic-flow.github.io/sflo/ontology/KnopSourceRegistry> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources/sources.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#payload-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionTarget> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"../source/examples/gunaar.ttl\" ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> ?digest } FILTER NOT EXISTS { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/_knop/_sources#payload-source> <https://semantic-flow.github.io/sflo/ontology/hasTargetRepositorySource> ?source } }",
               "expectedBoolean": true
             }
           ]

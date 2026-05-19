@@ -26,7 +26,8 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI
 - the current local runtime slice accepts an existing local source file addressed either by path or equivalent `file:` URL
 - source files outside the mesh root must be allowed by operational local-path policy before `integrate` can follow them; workspace-contained grants can be mesh-carried, while host-local grants may approve separate checkouts without making absolute host paths public mesh facts
-- repository-backed working-source bindings may record repository URL/ref/path plus optional commit and digest evidence while leaving the bytes in the source checkout
+- extra-mesh working-source bindings record the approved working locator with `artifactResolutionMode_working` while leaving the bytes in the source checkout
+- repository-backed source bindings may additionally record repository URL/ref/path plus optional commit and digest evidence when that evidence is deliberately supplied
 - broader runtime profiles may add latest-state or exact source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
 - shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
@@ -42,12 +43,14 @@ In the current first slice, that means:
 
 - creating `D/_knop/_meta/meta.ttl`
 - creating `D/_knop/_inventory/inventory.ttl`
-- creating `D/_knop/_sources/sources.ttl` when the request supplies repository-backed source metadata
+- creating `D/_knop/_sources/sources.ttl` when the source is outside the mesh root or the request supplies repository-backed source metadata
 - updating `_mesh/_inventory/inventory.ttl` so the mesh registers `D/_knop`
-- updating `_mesh/_inventory/inventory.ttl` so the payload artifact `D` is a `PayloadArtifact` with `hasWorkingLocatedFile` pointing at the existing working file
+- updating `_mesh/_inventory/inventory.ttl` so the payload artifact `D` is a `PayloadArtifact` with `hasWorkingLocatedFile` for mesh-local working files or `workingLocalRelativePath` for approved extra-mesh working files
 - keeping the working payload bytes at the existing `alice-bio.ttl` path for the carried Alice Bio slice rather than relocating them during `integrate`
 
-When repository-backed metadata is supplied, the source registry records a `KnopSourceRegistry` source binding for the payload artifact. The binding uses `targetLocalRelativePath` for the local operational locator, `artifactResolutionMode_working` for mutable working-source resolution, and `hasTargetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may also record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator.
+When the integrated source is outside the mesh root, the source registry records a `KnopSourceRegistry` source binding for the payload artifact. The default binding uses the deterministic internal `payload-source` fragment id, `targetLocalRelativePath` for the local operational locator, and `artifactResolutionMode_working` for mutable working-source resolution. Floating working bindings do not persist repository ref, commit, path, digest evidence, or `expectsContentDigest`.
+
+When repository-backed metadata is deliberately supplied, the source registry may also record `hasTargetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator for that repository-backed binding.
 
 ## What Integrate Does Not Do
 

@@ -92,9 +92,9 @@ The conformance approach follows Alice Bio where it still fits: one manifest per
 Current API/example pressure points:
 
 - publication-branch bootstrap with source and publication roots supplied as runtime inputs
-- source bindings that use repository/ref/path/digest provenance rather than host-local sibling paths
-- `_knop/_sources` source registries for repository materialization bindings and extraction provenance
-- a deploy orchestration path that materializes authored ontology, SHACL, and example files into a publication-branch mesh
+- source bindings that use approved working locators by default and repository/ref/path/digest provenance only when explicit evidence is supplied
+- `_knop/_sources` source registries for payload source bindings and extraction provenance
+- a deploy orchestration path that weaves authored ontology, SHACL, and example files from existing working locators into a publication-branch mesh
 - `weave` or `version` using custom versioning segments such as ArtifactHistory `releases`, HistoricalState `v0.0.1`, and ArtifactManifestation `ttl`
 - `weave` producing artifact-local release located files such as `ontology/releases/v0.0.1/ttl/fantasy-rules-ontology.ttl`
 - extracted term Knops whose source provenance can track the working source artifact while curated `ReferenceLink`s remain separate

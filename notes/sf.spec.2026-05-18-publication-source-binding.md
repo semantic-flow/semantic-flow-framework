@@ -10,7 +10,7 @@ created: 1779113220000
 
 This note captures the intended Semantic Flow behavior boundary for publication setup, source binding, explicit import, update/refresh, validation, and host-specific publication controls.
 
-It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. There should be no durable `prepare gh-pages` API concept and no compatibility wrapper in the portable model. Publication setup should be expressed through mesh bootstrap, integration, default `weave` orchestration or narrower version/validate/generate operations, optional host presets, and explicit import only when a working file is intentionally copied into the mesh. Later source changes should be handled through explicit update/refresh operations for source-bound or imported bytes.
+It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. There should be no durable `prepare gh-pages` API concept and no compatibility wrapper in the portable model. Publication setup should be expressed through mesh bootstrap, integration, default `weave` orchestration or narrower version/validate/generate operations, optional host presets, and explicit import only when a working file is intentionally copied into the mesh. Later locator or policy changes should be handled through explicit update/refresh operations; ordinary floating working-source publication follows the already-bound working locator.
 
 ## Status
 
@@ -55,12 +55,15 @@ The selected mode must be visible in configuration, provenance, or source regist
 
 `integrate` should:
 
-- identify the source locator, repository, ref, commit, path, digest, and resolution policy when those facts are known.
+- identify the source locator and resolution policy.
+- identify repository, ref, commit, path, and digest facts only when the caller deliberately supplies repository-backed or exact source-state evidence.
 - record whether the binding follows working bytes, asks for the latest settled state, or names exact source bytes.
 - create or update the target designator's payload-artifact support surface.
 - leave the source file in its source lane.
 
-For repository-backed working sources, a `KnopSourceRegistry` source binding should use `targetLocalRelativePath` for the approved local operational locator and `hasTargetRepositorySource` for portable repository provenance. Repository provenance may name a mutable ref, but deterministic release workflows should also record commit or digest evidence. When a runtime observes local bytes during `integrate`, recording a computed digest is evidence about the observed bytes; it is not an import, refresh, or fetch by itself.
+For floating working sources outside the mesh root, a `KnopSourceRegistry` source binding should use `targetLocalRelativePath` for the approved local operational locator and `artifactResolutionMode_working` for the resolution policy. The single-source binding uses a deterministic internal fragment id such as `payload-source`. It should not persist repository ref, commit, path, content digest, or `expectsContentDigest` facts by default.
+
+For deliberately repository-backed sources, the same source binding may use `hasTargetRepositorySource` for portable repository provenance. Repository provenance may name a mutable ref, but deterministic release workflows should use an explicit exact source-state policy or deliberately supplied commit/digest evidence instead of silently turning every floating working-source integration into a pinned binding. When a runtime observes local bytes during an explicit repository-backed or exact-state integration, recording a computed digest is evidence about the observed bytes; it is not an import, refresh, or fetch by itself.
 
 For the docs-rooted sidecar Fantasy Rules shape, `integrate` links source files such as `../ontology/fantasy-rules-ontology.ttl` from the `docs/` mesh under constrained local-path policy.
 

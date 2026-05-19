@@ -50,7 +50,7 @@ At minimum, `mesh.create`, `integrate`, `version`, `weave`, and large validation
 - `version`: a narrower operation for explicitly appending versioned payload states, using selected history and next-state intent when supplied.
 - `validate`: a narrower operation for reporting problems without recording new state. Initial scopes are `validate mesh` for whole-mesh validation and `validate publication` for narrower publication-readiness checks. Whole-mesh validation should include retained publication checks when a publication surface or profile exists.
 - `generate`: a narrower operation for rendering ResourcePages and other generated surfaces from the current mesh state.
-- publication/source binding: not a single core job kind by default. It is a composed boundary for integration, optional import, publication validation, host presets, optional git output handling, and later explicit update/refresh when source-bound or imported bytes change. See [[sf.spec.2026-05-18-publication-source-binding]].
+- publication/source binding: not a single core job kind by default. It is a composed boundary for integration, optional import, publication validation, host presets, optional git output handling, and later explicit update/refresh when a source locator, source policy, or imported copy changes. See [[sf.spec.2026-05-18-publication-source-binding]].
 
 Identifier-page customization and root lifecycle behavior are specified separately because they are mostly about generated public page authority and source resolution rather than a standalone submitted job. See [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
 
