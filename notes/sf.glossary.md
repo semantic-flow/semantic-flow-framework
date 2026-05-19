@@ -27,7 +27,7 @@ Typical consequences:
 - if the target is a `DigitalArtifact` in `Working` mode, resolution usually follows mutable working bytes through `workingLocalRelativePath`, allowed `workingAccessUrl`, or `hasWorkingLocatedFile`
 - if the target is a `DigitalArtifact` in `Working` mode and that artifact also declares `workingLocalRelativePath`, local runtime resolution should follow `workingLocalRelativePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
 - if the target is a `DigitalArtifact` in `Working` mode and that artifact declares `workingAccessUrl`, a runtime may use that URL only when its operational profile explicitly permits remote working-byte access
-- if the target is a `DigitalArtifact` in `LatestState` mode, resolution follows the latest settled `HistoricalState`; a requested `ArtifactHistory` bounds that search to that history
+- if the target is a `DigitalArtifact` in `LatestState` mode, resolution follows the latest settled `HistoricalState`; a requested `ArtifactHistory` bounds that search to that history, and a no-history request should use an explicit current/default history or fail closed rather than guessing across all histories
 - if the target declares an exact `HistoricalState`, `LocatedFile`, manifestation/distribution, commit, or digest, the target is exact by default without needing an additional resolution mode
 - if the target is a direct `targetLocalRelativePath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
 - if the target is a direct `targetAccessUrl`, resolution may use that URL only when its operational profile explicitly permits remote target access

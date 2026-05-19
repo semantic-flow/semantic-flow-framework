@@ -124,6 +124,8 @@ Behavioral consequences:
 - `LatestState` mode follows the latest settled `HistoricalState`, bounded to `hasRequestedTargetHistory` when present
 - fallback policy constrains what may happen if the requested state cannot be used as requested
 
+For the first implemented page-generation slice, `LatestState` is supported for payload artifacts. If `hasRequestedTargetHistory` is present, resolution uses that history's `latestHistoricalState`; if no requested history is present, resolution uses the payload artifact's `currentArtifactHistory` and fails closed when there is no current/default history. The requested or current history must be declared as an artifact history of the target artifact and typed as `ArtifactHistory`. Resolution reads the settled state's `locatedFileForState` when present; deriving a default payload snapshot path from the state path and working file name is only a compatibility fallback. This first slice does not guess the latest state across all known histories.
+
 For this first page-generation slice, a governed source artifact that resolves only through `workingAccessUrl` should still be treated as out of bounds unless a later spec explicitly widens page generation to permit remote current-byte access. The broader artifact model may name that current surface now without requiring `weave` to follow it yet.
 
 ### Direct access-URL targets
