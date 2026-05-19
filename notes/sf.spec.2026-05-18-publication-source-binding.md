@@ -42,7 +42,7 @@ No one of those pieces is inherently tied to `gh-pages`.
 Source bytes can be available to `integrate` in several ways:
 
 - mesh-local: the source file is already inside the mesh root and can be linked directly.
-- allowed live local: the source file is outside the mesh root but inside an explicitly allowed workspace/source boundary, and current-byte operations may follow `workingLocalRelativePath` under policy.
+- allowed live local: the source file is outside the mesh root but inside an explicitly allowed workspace/source boundary, and current-byte operations may follow `workingLocalRelativePath` under policy. Portable workspace grants can be mesh-carried; machine-specific separate-checkout grants should be host-local operational config so public mesh facts do not expose absolute checkout paths.
 - repository-backed source: the source is identified by repository/ref/path and optionally commit/digest facts. The binding may follow working source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/digest that must not drift.
 - imported local: the source file has already been copied into the mesh or publication tree by an explicit import operation, so `integrate` can link to that governed local copy.
 - remote/current access: a `workingAccessUrl` or similar remote locator names current bytes, but runtime access requires explicit network policy.

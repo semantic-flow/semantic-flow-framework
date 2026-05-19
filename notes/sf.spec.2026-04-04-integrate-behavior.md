@@ -24,8 +24,10 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - the first local CLI surface takes the source artifact as the primary positional input and requires `designatorPath` either as a second positional argument or via `--designator-path`
 - the target workspace must already contain `_mesh/_meta/meta.ttl` and `_mesh/_inventory/inventory.ttl`
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI
-- the current first local runtime slice accepts an existing local source file in the workspace, addressed either by path or equivalent `file:` URL
-- broader runtime profiles may accept policy-approved adjacent, branch, or separate-repository source files with working, latest-state, or exact source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
+- the current local runtime slice accepts an existing local source file addressed either by path or equivalent `file:` URL
+- source files outside the mesh root must be allowed by operational local-path policy before `integrate` can follow them; workspace-contained grants can be mesh-carried, while host-local grants may approve separate checkouts without making absolute host paths public mesh facts
+- repository-backed working-source bindings may record repository URL/ref/path plus optional commit and digest evidence while leaving the bytes in the source checkout
+- broader runtime profiles may add latest-state or exact source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
 - shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
 ## What Integrate Does
