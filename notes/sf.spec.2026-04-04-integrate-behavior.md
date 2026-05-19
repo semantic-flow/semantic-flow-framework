@@ -40,9 +40,12 @@ In the current first slice, that means:
 
 - creating `D/_knop/_meta/meta.ttl`
 - creating `D/_knop/_inventory/inventory.ttl`
+- creating `D/_knop/_sources/sources.ttl` when the request supplies repository-backed source metadata
 - updating `_mesh/_inventory/inventory.ttl` so the mesh registers `D/_knop`
 - updating `_mesh/_inventory/inventory.ttl` so the payload artifact `D` is a `PayloadArtifact` with `hasWorkingLocatedFile` pointing at the existing working file
 - keeping the working payload bytes at the existing `alice-bio.ttl` path for the carried Alice Bio slice rather than relocating them during `integrate`
+
+When repository-backed metadata is supplied, the source registry records a `KnopSourceRegistry` source binding for the payload artifact. The binding uses `targetLocalRelativePath` for the local operational locator, `artifactResolutionMode_working` for mutable working-source resolution, and `hasTargetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may also record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator.
 
 ## What Integrate Does Not Do
 

@@ -60,6 +60,8 @@ The selected mode must be visible in configuration, provenance, or source regist
 - create or update the target designator's payload-artifact support surface.
 - leave the source file in its source lane.
 
+For repository-backed working sources, a `KnopSourceRegistry` source binding should use `targetLocalRelativePath` for the approved local operational locator and `hasTargetRepositorySource` for portable repository provenance. Repository provenance may name a mutable ref, but deterministic release workflows should also record commit or digest evidence. When a runtime observes local bytes during `integrate`, recording a computed digest is evidence about the observed bytes; it is not an import, refresh, or fetch by itself.
+
 For the docs-rooted sidecar Fantasy Rules shape, `integrate` links source files such as `../ontology/fantasy-rules-ontology.ttl` from the `docs/` mesh under constrained local-path policy.
 
 For branch-published ontology releases, the source checkout or source repository should still be bound with `integrate`. The branch/publication topology affects locator policy and provenance; it does not turn source binding into import.
