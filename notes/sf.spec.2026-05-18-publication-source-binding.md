@@ -27,7 +27,7 @@ The portable pieces are:
 - `mesh.create` establishes the `SemanticMesh` support surface at a mesh root.
 - `integrate` establishes governed payload-artifact surfaces by linking to available source bytes without moving those bytes.
 - `import` copies a working file into the mesh or publication tree when the copy itself should become the governed local working file.
-- `weave` is the default orchestration surface: it records eligible governed working artifacts and, by default, runs the configured versioning, validation, and generation phases.
+- `weave` is the default orchestration surface for already governed targets: by default it runs the configured versioning, validation, and generation phases. Its versioning phase may append historical states; generation can also render governed artifacts that are intentionally unversioned.
 - `version` is the narrower surface for explicitly appending versioned payload states.
 - `validate` is the narrower surface for reporting mesh or publication problems without recording new state.
 - `generate` is the narrower surface for rendering ResourcePages and other generated surfaces from the current mesh state.
@@ -43,7 +43,7 @@ Source bytes can be available to `integrate` in several ways:
 
 - mesh-local: the source file is already inside the mesh root and can be linked directly.
 - allowed live local: the source file is outside the mesh root but inside an explicitly allowed workspace/source boundary, and current-byte operations may follow `workingLocalRelativePath` under policy.
-- repository-backed source: the source is identified by repository/ref/path and optionally commit/digest facts. The binding may follow working/current source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/digest that must not drift.
+- repository-backed source: the source is identified by repository/ref/path and optionally commit/digest facts. The binding may follow working source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/digest that must not drift.
 - imported local: the source file has already been copied into the mesh or publication tree by an explicit import operation, so `integrate` can link to that governed local copy.
 - remote/current access: a `workingAccessUrl` or similar remote locator names current bytes, but runtime access requires explicit network policy.
 
@@ -56,7 +56,7 @@ The selected mode must be visible in configuration, provenance, or source regist
 `integrate` should:
 
 - identify the source locator, repository, ref, commit, path, digest, and resolution policy when those facts are known.
-- record whether the binding follows current bytes or is pinned to a stable source state.
+- record whether the binding follows working bytes, asks for the latest settled state, or names exact source bytes.
 - create or update the target designator's payload-artifact support surface.
 - leave the source file in its source lane.
 
@@ -153,7 +153,7 @@ Those responsibilities should be factored into the generic pieces above. `prepar
 - An `auto` publication profile may infer a preset from strong host signals, but the resolved profile must be reported and overrideable.
 - The resolved concrete publication profile is portable mesh config and should be persisted in `MeshConfig`.
 - Sidecar and branch-published ontology source files are bound with `integrate`, not copied with `import`, unless the user explicitly asks to create a mesh-local working-file copy.
-- `integrate` leaves source bytes where they are and records working/current or exact source policy.
+- `integrate` leaves source bytes where they are and records working, latest-state, or exact source policy.
 - Source copies are explicit imports and are provenance-bearing.
 - `weave` does not fetch, copy, import, or refresh source bytes as a hidden preparation step.
 - `weave --validate-before` and `weave --validate-after`, if exposed, run whole-mesh validation.

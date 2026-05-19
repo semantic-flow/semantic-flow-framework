@@ -24,14 +24,17 @@ This means a target artifact IRI is allowed but not required. If a direct mesh-l
 
 Typical consequences:
 
-- if the target is a `DigitalArtifact` in `Current` mode, resolution usually follows that artifact's current `hasWorkingLocatedFile`
-- if the target is a `DigitalArtifact` in `Current` mode and that artifact also declares `workingLocalRelativePath`, local runtime resolution should follow `workingLocalRelativePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
-- if the target is a `DigitalArtifact` in `Current` mode and that artifact declares `workingAccessUrl`, a runtime may use that URL only when its operational profile explicitly permits remote current-byte access
-- if the target is a `DigitalArtifact` in `Pinned` mode, resolution follows the requested history or state subject to the allowed fallback policy
+- if the target is a `DigitalArtifact` in `Working` mode, resolution usually follows mutable working bytes through `workingLocalRelativePath`, allowed `workingAccessUrl`, or `hasWorkingLocatedFile`
+- if the target is a `DigitalArtifact` in `Working` mode and that artifact also declares `workingLocalRelativePath`, local runtime resolution should follow `workingLocalRelativePath` first and treat `hasWorkingLocatedFile` as the semantic `LocatedFile` facet when present
+- if the target is a `DigitalArtifact` in `Working` mode and that artifact declares `workingAccessUrl`, a runtime may use that URL only when its operational profile explicitly permits remote working-byte access
+- if the target is a `DigitalArtifact` in `LatestState` mode, resolution follows the latest settled `HistoricalState`; a requested `ArtifactHistory` bounds that search to that history
+- if the target declares an exact `HistoricalState`, `LocatedFile`, manifestation/distribution, commit, or digest, the target is exact by default without needing `Pinned`
 - if the target is a direct `targetLocalRelativePath`, resolution uses that exact path relative to mesh root with fail-closed behavior, subject to any configured allowed-directory boundary
 - if the target is a direct `targetAccessUrl`, resolution may use that URL only when its operational profile explicitly permits remote target access
 - if the target is already a direct `LocatedFile`, no artifact-history lookup is needed; resolution can use that file directly
 - imported content is not a separate resolution kind once imported; after import it participates in governed artifact resolution like any other managed `DigitalArtifact`
+
+`Current` is a legacy ambiguous mode name. Use `Working` for mutable working/source bytes and `LatestState` for the latest settled historical state. `Pinned` is now mostly a legacy exactness hint; exact target coordinates pin identity by themselves.
 
 So the important split is not “artifact source vs imported source.” The important split is:
 
@@ -62,7 +65,7 @@ Extraction provenance is not the same thing as a curated `ReferenceLink`. A refe
 
 ## Integrate And Import
 
-`integrate` links available source bytes to a target designator and payload artifact while leaving those source bytes where they are. The source may be mesh-local, adjacent under explicit local-path policy, or repository-backed with current or pinned source policy.
+`integrate` links available source bytes to a target designator and payload artifact while leaving those source bytes where they are. The source may be mesh-local, adjacent under explicit local-path policy, or repository-backed with working, latest-state, or exact source policy.
 
 `import` copies a working file into the mesh or publication tree so the copy becomes governed local working content. Import is not the normal operation for sidecar or branch-published ontology release sources; those should generally be integrated from their source lane.
 

@@ -119,8 +119,9 @@ A page source may point at an in-mesh governed artifact through the generic `Art
 Behavioral consequences:
 
 - the source target is a governed in-mesh artifact, not an arbitrary path string
-- `Current` mode follows the source artifact's `workingLocalRelativePath` when present, otherwise its `workingAccessUrl` when an operational profile explicitly allows remote current-byte access, otherwise its current `hasWorkingLocatedFile`
-- `Pinned` mode follows the requested historical state rather than the working file
+- `Working` mode follows the source artifact's `workingLocalRelativePath` when present, otherwise its `workingAccessUrl` when an operational profile explicitly allows remote working-byte access, otherwise its current `hasWorkingLocatedFile`
+- exact state coordinates follow the requested historical state rather than the working file
+- `LatestState` mode follows the latest settled `HistoricalState`, bounded to `hasRequestedTargetHistory` when present
 - fallback policy constrains what may happen if the requested state cannot be used as requested
 
 For this first page-generation slice, a governed source artifact that resolves only through `workingAccessUrl` should still be treated as out of bounds unless a later spec explicitly widens page generation to permit remote current-byte access. The broader artifact model may name that current surface now without requiring `weave` to follow it yet.
@@ -185,24 +186,25 @@ That is a real contract requirement, not just a modeling preference. Different p
 
 The first-pass source mode contract is:
 
-- `Pinned`: resolve the source against the requested historical state
-- `Current`: resolve the source against the artifact's current working file
+- `Working`: resolve the source against the artifact's current working file or other approved mutable working-byte locator
+- `LatestState`: resolve the source against the latest settled historical state, bounded to the requested history when present
+- exact coordinates such as `hasRequestedTargetState`: resolve the source against that requested historical state
 
-`Pinned` and `Current` are separate from fallback policy. They should not be collapsed into one enum or one boolean.
+Mode and fallback policy are separate. They should not be collapsed into one enum or one boolean.
 
 ### Fallback Policy
 
 The first-pass fallback policy contract is:
 
-- `ExactOnly`: if the requested pinned source cannot be resolved exactly as requested, fail the page resolution
-- `AcceptLatestInRequestedHistory`: if the requested pinned state cannot be used as requested, the runtime may fall forward only to the latest available state in the same requested history
+- `ExactOnly`: if the requested exact source cannot be resolved exactly as requested, fail the page resolution
+- `AcceptLatestInRequestedHistory`: if the requested exact state cannot be used as requested, the runtime may fall forward only to the latest available state in the same requested history
 
 `AcceptLatestInRequestedHistory` is a bounded relaxation, not a license to search the whole mesh for something “close enough”.
 
 In particular it must not:
 
 - jump to a different history
-- jump from a pinned request to an unrelated working file
+- jump from an exact or latest-state request to an unrelated working file
 - jump to an outside origin
 - silently choose a sibling artifact
 
@@ -364,7 +366,7 @@ Current Accord manifests:
 
 - one Alice page region now targets a governed in-mesh Markdown-bearing artifact such as `alice/page-main` rather than an RDF dataset artifact
 - page generation follows that artifact's current working surface rather than a direct `targetLocalRelativePath`
-- the carried fixture pair stays narrow at default / `Current` behavior and does not yet require pinned-state or fallback semantics
+- the carried fixture pair stays narrow at default / `Working` behavior and does not yet require exact-state, latest-state, or fallback semantics
 
 `20/21` should prove:
 
@@ -381,7 +383,7 @@ Current Accord manifests:
 
 The corresponding fail-closed direct-outside-source rejection should be covered in focused runtime/integration tests rather than forced into a successful fixture transition. Support for remote RDF sites that require content negotiation or custom request headers should stay a follow-on operational/import feature rather than a prerequisite for the first carried import-boundary pair.
 
-`20/21` are now real carried fixture pairs. `22/23` and `24/25` are now also real carried fixture pairs for the later root-lifecycle and root-customization seam. The remaining follow-on work here is the first general `import` planner/runtime/CLI surface plus pinned/fallback artifact-resolution behavior.
+`20/21` are now real carried fixture pairs. `22/23` and `24/25` are now also real carried fixture pairs for the later root-lifecycle and root-customization seam. The remaining follow-on work here is the first general `import` planner/runtime/CLI surface plus exact/latest-state/fallback artifact-resolution behavior.
 
 ### Root-focused continuation on the same ladder
 

@@ -50,7 +50,7 @@ In the current first slice, that means:
 - creating `D/_knop/_sources/sources.ttl`
 - recording `sfc:hasKnopSourceRegistry <D/_knop/_sources>` and `sfc:hasExtractionSource <D/_knop/_sources#extraction-source>` in the Knop inventory
 - creating one stable `sfc:ExtractionSource` fragment rooted at `<D/_knop/_sources#extraction-source>`
-- recording that source binding with `sfc:hasTargetArtifact <T>` and `sfc:hasArtifactResolutionMode`; `Current` is the default mode, while `Pinned` additionally records `sfc:hasRequestedTargetState <S>`
+- recording that source binding with `sfc:hasTargetArtifact <T>` and `sfc:hasArtifactResolutionMode`; `Working` follows mutable working bytes, while an exact extraction records `sfc:hasRequestedTargetState <S>` and does not need `Pinned` to make that state exact
 
 For sidecar term extraction, the mesh inventory update should preserve the existing multi-payload mesh inventory and append the new term Knop facts instead of reconstructing a single-payload inventory shape. The created term support artifacts still use the same minimal KnopMetadata and KnopInventory files; no extraction-specific `ReferenceCatalog` is created. Extraction does not add `hasResourcePage` for the term in the non-woven branch; generated pages belong to the following weave step.
 
@@ -58,7 +58,7 @@ For the carried Bob extraction target:
 
 - `D` is `bob`
 - `T` is `alice/bio`
-- `S` is present only for pinned extraction, for example `alice/bio/_history001/_s0002`
+- `S` is present only for exact-state extraction, for example `alice/bio/_history001/_s0002`
 
 ## What Extract Does Not Do
 
@@ -80,7 +80,7 @@ In this first slice, `extract` does not:
 
 - the created `sfc:ExtractionSource` identity should be a stable fragment IRI rooted at the Knop source registry, not at a historical state
 - the extracted Knop points to that fragment with `sfc:hasExtractionSource`
-- `sfc:hasArtifactResolutionMode` should be `Current` by default, with `Pinned` used when the caller supplied `--source-state`
+- `sfc:hasArtifactResolutionMode` should be `Working` by default, with `hasRequestedTargetState` used when the caller supplied `--source-state`
 - `sfc:hasRequestedTargetState`, when present, should point to the requested historical state of the source payload artifact, not to the source Knop or to the working payload file
 - the extracted term namespace does not imply the source artifact; consumers should use the Knop's linked source-registry `sfc:ExtractionSource` when they need source facts after extraction
 - `alice-bio.ttl` must remain unchanged

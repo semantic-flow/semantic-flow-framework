@@ -25,7 +25,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - the target workspace must already contain `_mesh/_meta/meta.ttl` and `_mesh/_inventory/inventory.ttl`
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI
 - the current first local runtime slice accepts an existing local source file in the workspace, addressed either by path or equivalent `file:` URL
-- broader runtime profiles may accept policy-approved adjacent, branch, or separate-repository source files with current or pinned source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
+- broader runtime profiles may accept policy-approved adjacent, branch, or separate-repository source files with working, latest-state, or exact source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
 - shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
 ## What Integrate Does
@@ -34,7 +34,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 
 The semantic boundary is the same whether the source bytes stay in the mesh tree, an adjacent source root, the same repository, a publication branch, or a separate repository. Topology affects operational policy and provenance; it should not decide whether the operation is called `integrate`.
 
-`integrate` leaves the source bytes where they are. It records or follows a source locator with an explicit current or pinned resolution policy. Bringing bytes into the mesh or publication tree as a new governed local copy is `import`. If `integrate` is later run against that imported copy, the copy already exists before integration begins.
+`integrate` leaves the source bytes where they are. It records or follows a source locator with explicit working, latest-state, or exact resolution policy. Bringing bytes into the mesh or publication tree as a new governed local copy is `import`. If `integrate` is later run against that imported copy, the copy already exists before integration begins.
 
 In the current first slice, that means:
 
