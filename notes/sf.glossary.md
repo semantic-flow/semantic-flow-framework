@@ -2,7 +2,7 @@
 id: 1as5uvnhovdarxqglpw3zxn
 title: Glossary
 desc: ''
-updated: 1775934888879
+updated: 1779152129069
 created: 1774245492640
 ---
 
@@ -51,14 +51,20 @@ Related current-byte rule:
 
 ## Source Provenance
 
-Source provenance records where bytes used by a Semantic Flow operation came from. In current fixtures this is usually carried in a Knop-owned `_sources` registry, materialized as `_knop/_sources/sources.ttl`.
+Source provenance records where bytes used by a Semantic Flow operation came from. This is usually carried in a Knop-owned `_sources` registry, materialized as `_knop/_sources/sources.ttl`.
 
 Two common source-provenance cases are distinct:
 
 - payload source provenance records how a governed artifact was materialized from repository/ref/path/digest-shaped source bytes
-- extraction provenance records which RDF artifact resolved the source facts used to ground an extracted Knop-managed resource
+- extracted-terms provenance records which RDF artifact provided the source facts used to ground an extracted Knop-managed resource
 
 Extraction provenance is not the same thing as a curated `ReferenceLink`. A reference says something intentionally curated about a resource. Extraction provenance says which source bytes justified creating or rendering that extracted identifier. A future operation may derive a curated reference from extraction provenance, but the two records have different meanings.
+
+## Integrate And Import
+
+`integrate` links available source bytes to a target designator and payload artifact while leaving those source bytes where they are. The source may be mesh-local, adjacent under explicit local-path policy, or repository-backed with current or pinned source policy.
+
+`import` copies a working file into the mesh or publication tree so the copy becomes governed local working content. Import is not the normal operation for sidecar or branch-published ontology release sources; those should generally be integrated from their source lane.
 
 ## Sidecar Mesh
 

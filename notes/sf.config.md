@@ -83,6 +83,6 @@ Use `sfcfg:hasPublicationProfile` on `MeshConfig` to persist the resolved concre
 - `sfcfg:publicationProfile_none`
 - `sfcfg:publicationProfile_githubPages`
 
-Request-time `auto` is not a persisted publication profile. It is a resolution mode. If `mesh.create` receives `publicationProfile=auto`, the operation may infer a concrete profile from strong signals such as a `meshBase` under `github.io`, but it should record the resolved concrete value in `MeshConfig` and report it in the operation result. Arbitrary custom domains should not imply GitHub Pages by themselves.
+Request-time `auto` is not a persisted publication profile. It is a resolution mode. If `mesh.create` receives `publicationProfile=auto`, the operation may infer a concrete profile from strong signals such as a `meshBase` under `github.io`, but it should record the resolved concrete value in `MeshConfig` and report it in the operation result. Arbitrary custom domains, CI metadata, and repository remotes should not imply GitHub Pages by themselves.
 
-The GitHub Pages profile may create or validate `.nojekyll` and optional `CNAME` during the same user-facing create operation. Those files are static host controls, not RDF support artifacts, and should not be listed in mesh inventory.
+The GitHub Pages profile may create or validate `.nojekyll` during the same user-facing create operation. That file is a static host control, not an RDF support artifact, and should not be listed in mesh inventory. Custom-domain host files are human-owned for now.

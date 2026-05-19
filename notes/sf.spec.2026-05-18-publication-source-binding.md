@@ -1,6 +1,6 @@
 ---
 id: p5vx8gm2q19h4e7w0t6n3ab
-title: 2026 05 18 Publication Source Sync
+title: 2026 05 18 Publication Source Binding
 desc: ''
 updated: 1779113220000
 created: 1779113220000
@@ -8,9 +8,9 @@ created: 1779113220000
 
 ## Purpose
 
-This note captures the intended Semantic Flow behavior boundary for publication setup, import/source synchronization, and host-specific publication controls.
+This note captures the intended Semantic Flow behavior boundary for publication setup, source binding, explicit import, update/refresh, and host-specific publication controls.
 
-It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. A Weave implementation may keep `prepare gh-pages` temporarily as a transitional CLI wrapper, but portable Semantic Flow behavior should be expressed through mesh bootstrap, integration, import/source synchronization, ordinary weave/version/generate work, publication validation, and optional host presets.
+It is a behavior spec for dissolving the old idea that a dedicated `prepare gh-pages` operation owns branch-published setup. A Weave implementation may keep `prepare gh-pages` temporarily as a transitional CLI wrapper, but portable Semantic Flow behavior should be expressed through mesh bootstrap, integration, ordinary weave/version/generate work, publication validation, optional host presets, and explicit import only when a working file is intentionally copied into the mesh. Later source changes should be handled through explicit update/refresh operations for source-bound or imported bytes.
 
 ## Status
 
@@ -25,10 +25,10 @@ Publication is a composition of generic operations, not a special branch-only mo
 The portable pieces are:
 
 - `mesh.create` establishes the `SemanticMesh` support surface at a mesh root.
-- `integrate` establishes governed payload-artifact surfaces for available bytes without moving the source bytes.
-- `import` or source synchronization creates governed local copies when bytes need to move into the mesh or publication tree.
+- `integrate` establishes governed payload-artifact surfaces by linking to available source bytes without moving those bytes.
+- `import` copies a working file into the mesh or publication tree when the copy itself should become the governed local working file.
 - `weave`, `version`, `validate`, and `generate` record and render the current mesh state.
-- publication-host presets add static-host controls such as GitHub Pages `.nojekyll` or `CNAME`.
+- publication-host presets add static-host controls such as GitHub Pages `.nojekyll`.
 - publication validation checks that the generated/public tree is publishable under the selected operational profile.
 - optional git output handling commits, tags, pushes, or otherwise publishes the resulting tree.
 
@@ -36,43 +36,62 @@ No one of those pieces is inherently tied to `gh-pages`.
 
 ## Source Availability Modes
 
-Source bytes can be available to an operation in several ways:
+Source bytes can be available to `integrate` in several ways:
 
-- mesh-local: the source file is already inside the mesh root and can be modeled with a mesh-addressable `LocatedFile`.
+- mesh-local: the source file is already inside the mesh root and can be linked directly.
 - allowed live local: the source file is outside the mesh root but inside an explicitly allowed workspace/source boundary, and current-byte operations may follow `workingLocalRelativePath` under policy.
-- imported local: the source file has been copied into the target mesh or publication tree by an explicit import/source-sync operation and is now a governed local copy.
+- repository-backed source: the source is identified by repository/ref/path and optionally commit/digest facts. The binding may follow working/current source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/digest that must not drift.
+- imported local: the source file has already been copied into the mesh or publication tree by an explicit import operation, so `integrate` can link to that governed local copy.
 - remote/current access: a `workingAccessUrl` or similar remote locator names current bytes, but runtime access requires explicit network policy.
 
 The selected mode must be visible in configuration, provenance, or source registry facts. It must not be an implicit side effect of `weave`.
 
-## Import And Source Synchronization
+## Integrate
 
-When source bytes live outside the target mesh tree and should be copied into the mesh or publication tree, that action is import/source synchronization. It is not integration.
+`integrate` is the ordinary source-binding operation for sidecar meshes, branch-published ontology sites, same-repository publication lanes, and separate-repository source lanes.
+
+`integrate` should:
+
+- identify the source locator, repository, ref, commit, path, digest, and resolution policy when those facts are known.
+- record whether the binding follows current bytes or is pinned to a stable source state.
+- create or update the target designator's payload-artifact support surface.
+- leave the source file in its source lane.
+
+For the docs-rooted sidecar Fantasy Rules shape, `integrate` links source files such as `../ontology/fantasy-rules-ontology.ttl` from the `docs/` mesh under constrained local-path policy.
+
+For branch-published ontology releases, the source checkout or source repository should still be bound with `integrate`. The branch/publication topology affects locator policy and provenance; it does not turn source binding into import.
+
+## Import
+
+`import` is narrower: it copies a working file into the mesh or publication tree so the copy becomes the governed local working file.
 
 That operation should:
 
 - identify the source repository, ref, commit, path, and digest when those facts are known.
 - copy exactly the requested source bytes into the target tree, or fail closed.
-- update source/provenance records so later operations can tell where the current bytes came from.
+- update source/provenance records so later operations can tell where the copied bytes came from.
 - expose the imported copy as a governed local artifact or working file that later operations can follow.
 
-If the imported copy is meant to become the payload surface for a designator, that payload association should be explicit. The copy step remains import/source synchronization; `integrate` does not become a moving or copying operation.
+If the imported copy is meant to become the payload surface for a designator, that payload association should still be explicit. The copy step remains import; `integrate` is the later source-binding step, not a moving or copying operation.
 
-Same-repository and separate-repository sources should follow the same import/source-sync contract when bytes are copied. The durable facts are repository/ref/path/digest/provenance and the resulting governed local copy, not the host-local checkout path that happened to be used during the run.
+Same-repository and separate-repository sources should follow the same import contract only when bytes are actually copied. The durable facts are repository/ref/path/digest/provenance and the resulting governed local copy, not the host-local checkout path that happened to be used during the run.
+
+Ordinary import is usually a one-time acquisition boundary for one governed local copy. If the same upstream source changes later, refreshing that already-imported copy is an update/refresh operation rather than another implicit first import. Manifest-driven or batch import can wait until repeated workflows prove that one-at-a-time import is too awkward.
 
 ## Publication-Host Presets
 
 Static host controls are modular publication-host presets.
 
-The GitHub Pages preset may create or validate:
+For now, the GitHub Pages preset may create or validate:
 
 - `.nojekyll` at the publication root.
-- `CNAME` when a custom domain is configured.
 - host-specific publish-root constraints needed by GitHub Pages.
+
+Custom-domain host files are human-owned for now. A user publishing GitHub Pages through a custom domain should explicitly select the GitHub Pages profile; the profile still only manages `.nojekyll`.
 
 Other presets may cover GitLab Pages, Vercel, Netlify, plain static hosting, or local preview. These presets should be optional and selected explicitly, or resolved through a conservative `auto` publication profile. Core `mesh.create` should not create GitHub-specific files as hidden bootstrap behavior, but a user-facing create request may compose mesh creation with a selected or resolved publication-host preset.
 
-`auto` should resolve only from strong signals and should be visible in the operation plan/result. A `meshBase` under `github.io` is a strong GitHub Pages signal. A custom domain alone is not enough to infer GitHub Pages, because the hosting provider is not encoded in that URL. Callers should be able to override inference with an explicit preset or `none`.
+`auto` should resolve only from strong signals and should be visible in the operation plan/result. For now, a `meshBase` under `github.io` is the only strong GitHub Pages signal. A custom domain alone is not enough to infer GitHub Pages, because the hosting provider is not encoded in that URL. CI metadata and repository remotes should not participate in auto-inference yet. Callers should be able to override inference with an explicit preset or `none`.
 
 The resolved publication profile should be persisted in mesh-carried config when the mesh has `_mesh/_config/config.ttl` or when the create operation needs to create it for that purpose. Use `sfcfg:hasPublicationProfile` on `MeshConfig` and persist concrete values such as `sfcfg:publicationProfile_githubPages` or `sfcfg:publicationProfile_none`. Do not persist `auto` as the mesh profile; `auto` is a request-time resolution mode.
 
@@ -110,7 +129,8 @@ The old `prepare gh-pages` shape bundled too many concerns:
 - detached or branch-root mesh bootstrap.
 - source/publication root validation.
 - GitHub Pages static controls.
-- import/source synchronization.
+- source binding/integration.
+- source copying only for cases that intentionally create a mesh-local working-file copy.
 - provenance updates.
 - stale-output checks.
 - path leakage checks.
@@ -125,9 +145,10 @@ Those responsibilities should be factored into the generic pieces above. If a CL
 - Publication-host presets may be applied at mesh creation time when explicitly requested.
 - An `auto` publication profile may infer a preset from strong host signals, but the resolved profile must be reported and overrideable.
 - The resolved concrete publication profile is portable mesh config and should be persisted in `MeshConfig`.
-- Source copies are explicit imports or source-sync actions and are provenance-bearing.
-- `integrate` leaves source bytes where they are.
-- `weave` does not fetch, copy, or resynchronize source bytes as a hidden preparation step.
+- Sidecar and branch-published ontology source files are bound with `integrate`, not copied with `import`, unless the user explicitly asks to create a mesh-local working-file copy.
+- `integrate` leaves source bytes where they are and records working/current or exact source policy.
+- Source copies are explicit imports and are provenance-bearing.
+- `weave` does not fetch, copy, import, or refresh source bytes as a hidden preparation step.
 - Public outputs should not contain absolute host-local paths or checkout-specific implementation details.
 - A re-run over unchanged source bytes, unchanged config, and unchanged target designators should either be a no-op or reproduce the same semantic current surface.
 

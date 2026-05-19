@@ -25,16 +25,16 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - the target workspace must already contain `_mesh/_meta/meta.ttl` and `_mesh/_inventory/inventory.ttl`
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI
 - the current first local runtime slice accepts an existing local source file in the workspace, addressed either by path or equivalent `file:` URL
-- broader runtime profiles may accept policy-approved adjacent source files; if a separate-root or separate-repository source must be copied into the mesh/publication tree first, that copy step is `import` or source synchronization, not `integrate`
+- broader runtime profiles may accept policy-approved adjacent, branch, or separate-repository source files with current or pinned source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
 - shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
 ## What Integrate Does
 
 `integrate` establishes the first payload-artifact surface for a designator in an existing mesh.
 
-The semantic boundary is the same whether the source bytes stay in the mesh tree, an adjacent source root, the same repository, or a separate repository. Topology affects operational policy and provenance; it should not decide whether the operation is called `integrate`.
+The semantic boundary is the same whether the source bytes stay in the mesh tree, an adjacent source root, the same repository, a publication branch, or a separate repository. Topology affects operational policy and provenance; it should not decide whether the operation is called `integrate`.
 
-`integrate` leaves the source bytes where they are. Bringing bytes into the mesh or publication tree as a new governed local copy is `import` or source synchronization. If `integrate` is later run against that imported copy, the copy already exists before integration begins.
+`integrate` leaves the source bytes where they are. It records or follows a source locator with an explicit current or pinned resolution policy. Bringing bytes into the mesh or publication tree as a new governed local copy is `import`. If `integrate` is later run against that imported copy, the copy already exists before integration begins.
 
 In the current first slice, that means:
 
@@ -53,7 +53,7 @@ In this first slice, `integrate` does not:
 - run `weave`, `version`, `validate`, or `generate`
 - auto-create referenced-resource Knops such as `bob`
 - copy, relocate, import, or rewrite the working payload bytes
-- fetch or synchronize remote/separate-repository sources implicitly; import or source synchronization must be explicitly requested and policy-approved
+- fetch, copy, import, or refresh remote/separate-repository sources implicitly; any source copy or later update/refresh must be explicitly requested and policy-approved
 - introduce daemon behavior
 
 ## Invariants
@@ -77,4 +77,4 @@ The first behavior-level comparison target is:
 
 ## Related Specs
 
-- [[sf.spec.2026-05-18-publication-source-sync]]
+- [[sf.spec.2026-05-18-publication-source-binding]]

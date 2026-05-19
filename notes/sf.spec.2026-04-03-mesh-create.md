@@ -24,7 +24,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `01-
 - `meshBase` must be an absolute IRI and must end with a trailing `/`.
 - `workspace` identifies the local workspace root, is resolved from the command working directory, and defaults to `.`
 - `meshRoot` identifies the mesh root path, is resolved from the command working directory, must stay inside `workspace`, and defaults to `.`
-- publication-host controls such as GitHub Pages `.nojekyll` or `CNAME` are outside implicit core `mesh.create`; they belong to a selected or resolved publication-host preset, which may be composed with mesh creation at request time
+- publication-host controls such as GitHub Pages `.nojekyll` are outside implicit core `mesh.create`; they belong to a selected or resolved publication-host preset, which may be composed with mesh creation at request time
 - the target workspace may already contain non-mesh files such as a source RDF document
 
 ## What Mesh Create Does
@@ -41,9 +41,9 @@ Those paths are relative to the mesh root. With `--workspace . --mesh-root docs`
 
 For a sidecar mesh root such as `docs/`, `mesh create` also creates `docs/_mesh/_config/config.ttl`. The config is an `sfcfg:MeshConfig` and records the portable workspace relationship with `sfcfg:workspaceRootRelativeToMeshRoot "../"`. Whole-workspace meshes do not get a config file solely to record `"."`.
 
-Core `mesh.create` does not create static-host control files as hidden bootstrap behavior. A user-facing create request may compose mesh creation with a publication-host preset such as GitHub Pages, either by selecting it explicitly or by using a conservative `auto` publication profile that resolves to a concrete preset. In that case the preset may create `.nojekyll` or `CNAME` during the same operation, but those files are host controls rather than RDF support artifacts and are not listed in mesh inventory.
+Core `mesh.create` does not create static-host control files as hidden bootstrap behavior. A user-facing create request may compose mesh creation with a publication-host preset such as GitHub Pages, either by selecting it explicitly or by using a conservative `auto` publication profile that resolves to a concrete preset. In that case the preset may create `.nojekyll` during the same operation, but that file is a host control rather than an RDF support artifact and is not listed in mesh inventory. Custom-domain host files are human-owned for now.
 
-If `auto` profile resolution is used, the operation result should report the resolved publication profile, including `none` when no profile was applied. Host inference from `meshBase` should be conservative: `*.github.io` is a strong GitHub Pages signal, while an arbitrary custom domain is not enough by itself.
+If `auto` profile resolution is used, the operation result should report the resolved publication profile, including `none` when no profile was applied. Host inference from `meshBase` should be conservative: for now, `*.github.io` is the only strong GitHub Pages signal. An arbitrary custom domain is not enough by itself, and CI metadata or repository remotes should not participate in auto-inference.
 
 When a publication profile is selected or resolved, `mesh.create` should persist the concrete profile in `MeshConfig` using `sfcfg:hasPublicationProfile`. Persist the resolved value such as `sfcfg:publicationProfile_githubPages` or `sfcfg:publicationProfile_none`, not the request-time `auto` mode. A whole-workspace mesh that otherwise would not need `_mesh/_config/config.ttl` may still create one in order to carry this portable mesh setting.
 
@@ -65,7 +65,7 @@ In this first slice, `mesh create` does not:
 - create payload history
 - generate `ResourcePage` HTML
 - add local path access grants
-- apply publication-host preset controls such as GitHub Pages `.nojekyll` or `CNAME` unless the caller selected that preset or selected `auto` and the operation resolved `auto` to that preset
+- apply publication-host preset controls such as GitHub Pages `.nojekyll` unless the caller selected that preset or selected `auto` and the operation resolved `auto` to that preset
 - run full `weave`
 - introduce daemon behavior
 
@@ -93,4 +93,4 @@ The first behavior-level comparison target is:
 
 ## Related Specs
 
-- [[sf.spec.2026-05-18-publication-source-sync]]
+- [[sf.spec.2026-05-18-publication-source-binding]]

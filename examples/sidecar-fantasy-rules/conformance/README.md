@@ -19,7 +19,7 @@ The Fantasy Rules example should prove the clean-source branch story:
 - the normal source branch contains authored ontology, SHACL, example dataset, attribution, and ordinary project files
 - the normal source branch does not need `_mesh/`, `.weave/`, `docs/`, generated histories, generated pages, or Weave config
 - the publication branch uses its branch root as the mesh root by default
-- the publication branch carries `_mesh/`, mesh config, inventories, histories, generated ResourcePages, `.nojekyll`, and optional Pages control files such as `CNAME`
+- the publication branch carries `_mesh/`, mesh config, inventories, histories, generated ResourcePages, `.nojekyll`, and any manually managed host files
 - the public mesh base stays canonical, such as `https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/`, and does not expose the publication branch name
 - local sibling worktree paths never appear in public RDF, generated config, or conformance expectations
 

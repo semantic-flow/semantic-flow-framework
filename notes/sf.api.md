@@ -40,14 +40,14 @@ At minimum, `mesh.create`, `integrate`, `version`, `weave`, and large validation
 
 - `mesh.create`: establishes the first `SemanticMesh`, `MeshMetadata`, and `MeshInventory` support surface for a mesh root. See [[sf.spec.2026-04-03-mesh-create]].
 - `knop.create`: creates the first Knop-managed support surface for one designator in an existing mesh. See [[sf.spec.2026-04-03-knop-create]].
-- `integrate`: binds available bytes to a target designator and payload artifact surface without moving the source bytes. Source bytes may be mesh-local or policy-approved adjacent/live bytes; if bytes are copied into the mesh or publication tree first, that copy step is `import` or source synchronization. See [[sf.spec.2026-04-04-integrate-behavior]] and [[sf.spec.2026-05-18-publication-source-sync]].
+- `integrate`: binds available source bytes to a target designator and payload artifact surface without moving the source bytes. Source bytes may be mesh-local, policy-approved live local bytes, or repository-backed bytes resolved with working, latest-state, or exact source policy. Sidecar and branch-published ontology payloads should use `integrate`. See [[sf.spec.2026-04-04-integrate-behavior]] and [[sf.spec.2026-05-18-publication-source-binding]].
 - `knop.addReference`: creates or updates a Knop-owned `ReferenceCatalog` with curated `ReferenceLink` facts. See [[sf.spec.2026-04-04-knop-add-reference-behavior]].
 - `weave`: versions, validates, and generates the current mesh surface. It does not create semantic integrations, fetch source repositories, apply host presets, or publish git refs. See [[sf.spec.2026-04-03-weave-behavior]].
 - `extract`: creates identifiers and Knop support surfaces for resources already mentioned in governed source artifacts. See [[sf.spec.2026-04-05-extract-behavior]].
 - `payload.update`: replaces the current working bytes of an already managed payload artifact as a local convenience, without itself versioning or rendering. See [[sf.spec.2026-04-04-payload-update-behavior]].
-- `import`: marks the boundary where outside-origin or extra-workspace content first becomes a governed local artifact. The full `import` operation still needs its own behavior spec; first-pass page-source constraints are covered in [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
+- `import`: copies a working file into the mesh or publication tree so that the copy becomes a governed local working file. It is not the operation for ordinary sidecar or branch-published ontology source binding. The full `import` operation still needs its own behavior spec; first-pass page-source constraints are covered in [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
 - `version`, `validate`, and `generate`: may be exposed separately, but their current combined behavior is specified through [[sf.spec.2026-04-03-weave-behavior]] until separate specs are needed.
-- publication/source synchronization: not a single core job kind by default. It is a composed boundary for import/source synchronization, publication validation, host presets, and optional git output handling. See [[sf.spec.2026-05-18-publication-source-sync]].
+- publication/source binding: not a single core job kind by default. It is a composed boundary for integration, optional import, publication validation, host presets, optional git output handling, and later explicit update/refresh when source-bound or imported bytes change. See [[sf.spec.2026-05-18-publication-source-binding]].
 
 Identifier-page customization and root lifecycle behavior are specified separately because they are mostly about generated public page authority and source resolution rather than a standalone submitted job. See [[sf.spec.2026-04-11-identifier-page-customization-and-root-lifecycle]].
 
@@ -60,11 +60,11 @@ The thin API should keep the workspace/mesh boundary crisp:
 - local paths, worktrees, branch names, checkout roots, source-directory grants, publication refs, and deployment targets are implementation/runtime concerns.
 - mesh facts are the durable RDF assertions that remain meaningful after the local command has finished.
 
-`integrate` associates available bytes with a target designator and payload surface while leaving the source where it is. `import` establishes a governed local artifact boundary for outside-origin or copied content before later operations follow it. Source synchronization is an operational import/acquisition boundary when source bytes live outside the target mesh tree and need to be copied. These are related but distinct boundaries.
+`integrate` associates available bytes with a target designator and payload surface while leaving the source where it is. `import` copies a working file into the mesh or publication tree so the copy becomes governed local working content. These are related but distinct boundaries.
 
 Same-repository, separate-repository, sidecar, whole-repository, and branch-published topologies should use the same Semantic Flow artifact model. The topology affects operational configuration and provenance, not whether a separate API concept exists.
 
-Publication-host controls are modular presets. A GitHub Pages preset may create `.nojekyll` or `CNAME`. Core `mesh.create` should not hide host-specific files inside bootstrap behavior, but a user-facing create request may compose mesh creation with a selected publication profile. A conservative `auto` profile may infer from strong signals such as `*.github.io`, as long as the resolved profile is reported, can be overridden, and is persisted as concrete mesh config rather than as `auto`.
+Publication-host controls are modular presets. For now, the GitHub Pages preset creates or validates `.nojekyll` only; custom-domain host files are human-owned. Core `mesh.create` should not hide host-specific files inside bootstrap behavior, but a user-facing create request may compose mesh creation with a selected publication profile. A conservative `auto` profile may infer from strong signals such as `*.github.io`, as long as the resolved profile is reported, can be overridden, and is persisted as concrete mesh config rather than as `auto`.
 
 ## Branch-Published Ontology Sequence
 
@@ -74,7 +74,7 @@ The intended portable shape is:
 
 - create or locate the publication mesh with `mesh.create`.
 - apply the selected publication-host preset if one is needed.
-- make source-lane bytes available through mesh-local files, allowed live local locators, or explicit import/source synchronization.
+- make source-lane bytes available through mesh-local files, allowed live local locators, or repository-backed locators with working, latest-state, or exact source policy.
 - `integrate` governed payload artifacts at their target designator paths.
 - `weave`, `version`, `validate`, and `generate` those payloads with the desired history/state/manifestation naming.
 - run extraction and reference curation over governed artifacts when term pages or curated links are needed.

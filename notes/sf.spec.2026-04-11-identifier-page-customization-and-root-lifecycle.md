@@ -432,4 +432,4 @@ This note does not specify:
 
 ## Related Specs
 
-- [[sf.spec.2026-05-18-publication-source-sync]]
+- [[sf.spec.2026-05-18-publication-source-binding]]
