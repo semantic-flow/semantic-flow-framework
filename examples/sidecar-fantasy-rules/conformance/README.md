@@ -10,8 +10,6 @@ The existing JSON-LD manifests in this directory still describe the older docs-r
 
 Do not spend a full fixture rerung on the old docs-rooted ladder immediately before replacing it. The next durable step is to update the manifest/replay model for branch-published operation, then regenerate fixture branches in one intentional pass after the branch-published topology, repository-source locator vocabulary, and near-term config/ontology churn have settled.
 
-`bp-01-source-only.jsonld` is the first branch-published proof manifest. It checks `origin/00-blank-slate` -> `bp-01-source-only` in the existing fixture repository and proves the clean authored source branch shape before any publication branch exists.
-
 ## Intended Topology
 
 The Fantasy Rules example should prove the clean-source branch story:
