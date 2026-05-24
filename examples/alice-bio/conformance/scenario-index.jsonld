@@ -1,0 +1,557 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "lane": {
+      "@type": "@id"
+    },
+    "locatorKind": {
+      "@type": "@vocab"
+    }
+  },
+  "type": "ScenarioIndex",
+  "id": "urn:accord:semantic-flow:alice-bio:scenario-index",
+  "dcterms:title": "Alice Bio fixture ladder",
+  "defaultFixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+  "branchPrefix": "a.",
+  "assetRoot": [
+    ".assets"
+  ],
+  "hasStateLane": [
+    {
+      "id": "#fixture-lane",
+      "type": "StateLane",
+      "laneKey": "fixture",
+      "branchPrefix": "a."
+    }
+  ],
+  "hasStep": [
+    {
+      "id": "#01-source-only",
+      "type": "ScenarioStep",
+      "manifestPath": "01-source-only.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.00-blank-slate"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#02-mesh-created",
+      "type": "ScenarioStep",
+      "manifestPath": "02-mesh-created.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.02-mesh-created"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#03-mesh-created-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "03-mesh-created-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.02-mesh-created"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.03-mesh-created-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#04-alice-knop-created",
+      "type": "ScenarioStep",
+      "manifestPath": "04-alice-knop-created.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.03-mesh-created-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.04-alice-knop-created"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#05-alice-knop-created-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "05-alice-knop-created-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.04-alice-knop-created"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.05-alice-knop-created-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#06-alice-bio-integrated",
+      "type": "ScenarioStep",
+      "manifestPath": "06-alice-bio-integrated.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.05-alice-knop-created-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.06-alice-bio-integrated"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#07-alice-bio-integrated-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "07-alice-bio-integrated-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.06-alice-bio-integrated"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.07-alice-bio-integrated-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#08-alice-bio-referenced",
+      "type": "ScenarioStep",
+      "manifestPath": "08-alice-bio-referenced.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.07-alice-bio-integrated-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.08-alice-bio-referenced"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#09-alice-bio-referenced-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "09-alice-bio-referenced-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.08-alice-bio-referenced"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.09-alice-bio-referenced-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#10-alice-bio-updated",
+      "type": "ScenarioStep",
+      "manifestPath": "10-alice-bio-updated.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.09-alice-bio-referenced-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-alice-bio-updated"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#11-alice-bio-v2-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "11-alice-bio-v2-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-alice-bio-updated"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.11-alice-bio-v2-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#12-bob-extracted",
+      "type": "ScenarioStep",
+      "manifestPath": "12-bob-extracted.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.11-alice-bio-v2-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.12-bob-extracted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#13-bob-extracted-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "13-bob-extracted-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.12-bob-extracted"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.13-bob-extracted-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#14-alice-page-customized",
+      "type": "ScenarioStep",
+      "manifestPath": "14-alice-page-customized.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.13-bob-extracted-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.14-alice-page-customized"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#15-alice-page-customized-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "15-alice-page-customized-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.14-alice-page-customized"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.15-alice-page-customized-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#16-alice-page-main-integrated",
+      "type": "ScenarioStep",
+      "manifestPath": "16-alice-page-main-integrated.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.15-alice-page-customized-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.16-alice-page-main-integrated"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#17-alice-page-main-integrated-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "17-alice-page-main-integrated-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.16-alice-page-main-integrated"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.17-alice-page-main-integrated-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#18-alice-page-artifact-source",
+      "type": "ScenarioStep",
+      "manifestPath": "18-alice-page-artifact-source.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.17-alice-page-main-integrated-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.18-alice-page-artifact-source"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#19-alice-page-artifact-source-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "19-alice-page-artifact-source-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.18-alice-page-artifact-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.19-alice-page-artifact-source-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#20-bob-page-imported-source",
+      "type": "ScenarioStep",
+      "manifestPath": "20-bob-page-imported-source.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.19-alice-page-artifact-source-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.20-bob-page-imported-source"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#21-bob-page-imported-source-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "21-bob-page-imported-source-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.20-bob-page-imported-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.21-bob-page-imported-source-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#22-root-knop-created",
+      "type": "ScenarioStep",
+      "manifestPath": "22-root-knop-created.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.21-bob-page-imported-source-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.22-root-knop-created"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#23-root-knop-created-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "23-root-knop-created-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.22-root-knop-created"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.23-root-knop-created-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#24-root-page-customized",
+      "type": "ScenarioStep",
+      "manifestPath": "24-root-page-customized.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.23-root-knop-created-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.24-root-page-customized"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#25-root-page-customized-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "25-root-page-customized-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.24-root-page-customized"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.25-root-page-customized-woven"
+          }
+        }
+      ]
+    }
+  ]
+}

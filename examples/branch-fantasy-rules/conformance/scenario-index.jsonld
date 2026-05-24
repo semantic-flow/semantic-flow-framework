@@ -1,0 +1,530 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "lane": {
+      "@type": "@id"
+    },
+    "locatorKind": {
+      "@type": "@vocab"
+    }
+  },
+  "type": "ScenarioIndex",
+  "id": "urn:accord:semantic-flow:branch-fantasy-rules:scenario-index",
+  "dcterms:title": "Branch-Published Fantasy Rules fixture ladder",
+  "defaultFixtureRepo": "github.com/semantic-flow/mesh-branch-fantasy-rules",
+  "branchPrefix": "a.",
+  "assetRoot": [
+    ".assets"
+  ],
+  "hasStateLane": [
+    {
+      "id": "#source-lane",
+      "type": "StateLane",
+      "laneKey": "source",
+      "branchPrefix": "a."
+    },
+    {
+      "id": "#publication-lane",
+      "type": "StateLane",
+      "laneKey": "publication",
+      "branchPrefix": "a."
+    }
+  ],
+  "hasStep": [
+    {
+      "id": "#01-source-only",
+      "type": "ScenarioStep",
+      "manifestPath": "01-source-only.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.00-blank-slate"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#02-publication-bootstrapped-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "02-publication-bootstrapped-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.02-publication-bootstrapped-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#03-ontology-integrated-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "03-ontology-integrated-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.02-publication-bootstrapped-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.03-ontology-integrated-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#04-shacl-integrated-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "04-shacl-integrated-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.03-ontology-integrated-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.04-shacl-integrated-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#05-ontology-and-shacl-terms-extracted",
+      "type": "ScenarioStep",
+      "manifestPath": "05-ontology-and-shacl-terms-extracted.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.04-shacl-integrated-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.05-ontology-and-shacl-terms-extracted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#06-ontology-and-shacl-terms-extracted-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "06-ontology-and-shacl-terms-extracted-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.05-ontology-and-shacl-terms-extracted"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.06-ontology-and-shacl-terms-extracted-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#07-root-and-examples-knops",
+      "type": "ScenarioStep",
+      "manifestPath": "07-root-and-examples-knops.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.06-ontology-and-shacl-terms-extracted-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.07-root-and-examples-knops"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#08-root-and-examples-knops-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "08-root-and-examples-knops-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.07-root-and-examples-knops"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.08-root-and-examples-knops-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#09-gunaar-example-dataset-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "09-gunaar-example-dataset-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.08-root-and-examples-knops-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.09-gunaar-example-dataset-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#10-first-release-source",
+      "type": "ScenarioStep",
+      "manifestPath": "10-first-release-source.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.01-source-only"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#11-first-release-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "11-first-release-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.09-gunaar-example-dataset-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.11-first-release-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#12-all-remaining-terms-extracted",
+      "type": "ScenarioStep",
+      "manifestPath": "12-all-remaining-terms-extracted.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.11-first-release-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.12-all-remaining-terms-extracted"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#13-all-remaining-terms-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "13-all-remaining-terms-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.12-all-remaining-terms-extracted"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.13-all-remaining-terms-woven"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#14-extracted-term-references",
+      "type": "ScenarioStep",
+      "manifestPath": "14-extracted-term-references.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.13-all-remaining-terms-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.14-extracted-term-references"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#15-extracted-term-references-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "15-extracted-term-references-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#source-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.10-first-release-source"
+          }
+        },
+        {
+          "type": "LaneStateBinding",
+          "lane": "#publication-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.14-extracted-term-references"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.15-extracted-term-references-woven"
+          }
+        }
+      ]
+    }
+  ]
+}
