@@ -48,18 +48,20 @@
   "startedAt": "2026-03-23T19:31:01Z",
   "finishedAt": "2026-03-23T19:31:02Z",
   "target": {
-    "meshBase": "https://example.org/",
-    "meshIri": "https://example.org/_mesh",
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh",
     "designatorPaths": [
       "alice"
     ]
   },
   "result": {
     "created": [
-        "https://example.org/alice/_knop/_references#orcid-0000-0002-1825-0097"
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001"
     ],
     "updated": [
-      "https://example.org/alice/_knop"
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_inventory"
     ]
   }
 }

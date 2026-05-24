@@ -43,10 +43,10 @@
   "submittedAt": "2026-03-23T19:31:00Z",
   "submittedBy": "https://example.org/agents/editor/alice",
   "target": {
-    "meshBase": "https://example.org/",
-    "meshIri": "https://example.org/_mesh",
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh",
     "designatorPaths": [
-      "alice/bio"
+      "alice"
     ]
   },
   "provenanceContext": {

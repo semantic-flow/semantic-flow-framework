@@ -55,7 +55,6 @@ Current files:
 - `knop-add-reference-job-request.jsonld` : the request payload for submitting `knop.addReference`
 - `job-accepted.jsonld` : the accepted `Job` resource returned immediately after submission
 - `job-succeeded.jsonld` : the terminal successful `Job` resource with result links
-- `reference-link.jsonld` : the created `ReferenceLink` resource
 
 Current local-convenience files:
 

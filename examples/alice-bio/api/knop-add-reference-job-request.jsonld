@@ -15,10 +15,7 @@
       },
       "designatorPaths": "https://api.example.org/vocab#designatorPaths",
       "reference": "https://api.example.org/vocab#reference",
-      "referenceUri": {
-        "@id": "https://api.example.org/vocab#referenceUri",
-        "@type": "@id"
-      },
+      "referenceTargetDesignatorPath": "https://api.example.org/vocab#referenceTargetDesignatorPath",
       "roles": "https://api.example.org/vocab#roles",
       "verifiedAt": {
         "@id": "https://semantic-flow.github.io/semantic-flow-ontology/verifiedAt",
@@ -38,14 +35,14 @@
   "@type": "https://api.example.org/vocab#KnopAddReferenceJobRequest",
   "kind": "knop.addReference",
   "target": {
-    "meshBase": "https://example.org/",
-    "meshIri": "https://example.org/_mesh",
+    "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
+    "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh",
     "designatorPaths": [
-      "alice/bio"
+      "alice"
     ]
   },
   "reference": {
-    "referenceUri": "https://orcid.org/0000-0002-1825-0097",
+    "referenceTargetDesignatorPath": "alice/bio",
     "roles": [
       "canonical"
     ],
