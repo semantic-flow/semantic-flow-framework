@@ -1,0 +1,309 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:26-carol",
+  "dcterms:title": "Alice Bio 26 carol",
+  "dcterms:description": "Checks the Carol enrichment rung that integrates and weaves a nested carol/data Turtle dataset, extracts the mesh-scoped Carol identifier from that dataset, and imports commit-pinned Carol Burnett Markdown into a governed carol/bio payload artifact.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#carol-data-extract-and-bio-import",
+      "dcterms:title": "Integrate Carol data, extract Carol, and import Carol bio",
+      "dcterms:description": "Adds carol-data.ttl as the governed carol/data payload, weaves that nested data artifact before extraction source resolution depends on it, extracts only the new carol identifier while reusing existing alice, bob, and carol/data resources, then imports the commit-pinned Carol Burnett Markdown note into carol/bio with expected digest verification.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "fixture.carol",
+      "fromRef": "25-root-page-customized-woven",
+      "toRef": "26-carol",
+      "targetDesignatorPath": "carol",
+      "hasFileExpectation": [
+        {
+          "id": "#carol-data-ttl",
+          "type": "FileExpectation",
+          "path": "carol-data.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-data-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "carol/data/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-data-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "carol/data/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "carol/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "carol/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-knop-sources-ttl",
+          "type": "FileExpectation",
+          "path": "carol/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-bio-md",
+          "type": "FileExpectation",
+          "path": "carol-bio.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#carol-bio-knop-meta-ttl",
+          "type": "FileExpectation",
+          "path": "carol/bio/_knop/_meta/meta.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-bio-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "carol/bio/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-bio-knop-sources-ttl",
+          "type": "FileExpectation",
+          "path": "carol/bio/_knop/_sources/sources.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-page",
+          "type": "FileExpectation",
+          "path": "carol/index.html",
+          "changeType": "absent"
+        },
+        {
+          "id": "#carol-data-page",
+          "type": "FileExpectation",
+          "path": "carol/data/index.html",
+          "changeType": "added"
+        },
+        {
+          "id": "#carol-data-s1-ttl",
+          "type": "FileExpectation",
+          "path": "carol/data/_history001/_s0001/ttl/carol-data.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#carol-bio-page",
+          "type": "FileExpectation",
+          "path": "carol/bio/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#carol-data-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#carol-data-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol> a <https://schema.org/Person> ; <http://xmlns.com/foaf/0.1/name> \"Carol Burnett\" ; <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/alice>, <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/name> \"Alice Ghostley\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/data> <https://schema.org/about> <https://semantic-flow.github.io/mesh-alice-bio/carol> ; <http://purl.org/dc/terms/source> <https://en.wikipedia.org/wiki/Carol_Burnett> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/data> <http://purl.org/dc/terms/creator> <https://djradon.github.io/ns/dave-richardson> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#carol-data-s1-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#carol-data-s1-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/data> <http://purl.org/dc/terms/creator> <https://djradon.github.io/ns/dave-richardson> ; <https://schema.org/about> <https://semantic-flow.github.io/mesh-alice-bio/carol> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#mesh-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/carol/_knop>, <https://semantic-flow.github.io/mesh-alice-bio/carol/data/_knop>, <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/data> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/carol-data.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-alice-bio/carol/data/index.html> . <https://semantic-flow.github.io/mesh-alice-bio/carol/bio> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/carol-bio.md> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#carol-knop-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#carol-knop-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/carol/data> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
+          "id": "#carol-bio-knop-sources-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#carol-bio-knop-sources-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ImportSource> ; <https://semantic-flow.github.io/sflo/ontology/targetAccessUrl> \"https://raw.githubusercontent.com/djradon/public-notes/f46d85187ed7781917b73dd7779b756e2d2b7494/user.carol-burnett.md\" ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> . <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" ; <https://semantic-flow.github.io/sflo/ontology/observedTargetLocalRelativePath> \"carol-bio.md\" . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "carol-data.ttl",
+              "--designator-path",
+              "carol/data"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "--history-tracking-policy",
+              "versioned",
+              "--target",
+              "designatorPath=carol/data"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "extract",
+              "--all-terms",
+              "--source",
+              "carol/data",
+              "--accept-preview"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "import",
+              "https://raw.githubusercontent.com/djradon/public-notes/f46d85187ed7781917b73dd7779b756e2d2b7494/user.carol-burnett.md",
+              "carol/bio",
+              "--working-file",
+              "carol-bio.md",
+              "--expected-digest",
+              "sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ],
+        "hasInputMaterialization": [
+          {
+            "type": "InputMaterialization",
+            "targetPath": "carol-data.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "26-carol/carol-data.ttl",
+              "derivationNote": "fixture-authored Carol Burnett dataset cross-referenced against Wikipedia, Britannica, Wikidata, and IMDb"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -552,6 +552,48 @@
           }
         }
       ]
+    },
+    {
+      "id": "#26-carol",
+      "type": "ScenarioStep",
+      "manifestPath": "26-carol.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.25-root-page-customized-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.26-carol"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#27-carol-woven",
+      "type": "ScenarioStep",
+      "manifestPath": "27-carol-woven.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.26-carol"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.27-carol-woven"
+          }
+        }
+      ]
     }
   ]
 }

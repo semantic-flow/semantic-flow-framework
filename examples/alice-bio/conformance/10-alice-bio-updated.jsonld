@@ -96,7 +96,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://djradon.github.io/ns/dave-richardson> . }",
               "expectedBoolean": true
             },
             {
@@ -113,7 +113,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://djradon.github.io/ns/dave-richardson> . }",
               "expectedBoolean": true
             },
             {
@@ -135,7 +135,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://djradon.github.io/ns/dave-richardson> . }",
               "expectedBoolean": false
             }
           ]
