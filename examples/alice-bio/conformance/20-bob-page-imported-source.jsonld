@@ -29,7 +29,7 @@
       "dcterms:description": "Imports outside-origin Markdown from the raw GitHub URL into local working file bob-page-main.md, adds bob/_knop/_page/page.ttl that points its main region at that local file, and leaves bob/index.html unchanged until weave runs.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "import",
-      "fromRef": "19-alice-page-artifact-source-woven",
+      "fromRef": "19-favicon-woven",
       "toRef": "20-bob-page-imported-source",
       "targetDesignatorPath": "bob",
       "hasReplayProfile": {

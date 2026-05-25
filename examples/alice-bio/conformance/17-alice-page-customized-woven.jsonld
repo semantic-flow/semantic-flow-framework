@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:17-alice-page-customized-woven",
+  "dcterms:title": "Alice Bio 17 alice page customized woven",
+  "dcterms:description": "Checks the weave that versions Alice's custom ResourcePageDefinition and regenerates /alice from governed alice/bio and sidebar artifacts.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-artifact-backed-alice-page",
+      "dcterms:title": "Weave artifact-backed Alice page",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "16-alice-page-customized",
+      "toRef": "17-alice-page-customized-woven",
+      "targetDesignatorPath": "alice",
+      "hasFileExpectation": [
+        {
+          "id": "#alice-page",
+          "type": "FileExpectation",
+          "path": "alice/index.html",
+          "changeType": "updated",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-knop-page-history-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_page/_history001/_s0001/ttl/page.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--history-tracking-policy",
+            "versioned",
+            "--target",
+            "designatorPath=alice"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
+    }
+  ]
+}

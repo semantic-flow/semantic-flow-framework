@@ -19,18 +19,20 @@ Current naming:
 - `11-alice-bio-v2-woven.jsonld` means `10-alice-bio-updated` -> `11-alice-bio-v2-woven`
 - `12-bob-extracted.jsonld` means `11-alice-bio-v2-woven` -> `12-bob-extracted`
 - `13-bob-extracted-woven.jsonld` means `12-bob-extracted` -> `13-bob-extracted-woven`
-- `14-alice-page-customized.jsonld` means `13-bob-extracted-woven` -> `14-alice-page-customized`
-- `15-alice-page-customized-woven.jsonld` means `14-alice-page-customized` -> `15-alice-page-customized-woven`
-- `16-alice-page-main-integrated.jsonld` means `15-alice-page-customized-woven` -> `16-alice-page-main-integrated`
-- `17-alice-page-main-integrated-woven.jsonld` means `16-alice-page-main-integrated` -> `17-alice-page-main-integrated-woven`
-- `18-alice-page-artifact-source.jsonld` means `17-alice-page-main-integrated-woven` -> `18-alice-page-artifact-source`
-- `19-alice-page-artifact-source-woven.jsonld` means `18-alice-page-artifact-source` -> `19-alice-page-artifact-source-woven`
-- `20-bob-page-imported-source.jsonld` means `19-alice-page-artifact-source-woven` -> `20-bob-page-imported-source`
+- `14-alice-bio-imported.jsonld` means `13-bob-extracted-woven` -> `14-alice-bio-imported`
+- `15-alice-bio-imported-woven.jsonld` means `14-alice-bio-imported` -> `15-alice-bio-imported-woven`
+- `16-alice-page-customized.jsonld` means `15-alice-bio-imported-woven` -> `16-alice-page-customized`
+- `17-alice-page-customized-woven.jsonld` means `16-alice-page-customized` -> `17-alice-page-customized-woven`
+- `18-favicon-integrated.jsonld` means `17-alice-page-customized-woven` -> `18-favicon-integrated`
+- `19-favicon-woven.jsonld` means `18-favicon-integrated` -> `19-favicon-woven`
+- `20-bob-page-imported-source.jsonld` means `19-favicon-woven` -> `20-bob-page-imported-source`
 - `21-bob-page-imported-source-woven.jsonld` means `20-bob-page-imported-source` -> `21-bob-page-imported-source-woven`
 - `22-root-knop-created.jsonld` means `21-bob-page-imported-source-woven` -> `22-root-knop-created`
 - `23-root-knop-created-woven.jsonld` means `22-root-knop-created` -> `23-root-knop-created-woven`
 - `24-root-page-customized.jsonld` means `23-root-knop-created-woven` -> `24-root-page-customized`
 - `25-root-page-customized-woven.jsonld` means `24-root-page-customized` -> `25-root-page-customized-woven`
+- `26-carol.jsonld` means `25-root-page-customized-woven` -> `26-carol`
+- `27-carol-woven.jsonld` means `26-carol` -> `27-carol-woven`
 
 How to read the ladder:
 
@@ -48,12 +50,13 @@ Ladder walkthrough:
 - `07 -> 08 -> 09`: add Alice reference-catalog support artifacts, then weave them.
 - `09 -> 10 -> 11`: update Alice bio content, then weave the new current artifact state and regenerated pages.
 - `11 -> 12 -> 13`: extract Bob from existing RDF content, then weave Bob's first identifier page and support surfaces.
-- `13 -> 14 -> 15`: add Alice's knop-owned page definition at `alice/_knop/_page/page.ttl`, then weave it so `alice/index.html` follows customized Markdown sources instead of the generic page path.
-- `15 -> 16 -> 17`: introduce separate governed Markdown artifacts `alice/page-main` and `sidebar`, then weave those artifacts. Alice's page still points at the old direct file sources at this stage.
-- `17 -> 18 -> 19`: repoint Alice's page definition so the main region follows governed artifact `alice/page-main` and the sidebar follows governed artifact `sidebar`, then weave that page-definition revision.
+- `13 -> 14 -> 15`: import Alice's authored bio into governed Markdown artifact `alice/bio`, integrate governed `sidebar` Markdown, then weave both non-RDF payload artifacts.
+- `15 -> 16 -> 17`: add Alice's knop-owned page definition at `alice/_knop/_page/page.ttl`, with page sources pointing directly at governed `alice/bio` and `sidebar`, then weave it so `alice/index.html` follows those artifact-backed regions.
+- `17 -> 18 -> 19`: integrate the mesh favicon as governed non-RDF binary artifact `favicon`, then weave it into artifact history.
 - `19 -> 20 -> 21`: import outside-origin Markdown into governed artifact `bob/page-main`, then weave Bob's page-definition revision so `bob/index.html` follows that imported governed artifact. `bob/page-main` itself intentionally remains unwoven in this pair.
 - `21 -> 22 -> 23`: add the root Knop later in the mesh lifecycle, then weave it so root `index.html` and root `_knop` support surfaces exist.
 - `23 -> 24 -> 25`: add the root page definition, root repo-tour content, and root stylesheet, reuse the governed `sidebar` artifact, then weave that root page-definition revision so `index.html` becomes a customized root page.
+- `25 -> 26 -> 27`: add Carol data and imported Carol bio content, then weave Carol's identifier page and payload support surfaces.
 
 Conventions used here:
 

@@ -1,0 +1,111 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:18-favicon-integrated",
+  "dcterms:title": "Alice Bio 18 favicon integrated",
+  "dcterms:description": "Checks the rung that integrates a mesh-root favicon.ico as a governed non-RDF payload artifact at /favicon.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#integrate-favicon",
+      "dcterms:title": "Integrate favicon payload artifact",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "integrate",
+      "fromRef": "17-alice-page-customized-woven",
+      "toRef": "18-favicon-integrated",
+      "targetDesignatorPath": "favicon",
+      "hasFileExpectation": [
+        {
+          "id": "#favicon-ico",
+          "type": "FileExpectation",
+          "path": "favicon.ico",
+          "changeType": "added",
+          "compareMode": "bytes"
+        },
+        {
+          "id": "#favicon-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "favicon/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#favicon-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#favicon-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/favicon.ico> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon.ico> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "integrate",
+            "favicon.ico",
+            "--designator-path",
+            "favicon"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        },
+        "hasInputMaterialization": [
+          {
+            "type": "InputMaterialization",
+            "targetPath": "favicon.ico",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "18-favicon-integrated/favicon.ico",
+              "derivationNote": "fixture binary favicon copied from the SFLO publication assets"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

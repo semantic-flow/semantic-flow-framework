@@ -1,0 +1,180 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:14-alice-bio-imported",
+  "dcterms:title": "Alice Bio 14 alice bio imported",
+  "dcterms:description": "Checks the rung that imports governed alice/bio Markdown and integrates governed sidebar Markdown before Alice's custom page definition exists.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#import-alice-bio-and-integrate-sidebar",
+      "dcterms:title": "Import Alice bio and integrate sidebar",
+      "dcterms:description": "Imports Alice Markdown from a commit-pinned outside-origin source into alice/bio, materializes sidebar Markdown from deterministic fixture assets, integrates it as sidebar, and leaves Alice's page definition unchanged.",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "fixture.aliceBioImported",
+      "fromRef": "13-bob-extracted-woven",
+      "toRef": "14-alice-bio-imported",
+      "targetDesignatorPaths": [
+        "alice/bio",
+        "sidebar"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-md",
+          "type": "FileExpectation",
+          "path": "alice-bio.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#sidebar-md",
+          "type": "FileExpectation",
+          "path": "mesh-content/sidebar.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-bio-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#sidebar-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "sidebar/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-page-definition",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_page/page.ttl",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-bio.md> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice-bio.md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#sidebar-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#sidebar-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar.md> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar.md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "import",
+              "https://raw.githubusercontent.com/djradon/public-notes/db9a48933f0e6b208baeab7190cef75d1194634f/user.alice-ghostley.md",
+              "alice/bio",
+              "--working-file",
+              "alice-bio.md",
+              "--expected-digest",
+              "sha256:0fcd9fe25c5598686557806cfdacc9c765176f315f780fa96644c3f251b49137"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "mesh-content/sidebar.md",
+              "--designator-path",
+              "sidebar"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ],
+        "hasInputMaterialization": [
+          {
+            "type": "InputMaterialization",
+            "targetPath": "mesh-content/sidebar.md",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "14-alice-bio-imported/mesh-content/sidebar.md",
+              "derivationNote": "fixture-authored sidebar Markdown copied from the Alice Bio main branch source bytes"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

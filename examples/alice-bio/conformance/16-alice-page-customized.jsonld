@@ -1,0 +1,133 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:16-alice-page-customized",
+  "dcterms:title": "Alice Bio 16 alice page customized",
+  "dcterms:description": "Checks the non-woven step that adds Alice's artifact-backed custom ResourcePageDefinition.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#define-artifact-backed-alice-page",
+      "dcterms:title": "Define artifact-backed Alice page",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "resourcePage.define",
+      "fromRef": "15-alice-bio-imported-woven",
+      "toRef": "16-alice-page-customized",
+      "targetDesignatorPath": "alice",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasFileOperation": [
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "alice/_knop/_page/page.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "16-alice-page-customized/alice/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition that targets governed alice/bio and sidebar artifacts"
+            }
+          },
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "alice/_knop/_assets/alice.css",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "16-alice-page-customized/alice/_knop/_assets/alice.css",
+              "derivationNote": "fixture-authored stylesheet copied from the Alice Bio main branch source bytes"
+            }
+          }
+        ]
+      },
+      "hasFileExpectation": [
+        {
+          "id": "#alice-knop-page-definition-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_page/page.ttl",
+          "changeType": "added",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-knop-asset-css",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_assets/alice.css",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#alice-page",
+          "type": "FileExpectation",
+          "path": "alice/index.html",
+          "changeType": "unchanged"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-page-definition-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-knop-page-definition-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/sidebar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> ?path . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> ?path . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#alice-knop-inventory-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-knop-inventory-ttl",
+          "ignorePredicate": [
+            "http://purl.org/dc/terms/created",
+            "http://purl.org/dc/terms/updated"
+          ],
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopAssetBundle> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_assets> . }",
+              "expectedBoolean": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

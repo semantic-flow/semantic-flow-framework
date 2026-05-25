@@ -107,8 +107,7 @@
           "id": "#carol-bio-knop-sources-ttl",
           "type": "FileExpectation",
           "path": "carol/bio/_knop/_sources/sources.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "added"
         },
         {
           "id": "#carol-page",

@@ -302,9 +302,9 @@
       ]
     },
     {
-      "id": "#14-alice-page-customized",
+      "id": "#14-alice-bio-imported",
       "type": "ScenarioStep",
-      "manifestPath": "14-alice-page-customized.jsonld",
+      "manifestPath": "14-alice-bio-imported.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -317,15 +317,15 @@
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.14-alice-page-customized"
+            "ref": "a.14-alice-bio-imported"
           }
         }
       ]
     },
     {
-      "id": "#15-alice-page-customized-woven",
+      "id": "#15-alice-bio-imported-woven",
       "type": "ScenarioStep",
-      "manifestPath": "15-alice-page-customized-woven.jsonld",
+      "manifestPath": "15-alice-bio-imported-woven.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -333,20 +333,20 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.14-alice-page-customized"
+            "ref": "a.14-alice-bio-imported"
           },
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.15-alice-page-customized-woven"
+            "ref": "a.15-alice-bio-imported-woven"
           }
         }
       ]
     },
     {
-      "id": "#16-alice-page-main-integrated",
+      "id": "#16-alice-page-customized",
       "type": "ScenarioStep",
-      "manifestPath": "16-alice-page-main-integrated.jsonld",
+      "manifestPath": "16-alice-page-customized.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -354,20 +354,20 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.15-alice-page-customized-woven"
+            "ref": "a.15-alice-bio-imported-woven"
           },
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.16-alice-page-main-integrated"
+            "ref": "a.16-alice-page-customized"
           }
         }
       ]
     },
     {
-      "id": "#17-alice-page-main-integrated-woven",
+      "id": "#17-alice-page-customized-woven",
       "type": "ScenarioStep",
-      "manifestPath": "17-alice-page-main-integrated-woven.jsonld",
+      "manifestPath": "17-alice-page-customized-woven.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -375,20 +375,20 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.16-alice-page-main-integrated"
+            "ref": "a.16-alice-page-customized"
           },
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.17-alice-page-main-integrated-woven"
+            "ref": "a.17-alice-page-customized-woven"
           }
         }
       ]
     },
     {
-      "id": "#18-alice-page-artifact-source",
+      "id": "#18-favicon-integrated",
       "type": "ScenarioStep",
-      "manifestPath": "18-alice-page-artifact-source.jsonld",
+      "manifestPath": "18-favicon-integrated.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -396,20 +396,20 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.17-alice-page-main-integrated-woven"
+            "ref": "a.17-alice-page-customized-woven"
           },
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.18-alice-page-artifact-source"
+            "ref": "a.18-favicon-integrated"
           }
         }
       ]
     },
     {
-      "id": "#19-alice-page-artifact-source-woven",
+      "id": "#19-favicon-woven",
       "type": "ScenarioStep",
-      "manifestPath": "19-alice-page-artifact-source-woven.jsonld",
+      "manifestPath": "19-favicon-woven.jsonld",
       "hasLaneBinding": [
         {
           "type": "LaneStateBinding",
@@ -417,12 +417,12 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.18-alice-page-artifact-source"
+            "ref": "a.18-favicon-integrated"
           },
           "toLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.19-alice-page-artifact-source-woven"
+            "ref": "a.19-favicon-woven"
           }
         }
       ]
@@ -438,7 +438,7 @@
           "fromLaneState": {
             "type": "StateLocator",
             "locatorKind": "gitRefState",
-            "ref": "a.19-alice-page-artifact-source-woven"
+            "ref": "a.19-favicon-woven"
           },
           "toLaneState": {
             "type": "StateLocator",

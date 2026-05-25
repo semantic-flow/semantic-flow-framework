@@ -1,0 +1,94 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:19-favicon-woven",
+  "dcterms:title": "Alice Bio 19 favicon woven",
+  "dcterms:description": "Checks the first weave over the non-RDF favicon.ico payload artifact.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-favicon",
+      "dcterms:title": "Weave favicon payload artifact",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "18-favicon-integrated",
+      "toRef": "19-favicon-woven",
+      "targetDesignatorPath": "favicon",
+      "hasFileExpectation": [
+        {
+          "id": "#favicon-historical-ico",
+          "type": "FileExpectation",
+          "path": "favicon/_history001/_s0001/ico/favicon.ico",
+          "changeType": "added",
+          "compareMode": "bytes"
+        },
+        {
+          "id": "#favicon-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "favicon/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#favicon-page",
+          "type": "FileExpectation",
+          "path": "favicon/index.html",
+          "changeType": "added",
+          "compareMode": "text"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#favicon-history-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#favicon-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico/favicon.ico> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--history-tracking-policy",
+            "versioned",
+            "--target",
+            "designatorPath=favicon"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
+    }
+  ]
+}

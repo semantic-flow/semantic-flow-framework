@@ -1,0 +1,133 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": {
+      "@type": "@vocab"
+    },
+    "compareMode": {
+      "@type": "@vocab"
+    },
+    "targetsFileExpectation": {
+      "@type": "@id"
+    },
+    "ignorePredicate": {
+      "@type": "@id"
+    }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:15-alice-bio-imported-woven",
+  "dcterms:title": "Alice Bio 15 alice bio imported woven",
+  "dcterms:description": "Checks the first weave over the governed alice/bio and sidebar Markdown payload artifacts.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#weave-alice-bio-and-sidebar",
+      "dcterms:title": "Weave Alice bio and sidebar artifacts",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "weave",
+      "fromRef": "14-alice-bio-imported",
+      "toRef": "15-alice-bio-imported-woven",
+      "targetDesignatorPaths": [
+        "alice/bio",
+        "sidebar"
+      ],
+      "hasFileExpectation": [
+        {
+          "id": "#alice-bio-historical-md",
+          "type": "FileExpectation",
+          "path": "alice/bio/_history001/_s0001/md/alice-bio.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#sidebar-historical-md",
+          "type": "FileExpectation",
+          "path": "sidebar/_history001/_s0001/md/sidebar.md",
+          "changeType": "added",
+          "compareMode": "text"
+        },
+        {
+          "id": "#alice-bio-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#sidebar-knop-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "sidebar/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#mesh-inventory-ttl",
+          "type": "FileExpectation",
+          "path": "_mesh/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#alice-bio-history-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#alice-bio-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001/md/alice-bio.md> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        },
+        {
+          "id": "#sidebar-history-non-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#sidebar-knop-inventory-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md/sidebar.md> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "--history-tracking-policy",
+            "versioned",
+            "--target",
+            "designatorPath=alice/bio",
+            "--target",
+            "designatorPath=sidebar"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
+    }
+  ]
+}
