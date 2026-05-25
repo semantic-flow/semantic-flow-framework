@@ -47,8 +47,7 @@
           "id": "#favicon-page",
           "type": "FileExpectation",
           "path": "favicon/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         }
       ],
       "hasRdfExpectation": [

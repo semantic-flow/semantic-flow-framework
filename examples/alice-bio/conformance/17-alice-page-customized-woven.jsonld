@@ -33,8 +33,7 @@
           "id": "#alice-page",
           "type": "FileExpectation",
           "path": "alice/index.html",
-          "changeType": "updated",
-          "compareMode": "text"
+          "changeType": "updated"
         },
         {
           "id": "#alice-knop-page-history-ttl",
