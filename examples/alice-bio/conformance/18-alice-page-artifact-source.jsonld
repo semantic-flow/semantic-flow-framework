@@ -32,6 +32,23 @@
       "fromRef": "17-alice-page-main-integrated-woven",
       "toRef": "18-alice-page-artifact-source",
       "targetDesignatorPath": "alice",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasFileOperation": [
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "alice/_knop/_page/page.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "18-alice-page-artifact-source/alice/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch artifact-backed page bytes"
+            }
+          }
+        ]
+      },
       "hasFileExpectation": [
         {
           "id": "#alice-knop-page-definition-ttl",

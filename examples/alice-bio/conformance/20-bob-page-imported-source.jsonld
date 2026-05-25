@@ -32,6 +32,35 @@
       "fromRef": "19-alice-page-artifact-source-woven",
       "toRef": "20-bob-page-imported-source",
       "targetDesignatorPath": "bob",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasFileOperation": [
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "bob-page-main.md",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "20-bob-page-imported-source/bob-page-main.md",
+              "sourceUrl": "https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md",
+              "derivationNote": "checked-in bytes copied from the Alice Bio main branch's imported Markdown source; original outside-origin URL was https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md"
+            }
+          },
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "bob/_knop/_page/page.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "20-bob-page-imported-source/bob/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch Bob page bytes"
+            }
+          }
+        ]
+      },
       "hasFileExpectation": [
         {
           "id": "#bob-page-main-md",

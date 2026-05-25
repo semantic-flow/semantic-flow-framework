@@ -32,6 +32,45 @@
       "fromRef": "23-root-knop-created-woven",
       "toRef": "24-root-page-customized",
       "targetDesignatorPath": "/",
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasFileOperation": [
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "_knop/_page/page.ttl",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "24-root-page-customized/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch root page bytes"
+            }
+          },
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "home.md",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "24-root-page-customized/home.md",
+              "derivationNote": "fixture-authored root Markdown copied from the Alice Bio main branch source bytes"
+            }
+          },
+          {
+            "type": "FileOperation",
+            "operationKind": "copyFile",
+            "targetPath": "_knop/_assets/site.css",
+            "hasSourceProvenance": {
+              "type": "SourceProvenance",
+              "sourceKind": "fixtureAsset",
+              "sourcePath": "24-root-page-customized/_knop/_assets/site.css",
+              "derivationNote": "fixture-authored root stylesheet copied from the Alice Bio main branch source bytes"
+            }
+          }
+        ]
+      },
       "hasFileExpectation": [
         {
           "id": "#root-home-md",
