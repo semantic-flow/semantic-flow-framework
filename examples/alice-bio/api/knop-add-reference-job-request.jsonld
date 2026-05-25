@@ -42,7 +42,7 @@
     ]
   },
   "reference": {
-    "referenceTargetDesignatorPath": "alice/bio",
+    "referenceTargetDesignatorPath": "alice/data",
     "roles": [
       "canonical"
     ],

@@ -20,37 +20,37 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:10-alice-bio-updated",
   "dcterms:title": "Alice Bio 10 alice bio updated",
-  "dcterms:description": "Checks the non-woven payload update after 09, where the working alice-bio.ttl content changes while the existing woven support surface and first payload snapshot remain unchanged.",
+  "dcterms:description": "Checks the non-woven payload update after 09, where the working alice-data.ttl content changes while the existing woven support surface and first payload snapshot remain unchanged.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#update-alice-bio-payload",
       "dcterms:title": "Update alice bio payload without weaving",
-      "dcterms:description": "Updates the working alice-bio.ttl payload to use explicit base-root IRIs, add authorship of the bio artifact, and expand Bob into a local Person description, while leaving inventories, references, and the first historical payload snapshot unchanged until the next weave.",
+      "dcterms:description": "Updates the working alice-data.ttl payload to use explicit base-root IRIs, add authorship of the bio artifact, and expand Bob into a local Person description, while leaving inventories, references, and the first historical payload snapshot unchanged until the next weave.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "payload.update",
       "fromRef": "09-alice-bio-referenced-woven",
       "toRef": "10-alice-bio-updated",
-      "targetDesignatorPath": "alice/bio",
+      "targetDesignatorPath": "alice/data",
       "hasFileExpectation": [
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-v2-source-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio-v2.ttl",
+          "path": "alice-data-v2.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-s1-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0001/ttl/alice-bio.ttl",
+          "path": "alice/data/_history001/_s0001/ttl/alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -78,7 +78,7 @@
         {
           "id": "#alice-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/inventory.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         }
@@ -96,7 +96,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": true
             },
             {
@@ -113,7 +113,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": true
             },
             {
@@ -135,7 +135,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": false
             }
           ]
@@ -195,7 +195,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001/_s0001> . }",
               "expectedBoolean": true
             }
           ]
@@ -210,8 +210,8 @@
           "argv": [
             "payload",
             "update",
-            "alice-bio-v2.ttl",
-            "alice/bio"
+            "alice-data-v2.ttl",
+            "alice/data"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",
@@ -222,11 +222,11 @@
         "hasInputMaterialization": [
           {
             "type": "InputMaterialization",
-            "targetPath": "alice-bio-v2.ttl",
+            "targetPath": "alice-data-v2.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureAsset",
-              "sourcePath": "10-alice-bio-updated/alice-bio-v2.ttl",
+              "sourcePath": "10-alice-bio-updated/alice-data-v2.ttl",
               "derivationNote": "fixture-authored Alice Bio v2 RDF copied from the Alice Bio main branch source bytes"
             }
           }

@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:18-alice-page-artifact-source",
   "dcterms:title": "Alice Bio 18 alice page artifact source",
-  "dcterms:description": "Checks the non-woven step that repoints Alice's main page region from a direct mesh-local Markdown source to the already-woven governed Markdown artifact alice/page-main while leaving public page output unchanged until weave runs.",
+  "dcterms:description": "Checks the non-woven step that repoints Alice's main and sidebar page regions from direct mesh-local Markdown sources to governed Markdown artifacts while leaving public page output unchanged until weave runs.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#repoint-alice-page-main-source-to-governed-markdown-artifact",
       "dcterms:title": "Repoint Alice main page region to a governed Markdown artifact",
-      "dcterms:description": "Updates alice/_knop/_page/page.ttl so the main region resolves through hasTargetArtifact <alice/page-main> in Working mode, keeps the shared sidebar on its mesh-local Markdown source, and leaves woven page-definition history untouched until the next weave.",
+      "dcterms:description": "Updates alice/_knop/_page/page.ttl so the main region resolves through hasTargetArtifact <alice/page-main> and the sidebar region resolves through hasTargetArtifact <sidebar> in Working mode, leaving woven page-definition history untouched until the next weave.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "resourcePage.define",
       "fromRef": "17-alice-page-main-integrated-woven",
@@ -120,7 +120,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/sidebar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
               "expectedBoolean": true
             }
           ]

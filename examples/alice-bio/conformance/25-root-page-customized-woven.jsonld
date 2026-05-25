@@ -41,13 +41,6 @@
           "compareMode": "text"
         },
         {
-          "id": "#root-sidebar-md",
-          "type": "FileExpectation",
-          "path": "mesh-content/root-sidebar.md",
-          "changeType": "unchanged",
-          "compareMode": "text"
-        },
-        {
           "id": "#root-knop-asset-css",
           "type": "FileExpectation",
           "path": "_knop/_assets/site.css",
@@ -146,7 +139,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/sidebar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
               "expectedBoolean": true
             }
           ]
@@ -158,7 +151,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"home.md\" . <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/sidebar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
               "expectedBoolean": true
             }
           ]

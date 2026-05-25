@@ -35,7 +35,7 @@
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },

@@ -26,7 +26,7 @@
       "type": "TransitionCase",
       "id": "#define-root-page",
       "dcterms:title": "Add root page-definition artifact without weaving",
-      "dcterms:description": "Adds _knop/_page/page.ttl, home.md, mesh-content/root-sidebar.md, and _knop/_assets/site.css, updates _knop/_inventory to register the new root ResourcePageDefinition and KnopAssetBundle, and leaves index.html unchanged until weave runs.",
+      "dcterms:description": "Adds _knop/_page/page.ttl, home.md, and _knop/_assets/site.css, reuses the governed sidebar artifact, updates _knop/_inventory to register the new root ResourcePageDefinition and KnopAssetBundle, and leaves index.html unchanged until weave runs.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "resourcePage.define",
       "fromRef": "23-root-knop-created-woven",
@@ -37,13 +37,6 @@
           "id": "#root-home-md",
           "type": "FileExpectation",
           "path": "home.md",
-          "changeType": "added",
-          "compareMode": "text"
-        },
-        {
-          "id": "#root-sidebar-md",
-          "type": "FileExpectation",
-          "path": "mesh-content/root-sidebar.md",
           "changeType": "added",
           "compareMode": "text"
         },
@@ -111,7 +104,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"mesh-content/root-sidebar.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_knop/_page#sidebar-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/sidebar> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
               "expectedBoolean": true
             }
           ]

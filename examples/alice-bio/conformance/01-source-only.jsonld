@@ -26,7 +26,7 @@
       "type": "TransitionCase",
       "id": "#seed-source-only",
       "dcterms:title": "Seed plain source RDF",
-      "dcterms:description": "Adds the root alice-bio.ttl source file and confirms that no Semantic Flow mesh structure exists yet.",
+      "dcterms:description": "Adds the root alice-data.ttl source file and confirms that no Semantic Flow mesh structure exists yet.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "fixture.seedSourceOnly",
       "fromRef": "00-blank-slate",
@@ -35,7 +35,7 @@
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         }

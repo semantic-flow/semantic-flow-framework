@@ -191,7 +191,9 @@
             "--history-tracking-policy",
             "versioned",
             "--target",
-            "designatorPath=alice/page-main"
+            "designatorPath=alice/page-main",
+            "--target",
+            "designatorPath=sidebar"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

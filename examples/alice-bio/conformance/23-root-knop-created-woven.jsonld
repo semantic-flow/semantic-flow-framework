@@ -41,21 +41,21 @@
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#mesh-inventory-s6-index",
+          "id": "#mesh-inventory-s7-index",
           "type": "FileExpectation",
-          "path": "_mesh/_inventory/_history001/_s0006/index.html",
+          "path": "_mesh/_inventory/_history001/_s0007/index.html",
           "changeType": "added"
         },
         {
-          "id": "#mesh-inventory-s6-manifestation-index",
+          "id": "#mesh-inventory-s7-manifestation-index",
           "type": "FileExpectation",
-          "path": "_mesh/_inventory/_history001/_s0006/ttl/index.html",
+          "path": "_mesh/_inventory/_history001/_s0007/ttl/index.html",
           "changeType": "added"
         },
         {
-          "id": "#mesh-inventory-s6-ttl",
+          "id": "#mesh-inventory-s7-ttl",
           "type": "FileExpectation",
-          "path": "_mesh/_inventory/_history001/_s0006/ttl/inventory.ttl",
+          "path": "_mesh/_inventory/_history001/_s0007/ttl/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -170,15 +170,15 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0005> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/hasHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0007> . <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0007> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory/_history001/_s0006> . }",
               "expectedBoolean": true
             }
           ]
         },
         {
-          "id": "#mesh-inventory-s6-rdf",
+          "id": "#mesh-inventory-s7-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#mesh-inventory-s6-ttl",
+          "targetsFileExpectation": "#mesh-inventory-s7-ttl",
           "ignorePredicate": [
             "http://purl.org/dc/terms/created",
             "http://purl.org/dc/terms/updated"

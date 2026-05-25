@@ -30,8 +30,8 @@
     "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
     "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh"
   },
-  "designatorPath": "alice/bio",
-  "sourceUri": "https://uploads.example.org/alice-bio-v2.ttl",
+  "designatorPath": "alice/data",
+  "sourceUri": "https://uploads.example.org/alice-data-v2.ttl",
   "provenanceContext": {
     "@type": "sfprov:ProvenanceContext",
     "primaryAgent": "https://example.org/agents/editor/alice"

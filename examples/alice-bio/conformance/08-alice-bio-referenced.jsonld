@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:08-alice-bio-referenced",
   "dcterms:title": "Alice Bio 08 alice bio referenced",
-  "dcterms:description": "Checks the first explicit ReferenceCatalog for alice, with one canonical ReferenceLink about alice targeting alice/bio, without weaving any new history or pages.",
+  "dcterms:description": "Checks the first explicit ReferenceCatalog for alice, with one canonical ReferenceLink about alice targeting alice/data, without weaving any new history or pages.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#add-alice-reference-link",
-      "dcterms:title": "Add alice to alice/bio reference link",
-      "dcterms:description": "Adds a dedicated ReferenceCatalog for alice and one canonical ReferenceLink about alice targeting the integrated alice/bio resource while leaving the rest of the woven surface unchanged.",
+      "dcterms:title": "Add alice to alice/data reference link",
+      "dcterms:description": "Adds a dedicated ReferenceCatalog for alice and one canonical ReferenceLink about alice targeting the integrated alice/data resource while leaving the rest of the woven surface unchanged.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "knop.addReference",
       "fromRef": "07-alice-bio-integrated-woven",
@@ -36,7 +36,7 @@
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -71,7 +71,7 @@
         {
           "id": "#alice-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/inventory.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         }
@@ -160,7 +160,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-alice-bio/alice> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceSource> <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001-source> . <https://semantic-flow.github.io/mesh-alice-bio/alice/_knop/_references#reference001-source> a <https://semantic-flow.github.io/sflo/ontology/ReferenceSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/data> . }",
               "expectedBoolean": true
             },
             {
@@ -181,7 +181,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> ?referenceLink . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceLink> ?referenceLink . }",
               "expectedBoolean": false
             }
           ]
@@ -198,7 +198,7 @@
             "add-reference",
             "alice",
             "--reference-target-designator-path",
-            "alice/bio",
+            "alice/data",
             "--reference-role",
             "Canonical"
           ],

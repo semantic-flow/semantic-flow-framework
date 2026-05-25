@@ -20,23 +20,23 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:06-alice-bio-integrated",
   "dcterms:title": "Alice Bio 06 alice bio integrated",
-  "dcterms:description": "Checks the first payload integration step, keeping the working Turtle bytes at the root while associating them with the new alice/bio payload artifact.",
+  "dcterms:description": "Checks the first payload integration step, keeping the working Turtle bytes at the root while associating them with the new alice/data payload artifact.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#integrate-alice-bio",
-      "dcterms:title": "Integrate alice/bio payload artifact",
-      "dcterms:description": "Adds the alice/bio payload artifact and its Knop support artifacts, updates mesh inventory, and keeps woven page generation deferred to the next branch.",
+      "dcterms:title": "Integrate alice/data payload artifact",
+      "dcterms:description": "Adds the alice/data payload artifact and its Knop support artifacts, updates mesh inventory, and keeps woven page generation deferred to the next branch.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "integrate",
       "fromRef": "05-alice-knop-created-woven",
       "toRef": "06-alice-bio-integrated",
-      "targetDesignatorPath": "alice/bio",
+      "targetDesignatorPath": "alice/data",
       "hasFileExpectation": [
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -50,39 +50,39 @@
         {
           "id": "#alice-bio-knop-meta-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_meta/meta.ttl",
+          "path": "alice/data/_knop/_meta/meta.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-page",
           "type": "FileExpectation",
-          "path": "alice/bio/index.html",
+          "path": "alice/data/index.html",
           "changeType": "absent"
         },
         {
           "id": "#alice-bio-knop-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/index.html",
+          "path": "alice/data/_knop/index.html",
           "changeType": "absent"
         },
         {
           "id": "#alice-bio-knop-meta-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_meta/index.html",
+          "path": "alice/data/_knop/_meta/index.html",
           "changeType": "absent"
         },
         {
           "id": "#alice-bio-knop-inventory-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/index.html",
+          "path": "alice/data/_knop/_inventory/index.html",
           "changeType": "absent"
         }
       ],
@@ -115,17 +115,17 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-bio.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-data.ttl> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/inventory.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -137,7 +137,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/designatorPath> \"alice/bio\" ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/inventory.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/designatorPath> \"alice/data\" ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingKnopInventoryFile> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/inventory.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -149,12 +149,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory> ; <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopMetadata> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_meta> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopInventory> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory> ; <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/data> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice-bio.ttl> a <https://semantic-flow.github.io/sflo/ontology/LocatedFile>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice-data.ttl> a <https://semantic-flow.github.io/sflo/ontology/LocatedFile>, <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
               "expectedBoolean": true
             }
           ]
@@ -168,9 +168,9 @@
           "executable": "weave",
           "argv": [
             "integrate",
-            "alice-bio.ttl",
+            "alice-data.ttl",
             "--designator-path",
-            "alice/bio"
+            "alice/data"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

@@ -148,21 +148,38 @@
       "hasReplayProfile": {
         "type": "ReplayProfile",
         "workspaceRoot": ".",
-        "hasCommandInvocation": {
-          "type": "CommandInvocation",
-          "executable": "weave",
-          "argv": [
-            "integrate",
-            "alice-page-main.md",
-            "--designator-path",
-            "alice/page-main"
-          ],
-          "workingDirectory": "workspace",
-          "promptPolicy": "nonInteractive",
-          "expectedExitCode": 0,
-          "expectsOperationalLogs": true,
-          "expectsAuditLogs": true
-        },
+        "hasCommandSequence": [
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "alice-page-main.md",
+              "--designator-path",
+              "alice/page-main"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          },
+          {
+            "type": "CommandInvocation",
+            "executable": "weave",
+            "argv": [
+              "integrate",
+              "mesh-content/sidebar.md",
+              "--designator-path",
+              "sidebar"
+            ],
+            "workingDirectory": "workspace",
+            "promptPolicy": "nonInteractive",
+            "expectedExitCode": 0,
+            "expectsOperationalLogs": true,
+            "expectsAuditLogs": true
+          }
+        ],
         "hasInputMaterialization": [
           {
             "type": "InputMaterialization",

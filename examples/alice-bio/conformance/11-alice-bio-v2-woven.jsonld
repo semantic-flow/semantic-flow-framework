@@ -20,37 +20,37 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:11-alice-bio-v2-woven",
   "dcterms:title": "Alice Bio 11 alice bio v2 woven",
-  "dcterms:description": "Checks the weave over the updated alice/bio payload, including the second payload historical state, the advanced alice/bio KnopInventory state, richer linked ResourcePages, and an unchanged mesh inventory.",
+  "dcterms:description": "Checks the weave over the updated alice/data payload, including the second payload historical state, the advanced alice/data KnopInventory state, richer linked ResourcePages, and an unchanged mesh inventory.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#weave-alice-bio-v2",
-      "dcterms:title": "Weave second alice/bio payload state",
-      "dcterms:description": "Versions the updated alice/bio payload into _s0002, advances alice/bio KnopInventory to a second historical state, regenerates the key public and history-facing ResourcePages with links, and leaves _mesh/_inventory unchanged because the second payload state does not widen mesh inventory.",
+      "dcterms:title": "Weave second alice/data payload state",
+      "dcterms:description": "Versions the updated alice/data payload into _s0002, advances alice/data KnopInventory to a second historical state, regenerates the key public and history-facing ResourcePages with links, and leaves _mesh/_inventory unchanged because the second payload state does not widen mesh inventory.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "weave",
       "fromRef": "10-alice-bio-updated",
       "toRef": "11-alice-bio-v2-woven",
-      "targetDesignatorPath": "alice/bio",
+      "targetDesignatorPath": "alice/data",
       "hasFileExpectation": [
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-s1-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0001/ttl/alice-bio.ttl",
+          "path": "alice/data/_history001/_s0001/ttl/alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-s2-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0002/ttl/alice-bio.ttl",
+          "path": "alice/data/_history001/_s0002/ttl/alice-data.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -78,14 +78,14 @@
         {
           "id": "#alice-bio-knop-meta-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_meta/meta.ttl",
+          "path": "alice/data/_knop/_meta/meta.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#alice-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/inventory.ttl",
           "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
@@ -122,7 +122,7 @@
         {
           "id": "#alice-bio-knop-meta-history-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_meta/_history001/index.html",
+          "path": "alice/data/_knop/_meta/_history001/index.html",
           "changeType": "updated"
         },
         {
@@ -134,85 +134,85 @@
         {
           "id": "#alice-bio-page",
           "type": "FileExpectation",
-          "path": "alice/bio/index.html",
+          "path": "alice/data/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-history-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/index.html",
+          "path": "alice/data/_history001/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-s1-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0001/index.html",
+          "path": "alice/data/_history001/_s0001/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-s1-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0001/ttl/index.html",
+          "path": "alice/data/_history001/_s0001/ttl/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-s2-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0002/index.html",
+          "path": "alice/data/_history001/_s0002/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-bio-s2-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_history001/_s0002/ttl/index.html",
+          "path": "alice/data/_history001/_s0002/ttl/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/index.html",
+          "path": "alice/data/_knop/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/index.html",
+          "path": "alice/data/_knop/_inventory/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-history-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/index.html",
+          "path": "alice/data/_knop/_inventory/_history001/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s1-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/_s0001/index.html",
+          "path": "alice/data/_knop/_inventory/_history001/_s0001/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s1-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/_s0001/ttl/index.html",
+          "path": "alice/data/_knop/_inventory/_history001/_s0001/ttl/index.html",
           "changeType": "updated"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/_s0002/index.html",
+          "path": "alice/data/_knop/_inventory/_history001/_s0002/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-manifestation-page",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/_s0002/ttl/index.html",
+          "path": "alice/data/_knop/_inventory/_history001/_s0002/ttl/index.html",
           "changeType": "added"
         },
         {
           "id": "#alice-bio-knop-inventory-s2-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/_history001/_s0002/ttl/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/_history001/_s0002/ttl/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         }
@@ -230,7 +230,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": true
             },
             {
@@ -252,7 +252,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": false
             }
           ]
@@ -264,7 +264,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data> <http://purl.org/dc/terms/creator> <https://semantic-flow.github.io/mesh-alice-bio/alice> . }",
               "expectedBoolean": true
             },
             {
@@ -330,7 +330,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/designatorPath> \"alice/bio\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/designatorPath> \"alice/data\" . }",
               "expectedBoolean": true
             }
           ]
@@ -346,22 +346,22 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"3\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"3\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0002> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_history001/_s0001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001/_s0002> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_history001/_s0001> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"3\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/_history001/_s0002> ; <https://semantic-flow.github.io/sflo/ontology/nextStateOrdinal> \"3\"^^<http://www.w3.org/2001/XMLSchema#nonNegativeInteger> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/_history001/_s0002> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory/_history001/_s0001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/_history001/_s0002> <https://semantic-flow.github.io/sflo/ontology/previousHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory/_history001/_s0001> . }",
               "expectedBoolean": true
             }
           ]
@@ -386,7 +386,7 @@
             "--history-tracking-policy",
             "versioned",
             "--target",
-            "designatorPath=alice/bio"
+            "designatorPath=alice/data"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

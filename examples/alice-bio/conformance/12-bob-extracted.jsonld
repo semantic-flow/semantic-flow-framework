@@ -20,13 +20,13 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:12-bob-extracted",
   "dcterms:title": "Alice Bio 12 bob extracted",
-  "dcterms:description": "Checks the extract step that creates Bob's minimal Knop-managed resources from the local Bob reference in alice-bio.ttl, without splitting the payload or generating new pages yet.",
+  "dcterms:description": "Checks the extract step that creates Bob's minimal Knop-managed resources from the local Bob reference in alice-data.ttl, without splitting the payload or generating new pages yet.",
   "hasCase": [
     {
       "type": "TransitionCase",
       "id": "#extract-bob",
       "dcterms:title": "Extract Bob into Knop-managed resources",
-      "dcterms:description": "Adds a minimal bob Knop with metadata, inventory, and a source-registry current ExtractionSource that records the observed alice-bio.ttl located file and digest, updates mesh inventory to register the new Knop, and leaves the payload bytes and generated pages unchanged until the next weave.",
+      "dcterms:description": "Adds a minimal bob Knop with metadata, inventory, and a source-registry current ExtractionSource that records the observed alice-data.ttl located file and digest, updates mesh inventory to register the new Knop, and leaves the payload bytes and generated pages unchanged until the next weave.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "extract",
       "fromRef": "11-alice-bio-v2-woven",
@@ -36,7 +36,7 @@
         {
           "id": "#alice-bio-ttl",
           "type": "FileExpectation",
-          "path": "alice-bio.ttl",
+          "path": "alice-data.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -64,7 +64,7 @@
         {
           "id": "#alice-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "alice/bio/_knop/_inventory/inventory.ttl",
+          "path": "alice/data/_knop/_inventory/inventory.ttl",
           "changeType": "unchanged",
           "compareMode": "rdfCanonical"
         },
@@ -203,7 +203,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/data> . }",
               "expectedBoolean": true
             }
           ]
@@ -244,7 +244,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/bio> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedSourceLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-bio.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedSourceDigest> \"sha256:37c15e56644d785a550522d7700eccd9465704f18cf4b4e55616db8b8824ea33\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/alice/data> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/hasObservedTargetLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/alice-data.ttl> ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:a1109e20325a24dc1ffba8533fa9581db00895e3deb0718a97e49b78105a320a\" . }",
               "expectedBoolean": true
             }
           ]

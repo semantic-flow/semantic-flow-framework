@@ -55,14 +55,14 @@
     "meshBase": "https://semantic-flow.github.io/mesh-alice-bio/",
     "meshIri": "https://semantic-flow.github.io/mesh-alice-bio/_mesh"
   },
-  "designatorPath": "alice/bio",
-  "sourceUri": "https://uploads.example.org/alice-bio.ttl",
+  "designatorPath": "alice/data",
+  "sourceUri": "https://uploads.example.org/alice-data.ttl",
   "result": {
     "created": [
-      "https://semantic-flow.github.io/mesh-alice-bio/alice/bio",
-      "https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop",
-      "https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_meta",
-      "https://semantic-flow.github.io/mesh-alice-bio/alice/bio/_knop/_inventory"
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/data",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_meta",
+      "https://semantic-flow.github.io/mesh-alice-bio/alice/data/_knop/_inventory"
     ],
     "updated": [
       "https://semantic-flow.github.io/mesh-alice-bio/_mesh/_inventory"

@@ -17,11 +17,11 @@
       "kind": "https://api.example.org/vocab#kind"
     }
   ],
-  "@id": "https://example.org/alice/bio/_knop",
+  "@id": "https://example.org/alice/data/_knop",
   "@type": "sflo:Knop",
-  "designatorPath": "alice/bio",
-  "referencesUrl": "https://api.example.org/knops/alice/bio/references",
-  "payloadUrl": "https://api.example.org/knops/alice/bio/payload",
+  "designatorPath": "alice/data",
+  "referencesUrl": "https://api.example.org/knops/alice/data/references",
+  "payloadUrl": "https://api.example.org/knops/alice/data/payload",
   "hydra:operation": [
     {
       "@type": "hydra:Operation",
