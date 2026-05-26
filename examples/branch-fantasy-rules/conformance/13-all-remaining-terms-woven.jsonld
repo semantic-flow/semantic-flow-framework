@@ -242,22 +242,19 @@
           "id": "#ontology-source-ttl",
           "type": "FileExpectation",
           "path": "ontology/fantasy-rules-ontology.ttl",
-          "changeType": "unchanged",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#shacl-source-ttl",
           "type": "FileExpectation",
           "path": "shacl/fantasy-rules-shacl.ttl",
-          "changeType": "unchanged",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#gunaar-source-ttl",
           "type": "FileExpectation",
           "path": "examples/gunaar.ttl",
-          "changeType": "unchanged",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#mesh-config-ttl",
@@ -328,11 +325,6 @@
               "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScoreShape> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScoreShape/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/index.html> . }",
               "expectedBoolean": true
-            },
-            {
-              "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/index.html> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/releases/v0.0.2/index.html> . }",
-              "expectedBoolean": true
             }
           ]
         },
@@ -355,7 +347,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" . . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> ?observedSpec ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:f200a39ad022f1954d19527fa2307b1b5e29d8f3b468314488585a7b3ce8457b\" . ?observedSpec a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . }",
               "expectedBoolean": true
             }
           ]

@@ -124,15 +124,13 @@
           "id": "#ability-score-meta-history-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/AbilityScore/_knop/_meta/_history001/_s0001/ttl/meta.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ability-score-inventory-history-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/AbilityScore/_knop/_inventory/_history001/_s0001/ttl/inventory.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#character-shape-inventory-ttl",
@@ -152,15 +150,13 @@
           "id": "#character-shape-meta-history-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/CharacterShape/_knop/_meta/_history001/_s0001/ttl/meta.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#character-shape-inventory-history-ttl",
           "type": "FileExpectation",
           "path": "docs/ontology/CharacterShape/_knop/_inventory/_history001/_s0001/ttl/inventory.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ability-score-page-html",
@@ -253,7 +249,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001/ttl/fantasy-rules-ontology.ttl> ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:59d700fcb8ae22181d131668df4ccf2cb58b70b37c3bcabea4b38fece15f3bb0\" . . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> ?observedSpec ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:59d700fcb8ae22181d131668df4ccf2cb58b70b37c3bcabea4b38fece15f3bb0\" . ?observedSpec a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/_history001/_s0001/ttl/fantasy-rules-ontology.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -282,7 +278,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:349f1ad30fb4b2f20cc9c9e5f6febae09c6adb2148bc6b62c81905c9da9cc011\" . . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> ?observedSpec ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:349f1ad30fb4b2f20cc9c9e5f6febae09c6adb2148bc6b62c81905c9da9cc011\" . ?observedSpec a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> . }",
               "expectedBoolean": true
             }
           ]

@@ -177,7 +177,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/ontology/releases/v0.0.2/ttl/fantasy-rules-ontology.ttl> . }",
               "expectedBoolean": true
             },
             {
@@ -209,7 +209,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl> <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/shacl/releases/v0.0.2/ttl/fantasy-rules-shacl.ttl> . }",
               "expectedBoolean": true
             },
             {

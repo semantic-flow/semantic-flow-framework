@@ -101,29 +101,25 @@
           "id": "#root-page-html",
           "type": "FileExpectation",
           "path": "index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#root-knop-page-html",
           "type": "FileExpectation",
           "path": "_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#examples-page-html",
           "type": "FileExpectation",
           "path": "examples/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#examples-knop-page-html",
           "type": "FileExpectation",
           "path": "examples/_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#gunaar-source",

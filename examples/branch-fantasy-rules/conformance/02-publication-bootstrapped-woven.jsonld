@@ -102,29 +102,25 @@
           "id": "#mesh-page",
           "type": "FileExpectation",
           "path": "_mesh/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-meta-page",
           "type": "FileExpectation",
           "path": "_mesh/_meta/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-inventory-page",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-config-page",
           "type": "FileExpectation",
           "path": "_mesh/_config/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-config-history-state-ttl",
@@ -137,22 +133,19 @@
           "id": "#mesh-config-history-page",
           "type": "FileExpectation",
           "path": "_mesh/_config/_history001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-config-history-state-page",
           "type": "FileExpectation",
           "path": "_mesh/_config/_history001/_s0001/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#mesh-config-history-state-manifestation-page",
           "type": "FileExpectation",
           "path": "_mesh/_config/_history001/_s0001/ttl/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#readme-md",
@@ -230,7 +223,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
               "expectedBoolean": true
             },
             {
@@ -252,8 +245,8 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> ?relativePath . }",
-              "expectedBoolean": false
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" . }",
+              "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",

@@ -82,8 +82,7 @@
           "id": "#ontology-source-ttl",
           "type": "FileExpectation",
           "path": "ontology/fantasy-rules-ontology.ttl",
-          "changeType": "unchanged",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ontology-sources-ttl",
@@ -96,8 +95,7 @@
           "id": "#shacl-source-ttl",
           "type": "FileExpectation",
           "path": "shacl/fantasy-rules-shacl.ttl",
-          "changeType": "unchanged",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#shacl-sources-ttl",
@@ -124,15 +122,13 @@
           "id": "#ability-score-meta-history-ttl",
           "type": "FileExpectation",
           "path": "ontology/AbilityScore/_knop/_meta/_history001/_s0001/ttl/meta.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ability-score-inventory-history-ttl",
           "type": "FileExpectation",
           "path": "ontology/AbilityScore/_knop/_inventory/_history001/_s0001/ttl/inventory.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#character-shape-inventory-ttl",
@@ -152,57 +148,49 @@
           "id": "#character-shape-meta-history-ttl",
           "type": "FileExpectation",
           "path": "ontology/CharacterShape/_knop/_meta/_history001/_s0001/ttl/meta.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#character-shape-inventory-history-ttl",
           "type": "FileExpectation",
           "path": "ontology/CharacterShape/_knop/_inventory/_history001/_s0001/ttl/inventory.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#ability-score-page-html",
           "type": "FileExpectation",
           "path": "ontology/AbilityScore/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#alignment-page-html",
           "type": "FileExpectation",
           "path": "ontology/Alignment/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#character-page-html",
           "type": "FileExpectation",
           "path": "ontology/Character/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#player-character-page-html",
           "type": "FileExpectation",
           "path": "ontology/PlayerCharacter/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#character-shape-page-html",
           "type": "FileExpectation",
           "path": "ontology/CharacterShape/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         },
         {
           "id": "#ability-score-knop-page-html",
           "type": "FileExpectation",
           "path": "ontology/AbilityScore/_knop/index.html",
-          "changeType": "added",
-          "compareMode": "text"
+          "changeType": "added"
         }
       ],
       "hasRdfExpectation": [
@@ -230,7 +218,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/index.html> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_meta> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_meta/_history001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_inventory/_history001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/index.html> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source>  . }",
               "expectedBoolean": true
             }
           ]
@@ -242,7 +230,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001/ttl/fantasy-rules-ontology.ttl> ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:cde2f0ac40fda47f3ecae3a5183825475119129540a3b773950954085f6e9f6f\" . . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/AbilityScore/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> ?observedSpec ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:cde2f0ac40fda47f3ecae3a5183825475119129540a3b773950954085f6e9f6f\" . ?observedSpec a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/_history001/_s0001/ttl/fantasy-rules-ontology.ttl> . }",
               "expectedBoolean": true
             }
           ]
@@ -254,7 +242,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/index.html> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_meta> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_meta/_history001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_inventory/_history001> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/index.html> ; <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> ; <https://semantic-flow.github.io/sflo/ontology/hasExtractionSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source>  . }",
               "expectedBoolean": true
             }
           ]
@@ -266,7 +254,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:37b76cd3bcc9c98b4135d6631dcfed7f039540546e5d398e00306d936ee322a9\" . . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources> <https://semantic-flow.github.io/sflo/ontology/hasSourceBinding> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_sources#extraction-source-observation-001> a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionObservation> ; <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> ?observedSpec ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:37b76cd3bcc9c98b4135d6631dcfed7f039540546e5d398e00306d936ee322a9\" . ?observedSpec a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetHistoricalState> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001> ; <https://semantic-flow.github.io/sflo/ontology/targetManifestation> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl> ; <https://semantic-flow.github.io/sflo/ontology/targetLocatedFile> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl/_history001/_s0001/ttl/fantasy-rules-shacl.ttl> . }",
               "expectedBoolean": true
             }
           ]

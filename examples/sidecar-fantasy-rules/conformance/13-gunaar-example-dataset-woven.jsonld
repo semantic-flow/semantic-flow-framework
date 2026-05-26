@@ -143,7 +143,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl/gunaar.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl> <https://semantic-flow.github.io/sflo/ontology/hasLocatedFile> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl/gunaar.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl/gunaar.ttl> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl> <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/examples/gunaar/_history001/_s0001/ttl/gunaar.ttl> . }",
               "expectedBoolean": true
             }
           ]

@@ -20,7 +20,7 @@
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:branch-fantasy-rules:15-extracted-term-references-woven",
   "dcterms:title": "Fantasy Rules Branch-Published 15 extracted term references woven",
-      "dcterms:description": "Checks current-only weaving of the curated extracted-term ReferenceCatalogs and their ResourcePages.",
+  "dcterms:description": "Checks current-only weaving of the curated extracted-term ReferenceCatalogs and their ResourcePages.",
   "hasCase": [
     {
       "type": "TransitionCase",
@@ -140,7 +140,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/Ability/_knop/_references#reference001-source> a <https://semantic-flow.github.io/sflo/ontology/ReferenceSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology> . }",
               "expectedBoolean": true
             }
           ]
@@ -152,7 +152,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/ontology/CharacterShape/_knop/_references#reference001-source> a <https://semantic-flow.github.io/sflo/ontology/ReferenceSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/shacl> . }",
               "expectedBoolean": true
             }
           ]
@@ -164,7 +164,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/referenceTarget> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_references#reference001> a <https://semantic-flow.github.io/sflo/ontology/ReferenceLink> ; <https://semantic-flow.github.io/sflo/ontology/referenceLinkFor> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceRole> <https://semantic-flow.github.io/sflo/ontology/referenceRole_canonical> ; <https://semantic-flow.github.io/sflo/ontology/hasReferenceSource> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_references#reference001-source> . <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar/ability-score/strength/_knop/_references#reference001-source> a <https://semantic-flow.github.io/sflo/ontology/ReferenceSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-branch-fantasy-rules/examples/gunaar> . }",
               "expectedBoolean": true
             }
           ]
