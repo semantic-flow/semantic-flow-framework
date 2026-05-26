@@ -41,9 +41,10 @@
             "targetPath": "alice-data.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "01-source-only/alice-data.ttl",
-              "derivationNote": "fixture-authored source RDF carried from the existing Alice Bio source-only fixture"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/01-source-only/alice-data.ttl",
+              "derivationNote": "fixture-authored source RDF carried from the existing Alice Bio source-only fixture",
+              "sourceRef": "assets"
             }
           }
         ]

@@ -41,9 +41,10 @@
             "targetPath": "alice/_knop/_page/page.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "16-alice-page-customized/alice/_knop/_page/page.ttl",
-              "derivationNote": "fixture-authored canonical page definition that targets governed alice/bio and sidebar artifacts"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/16-alice-page-customized/alice/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition that targets governed alice/bio and sidebar artifacts",
+              "sourceRef": "assets"
             }
           },
           {
@@ -52,9 +53,10 @@
             "targetPath": "alice/_knop/_assets/alice.css",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "16-alice-page-customized/alice/_knop/_assets/alice.css",
-              "derivationNote": "fixture-authored stylesheet copied from the Alice Bio main branch source bytes"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/16-alice-page-customized/alice/_knop/_assets/alice.css",
+              "derivationNote": "fixture-authored stylesheet copied from the Alice Bio main branch source bytes",
+              "sourceRef": "assets"
             }
           }
         ]

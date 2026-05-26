@@ -207,9 +207,10 @@
             "targetPath": "alice-data.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "10-alice-bio-updated/alice-data-v2.ttl",
-              "derivationNote": "fixture-authored Alice Bio v2 RDF copied from the Alice Bio main branch source bytes"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/10-alice-bio-updated/alice-data-v2.ttl",
+              "derivationNote": "fixture-authored Alice Bio v2 RDF copied from the Alice Bio main branch source bytes",
+              "sourceRef": "assets"
             }
           }
         ]

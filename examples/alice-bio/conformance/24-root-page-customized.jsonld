@@ -42,9 +42,10 @@
             "targetPath": "_knop/_page/page.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "24-root-page-customized/_knop/_page/page.ttl",
-              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch root page bytes"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/24-root-page-customized/_knop/_page/page.ttl",
+              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch root page bytes",
+              "sourceRef": "assets"
             }
           },
           {
@@ -53,9 +54,10 @@
             "targetPath": "home.md",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "24-root-page-customized/home.md",
-              "derivationNote": "fixture-authored root Markdown copied from the Alice Bio main branch source bytes"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/24-root-page-customized/home.md",
+              "derivationNote": "fixture-authored root Markdown copied from the Alice Bio main branch source bytes",
+              "sourceRef": "assets"
             }
           },
           {
@@ -64,9 +66,10 @@
             "targetPath": "_knop/_assets/site.css",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "24-root-page-customized/_knop/_assets/site.css",
-              "derivationNote": "fixture-authored root stylesheet copied from the Alice Bio main branch source bytes"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/24-root-page-customized/_knop/_assets/site.css",
+              "derivationNote": "fixture-authored root stylesheet copied from the Alice Bio main branch source bytes",
+              "sourceRef": "assets"
             }
           }
         ]

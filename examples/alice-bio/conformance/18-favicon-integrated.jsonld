@@ -99,9 +99,10 @@
             "targetPath": "favicon.ico",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "18-favicon-integrated/favicon.ico",
-              "derivationNote": "fixture binary favicon copied from the SFLO publication assets"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/18-favicon-integrated/favicon.ico",
+              "derivationNote": "fixture binary favicon copied from the SFLO publication assets",
+              "sourceRef": "assets"
             }
           }
         ]

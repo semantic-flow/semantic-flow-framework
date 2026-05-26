@@ -296,9 +296,10 @@
             "targetPath": "carol-data.ttl",
             "hasSourceProvenance": {
               "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "26-carol/carol-data.ttl",
-              "derivationNote": "fixture-authored Carol Burnett dataset cross-referenced against Wikipedia, Britannica, Wikidata, and IMDb"
+              "sourceKind": "fixtureRefSource",
+              "sourcePath": ".assets/26-carol/carol-data.ttl",
+              "derivationNote": "fixture-authored Carol Burnett dataset cross-referenced against Wikipedia, Britannica, Wikidata, and IMDb",
+              "sourceRef": "assets"
             }
           }
         ]
