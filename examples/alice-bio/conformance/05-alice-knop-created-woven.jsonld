@@ -175,7 +175,7 @@
             {
               "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/alice> <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
-              "expectedBoolean": true
+              "expectedBoolean": false
             }
           ]
         },
