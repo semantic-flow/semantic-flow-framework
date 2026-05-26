@@ -27,26 +27,26 @@
       "operationId": "weave",
       "fromRef": "18-favicon-integrated",
       "toRef": "19-favicon-woven",
-      "targetDesignatorPath": "favicon",
+      "targetDesignatorPath": "mesh-content/favicon",
       "hasFileExpectation": [
         {
           "id": "#favicon-historical-ico",
           "type": "FileExpectation",
-          "path": "favicon/_history001/_s0001/ico/favicon.ico",
+          "path": "mesh-content/favicon/_history001/_s0001/ico/favicon.ico",
           "changeType": "added",
           "compareMode": "bytes"
         },
         {
           "id": "#favicon-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "favicon/_knop/_inventory/inventory.ttl",
+          "path": "mesh-content/favicon/_knop/_inventory/inventory.ttl",
           "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
           "id": "#favicon-page",
           "type": "FileExpectation",
-          "path": "favicon/index.html",
+          "path": "mesh-content/favicon/index.html",
           "changeType": "added"
         }
       ],
@@ -58,12 +58,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico/favicon.ico> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/favicon/_history001/_s0001/ico/favicon.ico> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/favicon/_history001/_s0001/ico> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
               "expectedBoolean": false
             }
           ]
@@ -79,7 +79,7 @@
             "--history-tracking-policy",
             "versioned",
             "--target",
-            "designatorPath=favicon"
+            "designatorPath=mesh-content/favicon"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

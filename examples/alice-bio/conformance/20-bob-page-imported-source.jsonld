@@ -19,53 +19,24 @@
   },
   "type": "Manifest",
   "id": "urn:accord:semantic-flow:alice-bio:20-bob-page-imported-source",
-  "dcterms:title": "Alice Bio 20 bob page imported source",
-  "dcterms:description": "Checks the non-woven import-boundary step that imports outside-origin Bob Newhart Markdown into local source bytes and adds Bob page-definition state that points at those deterministic local bytes rather than the live URL.",
+  "dcterms:title": "Alice Bio 20 bob bio imported source",
+  "dcterms:description": "Checks the non-woven import-boundary step that imports outside-origin Bob Newhart Markdown into a governed bob/bio payload while leaving bob/ as a generated identifier page.",
   "hasCase": [
     {
       "type": "TransitionCase",
-      "id": "#import-bob-page-main-and-define-bob-page",
-      "dcterms:title": "Import Bob Markdown page content and define Bob page source",
-      "dcterms:description": "Imports outside-origin Markdown from the raw GitHub URL into local working file bob-page-main.md, adds bob/_knop/_page/page.ttl that points its main region at that local file, and leaves bob/index.html unchanged until weave runs.",
+      "id": "#import-bob-bio",
+      "dcterms:title": "Import Bob biography Markdown",
+      "dcterms:description": "Imports outside-origin Markdown from the pinned raw GitHub URL into local working file bob/bio/bob-bio.md, creates the bob/bio payload support surface, and does not create a custom Bob ResourcePageDefinition.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "import",
       "fromRef": "19-favicon-woven",
       "toRef": "20-bob-page-imported-source",
-      "targetDesignatorPath": "bob",
-      "hasReplayProfile": {
-        "type": "ReplayProfile",
-        "workspaceRoot": ".",
-        "hasFileOperation": [
-          {
-            "type": "FileOperation",
-            "operationKind": "copyFile",
-            "targetPath": "bob-page-main.md",
-            "hasSourceProvenance": {
-              "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "20-bob-page-imported-source/bob-page-main.md",
-              "sourceUrl": "https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md",
-              "derivationNote": "checked-in bytes copied from the Alice Bio main branch's imported Markdown source; original outside-origin URL was https://raw.githubusercontent.com/djradon/public-notes/refs/heads/main/user.bob-newhart.md"
-            }
-          },
-          {
-            "type": "FileOperation",
-            "operationKind": "copyFile",
-            "targetPath": "bob/_knop/_page/page.ttl",
-            "hasSourceProvenance": {
-              "type": "SourceProvenance",
-              "sourceKind": "fixtureAsset",
-              "sourcePath": "20-bob-page-imported-source/bob/_knop/_page/page.ttl",
-              "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch Bob page bytes"
-            }
-          }
-        ]
-      },
+      "targetDesignatorPath": "bob/bio",
       "hasFileExpectation": [
         {
-          "id": "#bob-page-main-md",
+          "id": "#bob-bio-md",
           "type": "FileExpectation",
-          "path": "bob-page-main.md",
+          "path": "bob/bio/bob-bio.md",
           "changeType": "added",
           "compareMode": "text"
         },
@@ -73,43 +44,27 @@
           "id": "#mesh-inventory-ttl",
           "type": "FileExpectation",
           "path": "_mesh/_inventory/inventory.ttl",
-          "changeType": "unchanged",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#bob-page-main-knop-meta-ttl",
+          "id": "#bob-bio-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "bob/page-main/_knop/_meta/meta.ttl",
-          "changeType": "absent",
+          "path": "bob/bio/_knop/_inventory/inventory.ttl",
+          "changeType": "added",
           "compareMode": "rdfCanonical"
         },
         {
-          "id": "#bob-page-main-knop-inventory-ttl",
+          "id": "#bob-page-main-md",
           "type": "FileExpectation",
-          "path": "bob/page-main/_knop/_inventory/inventory.ttl",
-          "changeType": "absent",
-          "compareMode": "rdfCanonical"
+          "path": "bob-page-main.md",
+          "changeType": "absent"
         },
         {
           "id": "#bob-knop-page-definition-ttl",
           "type": "FileExpectation",
           "path": "bob/_knop/_page/page.ttl",
-          "changeType": "added",
-          "compareMode": "rdfCanonical"
-        },
-        {
-          "id": "#bob-knop-inventory-ttl",
-          "type": "FileExpectation",
-          "path": "bob/_knop/_inventory/inventory.ttl",
-          "changeType": "updated",
-          "compareMode": "rdfCanonical"
-        },
-        {
-          "id": "#bob-ttl",
-          "type": "FileExpectation",
-          "path": "bob/_knop/_references/references.ttl",
-          "changeType": "absent",
-          "compareMode": "rdfCanonical"
+          "changeType": "absent"
         },
         {
           "id": "#bob-page",
@@ -118,42 +73,31 @@
           "changeType": "unchanged"
         },
         {
-          "id": "#bob-page-main-page",
+          "id": "#bob-bio-page",
           "type": "FileExpectation",
-          "path": "bob/page-main/index.html",
-          "changeType": "absent"
-        },
-        {
-          "id": "#bob-knop-page-definition-page",
-          "type": "FileExpectation",
-          "path": "bob/_knop/_page/index.html",
+          "path": "bob/bio/index.html",
           "changeType": "absent"
         }
       ],
       "hasRdfExpectation": [
         {
-          "id": "#bob-knop-page-definition-rdf",
+          "id": "#bob-bio-non-rdf",
           "type": "RdfExpectation",
-          "targetsFileExpectation": "#bob-knop-page-definition-ttl",
+          "targetsFileExpectation": "#bob-bio-knop-inventory-ttl",
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageDefinition> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/bio> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/bob/bio/bob-bio.md> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page#main-region> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageRegion> ; <https://semantic-flow.github.io/sflo/ontology/regionKey> \"main\" ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePageSource> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page#main-source> . }",
-              "expectedBoolean": true
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/bio> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page#main-source> a <https://semantic-flow.github.io/sflo/ontology/ResourcePageSource> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"bob-page-main.md\" . }",
-              "expectedBoolean": true
-            },
-            {
-              "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page#main-source> <https://semantic-flow.github.io/sflo/ontology/targetAccessUrl> ?url . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/bio/bob-bio.md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
               "expectedBoolean": false
             }
           ]
@@ -169,43 +113,44 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/bob/bio/_knop> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/_mesh> <https://semantic-flow.github.io/sflo/ontology/hasKnop> <https://semantic-flow.github.io/mesh-alice-bio/bob/page-main/_knop> . }",
               "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/page-main> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> ?pageDefinition . }",
               "expectedBoolean": false
-            },
-            {
-              "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/page-main> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> ?history . }",
-              "expectedBoolean": false
-            }
-          ]
-        },
-        {
-          "id": "#bob-knop-inventory-rdf",
-          "type": "RdfExpectation",
-          "targetsFileExpectation": "#bob-knop-inventory-ttl",
-          "ignorePredicate": [
-            "http://purl.org/dc/terms/created",
-            "http://purl.org/dc/terms/updated"
-          ],
-          "hasAskAssertion": [
-            {
-              "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop> <https://semantic-flow.github.io/sflo/ontology/hasResourcePageDefinition> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_page> . }",
-              "expectedBoolean": true
-            },
-            {
-              "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_inventory/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/bob/_knop/_inventory/_history001/_s0001> . }",
-              "expectedBoolean": true
             }
           ]
         }
-      ]
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": [
+            "import",
+            "https://raw.githubusercontent.com/djradon/public-notes/db9a48933f0e6b208baeab7190cef75d1194634f/user.bob-newhart.md",
+            "bob/bio",
+            "--working-file",
+            "bob/bio/bob-bio.md",
+            "--expected-digest",
+            "sha256:bb2825f0cca2a6075315e93c4ced80abbbb4d072aa8756b8c38d44230a33b5cc"
+          ],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
     }
   ]
 }

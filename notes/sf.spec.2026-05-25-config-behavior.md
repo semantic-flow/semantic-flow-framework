@@ -14,32 +14,33 @@ Semantic Flow config must let applications provide conservative defaults, meshes
 
 ## Conceptual Model
 
-Authored config is RDF that participates in behavior. `sfcfg:ApplicationConfig`, `sfcfg:MeshConfig`, `sfcfg:KnopConfig`, config artifacts, and operational config are authored or supplied inputs. `sfcfg:ResolvedConfig` and `sfcfg:ConfigResolutionRecord` are derived runtime or diagnostic outputs; they are not trusted authored config sources and should not be required for ordinary mesh portability.
+Authored config is RDF that participates in behavior. `sfcfg:ApplicationConfig`, `sfcfg:MeshConfig`, `sfcfg:KnopConfig`, and config artifacts are authored or supplied inputs. Implementation- or service-specific runtime authority may also cap resolution, but it is not modeled as a Semantic Flow config level here. `sfcfg:ResolvedConfig` and `sfcfg:ConfigResolutionRecord` are derived runtime or diagnostic outputs; they are not trusted authored config sources and should not be required for ordinary mesh portability.
 
-All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, mesh-inheritable config, Knop-local config, Knop-inheritable config, operational config, or a command override.
+All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, mesh-inheritable config, Knop-local config, Knop-inheritable config, or a command override.
 
 A config source may describe or constrain its intended use, but it must not expand the authority of the attachment that loaded it. For example, a config artifact stored under a Knop may participate at mesh scope only when a mesh-level attachment explicitly references it; Knop-local config must not promote itself to mesh-wide scope.
 
 Config has two broad kinds of content:
 
 - **Scoped settings** are direct facts about a config scope. They are appropriate for simple singleton or additive settings that are not target-selective policy, such as a mesh publication profile or the local relationship between a mesh root and workspace root.
-- **Layered policies** are behavior choices that can vary by scope, target selector, policy family, and operation. They should be represented with explicit policy definitions, bindings, targets, and precedence semantics rather than direct context-free policy assertions on a config resource.
+- **Layered policies** are behavior choices that can vary by scope, target selector, policy slot/value predicate, and operation. They should be represented with explicit policy definitions, bindings, targets, and precedence semantics rather than direct context-free policy assertions on a config resource.
 
-`sfcfg:ConfigResolutionConfig` is meta-config for the resolver itself: layer ordering, merge behavior, trust caps, reference policy, unknown-term policy, and cache/diagnostic behavior. It may be supplied by an application and may be narrowed by trusted or portable config where allowed, but portable config must not use resolver config to expand its own trust boundary. Under the default resolver model, portable config may request stricter resolver behavior but must not request looser behavior than the active application and operational resolver policy. Implementations that do not yet support portable resolver narrowing should reject or ignore those portable resolver-config declarations according to the active unknown-term and resolver-policy rules.
+`sfcfg:ConfigResolutionConfig` is meta-config for the resolver itself: layer ordering, merge behavior, trust caps, reference policy, unknown-term policy, and cache/diagnostic behavior. It may be supplied by an application and may be narrowed by trusted or portable config where allowed, but portable config must not use resolver config to expand its own trust boundary. Under the default resolver model, portable config may request stricter resolver behavior but must not request looser behavior than the active application and runtime resolver policy. Implementations that do not yet support portable resolver narrowing should reject or ignore those portable resolver-config declarations according to the active unknown-term and resolver-policy rules.
 
 ## Config Layers
 
 Implementations should treat config sources as ordered layers. The exact profile can be described by `sfcfg:ConfigResolutionConfig`, but the ordinary Semantic Flow precedence shape is:
 
 1. built-in and application defaults
-2. trusted machine-local and workspace operational config
-3. mesh-local config
-4. mesh-inheritable config projected into a descendant scope
-5. Knop-inherited config from ancestors
-6. Knop-local config
-7. explicit operation or command overrides
+2. mesh-local config
+3. mesh-inheritable config projected into a descendant scope
+4. Knop-inherited config from ancestors
+5. Knop-local config
+6. explicit operation or command overrides
 
-Higher-precedence layers win over lower-precedence layers for the same policy family where their targets overlap. An upper-layer binding masks lower-layer bindings only for resources its selector actually covers. Explicit operation overrides are volatile request inputs; they must not be silently persisted as mesh or Knop config.
+Implementation- or service-specific runtime authority may reject, cap, or narrow resolution before or during these layers, but it is not a portable Semantic Flow config layer in this spec.
+
+Higher-precedence layers win over lower-precedence layers for the same policy slot where their targets overlap. An upper-layer binding masks lower-layer bindings only for resources its selector actually covers. Explicit operation overrides are volatile request inputs; they must not be silently persisted as mesh or Knop config.
 
 Referenced config is not a universal layer. It is config content used through an attachment point. Its declarations participate at that attachment point's scope and layer, subject to trust policy and merge rules. Resolution records may still identify referenced config sources for provenance and debugging.
 
@@ -63,21 +64,22 @@ Layered policies should use explicit bindings. A binding associates one policy d
 A policy binding has:
 
 - a policy definition
-- a policy family
-- a policy value or profile
+- one or more policy slots/value predicates set by that definition
 - an explicit target selector
 - the declaring config source and layer
 - an optional priority for same-layer conflict resolution
 
 Policy definitions should be reusable. A definition can be bound to multiple targets or scopes without copying the policy value. Binding metadata, such as priority or attachment source, belongs on the binding rather than inside the policy definition.
 
-Policy families initially include:
+A policy slot is the supported value predicate whose value participates in resolution, such as `sfcfg:hasHistoryTrackingPolicy` or `sfcfg:hasResourcePageGenerationPolicy`. Conflict detection and merge behavior are evaluated per policy slot, not by a broad policy-family label. If a policy definition sets multiple supported slots, each slot is resolved independently after the applicable binding and target are selected. An implementation may identify the slot by inspecting supported value predicates directly or by using an explicit slot/property marker, but `PolicyFamily` is not part of the normative resolution model.
 
-- history tracking
-- ResourcePage generation
-- ResourcePage presentation defaults
+Initial policy slots include:
 
-Additional policy families may be added when they need the same layer, target, and conflict-resolution behavior. History, state, and manifestation naming may remain ordinary layered scoped settings unless they become target-selective. Publication profiles are not policy bindings in this sense; they are scoped mesh settings.
+- `sfcfg:hasHistoryTrackingPolicy`
+- `sfcfg:hasResourcePageGenerationPolicy`
+- the ResourcePage presentation default slot, such as `sfcfg:hasDefaultResourcePagePresentationConfig` or its successor if the ontology gives config-scope presentation defaults a narrower policy predicate
+
+Additional policy slots may be added when they need the same layer, target, and conflict-resolution behavior. History, state, and manifestation naming may remain ordinary layered scoped settings unless they become target-selective. Publication profiles are not policy bindings in this sense; they are scoped mesh settings. Broad grouping metadata can be added later for UI, logging, or documentation, but it must not drive normative conflict detection.
 
 ## Policy Targets
 
@@ -104,13 +106,13 @@ Under the default/application-level `sfcfg:ConfigResolutionConfig`, resolution f
 1. Select policy bindings in applicable config scopes and layers whose selectors cover the queried target.
 2. Prefer higher-precedence layers over lower-precedence layers for the queried target.
 3. Within the winning layer, prefer more specific target selectors over broader target selectors.
-4. Within the same layer, policy family, and effective selector specificity, prefer higher `sfcfg:policyPriority`.
+4. Within the same layer, policy slot, and effective selector specificity, prefer higher `sfcfg:policyPriority`.
 5. Treat omitted `sfcfg:policyPriority` as `0`.
 6. If two still-applicable bindings tie and produce incompatible values, reject the resolved config as ambiguous.
 
 Selector specificity is structural. For artifact policies, exact artifact is more specific than artifact role, and artifact role is more specific than any artifact. `sfcfg:policyPriority` is not the mechanism that makes a role-specific policy beat an any-artifact policy; priority only resolves conflicts at the same effective layer and selector specificity.
 
-Higher layers should be able to establish a new baseline for a policy family. For example, a mesh-local history policy for any artifact in that mesh overrides lower application-level role defaults, while a same-layer mesh-local role-specific history policy can still override that mesh baseline for a role such as runtime metadata.
+Higher layers should be able to establish a new baseline for a policy slot. For example, a mesh-local history policy for any artifact in that mesh overrides lower application-level role defaults, while a same-layer mesh-local role-specific history policy can still override that mesh baseline for a role such as runtime metadata.
 
 ## ResourcePage Behavior
 
@@ -140,9 +142,9 @@ Config resolution must fail closed for:
 - duplicate singleton settings in the same effective scope
 - unsafe scoped-setting values, such as local paths that escape the active trust boundary
 - incomplete or ambiguous policy targets
-- policy-family conflicts that cannot be resolved by layer, selector specificity, or priority
+- policy-slot conflicts that cannot be resolved by layer, selector specificity, or priority
 - unsafe config references or cycles under the active resolver policy
-- portable config that attempts to expand host trust or resolver authority beyond the active operational boundary
+- portable config that attempts to expand host trust or resolver authority beyond the active runtime boundary
 
 Failing closed means the operation stops before applying behavior that depends on the invalid config.
 
@@ -158,7 +160,7 @@ interface CompiledConfig {
 }
 ```
 
-The policy index should support ordinary resolution and explanation. Implementations should be able to report participating config sources, command overrides, selected policy values by family, and rejected or ignored config sources without serializing the entire effective config by default. `sfcfg:ConfigResolutionRecord` is the RDF vocabulary for materializing this explanation when an implementation deliberately persists or exports resolver diagnostics.
+The policy index should support ordinary resolution and explanation. Implementations should be able to report participating config sources, command overrides, selected policy values by slot, and rejected or ignored config sources without serializing the entire effective config by default. `sfcfg:ConfigResolutionRecord` is the RDF vocabulary for materializing this explanation when an implementation deliberately persists or exports resolver diagnostics.
 
 ## Initial Weave Slice
 

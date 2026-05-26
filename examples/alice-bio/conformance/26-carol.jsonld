@@ -143,7 +143,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol> a <https://schema.org/Person> ; <http://xmlns.com/foaf/0.1/name> \"Carol Burnett\" ; <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/alice>, <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol> a <http://xmlns.com/foaf/0.1/Person> ; <http://xmlns.com/foaf/0.1/name> \"Carol Burnett\" ; <http://xmlns.com/foaf/0.1/knows> <https://semantic-flow.github.io/mesh-alice-bio/alice>, <https://semantic-flow.github.io/mesh-alice-bio/bob> . }",
               "expectedBoolean": true
             },
             {

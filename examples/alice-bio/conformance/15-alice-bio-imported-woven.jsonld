@@ -32,7 +32,7 @@
       "toRef": "15-alice-bio-imported-woven",
       "targetDesignatorPaths": [
         "alice/bio",
-        "sidebar"
+        "mesh-content/sidebar"
       ],
       "hasFileExpectation": [
         {
@@ -45,7 +45,7 @@
         {
           "id": "#sidebar-historical-md",
           "type": "FileExpectation",
-          "path": "sidebar/_history001/_s0001/md/sidebar.md",
+          "path": "mesh-content/sidebar/_history001/_s0001/md/sidebar.md",
           "changeType": "added",
           "compareMode": "text"
         },
@@ -59,7 +59,7 @@
         {
           "id": "#sidebar-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "sidebar/_knop/_inventory/inventory.ttl",
+          "path": "mesh-content/sidebar/_knop/_inventory/inventory.ttl",
           "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
@@ -96,12 +96,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md/sidebar.md> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/ArtifactManifestation> ; <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar/_history001/_s0001/md/sidebar.md> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar/_history001/_s0001/md> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
               "expectedBoolean": false
             }
           ]
@@ -119,7 +119,7 @@
             "--target",
             "designatorPath=alice/bio",
             "--target",
-            "designatorPath=sidebar"
+            "designatorPath=mesh-content/sidebar"
           ],
           "workingDirectory": "workspace",
           "promptPolicy": "nonInteractive",

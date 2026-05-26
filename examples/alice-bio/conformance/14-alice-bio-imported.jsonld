@@ -26,14 +26,14 @@
       "type": "TransitionCase",
       "id": "#import-alice-bio-and-integrate-sidebar",
       "dcterms:title": "Import Alice bio and integrate sidebar",
-      "dcterms:description": "Imports Alice Markdown from a commit-pinned outside-origin source into alice/bio, materializes sidebar Markdown from deterministic fixture assets, integrates it as sidebar, and leaves Alice's page definition unchanged.",
+      "dcterms:description": "Imports Alice Markdown from a commit-pinned outside-origin source into alice/bio, materializes sidebar Markdown from deterministic fixture assets, integrates it as mesh-content/sidebar, and leaves Alice's page definition unchanged.",
       "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
       "operationId": "fixture.aliceBioImported",
       "fromRef": "13-bob-extracted-woven",
       "toRef": "14-alice-bio-imported",
       "targetDesignatorPaths": [
         "alice/bio",
-        "sidebar"
+        "mesh-content/sidebar"
       ],
       "hasFileExpectation": [
         {
@@ -60,7 +60,7 @@
         {
           "id": "#sidebar-knop-inventory-ttl",
           "type": "FileExpectation",
-          "path": "sidebar/_knop/_inventory/inventory.ttl",
+          "path": "mesh-content/sidebar/_knop/_inventory/inventory.ttl",
           "changeType": "added",
           "compareMode": "rdfCanonical"
         },
@@ -108,12 +108,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar.md> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar> a <https://semantic-flow.github.io/sflo/ontology/PayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/DigitalArtifact> ; <https://semantic-flow.github.io/sflo/ontology/hasWorkingLocatedFile> <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar.md> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/sidebar> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/mesh-content/sidebar> a <https://semantic-flow.github.io/sflo/ontology/RdfDocument> . }",
               "expectedBoolean": false
             },
             {
@@ -153,7 +153,7 @@
               "integrate",
               "mesh-content/sidebar.md",
               "--designator-path",
-              "sidebar"
+              "mesh-content/sidebar"
             ],
             "workingDirectory": "workspace",
             "promptPolicy": "nonInteractive",

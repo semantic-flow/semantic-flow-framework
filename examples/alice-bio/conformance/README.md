@@ -50,12 +50,12 @@ Ladder walkthrough:
 - `07 -> 08 -> 09`: add Alice reference-catalog support artifacts, then weave them.
 - `09 -> 10 -> 11`: update Alice bio content, then weave the new current artifact state and regenerated pages.
 - `11 -> 12 -> 13`: extract Bob from existing RDF content, then weave Bob's first identifier page and support surfaces.
-- `13 -> 14 -> 15`: import Alice's authored bio into governed Markdown artifact `alice/bio`, integrate governed `sidebar` Markdown, then weave both non-RDF payload artifacts.
-- `15 -> 16 -> 17`: add Alice's knop-owned page definition at `alice/_knop/_page/page.ttl`, with page sources pointing directly at governed `alice/bio` and `sidebar`, then weave it so `alice/index.html` follows those artifact-backed regions.
-- `17 -> 18 -> 19`: integrate the mesh favicon as governed non-RDF binary artifact `favicon`, then weave it into artifact history.
-- `19 -> 20 -> 21`: import outside-origin Markdown into governed artifact `bob/page-main`, then weave Bob's page-definition revision so `bob/index.html` follows that imported governed artifact. `bob/page-main` itself intentionally remains unwoven in this pair.
+- `13 -> 14 -> 15`: import Alice's authored bio into governed Markdown artifact `alice/bio`, integrate governed `mesh-content/sidebar` Markdown, then weave both non-RDF payload artifacts.
+- `15 -> 16 -> 17`: add Alice's knop-owned page definition at `alice/_knop/_page/page.ttl`, with page sources pointing directly at governed `alice/bio` and `mesh-content/sidebar`, then weave it so `alice/index.html` follows those artifact-backed regions.
+- `17 -> 18 -> 19`: integrate the mesh favicon as governed non-RDF binary artifact `mesh-content/favicon`, then weave it into artifact history.
+- `19 -> 20 -> 21`: import outside-origin Markdown into governed artifact `bob/bio`, then weave that payload so `bob/bio/` carries the biography while `bob/` remains a generated identifier page.
 - `21 -> 22 -> 23`: add the root Knop later in the mesh lifecycle, then weave it so root `index.html` and root `_knop` support surfaces exist.
-- `23 -> 24 -> 25`: add the root page definition, root repo-tour content, and root stylesheet, reuse the governed `sidebar` artifact, then weave that root page-definition revision so `index.html` becomes a customized root page.
+- `23 -> 24 -> 25`: add the root page definition, root repo-tour content, and root stylesheet, reuse the governed `mesh-content/sidebar` artifact, then weave that root page-definition revision so `index.html` becomes a customized root page.
 - `25 -> 26 -> 27`: add Carol data and imported Carol bio content, then weave Carol's identifier page and payload support surfaces.
 
 Conventions used here:
