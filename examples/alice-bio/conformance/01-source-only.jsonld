@@ -42,9 +42,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": "alice-data.ttl",
+              "sourcePath": ".assets/01-source-only/alice-data.ttl",
               "derivationNote": "fixture-authored source RDF carried from the existing Alice Bio source-only fixture",
-              "sourceRef": "a.01-source-only"
+              "sourceRef": "assets"
             }
           }
         ]

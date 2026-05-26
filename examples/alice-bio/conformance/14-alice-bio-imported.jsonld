@@ -169,9 +169,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": "mesh-content/sidebar.md",
+              "sourcePath": ".assets/14-alice-bio-imported/mesh-content/sidebar.md",
               "derivationNote": "fixture-authored sidebar Markdown copied from the Alice Bio main branch source bytes",
-              "sourceRef": "a.14-alice-bio-imported"
+              "sourceRef": "assets"
             }
           }
         ]
