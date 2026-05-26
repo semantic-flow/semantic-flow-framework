@@ -59,7 +59,7 @@ Branch-published source bindings must use durable repository-source provenance r
 Expected RDF should use the core Semantic Flow source locator shape:
 
 - `sflo:RepositorySourceLocator`
-- `sflo:hasTargetRepositorySource`
+- `sflo:targetRepositorySource`
 - `sflo:sourceRepositoryUrl`
 - `sflo:sourceRepositoryRef`
 - `sflo:sourceRepositoryCommit` when known

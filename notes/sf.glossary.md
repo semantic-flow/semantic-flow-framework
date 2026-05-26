@@ -10,9 +10,9 @@ created: 1774245492640
 
 Artifact resolution is the general process of taking a policy-bearing target description and resolving it to the concrete bytes an application should use.
 
-In the current core ontology this pattern is modeled by `ArtifactResolutionTarget`.
+In the current core ontology this pattern is modeled by `ArtifactResolutionSpec`.
 
-An `ArtifactResolutionTarget` may resolve through:
+An `ArtifactResolutionSpec` may resolve through:
 
 - a target `DigitalArtifact`
 - a direct mesh-local path string such as `targetLocalRelativePath`
@@ -43,7 +43,7 @@ So the important split is not “artifact source vs imported source.” The impo
 - direct access-URL resolution
 - direct located-file resolution
 
-This is both a runtime term and now also an ontology term through `ArtifactResolutionTarget`.
+This is both a runtime term and now also an ontology term through `ArtifactResolutionSpec`.
 
 Related current-byte rule:
 

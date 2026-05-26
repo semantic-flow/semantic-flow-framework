@@ -50,7 +50,7 @@ In the current first slice, that means:
 
 When the integrated source is outside the mesh root, the source registry records a `KnopSourceRegistry` source binding for the payload artifact. The default binding uses the deterministic internal `payload-source` fragment id, `targetLocalRelativePath` for the local operational locator, and `artifactResolutionMode_working` for mutable working-source resolution. Floating working bindings do not persist repository ref, commit, path, digest evidence, or `expectsContentDigest`.
 
-When repository-backed metadata is deliberately supplied, the source registry may also record `hasTargetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator for that repository-backed binding.
+When repository-backed metadata is deliberately supplied, the source registry may also record `targetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator for that repository-backed binding.
 
 ## What Integrate Does Not Do
 

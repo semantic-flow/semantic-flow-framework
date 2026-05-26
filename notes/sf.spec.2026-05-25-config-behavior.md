@@ -77,7 +77,7 @@ Initial policy slots include:
 
 - `sfcfg:hasHistoryTrackingPolicy`
 - `sfcfg:hasResourcePageGenerationPolicy`
-- the ResourcePage presentation default slot, such as `sfcfg:hasDefaultResourcePagePresentationConfig` or its successor if the ontology gives config-scope presentation defaults a narrower policy predicate
+- the ResourcePage presentation default slot, expressed with a config-side presentation-policy predicate once that vocabulary lands
 
 Additional policy slots may be added when they need the same layer, target, and conflict-resolution behavior. History, state, and manifestation naming may remain ordinary layered scoped settings unless they become target-selective. Publication profiles are not policy bindings in this sense; they are scoped mesh settings. Broad grouping metadata can be added later for UI, logging, or documentation, but it must not drive normative conflict detection.
 

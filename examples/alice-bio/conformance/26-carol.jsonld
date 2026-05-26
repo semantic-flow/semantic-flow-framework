@@ -203,7 +203,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/hasTargetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/carol/data> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/_knop/_sources#extraction-source> a <https://semantic-flow.github.io/sflo/ontology/ExtractionSource> ; <https://semantic-flow.github.io/sflo/ontology/targetArtifact> <https://semantic-flow.github.io/mesh-alice-bio/carol/data> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactResolutionMode> <https://semantic-flow.github.io/sflo/ontology/artifactResolutionMode_working> . }",
               "expectedBoolean": true
             }
           ]
@@ -215,7 +215,7 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ImportSource> ; <https://semantic-flow.github.io/sflo/ontology/targetAccessUrl> \"https://raw.githubusercontent.com/djradon/public-notes/f46d85187ed7781917b73dd7779b756e2d2b7494/user.carol-burnett.md\" ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> . <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" ; <https://semantic-flow.github.io/sflo/ontology/observedTargetLocalRelativePath> \"carol-bio.md\" . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source> a <https://semantic-flow.github.io/sflo/ontology/ImportSource> ; <https://semantic-flow.github.io/sflo/ontology/targetAccessUrl> \"https://raw.githubusercontent.com/djradon/public-notes/f46d85187ed7781917b73dd7779b756e2d2b7494/user.carol-burnett.md\" ; <https://semantic-flow.github.io/sflo/ontology/expectsContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" ; <https://semantic-flow.github.io/sflo/ontology/hasResolutionObservation> <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> . <https://semantic-flow.github.io/mesh-alice-bio/carol/bio/_knop/_sources#payload-source-observation-001> <https://semantic-flow.github.io/sflo/ontology/observedArtifactResolutionSpec> [ a <https://semantic-flow.github.io/sflo/ontology/ArtifactResolutionSpec> ; <https://semantic-flow.github.io/sflo/ontology/targetLocalRelativePath> \"carol-bio.md\" . ] ; <https://semantic-flow.github.io/sflo/ontology/observedContentDigest> \"sha256:5634ffc14165c55ab43c2af38b9d6395e22c8385f54d4a94a7d22d83c99afee7\" . }",
               "expectedBoolean": true
             }
           ]

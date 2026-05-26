@@ -35,7 +35,7 @@ In this first slice, it does not redefine or replace generic generation for:
 - state pages
 - manifestation pages
 
-Template/chrome selection remains adjacent but separate through config vocabulary such as `ResourcePagePresentationConfig`.
+Template/chrome selection remains adjacent but separate through config vocabulary such as `ResourcePagePresentationPolicy`.
 
 ## Discovery And Authority
 
@@ -114,23 +114,23 @@ Behavioral consequences:
 
 ### In-mesh artifact sources
 
-A page source may point at an in-mesh governed artifact through the generic `ArtifactResolutionTarget` fields such as `hasTargetArtifact`, `hasRequestedTargetState`, `hasArtifactResolutionMode`, and `hasArtifactResolutionFallbackPolicy`, used directly on `ResourcePageSource`.
+A page source may point at an in-mesh governed artifact through the generic `ArtifactResolutionSpec` fields such as `targetArtifact`, `targetHistoricalState`, `hasArtifactResolutionMode`, and `hasFallbackArtifactResolutionSpec`, used directly on `ResourcePageSource`.
 
 Behavioral consequences:
 
 - the source target is a governed in-mesh artifact, not an arbitrary path string
 - `Working` mode follows the source artifact's `workingLocalRelativePath` when present, otherwise its `workingAccessUrl` when an operational profile explicitly allows remote working-byte access, otherwise its current `hasWorkingLocatedFile`
 - exact state coordinates follow the requested historical state rather than the working file
-- `LatestState` mode follows the latest settled `HistoricalState`, bounded to `hasRequestedTargetHistory` when present
-- fallback policy constrains what may happen if the requested state cannot be used as requested
+- `LatestState` mode follows the latest settled `HistoricalState`, bounded to `targetArtifactHistory` when present
+- a fallback artifact-resolution spec may name the next resolution attempt if the primary spec cannot be used as requested
 
-For the first implemented page-generation slice, `LatestState` is supported for payload artifacts. If `hasRequestedTargetHistory` is present, resolution uses that history's `latestHistoricalState`; if no requested history is present, resolution uses the payload artifact's `currentArtifactHistory` and fails closed when there is no current/default history. The requested or current history must be declared as an artifact history of the target artifact and typed as `ArtifactHistory`. Resolution reads the settled state's `locatedFileForState` when present; deriving a default payload snapshot path from the state path and working file name is only a compatibility fallback. This first slice does not guess the latest state across all known histories.
+For the first implemented page-generation slice, `LatestState` is supported for payload artifacts. If `targetArtifactHistory` is present, resolution uses that history's `latestHistoricalState`; if no requested history is present, resolution uses the payload artifact's `currentArtifactHistory` and fails closed when there is no current/default history. The requested or current history must be declared as an artifact history of the target artifact and typed as `ArtifactHistory`. Resolution reads the settled state's `locatedFileForState` when present; deriving a default payload snapshot path from the state path and working file name is only a compatibility fallback. This first slice does not guess the latest state across all known histories.
 
 For this first page-generation slice, a governed source artifact that resolves only through `workingAccessUrl` should still be treated as out of bounds unless a later spec explicitly widens page generation to permit remote current-byte access. The broader artifact model may name that current surface now without requiring `weave` to follow it yet.
 
 ### Direct access-URL targets
 
-The broader `ArtifactResolutionTarget` model may also name target bytes directly through `targetAccessUrl`.
+The broader `ArtifactResolutionSpec` model may also name target bytes directly through `targetAccessUrl`.
 
 Behavioral consequences:
 
@@ -180,7 +180,7 @@ This keeps page generation reproducible from the current mesh state instead of t
 
 ## Per-Source Mode And Fallback Semantics
 
-Per-source state, mode, and fallback policy belong to the individual `ResourcePageSource`, not to the page as a whole.
+Per-source state, mode, and fallback specs belong to the individual `ResourcePageSource`, not to the page as a whole.
 
 That is a real contract requirement, not just a modeling preference. Different page regions may legitimately follow different artifacts and different state policies.
 
@@ -190,18 +190,19 @@ The first-pass source mode contract is:
 
 - `Working`: resolve the source against the artifact's current working file or other approved mutable working-byte locator
 - `LatestState`: resolve the source against the latest settled historical state, bounded to the requested history when present
-- exact coordinates such as `hasRequestedTargetState`: resolve the source against that requested historical state
+- exact coordinates such as `targetHistoricalState`: resolve the source against that requested historical state
 
-Mode and fallback policy are separate. They should not be collapsed into one enum or one boolean.
+Mode and fallback specs are separate. They should not be collapsed into one enum or one boolean.
 
-### Fallback Policy
+### Fallback Specs
 
-The first-pass fallback policy contract is:
+The first-pass fallback contract is:
 
-- `ExactOnly`: if the requested exact source cannot be resolved exactly as requested, fail the page resolution
-- `AcceptLatestInRequestedHistory`: if the requested exact state cannot be used as requested, the runtime may fall forward only to the latest available state in the same requested history
+- if no `hasFallbackArtifactResolutionSpec` is present and the requested source cannot be resolved as requested, fail the page resolution
+- if `hasFallbackArtifactResolutionSpec` is present, the runtime may try that explicit alternate `ArtifactResolutionSpec`
+- first-pass validation allows at most one unordered fallback spec
 
-`AcceptLatestInRequestedHistory` is a bounded relaxation, not a license to search the whole mesh for something “close enough”.
+An explicit fallback spec is a bounded alternate, not a license to search the whole mesh for something "close enough".
 
 In particular it must not:
 
@@ -210,7 +211,7 @@ In particular it must not:
 - jump to an outside origin
 - silently choose a sibling artifact
 
-For direct local file sources, mode and fallback do not broaden resolution. The resolved source is the named local file or the operation fails.
+For direct local file sources, mode and fallback specs do not broaden resolution. The resolved source is the named local file or the operation fails.
 
 ## `_knop/_assets` Behavior
 
