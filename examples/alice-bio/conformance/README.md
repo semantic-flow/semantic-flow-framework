@@ -70,7 +70,7 @@ The first transition, `00-blank-slate` -> `01-source-only`, is fixture seeding r
 
 These manifests are authored before any dedicated runner. They are meant to serve as the normative acceptance layer that a later pseudo-runner or validator will execute against.
 
-Replay assets for this ladder are sourced from the `assets` branch of `github.com/semantic-flow/mesh-alice-bio`. That branch is intentionally empty except for `.assets/`, so replay metadata uses `sourceKind: fixtureRefSource`, `sourceRef: assets`, and `.assets/...` source paths when materializing fixture-owned inputs.
+Replay assets for this ladder are sourced from the checked-in `a.*` fixture states of `github.com/semantic-flow/mesh-alice-bio`. Replay metadata uses `sourceKind: fixtureRefSource`, the concrete `sourceRef` for the state that contains the deterministic bytes, and source paths relative to that state.
 
 For the current Alice reference transitions, the active convention is:
 

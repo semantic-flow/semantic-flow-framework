@@ -16,9 +16,6 @@
   "dcterms:title": "Alice Bio fixture ladder",
   "defaultFixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
   "branchPrefix": "a.",
-  "assetRoot": [
-    ".assets"
-  ],
   "hasStateLane": [
     {
       "id": "#fixture-lane",

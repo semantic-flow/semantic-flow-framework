@@ -100,9 +100,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": ".assets/18-favicon-integrated/favicon.ico",
+              "sourcePath": "favicon.ico",
               "derivationNote": "fixture binary favicon copied from the SFLO publication assets",
-              "sourceRef": "assets"
+              "sourceRef": "a.18-favicon-integrated"
             }
           }
         ]

@@ -43,9 +43,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": ".assets/24-root-page-customized/_knop/_page/page.ttl",
+              "sourcePath": "_knop/_page/page.ttl",
               "derivationNote": "fixture-authored canonical page definition adapted from the Alice Bio main branch root page bytes",
-              "sourceRef": "assets"
+              "sourceRef": "a.24-root-page-customized"
             }
           },
           {
@@ -55,9 +55,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": ".assets/24-root-page-customized/home.md",
+              "sourcePath": "home.md",
               "derivationNote": "fixture-authored root Markdown copied from the Alice Bio main branch source bytes",
-              "sourceRef": "assets"
+              "sourceRef": "a.24-root-page-customized"
             }
           },
           {
@@ -67,9 +67,9 @@
             "hasSourceProvenance": {
               "type": "SourceProvenance",
               "sourceKind": "fixtureRefSource",
-              "sourcePath": ".assets/24-root-page-customized/_knop/_assets/site.css",
+              "sourcePath": "_knop/_assets/site.css",
               "derivationNote": "fixture-authored root stylesheet copied from the Alice Bio main branch source bytes",
-              "sourceRef": "assets"
+              "sourceRef": "a.24-root-page-customized"
             }
           }
         ]
