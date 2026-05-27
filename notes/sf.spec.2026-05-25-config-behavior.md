@@ -77,7 +77,7 @@ Initial policy slots include:
 
 - `sfcfg:hasHistoryTrackingPolicy`
 - `sfcfg:hasResourcePageGenerationPolicy`
-- the ResourcePage presentation default slot, expressed with a config-side presentation-policy predicate once that vocabulary lands
+- `sfcfg:hasResourcePagePresentationPolicy`
 
 Additional policy slots may be added when they need the same layer, target, and conflict-resolution behavior. History, state, and manifestation naming may remain ordinary layered scoped settings unless they become target-selective. Publication profiles are not policy bindings in this sense; they are scoped mesh settings. Broad grouping metadata can be added later for UI, logging, or documentation, but it must not drive normative conflict detection.
 
@@ -90,6 +90,8 @@ Artifact policy targets should distinguish at least:
 - any governed artifact in the current config scope
 - artifacts with a specific `sfcfg:ArtifactRole`
 - one exact artifact
+
+The first implementation slice may defer exact-artifact policy targets if it still validates incomplete or unsupported exact-target selectors fail closed rather than widening them.
 
 A governed artifact is a Semantic Flow-managed `sflo:DigitalArtifact` governed by the current config scope through the mesh or Knop's support, inventory, payload, reference, page-definition, or config structure. Mesh support artifacts such as mesh metadata, mesh inventory, and mesh config artifacts are governed by their mesh. Knop support artifacts and payload artifacts are governed by their Knop and by the containing mesh. A merely referenced external artifact is not governed by a scope just because config in that scope points to it.
 
@@ -166,4 +168,4 @@ The policy index should support ordinary resolution and explanation. Implementat
 
 The first Weave implementation slice should honor `_mesh/_config/config.ttl` as mesh-local config for existing-mesh commands, compile it over application defaults, and then apply command overrides.
 
-That slice should establish the policy-binding vocabulary needed for history tracking, ResourcePage generation, and ResourcePage presentation defaults. It may leave remote config retrieval, arbitrary referenced config resolution, inheritable-config projection, persisted `sfcfg:ResolvedConfig`, and full resolver diagnostic materialization for later.
+That slice should establish the policy-binding vocabulary needed for history tracking, ResourcePage generation, and ResourcePage presentation defaults. It may leave exact-artifact selectors, remote config retrieval, arbitrary referenced config resolution, inheritable-config projection, persisted `sfcfg:ResolvedConfig`, and full resolver diagnostic materialization for later.
