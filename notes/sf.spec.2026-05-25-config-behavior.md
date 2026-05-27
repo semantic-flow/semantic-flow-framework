@@ -14,11 +14,11 @@ Semantic Flow config must let applications provide conservative defaults, meshes
 
 ## Conceptual Model
 
-Authored config is RDF that participates in behavior. `sfcfg:ApplicationConfig`, `sfcfg:MeshConfig`, `sfcfg:KnopConfig`, and config artifacts are authored or supplied inputs. Implementation- or service-specific runtime authority may also cap resolution, but it is not modeled as a Semantic Flow config level here. `sfcfg:ResolvedConfig` and `sfcfg:ConfigResolutionRecord` are derived runtime or diagnostic outputs; they are not trusted authored config sources and should not be required for ordinary mesh portability.
+Authored config is RDF that participates in behavior. `sfcfg:ApplicationConfig`, `sfcfg:MeshConfig`, and ordinary `sfcfg:Config` / `sfcfg:ConfigArtifact` values attached to Knops or other recognized scopes are authored or supplied inputs. Implementation- or service-specific runtime authority may also cap resolution, but it is not modeled as a Semantic Flow config level here. `sfcfg:ResolvedConfig` and `sfcfg:ConfigResolutionRecord` are derived runtime or diagnostic outputs; they are not trusted authored config sources and should not be required for ordinary mesh portability.
 
-All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, mesh-inheritable config projected into a descendant scope, Knop-local config, Knop-inheritable config projected into a descendant scope, or a command override.
+All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, Knop-local config, Knop-inheritable config projected into a descendant scope, or a command override. Generic local attachment properties, `sfcfg:hasConfig` and `sfcfg:hasConfigSource`, derive mesh versus Knop scope from the attachment subject. Generic inheritable attachment properties, `sfcfg:hasInheritableConfig` and `sfcfg:hasInheritableConfigSource`, are Knop-authored descendant offers and are not subproperties of the local attachment properties.
 
-A config source may describe or constrain its intended use, but it must not expand the authority of the attachment that loaded it. For example, a config artifact stored under a Knop may participate at mesh scope only when a mesh-level attachment explicitly references it; Knop-local config must not promote itself to mesh-wide scope. There is no `sfcfg:configLayerRole_reusableConfig`; a referenced `sfcfg:ConfigSource` participates at the scope and layer of the attachment property that selected it.
+A config source may describe or constrain its intended use, but it must not expand the authority of the attachment that loaded it. For example, a config artifact stored under a Knop may participate at mesh scope only when a mesh-level attachment explicitly references it; Knop-local config must not promote itself to mesh-wide scope. There is no `sfcfg:configLayerRole_reusableConfig`; a referenced `sfcfg:ConfigSource` participates at the scope and layer determined by the attachment subject and property that selected it.
 
 Config has two broad kinds of content:
 
@@ -33,10 +33,9 @@ Implementations should treat config sources as ordered layers. The exact profile
 
 1. built-in and application defaults
 2. mesh-local config
-3. mesh-inheritable config projected into a descendant scope
-4. Knop-inherited config from ancestors
-5. Knop-local config
-6. explicit operation or command overrides
+3. Knop-inherited config from ancestors
+4. Knop-local config
+5. explicit operation or command overrides
 
 Implementation- or service-specific runtime authority may reject, cap, or narrow resolution before or during these layers, but it is not a portable Semantic Flow config layer in this spec.
 
@@ -44,7 +43,7 @@ Higher-precedence layers win over lower-precedence layers for the same policy sl
 
 Referenced config is not a universal layer. It is config content used through an attachment point. Its declarations participate at that attachment point's scope and layer, subject to trust policy and merge rules. Resolution records may still identify referenced config sources for provenance and debugging.
 
-Knop-inheritable config is an outbound offer to descendant scopes, not local config for the declaring Knop. If the same policy should apply to the declaring Knop and its descendants, it should be attached both as Knop-local config and as Knop-inheritable config, or represented by explicitly referenced config used from both attachment points. Mesh-inheritable and Knop-inheritable config should be accepted, blocked, or propagated according to the active config inheritance policy.
+Knop-inheritable config is an outbound offer to descendant scopes, not local config for the declaring Knop. If the same policy should apply to the declaring Knop and its descendants, it should be attached both as Knop-local config and as Knop-inheritable config, or represented by explicitly referenced config used from both attachment points. Mesh-authored defaults for Knop-governed targets are ordinary mesh config whose selectors and scope cover those targets; they are not a separate mesh-inheritable attachment layer.
 
 ## Scoped Settings
 

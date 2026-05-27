@@ -18,11 +18,12 @@ Semantic Flow distinguishes config source, config attachment, and config layer:
 
 - a `sfcfg:ConfigArtifact` gives config stable identity, history, dereferenceability, and reuse
 - a `sfcfg:ConfigSource` describes how to resolve config bytes or a config artifact
-- an attachment property such as `sfcfg:hasMeshConfigSource`, `sfcfg:hasKnopLocalConfigSource`, or `sfcfg:hasKnopInheritableConfigSource` determines the scope and role where the resolved config participates
+- `sfcfg:hasConfig` and `sfcfg:hasConfigSource` attach local config to recognized config-bearing subjects such as `sflo:SemanticMesh` and `sflo:Knop`
+- `sfcfg:hasInheritableConfig` and `sfcfg:hasInheritableConfigSource` attach Knop-authored subtree defaults for descendant Knops
 
-There is intentionally no reusable-config layer. If a mesh-level attachment references a config artifact stored under a Knop, that content participates as mesh-level config because the mesh attachment used it. If a Knop-local attachment references the same artifact, the same content participates as Knop-local config. Source location and reusable identity are provenance, not authority.
+There is intentionally no reusable-config layer. If a mesh-level local attachment references a config artifact stored under a Knop, that content participates as mesh-level config because the mesh attachment used it. If a Knop-local attachment references the same artifact, the same content participates as Knop-local config. Source location and reusable identity are provenance, not authority.
 
-For ordinary resolution, application defaults are lower precedence than mesh-local config, which is lower than config projected into a Knop scope, which is lower than Knop-local config, with explicit operation or command overrides above ordinary authored layers. A `sfcfg:ConfigResolutionConfig` can name the exact profile. `sfcfg:configLayerRole_knopInheritable` is best read as an authored outbound offer; it does not apply to the declaring Knop unless the same config is also attached through a local Knop config property. When consumed by a descendant, that projected content participates as inherited config, not as the original Knop's local layer.
+For ordinary resolution, application defaults are lower precedence than mesh-local config, which is lower than config projected into a Knop scope from ancestor Knop inheritable offers, which is lower than Knop-local config, with explicit operation or command overrides above ordinary authored layers. A `sfcfg:ConfigResolutionConfig` can name the exact profile. `sfcfg:configLayerRole_knopInheritable` is best read as an authored outbound offer; it does not apply to the declaring Knop unless the same config is also attached through local Knop config. When consumed by a descendant, that projected content participates as inherited config, not as the original Knop's local layer.
 
 The main practical rule is that mesh-carried config can describe constrained mesh/workspace-relative behavior, while broader host access belongs to implementation-specific runtime settings outside the portable Semantic Flow config vocabulary.
 
@@ -37,6 +38,12 @@ For a docs-rooted sidecar mesh, that means:
 - `docs/_mesh/_config/config.ttl`
 
 The file should be treated like other support RDF: discoverable from mesh inventory, versionable by Weave, and suitable for conformance fixtures. It should not live at a repository root name such as `.sf-repo-access.ttl`, because meshes do not always occupy an entire repository and do not always live in repositories.
+
+Knop config should conventionally live at:
+
+- `<knop>/_knop/_config/config.ttl`
+
+The filesystem location bootstraps discovery for that scope. Within the graph, `hasConfig` / `hasConfigSource` mean local config for the attachment subject, while `hasInheritableConfig` / `hasInheritableConfigSource` mean Knop-authored defaults for descendant Knop scopes. Mesh config has no separate mesh-inheritable modality; mesh-level policy can cover Knop-governed targets through ordinary selectors and scope.
 
 A newly created sidecar mesh should include a `MeshConfig` support artifact when the caller specifies a workspace root that differs from the mesh root. For example, `weave mesh create --workspace . --mesh-root docs ...` should create `docs/_mesh/_config/config.ttl`. Whole-root meshes do not need a config artifact merely to record that the workspace root and mesh root are the same, but they may still need one when portable mesh config such as a publication profile is selected or resolved.
 
