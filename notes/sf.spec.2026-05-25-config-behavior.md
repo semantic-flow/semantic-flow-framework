@@ -16,9 +16,9 @@ Semantic Flow config must let applications provide conservative defaults, meshes
 
 Authored config is RDF that participates in behavior. `sfcfg:ApplicationConfig`, `sfcfg:MeshConfig`, `sfcfg:KnopConfig`, and config artifacts are authored or supplied inputs. Implementation- or service-specific runtime authority may also cap resolution, but it is not modeled as a Semantic Flow config level here. `sfcfg:ResolvedConfig` and `sfcfg:ConfigResolutionRecord` are derived runtime or diagnostic outputs; they are not trusted authored config sources and should not be required for ordinary mesh portability.
 
-All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, mesh-inheritable config, Knop-local config, Knop-inheritable config, or a command override.
+All authored config is potentially reusable. Reuse is not a separate kind of config and does not by itself define precedence. The effective scope and layer of config come from the attachment point that uses the config, such as application defaults, mesh-local config, mesh-inheritable config projected into a descendant scope, Knop-local config, Knop-inheritable config projected into a descendant scope, or a command override.
 
-A config source may describe or constrain its intended use, but it must not expand the authority of the attachment that loaded it. For example, a config artifact stored under a Knop may participate at mesh scope only when a mesh-level attachment explicitly references it; Knop-local config must not promote itself to mesh-wide scope.
+A config source may describe or constrain its intended use, but it must not expand the authority of the attachment that loaded it. For example, a config artifact stored under a Knop may participate at mesh scope only when a mesh-level attachment explicitly references it; Knop-local config must not promote itself to mesh-wide scope. There is no `sfcfg:configLayerRole_reusableConfig`; a referenced `sfcfg:ConfigSource` participates at the scope and layer of the attachment property that selected it.
 
 Config has two broad kinds of content:
 

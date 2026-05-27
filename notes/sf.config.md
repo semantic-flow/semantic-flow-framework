@@ -14,13 +14,17 @@ Config should make resolution policy explicit without making portable mesh data 
 
 ## Config Layers
 
-Semantic Flow currently distinguishes these layers:
+Semantic Flow distinguishes config source, config attachment, and config layer:
 
-- `sfcfg:MeshConfig`: portable mesh-carried configuration that lives inside the mesh support surface.
-- `sfcfg:LocalConfig`: local runtime/operator configuration, usually outside the mesh and not expected to be portable.
-- `sfcfg:OperationalConfig`: host/runtime policy used by a running application. `MeshConfig` is not a subclass of `OperationalConfig`, because portable mesh behavior should not imply arbitrary host access.
+- a `sfcfg:ConfigArtifact` gives config stable identity, history, dereferenceability, and reuse
+- a `sfcfg:ConfigSource` describes how to resolve config bytes or a config artifact
+- an attachment property such as `sfcfg:hasMeshConfigSource`, `sfcfg:hasKnopLocalConfigSource`, or `sfcfg:hasKnopInheritableConfigSource` determines the scope and role where the resolved config participates
 
-The main practical rule is that mesh-carried config can describe constrained mesh-relative behavior, while broader host access belongs to `LocalConfig` or another explicit runtime source.
+There is intentionally no reusable-config layer. If a mesh-level attachment references a config artifact stored under a Knop, that content participates as mesh-level config because the mesh attachment used it. If a Knop-local attachment references the same artifact, the same content participates as Knop-local config. Source location and reusable identity are provenance, not authority.
+
+For ordinary resolution, application defaults are lower precedence than mesh-local config, which is lower than config projected into a Knop scope, which is lower than Knop-local config, with explicit operation or command overrides above ordinary authored layers. A `sfcfg:ConfigResolutionConfig` can name the exact profile. `sfcfg:configLayerRole_knopInheritable` is best read as an authored outbound offer; it does not apply to the declaring Knop unless the same config is also attached through a local Knop config property. When consumed by a descendant, that projected content participates as inherited config, not as the original Knop's local layer.
+
+The main practical rule is that mesh-carried config can describe constrained mesh/workspace-relative behavior, while broader host access belongs to implementation-specific runtime settings outside the portable Semantic Flow config vocabulary.
 
 ## Mesh Config
 
@@ -38,19 +42,18 @@ A newly created sidecar mesh should include a `MeshConfig` support artifact when
 
 The sidecar `MeshConfig` should record the portable workspace relationship with `sfcfg:workspaceRootRelativeToMeshRoot`. For a `docs/` sidecar, that value is `"../"`. This is a relative relationship from the mesh root to the containing workspace root; it is not an absolute host path and it does not grant access by itself.
 
-`mesh.create` should not write initial `sfcfg:hasLocalPathAccessRule` entries into the config file. Constrained adjacent-source rules belong to the integration step that introduces the corresponding sidecar artifact, so the mesh grants access only when there is a concrete artifact need.
+`mesh.create` should not write initial `sfcfg:hasMeshWorkspacePathRule` entries into the config file. Constrained adjacent-source rules belong to the integration step that introduces the corresponding sidecar artifact, so the mesh grants access only when there is a concrete artifact need.
 
 ## Local Path Policy
 
-Local path policy uses explicit rule objects rather than implicit trust in a repository layout. A rule identifies:
+Mesh workspace path policy uses explicit rule objects rather than implicit trust in a repository layout. A mesh-carried rule identifies:
 
-- a path base, such as `sfcfg:meshRootPathBase`
-- one or more locator kinds, such as `sfcfg:workingLocalRelativePathLocatorKind` or `sfcfg:targetLocalRelativePathLocatorKind`
-- a constrained path prefix
+- `sfcfg:workspacePathPrefix`: a POSIX-style relative path prefix interpreted from the mesh root
+- one or more locator kinds through `sfcfg:appliesToLocalPathLocatorKind`, such as `sfcfg:localPathLocatorKind_workingLocalRelativePath` or `sfcfg:localPathLocatorKind_targetLocalRelativePath`
 
-For sidecar meshes, a mesh-carried rule may allow known adjacent source directories such as `../ontology/`, `../shacl/`, or `../examples/`. Add these rules when ontology, SHACL, or example artifacts are integrated and need `workingLocalRelativePath` access to those adjacent source trees. That is still constrained mesh-adjacent access, not arbitrary host traversal. A mesh-carried rule should fail closed if it attempts to grant broad `..` traversal or host-absolute access.
+For sidecar meshes, a mesh-carried `sfcfg:MeshWorkspacePathRule` may allow known adjacent source directories such as `../ontology/`, `../shacl/`, or `../examples/`. Add these rules when ontology, SHACL, or example artifacts are integrated and need `workingLocalRelativePath` access to those adjacent source trees. That is still constrained workspace access, not arbitrary host traversal. A mesh-carried rule should fail closed if it attempts to grant broad `..` traversal or host-absolute access, and the resolved prefix must stay inside the workspace described by `sfcfg:workspaceRootRelativeToMeshRoot` and the active runtime context.
 
-`LocalConfig` is the place for broader machine-local policy such as user-home or absolute-path allowances. Those rules may be appropriate for a developer workstation or CI runner, but they are not portable mesh behavior.
+Broader machine-local policy such as user-home or absolute-path allowances belongs to implementation/runtime settings, not portable Semantic Flow config. For example, Weave stores per-user host-local source grants in its own settings vocabulary rather than in `sfcfg:MeshConfig`.
 
 ## `mesh.create` Local Surface
 
