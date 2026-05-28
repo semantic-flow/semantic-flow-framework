@@ -43,6 +43,8 @@ Higher-precedence layers win over lower-precedence layers for the same policy sl
 
 Referenced config is not a universal layer. It is config content used through an attachment point. Its declarations participate at that attachment point's scope and layer, subject to trust policy and merge rules. Resolution records may still identify referenced config sources for provenance and debugging.
 
+When config sources are chained, earlier sources in the effective chain take precedence over later sources at the same layer and selector specificity. The config graph that attaches a source is earlier than the source it attaches, so reusable config can supply defaults behind the referring config without overriding it. This source order is a deterministic tie-breaker within a layer, not a new layer.
+
 Knop-inheritable config is an outbound offer to descendant scopes, not local config for the declaring Knop. If the same policy should apply to the declaring Knop and its descendants, it should be attached both as Knop-local config and as Knop-inheritable config, or represented by explicitly referenced config used from both attachment points. Mesh-authored defaults for Knop-governed targets are ordinary mesh config whose selectors and scope cover those targets; they are not a separate mesh-inheritable attachment layer.
 
 ## Scoped Settings
@@ -109,7 +111,8 @@ Under the default/application-level `sfcfg:ConfigResolutionConfig`, resolution f
 3. Within the winning layer, prefer more specific target selectors over broader target selectors.
 4. Within the same layer, policy slot, and effective selector specificity, prefer higher `sfcfg:policyPriority`.
 5. Treat omitted `sfcfg:policyPriority` as `0`.
-6. If two still-applicable bindings tie and produce incompatible values, reject the resolved config as ambiguous.
+6. Within the same layer, policy slot, effective selector specificity, and priority, prefer the earlier config source in the effective source chain.
+7. If two still-applicable bindings tie and produce incompatible values, reject the resolved config as ambiguous.
 
 Selector specificity is structural. For artifact policies, exact artifact is more specific than artifact role, and artifact role is more specific than any artifact. `sfcfg:policyPriority` is not the mechanism that makes a role-specific policy beat an any-artifact policy; priority only resolves conflicts at the same effective layer and selector specificity.
 
