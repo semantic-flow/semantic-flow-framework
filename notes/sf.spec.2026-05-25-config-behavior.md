@@ -27,6 +27,24 @@ Config has two broad kinds of content:
 
 `sfcfg:ConfigResolutionConfig` is meta-config for the resolver itself: layer ordering, merge behavior, trust caps, reference policy, unknown-term policy, and cache/diagnostic behavior. It may be supplied by an application and may be narrowed by trusted or portable config where allowed, but portable config must not use resolver config to expand its own trust boundary. Under the default resolver model, portable config may request stricter resolver behavior but must not request looser behavior than the active application and runtime resolver policy. Implementations that do not yet support portable resolver narrowing should reject or ignore those portable resolver-config declarations according to the active unknown-term and resolver-policy rules.
 
+## Scopes, Layers, And Targets
+
+Config resolution has three distinct axes:
+
+- **Config scope**: the place from which effective config is being resolved, such as mesh/global scope, the root Knop scope, a descendant Knop scope such as `alice`, or a deeper Knop scope such as `alice/data`.
+- **Config layer**: the precedence level of a config contribution, such as application defaults, mesh-local config, ancestor Knop-inheritable config projected into a descendant scope, Knop-local config, or explicit operation overrides.
+- **Policy target**: the artifact, page, role, or other behavior target being queried, such as mesh inventory, Knop inventory, a payload artifact, or a generated ResourcePage.
+
+An effective config is resolved for a config scope. It is not resolved independently for every artifact or page. That effective config can still answer policy questions about many policy targets, so callers must query it from the scope that owns the decision.
+
+Mesh-local config is a global layer that participates in mesh/global effective config and in Knop effective config as a baseline. It is not a Knop-inheritance offer, and it should not be modeled as a special mesh-inheritable attachment. Mesh config can set defaults for Knop-governed targets when its policy selectors cover those targets. It can also set mesh-owned behavior, such as mesh inventory or mesh metadata history policy, without affecting Knop-owned artifacts when its selectors are limited to mesh-owned roles.
+
+Knop scopes form a tree. Knop-inheritable config flows from an ancestor Knop scope into descendant Knop scopes. Knop-local config applies to the scope where it is attached and must not flow upward to ancestors or sideways to siblings. A descendant Knop's local config must not affect an ancestor Knop's effective config merely because both are Knop scopes.
+
+Implementations must keep the queried policy target's owner scope explicit. Mesh-owned artifacts, such as mesh metadata, mesh inventory, and mesh config artifacts, should be resolved from mesh/global scope. Knop-owned support artifacts should be resolved from the owning Knop scope. Payload artifacts should be resolved from the governing Knop scope. ResourcePage policy should be resolved from the scope of the page or artifact being rendered; mesh support pages use mesh/global scope, while pages for Knop-governed resources use the relevant Knop scope.
+
+This distinction matters when a runtime derives bundled policy inputs for a planner. A planner input that contains both mesh-owned roles and Knop-owned roles must be composed from the correct effective scopes. It is incorrect to derive mesh-owned policies, such as mesh inventory history, from an arbitrary target Knop's effective config merely because that target is currently being planned.
+
 ## Config Layers
 
 Implementations should treat config sources as ordered layers. The exact profile can be described by `sfcfg:ConfigResolutionConfig`, but the ordinary Semantic Flow precedence shape is:
@@ -96,6 +114,8 @@ The first implementation slice may defer exact-artifact policy targets if it sti
 
 A governed artifact is a Semantic Flow-managed `sflo:DigitalArtifact` governed by the current config scope through the mesh or Knop's support, inventory, payload, reference, page-definition, or config structure. Mesh support artifacts such as mesh metadata, mesh inventory, and mesh config artifacts are governed by their mesh. Knop support artifacts and payload artifacts are governed by their Knop and by the containing mesh. A merely referenced external artifact is not governed by a scope just because config in that scope points to it.
 
+Exact artifact policy targets must stay within the authority of the layer that declares them. Mesh-local config may target artifacts governed by the mesh. Knop-local config may target artifacts governed by that Knop scope. Knop-inheritable config projected into descendant scopes may target artifacts governed by the projected descendant scope or an authorized descendant covered by the inheritance offer. Knop-scoped config must not use an exact artifact selector to control an ancestor scope, a sibling scope, or an unrelated mesh. An exact target outside the declaring layer's authority must fail closed.
+
 "Any artifact role" is not itself an artifact role. It is an explicit selector shape or selector value. A config that intends to match every artifact role must say so explicitly.
 
 Incomplete or ambiguous target selectors must fail validation. A target selector with no explicit matching shape must not be broadened by interpretation.
@@ -106,7 +126,7 @@ ResourcePage policy targets may also need page-kind, target-class, artifact-role
 
 Under the default/application-level `sfcfg:ConfigResolutionConfig`, resolution for a given policy query proceeds in this order:
 
-1. Select policy bindings in applicable config scopes and layers whose selectors cover the queried target.
+1. Identify the owner scope of the queried target, then select policy bindings in applicable config scopes and layers whose selectors cover that queried target.
 2. Prefer higher-precedence layers over lower-precedence layers for the queried target.
 3. Within the winning layer, prefer more specific target selectors over broader target selectors.
 4. Within the same layer, policy slot, and effective selector specificity, prefer higher `sfcfg:policyPriority`.
@@ -117,6 +137,8 @@ Under the default/application-level `sfcfg:ConfigResolutionConfig`, resolution f
 Selector specificity is structural. For artifact policies, exact artifact is more specific than artifact role, and artifact role is more specific than any artifact. `sfcfg:policyPriority` is not the mechanism that makes a role-specific policy beat an any-artifact policy; priority only resolves conflicts at the same effective layer and selector specificity.
 
 Higher layers should be able to establish a new baseline for a policy slot. For example, a mesh-local history policy for any artifact in that mesh overrides lower application-level role defaults, while a same-layer mesh-local role-specific history policy can still override that mesh baseline for a role such as runtime metadata.
+
+Role-targeted policy queries must still be evaluated in the correct owner scope. A query for `sfcfg:artifactRole_meshInventory` belongs to mesh/global scope; a query for `sfcfg:artifactRole_knopInventory` belongs to the Knop scope whose inventory is being planned. A role name alone is not enough to authorize a policy from a descendant scope to govern an ancestor or mesh-owned artifact.
 
 ## ResourcePage Behavior
 
@@ -171,3 +193,5 @@ The policy index should support ordinary resolution and explanation. Implementat
 The first Weave implementation slice should honor `_mesh/_config/config.ttl` as mesh-local config for existing-mesh commands, compile it over application defaults, and then apply command overrides.
 
 That slice should establish the policy-binding vocabulary needed for history tracking, ResourcePage generation, and ResourcePage presentation defaults. It may leave exact-artifact selectors, remote config retrieval, arbitrary referenced config resolution, inheritable-config projection, persisted `sfcfg:ResolvedConfig`, and full resolver diagnostic materialization for later.
+
+Follow-on Weave slices that add Knop-local and Knop-inherited effective config should compile or provide effective config by scope, not by individual artifact. Planning and rendering code should then query the correct scope for each decision: mesh/global scope for mesh-owned support artifacts, the owning Knop scope for Knop-owned support artifacts and payloads, and the rendered page's scope for ResourcePage generation and presentation. Command overrides remain the highest ordinary layer across those scopes.
