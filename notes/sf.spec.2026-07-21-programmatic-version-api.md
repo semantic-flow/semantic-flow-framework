@@ -179,9 +179,20 @@ The required validation sequence is:
 
 Whole-mesh validation is not part of this operation. A caller may perform broader validation separately.
 
+## Dry-Run Forecast (added 2026-07-28, Weave v0.5.1)
+
+A request may ask for a forecast instead of an effect. A forecast request:
+
+- passes through identical admission, load, and planning behavior, raising exactly the refusals a mutating request would raise at those stages
+- stops after planning preflight and writes nothing; the mesh is byte-identical before and after
+- returns the same result structure, explicitly discriminated as not-executed, in which the outcome statuses and the created/updated resource locations describe what an immediately following mutating request with the same inputs would do
+- is a forecast, not a guarantee: it does not preclude a later write-stage failure, and it performs no cross-writer coordination
+
+A mutating result is discriminated as executed, with today's semantics unchanged.
+
 ## Result Invariants
 
-A successful result contains one outcome per normalized request item in canonical designator order, plus request-level created and updated resource locations.
+A successful result contains one outcome per normalized request item in canonical designator order, plus request-level created and updated resource locations, plus an executed/not-executed discriminant distinguishing effect from forecast.
 
 Each outcome reports:
 
