@@ -14,7 +14,7 @@ It specifies operation outcomes and invariants, not a particular programming lan
 
 ## Status
 
-Ratified 2026-07-30 (spec review r1 of the Weave task `wa.task.2026.2026-07-29_1219-programmatic-validate-mesh-api`); first implementation built the same day. The first slice validates mesh scope only over mesh-local sources; publication-scope selection, repository-backed/floating sources, and comprehensive integrity traversal are outside this slice.
+Ratified 2026-07-30 (spec review r1 of the Weave task `wa.completed.2026.2026-07-29_1219-programmatic-validate-mesh-api`); first implementation built the same day. The first slice validates mesh scope only over mesh-local sources; publication-scope selection, repository-backed/floating sources, and comprehensive integrity traversal are outside this slice.
 
 ## Operation
 
