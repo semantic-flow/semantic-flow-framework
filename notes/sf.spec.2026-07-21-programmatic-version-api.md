@@ -14,7 +14,7 @@ It specifies operation outcomes and invariants, not a particular programming lan
 
 ## Status
 
-This is the pre-build behavior contract for the first programmatic version API slice. Implementation is STOP-gated on PM approval in [[wa.task.2026.2026-07-21_1322-programmatic-version-api]].
+This is the pre-build behavior contract for the first programmatic version API slice. Implementation is STOP-gated on PM approval in [[wa.completed.2026.2026-07-21_1322-programmatic-version-api]].
 
 The first slice is limited to existing, mesh-local, UTF-8 text/RDF payload artifacts selected by exact designator path. Binary payloads, recursive selection, repository-backed or floating sources, payload-IRI input, whole-mesh validation, and cross-writer coordination are outside this slice.
 
