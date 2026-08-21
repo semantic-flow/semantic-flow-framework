@@ -46,7 +46,9 @@ Downstream vocabularies may define narrower `ContentDigestBearer` subclasses whe
 
 An implementation must not copy a digest it has just observed into `expectsContentDigest` after the fact. When an expected and observed digest exist for the same linked resolution and differ for the same method, verification fails. The implementation must not use the bytes as a successful result or persist the mismatch as though it were a successful observation. Modeling failed-attempt provenance is outside this first contract.
 
-Repository-backed source bindings put deliberately supplied digest requirements on the binding with `expectsContentDigest`. They put computed digest evidence on a linked observation with `observedContentDigest`. Neither exact nor floating repository locator nodes carry `hasContentDigest`.
+Repository-backed source bindings put deliberately supplied digest requirements on the binding with `expectsContentDigest`. They put computed digest evidence on a linked observation with `observedContentDigest`. Exact and floating repository locator nodes carry none of the three digest properties.
+
+When a file-backed integration computes an observation, its `observedArtifactResolutionSpec` records the concrete local relative path actually read. A runtime should add a target located file, manifestation, state, or other exact coordinate when it genuinely knows that identity; it must not invent one merely to shorten a later query.
 
 ## Authored File and Published Mirror Example
 
@@ -95,7 +97,7 @@ An implementation recording an observation should put the most concrete coordina
 
 - SHACL applies the exact supported grammar to `hasContentDigest`, `expectsContentDigest`, and `observedContentDigest` at violation severity.
 - SFLO validates agreement between manifestation and located-file standing claims when both are present.
-- SFLO validates agreement between expected and observed evidence when both are present for a linked resolution.
+- Runtimes validate expected/observed agreement before successful use or persistence. SHACL deliberately does not compare a spec's current expectation with every appendable historical observation, because a later expectation update must not invalidate honest earlier evidence.
 - Runtimes compute SHA-256 over the exact resolved byte sequence without text normalization.
 - Runtimes reject unsupported or noncanonical expected values rather than silently changing the persisted wire value.
 - Floating repository source locators remain prohibited from carrying content digests.
