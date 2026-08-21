@@ -27,7 +27,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `05-
 - the current local runtime slice accepts an existing local source file addressed either by path or equivalent `file:` URL
 - source files outside the mesh root must be allowed by operational local-path policy before `integrate` can follow them; workspace-contained grants can be mesh-carried, while host-local grants may approve separate checkouts without making absolute host paths public mesh facts
 - extra-mesh working-source bindings record the approved working locator with `artifactResolutionMode_working` while leaving the bytes in the source checkout
-- repository-backed source bindings may additionally record repository URL/ref/path plus optional commit and digest evidence when that evidence is deliberately supplied
+- repository-backed source bindings may additionally record repository URL/ref/path plus an optional commit and caller-supplied expected digest when that evidence is deliberately supplied
 - broader runtime profiles may add latest-state or exact source policy; if a source file is copied into the mesh/publication tree first, that copy step is `import`, not `integrate`
 - shared `core` planning should operate on the resulting semantic source locator and working-file locator rather than on an absolute host filesystem path
 
@@ -50,7 +50,7 @@ In the current first slice, that means:
 
 When the integrated source is outside the mesh root, the source registry records a `KnopSourceRegistry` source binding for the payload artifact. The default binding uses the deterministic internal `payload-source` fragment id, `targetLocalRelativePath` for the local operational locator, and `artifactResolutionMode_working` for mutable working-source resolution. Floating working bindings do not persist repository ref, commit, path, digest evidence, or `expectsContentDigest`.
 
-When repository-backed metadata is deliberately supplied, the source registry may also record `targetRepositorySource` for repository URL/ref/path plus optional commit evidence. A runtime may record a digest it observed from the local source bytes, such as `sha256:<hex>`, as `expectsContentDigest` on the binding and `hasContentDigest` on the repository locator for that repository-backed binding.
+When repository-backed metadata is deliberately supplied, the source registry may also record `targetRepositorySource` for repository URL/ref/path plus optional commit evidence. A caller-supplied expected digest is recorded as `expectsContentDigest` on the binding. A digest computed by the runtime is recorded as `observedContentDigest` on an `ArtifactResolutionObservation`; it is not promoted into an expectation and is not asserted as `hasContentDigest` on the repository locator. See [[sf.spec.2026-08-21-content-digest]].
 
 ## What Integrate Does Not Do
 
@@ -86,3 +86,4 @@ The first behavior-level comparison target is:
 ## Related Specs
 
 - [[sf.spec.2026-05-18-publication-source-binding]]
+- [[sf.spec.2026-08-21-content-digest]]

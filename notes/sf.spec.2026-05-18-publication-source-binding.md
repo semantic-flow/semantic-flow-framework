@@ -43,7 +43,7 @@ Source bytes can be available to `integrate` in several ways:
 
 - mesh-local: the source file is already inside the mesh root and can be linked directly.
 - allowed live local: the source file is outside the mesh root but inside an explicitly allowed workspace/source boundary, and current-byte operations may follow `workingLocalRelativePath` under policy. Portable workspace grants can be mesh-carried; machine-specific separate-checkout grants should be host-local operational config so public mesh facts do not expose absolute checkout paths.
-- repository-backed source: the source is identified by repository/ref/path and optionally commit/digest facts. The binding may follow working source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/digest that must not drift.
+- repository-backed source: the source is identified by repository/ref/path and optionally a commit or caller-supplied digest requirement. The binding may follow working source bytes, such as a branch/ref that is intentionally followed, or exact source bytes, such as a commit/expected digest that must not drift.
 - imported local: the source file has already been copied into the mesh or publication tree by an explicit import operation, so `integrate` can link to that governed local copy.
 - remote/current access: a `workingAccessUrl` or similar remote locator names current bytes, but runtime access requires explicit network policy.
 
@@ -56,14 +56,14 @@ The selected mode must be visible in configuration, provenance, or source regist
 `integrate` should:
 
 - identify the source locator and resolution policy.
-- identify repository, ref, commit, path, and digest facts only when the caller deliberately supplies repository-backed or exact source-state evidence.
+- identify repository, ref, commit, path, and expected-digest facts only when the caller deliberately supplies repository-backed or exact source-state evidence.
 - record whether the binding follows working bytes, asks for the latest settled state, or names exact source bytes.
 - create or update the target designator's payload-artifact support surface.
 - leave the source file in its source lane.
 
 For floating working sources outside the mesh root, a `KnopSourceRegistry` source binding should use `targetLocalRelativePath` for the approved local operational locator and `artifactResolutionMode_working` for the resolution policy. The single-source binding uses a deterministic internal fragment id such as `payload-source`. It should not persist repository ref, commit, path, content digest, or `expectsContentDigest` facts by default.
 
-For deliberately repository-backed sources, the same source binding may use `targetRepositorySource` for portable repository provenance. Repository provenance may name a mutable ref, but deterministic release workflows should use an explicit exact source-state policy or deliberately supplied commit/digest evidence instead of silently turning every floating working-source integration into a pinned binding. When a runtime observes local bytes during an explicit repository-backed or exact-state integration, recording a computed digest is evidence about the observed bytes; it is not an import, refresh, or fetch by itself.
+For deliberately repository-backed sources, the same source binding may use `targetRepositorySource` for portable repository provenance. Repository provenance may name a mutable ref, but deterministic release workflows should use an explicit exact source-state policy or deliberately supplied commit/expected-digest evidence instead of silently turning every floating working-source integration into a pinned binding. When a runtime observes local bytes during an explicit repository-backed or exact-state integration, it records the computed digest as `observedContentDigest` on an `ArtifactResolutionObservation`; it does not add the digest to the repository locator or promote it into `expectsContentDigest`. See [[sf.spec.2026-08-21-content-digest]].
 
 For the docs-rooted sidecar Fantasy Rules shape, `integrate` links source files such as `../ontology/fantasy-rules-ontology.ttl` from the `docs/` mesh under constrained local-path policy.
 
@@ -75,7 +75,7 @@ For branch-published ontology releases, the source checkout or source repository
 
 That operation should:
 
-- identify the source repository, ref, commit, path, and digest when those facts are known.
+- identify the source repository, ref, commit, path, and caller-supplied expected digest when those facts are known.
 - copy exactly the requested source bytes into the target tree, or fail closed.
 - update source/provenance records so later operations can tell where the copied bytes came from.
 - expose the imported copy as a governed local artifact or working file that later operations can follow.
