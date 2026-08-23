@@ -94,7 +94,17 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory>|<https://semantic-flow.github.io/sflo/ontology/hasResourcePage>|<https://semantic-flow.github.io/sflo/ontology/hasContentDigest> ?value . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding> <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> ?history . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding> <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding> <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> ?digest . }",
               "expectedBoolean": false
             },
             {
@@ -104,7 +114,17 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop> ?slot ?value . FILTER(?slot IN (<https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact>, <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog>, <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry>)) }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop> <https://semantic-flow.github.io/sflo/ontology/hasPayloadArtifact> ?payload . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop> <https://semantic-flow.github.io/sflo/ontology/hasReferenceCatalog> ?catalog . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop> <https://semantic-flow.github.io/sflo/ontology/hasKnopSourceRegistry> ?registry . }",
               "expectedBoolean": false
             }
           ]
