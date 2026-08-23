@@ -33,6 +33,9 @@ Current naming:
 - `25-root-page-customized-woven.jsonld` means `24-root-page-customized` -> `25-root-page-customized-woven`
 - `26-carol.jsonld` means `25-root-page-customized-woven` -> `26-carol`
 - `27-carol-woven.jsonld` means `26-carol` -> `27-carol-woven`
+- `28-founding-created.jsonld` means `27-carol-woven` -> `28-founding-created`
+- `29-founding-versioned.jsonld` means `28-founding-created` -> `29-founding-versioned`
+- `30-founding-corrected.jsonld` means `29-founding-versioned` -> `30-founding-corrected`
 
 How to read the ladder:
 
@@ -57,6 +60,7 @@ Ladder walkthrough:
 - `21 -> 22 -> 23`: add the root Knop later in the mesh lifecycle, then weave it so root `index.html` and root `_knop` support surfaces exist.
 - `23 -> 24 -> 25`: add the root page definition, root repo-tour content, and root stylesheet, reuse the governed `mesh-content/sidebar` artifact, then weave that root page-definition revision so `index.html` becomes a customized root page.
 - `25 -> 26 -> 27`: add Carol data and imported Carol bio content, then weave Carol's identifier page and payload support surfaces.
+- `27 -> 28 -> 29 -> 30`: initialize `founding-demo` with exact founding referent bytes, settle state 1 without pages, then atomically correct the working record while adding immutable state 2 and retaining state 1.
 
 Conventions used here:
 
@@ -70,7 +74,9 @@ The first transition, `00-blank-slate` -> `01-source-only`, is fixture seeding r
 
 These manifests are authored before any dedicated runner. They are meant to serve as the normative acceptance layer that a later pseudo-runner or validator will execute against.
 
-Replay assets for this ladder are sourced from the `assets` branch of `github.com/semantic-flow/mesh-alice-bio`. That branch is intentionally empty except for `.assets/`, so replay metadata uses `sourceKind: fixtureRefSource`, `sourceRef: assets`, and `.assets/...` source paths when materializing fixture-owned inputs.
+Replay assets for this ladder are normally sourced from the `assets` branch of `github.com/semantic-flow/mesh-alice-bio`. That branch is intentionally empty except for `.assets/`, so replay metadata uses `sourceKind: fixtureRefSource`, `sourceRef: assets`, and `.assets/...` source paths when materializing fixture-owned inputs. The small founding-data transitions use digest-declared inline Turtle so their exact bytes remain self-contained in the manifests.
+
+The founding transitions are the first Alice Bio rungs to exercise Accord's `inlineSource` provenance. A replay runner must materialize `inlineValue` exactly at `targetPath`; it must not synthesize an asset-branch lookup when `sourceKind` is `inlineSource`. The temporary `.accord/**` staging path is intentionally outside the expected committed fixture surface.
 
 For the current Alice reference transitions, the active convention is:
 

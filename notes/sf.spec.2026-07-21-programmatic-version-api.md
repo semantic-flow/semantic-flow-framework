@@ -18,6 +18,8 @@ This is the pre-build behavior contract for the first programmatic version API s
 
 The first slice is limited to existing, mesh-local, UTF-8 text/RDF payload artifacts selected by exact designator path. Binary payloads, recursive selection, repository-backed or floating sources, payload-IRI input, whole-mesh validation, and cross-writer coordination are outside this slice.
 
+This contract remains payload-only. The narrow `versionFoundingReferentData({ meshRoot, designatorPath, bytes? })` support-artifact operation is specified separately in [[sf.spec.2026-08-22-founding-referent-data]] and does not widen `versionPayloads`.
+
 ## Operation
 
 A request supplies:

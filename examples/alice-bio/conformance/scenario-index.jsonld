@@ -594,6 +594,69 @@
           }
         }
       ]
+    },
+    {
+      "id": "#28-founding-created",
+      "type": "ScenarioStep",
+      "manifestPath": "28-founding-created.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.27-carol-woven"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.28-founding-created"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#29-founding-versioned",
+      "type": "ScenarioStep",
+      "manifestPath": "29-founding-versioned.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.28-founding-created"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.29-founding-versioned"
+          }
+        }
+      ]
+    },
+    {
+      "id": "#30-founding-corrected",
+      "type": "ScenarioStep",
+      "manifestPath": "30-founding-corrected.jsonld",
+      "hasLaneBinding": [
+        {
+          "type": "LaneStateBinding",
+          "lane": "#fixture-lane",
+          "fromLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.29-founding-versioned"
+          },
+          "toLaneState": {
+            "type": "StateLocator",
+            "locatorKind": "gitRefState",
+            "ref": "a.30-founding-corrected"
+          }
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,95 @@
+{
+  "@context": {
+    "@vocab": "https://spectacular-voyage.github.io/accord/ontology/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "changeType": { "@type": "@vocab" },
+    "compareMode": { "@type": "@vocab" },
+    "promptPolicy": { "@type": "@vocab" },
+    "targetsFileExpectation": { "@type": "@id" }
+  },
+  "type": "Manifest",
+  "id": "urn:accord:semantic-flow:alice-bio:29-founding-versioned",
+  "dcterms:title": "Alice Bio 29 founding referent data versioned",
+  "dcterms:description": "Checks initial no-page settlement of exact founding working bytes into immutable state 1.",
+  "hasCase": [
+    {
+      "type": "TransitionCase",
+      "id": "#founding-versioned",
+      "dcterms:title": "Settle initial founding referent data",
+      "fixtureRepo": "github.com/semantic-flow/mesh-alice-bio",
+      "operationId": "version.foundingReferentData",
+      "fromRef": "28-founding-created",
+      "toRef": "29-founding-versioned",
+      "targetDesignatorPath": "founding-demo",
+      "hasFileExpectation": [
+        {
+          "id": "#knop-inventory",
+          "type": "FileExpectation",
+          "path": "founding-demo/_knop/_inventory/inventory.ttl",
+          "changeType": "updated",
+          "compareMode": "rdfCanonical"
+        },
+        {
+          "id": "#founding-working",
+          "type": "FileExpectation",
+          "path": "founding-demo/_knop/_founding/data.ttl",
+          "changeType": "unchanged",
+          "compareMode": "bytes"
+        },
+        {
+          "id": "#state-1-snapshot",
+          "type": "FileExpectation",
+          "path": "founding-demo/_knop/_founding/_history001/_s0001/ttl/data.ttl",
+          "changeType": "added",
+          "compareMode": "bytes"
+        },
+        {
+          "id": "#founding-page",
+          "type": "FileExpectation",
+          "path": "founding-demo/_knop/_founding/index.html",
+          "changeType": "absent"
+        }
+      ],
+      "hasRdfExpectation": [
+        {
+          "id": "#initial-founding-state",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#knop-inventory",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding> <https://semantic-flow.github.io/sflo/ontology/defaultArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001> ; <https://semantic-flow.github.io/sflo/ontology/hasArtifactHistory> <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001> . <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001> . <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/hasManifestation> <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001/ttl> . <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001/ttl> <https://semantic-flow.github.io/sflo/ontology/locatedFileForManifestation> <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001/ttl/data.ttl> ; <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:553bf2a95aecf2df236f1fac007a2d096eb543ad6b8157167e779282fd0e6e37\" . <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/_history001/_s0001/ttl/data.ttl> <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> \"sha256:553bf2a95aecf2df236f1fac007a2d096eb543ad6b8157167e779282fd0e6e37\" . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { ?founding a <https://semantic-flow.github.io/sflo/ontology/FoundingReferentData> ; <https://semantic-flow.github.io/sflo/ontology/hasResourcePage> ?page . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-alice-bio/founding-demo/_knop/_founding/data.ttl> <https://semantic-flow.github.io/sflo/ontology/hasContentDigest> ?digest . }",
+              "expectedBoolean": false
+            }
+          ]
+        }
+      ],
+      "hasReplayProfile": {
+        "type": "ReplayProfile",
+        "workspaceRoot": ".",
+        "hasCommandInvocation": {
+          "type": "CommandInvocation",
+          "executable": "weave",
+          "argv": ["version", "founding-demo", "--artifact-role", "founding-referent-data"],
+          "workingDirectory": "workspace",
+          "promptPolicy": "nonInteractive",
+          "expectedExitCode": 0,
+          "expectsOperationalLogs": true,
+          "expectsAuditLogs": true
+        }
+      }
+    }
+  ]
+}

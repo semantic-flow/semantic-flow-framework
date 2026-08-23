@@ -63,6 +63,12 @@ The Knop is not the referent of the identifier. It is the support anchor that ca
 
 The Knop pattern lets a mesh support very different referents with the same publication machinery: ontology terms, datasets, RDF documents, concepts, people, and support artifacts can all have explicit support without being collapsed into the same kind of resource.
 
+## Founding Referent Data
+
+`FoundingReferentData` is the optional, bounded Knop-owned RDF artifact containing facts accepted about the public referent when its Semantic Flow identifier is initialized.
+
+It is not metadata about the Knop support object, the referent's primary payload, a curated reference link, or source provenance. Its purpose is to make a small create-time record locally discoverable even when separate source or reference data is unavailable. Its mutable working bytes are settled and corrected through ordinary immutable artifact histories and states; a correction appends a later state rather than rewriting an already published one.
+
 ## DigitalArtifact
 
 A `DigitalArtifact` is a resource with byte-grounded artifact identity across time and representation.

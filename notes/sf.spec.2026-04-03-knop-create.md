@@ -21,6 +21,7 @@ The first acceptance target is the settled `mesh-alice-bio` transition from `03-
 ## Inputs
 
 - `designatorPath` is required.
+- optional founding Turtle bytes may initialize the bounded `FoundingReferentData` artifact under [[sf.spec.2026-08-22-founding-referent-data]]; omission retains the existing transition exactly
 - the first CLI surface requires an explicit `designatorPath`.
 - the target workspace must already contain `_mesh/_meta/meta.ttl` and `_mesh/_inventory/inventory.ttl`.
 - `meshBase` is resolved from the existing mesh metadata rather than being repeated on the CLI.
@@ -34,6 +35,7 @@ In the current first slice, that means:
 - creating `D/_knop/_meta/meta.ttl`
 - creating `D/_knop/_inventory/inventory.ttl`
 - updating `_mesh/_inventory/inventory.ttl` so the mesh registers `D/_knop` and points at its working Knop inventory file
+- when valid founding bytes are supplied, creating their exact working file and registering the optional founding artifact and file without materializing history or pages
 
 ## What Knop Create Does Not Do
 
@@ -41,6 +43,8 @@ In this first slice, `knop create` does not:
 
 - create a payload artifact
 - create a `ReferenceCatalog` or `ReferenceLink`
+- create founding history or a founding-data page during initialization
+- fetch or resolve any network, reference, or source bytes
 - run `weave`, `version`, `validate`, or `generate`
 - introduce daemon behavior
 - prompt interactively for mesh identity
