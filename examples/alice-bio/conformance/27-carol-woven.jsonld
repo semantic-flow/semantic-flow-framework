@@ -184,6 +184,9 @@
           "id": "#carol-bio-knop-sources-rdf",
           "type": "RdfExpectation",
           "targetsFileExpectation": "#carol-bio-knop-sources-ttl",
+          "ignorePredicate": [
+            "https://semantic-flow.github.io/sflo/ontology/observedAt"
+          ],
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",

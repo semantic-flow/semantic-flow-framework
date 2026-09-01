@@ -93,7 +93,7 @@
           "id": "#mesh-meta-ttl",
           "type": "FileExpectation",
           "path": "docs/_mesh/_meta/meta.ttl",
-          "changeType": "unchanged",
+          "changeType": "updated",
           "compareMode": "rdfCanonical"
         },
         {
@@ -162,6 +162,23 @@
       ],
       "hasRdfExpectation": [
         {
+          "id": "#mesh-meta-rdf",
+          "type": "RdfExpectation",
+          "targetsFileExpectation": "#mesh-meta-ttl",
+          "hasAskAssertion": [
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001> . }",
+              "expectedBoolean": true
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001> . }",
+              "expectedBoolean": true
+            }
+          ]
+        },
+        {
           "id": "#mesh-inventory-rdf",
           "type": "RdfExpectation",
           "targetsFileExpectation": "#mesh-inventory-ttl",
@@ -189,11 +206,16 @@
             {
               "type": "SparqlAskAssertion",
               "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config> <https://semantic-flow.github.io/sflo/ontology/currentArtifactHistory> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001> . }",
-              "expectedBoolean": true
+              "expectedBoolean": false
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001> . <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001> <https://semantic-flow.github.io/sflo/ontology/latestHistoricalState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001> . }",
+              "expectedBoolean": false
+            },
+            {
+              "type": "SparqlAskAssertion",
+              "query": "ASK { <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001> <https://semantic-flow.github.io/sflo/ontology/locatedFileForState> <https://semantic-flow.github.io/mesh-sidecar-fantasy-rules/_mesh/_config/_history001/_s0001/ttl/config.ttl> . }",
               "expectedBoolean": true
             },
             {

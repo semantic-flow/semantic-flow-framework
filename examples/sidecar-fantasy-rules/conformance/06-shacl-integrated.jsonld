@@ -136,12 +136,12 @@
           "hasAskAssertion": [
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/sflo/config/hasLocalPathAccessRule> ?ontologyRule, ?shaclRule . ?ontologyRule a <https://semantic-flow.github.io/sflo/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/sflo/config/hasLocalPathBase> <https://semantic-flow.github.io/sflo/config/localPathBase_meshRoot> ; <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../ontology/\" ; <https://semantic-flow.github.io/sflo/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/sflo/config/localPathLocatorKind_workingLocalRelativePath> . ?shaclRule a <https://semantic-flow.github.io/sflo/config/LocalPathAccessRule> ; <https://semantic-flow.github.io/sflo/config/hasLocalPathBase> <https://semantic-flow.github.io/sflo/config/localPathBase_meshRoot> ; <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../shacl/\" ; <https://semantic-flow.github.io/sflo/config/hasLocalPathLocatorKind> <https://semantic-flow.github.io/sflo/config/localPathLocatorKind_workingLocalRelativePath> . }",
+              "query": "ASK { ?config a <https://semantic-flow.github.io/sflo/config/MeshConfig> ; <https://semantic-flow.github.io/sflo/config/workspaceRootRelativeToMeshRoot> \"../\" ; <https://semantic-flow.github.io/sflo/config/hasMeshWorkspacePathRule> ?ontologyRule, ?shaclRule . ?ontologyRule a <https://semantic-flow.github.io/sflo/config/MeshWorkspacePathRule> ; <https://semantic-flow.github.io/sflo/config/workspacePathPrefix> \"../ontology/\" ; <https://semantic-flow.github.io/sflo/config/appliesToLocalPathLocatorKind> <https://semantic-flow.github.io/sflo/config/localPathLocatorKind_workingLocalRelativePath> . ?shaclRule a <https://semantic-flow.github.io/sflo/config/MeshWorkspacePathRule> ; <https://semantic-flow.github.io/sflo/config/workspacePathPrefix> \"../shacl/\" ; <https://semantic-flow.github.io/sflo/config/appliesToLocalPathLocatorKind> <https://semantic-flow.github.io/sflo/config/localPathLocatorKind_workingLocalRelativePath> . }",
               "expectedBoolean": true
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?rule <https://semantic-flow.github.io/sflo/config/pathPrefix> \"../examples/\" . }",
+              "query": "ASK { ?rule <https://semantic-flow.github.io/sflo/config/workspacePathPrefix> \"../examples/\" . }",
               "expectedBoolean": false
             }
           ]
