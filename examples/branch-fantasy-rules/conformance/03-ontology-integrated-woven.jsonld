@@ -210,7 +210,7 @@
             },
             {
               "type": "SparqlAskAssertion",
-              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/hasLocalPathAccessRule> ?rule . }",
+              "query": "ASK { ?config <https://semantic-flow.github.io/sflo/config/hasMeshWorkspacePathRule> ?rule . }",
               "expectedBoolean": true
             },
             {
