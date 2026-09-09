@@ -165,7 +165,7 @@ The operation distinguishes at least these behavioral refusal families:
 - unsupported source: the payload is not backed by an eligible mesh-local working source
 - unsupported content: invalid UTF-8, non-text content kind, or otherwise ineligible text/RDF content
 - capture conflict: a covered non-authoritative read dependency changes during a bounded capture, if the implementation exposes such a covered set; admitted payload bytes never produce this refusal
-- plan conflict: requested naming, existing-state, output identity, or preflight validation conflicts with the proposed transition
+- plan conflict: requested naming, existing-state, output identity, Knop/artifact-coordinate overlap, or preflight validation conflicts with the proposed transition; an `ArtifactHistory`, `HistoricalState`, or `ArtifactManifestation` coordinate cannot equal or contain an existing Knop designator
 - operational write failure: mutation could not be completed and the observable result may be partial
 
 Diagnostic prose is not the portable machine contract. Implementations should expose stable family and phase discriminants and enough target or partial-result detail for callers to respond without matching messages.
