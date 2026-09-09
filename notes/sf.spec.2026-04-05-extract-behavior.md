@@ -90,6 +90,8 @@ In this first slice, `extract` does not:
 - if `bob/_knop/_meta/meta.ttl` or `bob/_knop/_inventory/inventory.ttl` already exists, the operation should fail closed rather than silently overwrite it
 - if any extracted term's `_knop/_meta/meta.ttl` or `_knop/_inventory/inventory.ttl` already exists, the operation should fail closed rather than silently overwrite it
 - runtime-local `.weave/logs` output is not part of the semantic mesh surface
+- all-terms extraction treats a known `sflo:ArtifactHistory` path and every slash-delimited descendant as mesh infrastructure, even when source RDF names a release state, manifestation, or file that has not yet been materialized; those paths are reported as skipped support and never minted as Knops
+- ArtifactHistory descendant exclusion is structural rather than a global reservation of path words such as `releases`; the same word remains eligible outside a history path established by mesh RDF
 
 ## Relationship To Neighboring Specs
 
